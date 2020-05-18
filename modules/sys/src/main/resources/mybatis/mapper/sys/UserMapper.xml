@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.glacier.sys.mapper.UserMapper">
+
+    <sql id="user_columns">
+        a.id, a.username, a.password, a.salt, a.id_card, a.birthday, a.sex, a.status, a.email, a.mobile, a.dept_id
+    </sql>
+
+    <sql id="join_columns">
+        ,b.name as deptName
+    </sql>
+
+    <sql id="joins">
+        left join sys_dept b on a.dept_id=b.id
+    </sql>
+</mapper>

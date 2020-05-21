@@ -53,26 +53,6 @@ mybatis-plus:
     map-underscore-to-camel-case: true
     aggressive-lazy-loading: false
 
-server:
-  servlet:
-    # 添加网关后，关闭此配置
-    context-path: /uus
-    session:
-      cookie:
-        name: AUTH_SESSION
-
-security:
-  oauth2:
-    resource:
-      token-info-uri: /api/user/info
-    authorization:
-      jwt:
-        key-store: eboot-jwt.jks
-        key-alias: eboot-jwt
-        key-password: jwt-eboot
-        key-store-password: eboot-secret
-
-
 management:
   endpoints:
     web:
@@ -97,4 +77,3 @@ settings:
       - /swagger-ui.html
       - /swagger-resources/**
       - /v2/api-docs
-      - /oauth/**

@@ -1,7 +1,7 @@
 package com.glacier.auth.service.impl;
 
 
-import com.glacier.auth.entity.User;
+import com.glacier.auth.entity.pojo.User;
 import com.glacier.auth.service.RoleService;
 import com.glacier.auth.service.UserService;
 import lombok.RequiredArgsConstructor;

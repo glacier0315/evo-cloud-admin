@@ -14,10 +14,10 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 @EnableConfigurationProperties(SecuritySettings.class)
 @EnableDiscoveryClient
 @SpringBootApplication
-public class AuthorizationApplication {
+public class AuthorizationResourceApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(AuthorizationApplication.class, args);
+        SpringApplication.run(AuthorizationResourceApplication.class, args);
     }
 
 }

@@ -1,4 +1,4 @@
-package com.glacier.auth.entity;
+package com.glacier.auth.entity.pojo;
 
 import com.glacier.common.core.entity.pojo.BasePojo;
 import lombok.*;

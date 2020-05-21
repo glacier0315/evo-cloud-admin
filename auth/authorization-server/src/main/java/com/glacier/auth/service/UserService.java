@@ -1,6 +1,6 @@
 package com.glacier.auth.service;
 
-import com.glacier.auth.entity.User;
+import com.glacier.auth.entity.pojo.User;
 
 /**
  * @author glacier

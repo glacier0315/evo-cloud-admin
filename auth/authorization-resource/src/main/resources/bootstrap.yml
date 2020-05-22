@@ -1,6 +1,6 @@
 spring:
   application:
-    name: uas
+    name: uar
   cloud:
     nacos:
       discovery:

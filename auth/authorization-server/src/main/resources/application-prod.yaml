@@ -5,16 +5,10 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://192.168.10.130:3306/eboot?useUnicode=true&characterEncoding=UTF-8&useSSL=false
+    url: jdbc:mysql://192.168.10.130:3306/auth-server?useUnicode=true&characterEncoding=UTF-8&useSSL=false
     username: root
     password: root
   redis:
     host: 192.168.10.130
     port: 6379
     database: 0
-    jedis:
-      pool:
-        max-active: 100
-        max-wait: 10
-        max-idle: 10
-        min-idle: 10

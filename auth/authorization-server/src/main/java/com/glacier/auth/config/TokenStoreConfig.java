@@ -10,7 +10,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
@@ -31,7 +30,6 @@ import java.util.Optional;
 @EnableConfigurationProperties({AuthorizationServerProperties.class})
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class TokenStoreConfig {
-    private final UserDetailsService userDetailsService;
     private final AuthorizationServerProperties authorizationServerProperties;
 
     /**

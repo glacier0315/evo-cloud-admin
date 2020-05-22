@@ -1,6 +1,7 @@
 package com.glacier.auth.config;
 
 import com.glacier.auth.config.settings.SecuritySettings;
+import com.glacier.auth.oauth2.CustomLogoutSuccessHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -76,6 +77,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .and()
                 .httpBasic()
+                .and()
+                .logout()
+                .logoutSuccessHandler(new CustomLogoutSuccessHandler())
                 .and()
                 .csrf()
                 .disable();

@@ -18,5 +18,8 @@ include 'auth:authorization-server'
 include 'auth:authorization-resource'
 include 'auth:authorization-client-demo1'
 
+// 引入gateway
+include 'gateway:gateway-common'
+
 // modules
 include 'modules:sys'

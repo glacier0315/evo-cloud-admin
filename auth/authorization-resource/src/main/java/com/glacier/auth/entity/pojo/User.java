@@ -16,6 +16,7 @@ import java.util.Date;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(callSuper = false)
 @Builder
 public class User extends BasePojo {
     private static final long serialVersionUID = -3083387263445135811L;

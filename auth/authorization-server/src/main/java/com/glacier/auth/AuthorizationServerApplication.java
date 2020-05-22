@@ -1,6 +1,6 @@
 package com.glacier.auth;
 
-import com.sun.deploy.config.SecuritySettings;
+import com.glacier.auth.config.settings.SecuritySettings;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;

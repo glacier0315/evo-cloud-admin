@@ -14,6 +14,7 @@ import lombok.*;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(callSuper = false)
 @Builder
 public class Role extends BasePojo {
     private static final long serialVersionUID = -3318599726827564559L;

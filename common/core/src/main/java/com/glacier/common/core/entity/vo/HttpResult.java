@@ -25,6 +25,10 @@ public class HttpResult<T> implements Serializable {
 
     private static final long serialVersionUID = -8984794300938868661L;
     /**
+     * 默认成功 状态码
+     */
+    public static final String SUCCUSS = "20000";
+    /**
      * 响应编码
      */
     @ApiModelProperty(value = "响应编码")
@@ -113,7 +117,7 @@ public class HttpResult<T> implements Serializable {
      */
     public static <T> HttpResult<T> ok(String msg, T data) {
         return HttpResult.<T>builder()
-                .code("200")
+                .code(SUCCUSS)
                 .msg(msg)
                 .data(data)
                 .build();

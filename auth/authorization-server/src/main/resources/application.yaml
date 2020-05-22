@@ -33,6 +33,13 @@ spring:
         stat:
           log-slow-sql: true
           slow-sql-millis: 2000
+  redis:
+    jedis:
+      pool:
+        max-active: 100
+        max-wait: 10
+        max-idle: 10
+        min-idle: 10
 
 mybatis-plus:
   # 映射文件位置
@@ -56,7 +63,7 @@ mybatis-plus:
 server:
   servlet:
     # 添加网关后，关闭此配置
-    context-path: /uus
+    # context-path: /uus
     session:
       cookie:
         name: AUTH_SESSION

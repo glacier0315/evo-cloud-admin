@@ -33,6 +33,22 @@ spring:
         stat:
           log-slow-sql: true
           slow-sql-millis: 2000
+  redis:
+    jedis:
+      pool:
+        max-active: 100
+        max-wait: 10
+        max-idle: 10
+        min-idle: 10
+
+#security:
+#  oauth2:
+#    resource:
+#      jwt:
+#        key-uri: ${OAUTH2_URL:http://localhost:8141/uas}/oauth/token_key
+#    authorization:
+#      check-token-access: ${OAUTH2_URL:http://localhost:8141/uas}/oauth/check_token
+
 
 mybatis-plus:
   # 映射文件位置

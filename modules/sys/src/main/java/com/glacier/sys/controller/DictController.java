@@ -1,8 +1,8 @@
 package com.glacier.sys.controller;
 
 import com.glacier.common.core.entity.dto.IdDto;
-import com.glacier.common.core.http.HttpResult;
-import com.glacier.sys.entity.Dict;
+import com.glacier.common.core.entity.dto.result.HttpResult;
+import com.glacier.sys.entity.pojo.Dict;
 import com.glacier.sys.service.DictService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
+ * 字典控制层
  * @author glacier
  * @version 1.0
- * @description 字典控制层
  * @date 2019-12-01 21:13
  */
 @Slf4j
@@ -31,7 +31,7 @@ public class DictController {
      */
     @GetMapping("/findDictTree")
     public HttpResult<List<Dict>> findDictTree() {
-        return HttpResult.ok(dictService.findDictTree());
+        return HttpResult.ok(this.dictService.findDictTree());
     }
 
     /**
@@ -42,7 +42,7 @@ public class DictController {
      */
     @PostMapping("/save")
     public HttpResult<Integer> save(@RequestBody Dict dict) {
-        return HttpResult.ok(dictService.save(dict));
+        return HttpResult.ok(this.dictService.save(dict));
     }
 
     /**
@@ -53,6 +53,6 @@ public class DictController {
      */
     @PostMapping("/delete")
     public HttpResult<Integer> delete(@RequestBody List<IdDto> idDtos) {
-        return HttpResult.ok(dictService.batchDelete(idDtos));
+        return HttpResult.ok(this.dictService.batchDelete(idDtos));
     }
 }

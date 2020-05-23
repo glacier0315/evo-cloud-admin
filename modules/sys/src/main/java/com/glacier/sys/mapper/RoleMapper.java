@@ -1,7 +1,7 @@
 package com.glacier.sys.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.glacier.sys.entity.Role;
+import com.glacier.sys.entity.pojo.Role;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -21,4 +21,6 @@ public interface RoleMapper extends BaseMapper<Role> {
      * @return
      */
     List<Role> findByUserId(@Param("userId") String userId);
+
+    List<String> findCodeByUserId(String id);
 }

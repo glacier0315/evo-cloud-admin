@@ -1,14 +1,13 @@
 package com.glacier.sys.service;
 
 import com.glacier.common.core.entity.dto.IdDto;
-import com.glacier.sys.entity.Dept;
+import com.glacier.sys.entity.pojo.Dept;
 
 import java.util.List;
 
 /**
  * @author glacier
  * @version 1.0
- * @description
  * @date 2019-10-24 17:07
  */
 public interface DeptService {

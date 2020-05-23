@@ -1,14 +1,13 @@
 package com.glacier.sys.service;
 
 import com.glacier.common.core.entity.dto.IdDto;
-import com.glacier.sys.entity.Dict;
+import com.glacier.sys.entity.pojo.Dict;
 
 import java.util.List;
 
 /**
  * @author glacier
  * @version 1.0
- * @description
  * @date 2019-12-01 21:36
  */
 public interface DictService {

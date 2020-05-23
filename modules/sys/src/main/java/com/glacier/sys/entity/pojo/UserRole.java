@@ -1,9 +1,7 @@
-package com.glacier.sys.entity;
+package com.glacier.sys.entity.pojo;
 
-import com.baomidou.mybatisplus.annotation.TableId;
+import com.glacier.common.core.entity.pojo.BasePojo;
 import lombok.*;
-
-import java.io.Serializable;
 
 /**
  * 用户角色关系
@@ -16,15 +14,11 @@ import java.io.Serializable;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(callSuper=false)
 @Builder
-public class UserRole implements Serializable {
+public class UserRole extends BasePojo {
 
     private static final long serialVersionUID = -7193974752669679122L;
-    /**
-     * id
-     */
-    @TableId
-    private String id;
     /**
      * 用户id
      */

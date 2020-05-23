@@ -1,7 +1,7 @@
 package com.glacier.sys.service;
 
 import com.glacier.common.core.entity.dto.IdDto;
-import com.glacier.sys.entity.Menu;
+import com.glacier.sys.entity.pojo.Menu;
 
 import java.util.List;
 import java.util.Set;
@@ -9,7 +9,6 @@ import java.util.Set;
 /**
  * @author glacier
  * @version 1.0
- * @description
  * @date 2019-10-09 15:45
  */
 public interface MenuService {

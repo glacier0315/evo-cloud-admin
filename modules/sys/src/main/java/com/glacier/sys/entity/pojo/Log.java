@@ -1,4 +1,4 @@
-package com.glacier.sys.entity;
+package com.glacier.sys.entity.pojo;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -10,7 +10,6 @@ import java.util.Date;
 /**
  * @author glacier
  * @version 1.0
- * @description
  * @date 2019-12-18 15:29
  */
 @Data

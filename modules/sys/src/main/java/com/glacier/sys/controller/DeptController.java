@@ -1,8 +1,8 @@
 package com.glacier.sys.controller;
 
 import com.glacier.common.core.entity.dto.IdDto;
-import com.glacier.common.core.http.HttpResult;
-import com.glacier.sys.entity.Dept;
+import com.glacier.common.core.entity.dto.result.HttpResult;
+import com.glacier.sys.entity.pojo.Dept;
 import com.glacier.sys.service.DeptService;
 import com.glacier.sys.utils.SecurityUtils;
 import lombok.RequiredArgsConstructor;
@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
+ * 组织机构控制层
  * @author glacier
  * @version 1.0
- * @description 组织机构控制层
  * @date 2019-10-24 17:15
  */
 @Slf4j
@@ -34,7 +34,7 @@ public class DeptController {
      */
     @PostMapping("/save")
     public HttpResult<Integer> save(@RequestBody Dept dept) {
-        return HttpResult.ok(deptService.save(dept));
+        return HttpResult.ok(this.deptService.save(dept));
     }
 
     /**
@@ -45,7 +45,7 @@ public class DeptController {
      */
     @PostMapping("/delete")
     public HttpResult<Integer> delete(@RequestBody List<IdDto> idDtos) {
-        return HttpResult.ok(deptService.batchDelete(idDtos));
+        return HttpResult.ok(this.deptService.batchDelete(idDtos));
     }
 
     /**
@@ -57,7 +57,7 @@ public class DeptController {
     public HttpResult<List<Dept>> findTree() {
         String userId = SecurityUtils.geUserId();
         log.debug("userId: {}", userId);
-        List<Dept> tree = deptService.findTree(userId);
+        List<Dept> tree = this.deptService.findTree(userId);
         return HttpResult.ok(tree);
     }
 }

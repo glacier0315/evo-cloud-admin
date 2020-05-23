@@ -4,10 +4,14 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.glacier.common.core.entity.dto.IdDto;
-import com.glacier.common.core.page.PageRequest;
-import com.glacier.common.core.page.PageResponse;
-import com.glacier.sys.entity.User;
-import com.glacier.sys.entity.UserRole;
+import com.glacier.common.core.entity.dto.result.HttpResult;
+import com.glacier.common.core.entity.page.PageRequest;
+import com.glacier.common.core.entity.page.PageResponse;
+import com.glacier.common.core.exception.AuthErrorType;
+import com.glacier.sys.entity.dto.UserInfo;
+import com.glacier.sys.entity.pojo.User;
+import com.glacier.sys.entity.pojo.UserRole;
+import com.glacier.sys.mapper.RoleMapper;
 import com.glacier.sys.mapper.UserMapper;
 import com.glacier.sys.mapper.UserRoleMapper;
 import com.glacier.sys.service.UserService;
@@ -22,9 +26,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
+ * 用户业务类
  * @author glacier
  * @version 1.0
- * @description 用户业务类
  * @date 2019-08-04 21:50
  */
 @Slf4j
@@ -33,12 +37,33 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class UserServiceImpl implements UserService {
     private final UserMapper userMapper;
+    private final RoleMapper roleMapper;
     private final UserRoleMapper userRoleMapper;
     private final PasswordEncoder passwordEncoder;
 
     @Override
+    public HttpResult<UserInfo> loadUserInfoByUsername(String username) {
+        User user = this.userMapper.selectOne(new QueryWrapper<>(User
+                .builder()
+                .username(username)
+                .build()));
+        if (user != null) {
+            // 查找角色
+            List<String> roles = this.roleMapper.findCodeByUserId(user.getId());
+            UserInfo userInfo = UserInfo.builder()
+                    .id(user.getId())
+                    .name(user.getUsername())
+                    .roles(roles)
+                    .build();
+            return HttpResult.ok(userInfo);
+        } else {
+            return HttpResult.error(AuthErrorType.INVALID_GRANT);
+        }
+    }
+
+    @Override
     public User loadUserByUsername(String username) {
-        return userMapper.selectOne(new QueryWrapper<>(User
+        return this.userMapper.selectOne(new QueryWrapper<>(User
                 .builder()
                 .username(username)
                 .build()));
@@ -52,7 +77,7 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public PageResponse<User> findPage(PageRequest<User> pageRequest) {
-        Page<User> page = userMapper.selectPage(new Page<>(pageRequest.getCurrent(), pageRequest.getSize()),
+        Page<User> page = this.userMapper.selectPage(new Page<>(pageRequest.getCurrent(), pageRequest.getSize()),
                 new QueryWrapper<>(pageRequest.getParams()));
         return PageResponse.<User>builder()
                 .current(page.getCurrent())
@@ -69,9 +94,9 @@ public class UserServiceImpl implements UserService {
             // 对原始密码加密
             if (user.getPassword() != null && !user.getPassword().isEmpty()) {
                 // 加密密码
-                user.setPassword(passwordEncoder.encode(user.getPassword()));
+                user.setPassword(this.passwordEncoder.encode(user.getPassword()));
             }
-            update = userMapper.updateById(user);
+            update = this.userMapper.updateById(user);
         }
         return update;
     }
@@ -87,16 +112,16 @@ public class UserServiceImpl implements UserService {
     public int saveUserRole(User user) {
         int update = 0;
         if (user.getId() != null && !user.getId().isEmpty()) {
-            update = userMapper.updateById(user);
+            update = this.userMapper.updateById(user);
             // 清空原 用户角色关系
             this.deleteUserRoleByUserId(user.getId());
         } else {
             // 对原始密码加密
             if (user.getPassword() != null && !user.getPassword().isEmpty()) {
                 // 加密密码
-                user.setPassword(passwordEncoder.encode(user.getPassword()));
+                user.setPassword(this.passwordEncoder.encode(user.getPassword()));
             }
-            update = userMapper.insert(user);
+            update = this.userMapper.insert(user);
 
         }
         // 保存用户角色关系
@@ -118,7 +143,7 @@ public class UserServiceImpl implements UserService {
             List<String> list = idDtos.stream()
                     .map(IdDto::getId)
                     .collect(Collectors.toList());
-            update = userMapper.deleteBatchIds(list);
+            update = this.userMapper.deleteBatchIds(list);
             // 删除用户角色关系
             for (String userId : list) {
                 this.deleteUserRoleByUserId(userId);
@@ -140,7 +165,7 @@ public class UserServiceImpl implements UserService {
                 && roleIds != null && !roleIds.isEmpty()) {
             // 保存用户角色关系
             for (String roleId : roleIds) {
-                update += userRoleMapper.insert(UserRole.builder()
+                update += this.userRoleMapper.insert(UserRole.builder()
                         .userId(userId)
                         .roleId(roleId)
                         .build());
@@ -158,7 +183,7 @@ public class UserServiceImpl implements UserService {
     private int deleteUserRoleByUserId(final String userId) {
         int update = 0;
         if (userId != null && !userId.isEmpty()) {
-            update = userRoleMapper.delete(new UpdateWrapper<>(UserRole.builder().userId(userId).build()));
+            update = this.userRoleMapper.delete(new UpdateWrapper<>(UserRole.builder().userId(userId).build()));
         }
         return update;
     }

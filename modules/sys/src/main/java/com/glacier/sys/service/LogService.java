@@ -1,13 +1,12 @@
 package com.glacier.sys.service;
 
-import com.glacier.common.core.page.PageRequest;
-import com.glacier.common.core.page.PageResponse;
-import com.glacier.sys.entity.Log;
+import com.glacier.common.core.entity.page.PageRequest;
+import com.glacier.common.core.entity.page.PageResponse;
+import com.glacier.sys.entity.pojo.Log;
 
 /**
  * @author glacier
  * @version 1.0
- * @description
  * @date 2019-12-18 16:08
  */
 public interface LogService {

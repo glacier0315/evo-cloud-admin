@@ -3,9 +3,9 @@ package com.glacier.sys.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.glacier.common.core.entity.dto.IdDto;
-import com.glacier.common.core.page.PageRequest;
-import com.glacier.common.core.page.PageResponse;
-import com.glacier.sys.entity.Config;
+import com.glacier.common.core.entity.page.PageRequest;
+import com.glacier.common.core.entity.page.PageResponse;
+import com.glacier.sys.entity.pojo.Config;
 import com.glacier.sys.mapper.ConfigMapper;
 import com.glacier.sys.service.ConfigService;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +20,6 @@ import java.util.stream.Collectors;
 /**
  * @author glacier
  * @version 1.0
- * @description
  * @date 2019-11-21 17:37
  */
 @Slf4j
@@ -42,9 +41,9 @@ public class ConfigServiceImpl implements ConfigService {
     public int save(Config record) {
         int update = 0;
         if (record.getId() != null && !record.getId().isEmpty()) {
-            update = configMapper.updateById(record);
+            update = this.configMapper.updateById(record);
         } else {
-            update = configMapper.insert(record);
+            update = this.configMapper.insert(record);
         }
         return update;
     }
@@ -62,7 +61,7 @@ public class ConfigServiceImpl implements ConfigService {
             List<String> list = idDtos.stream()
                     .map(IdDto::getId)
                     .collect(Collectors.toList());
-            return configMapper.deleteBatchIds(list);
+            return this.configMapper.deleteBatchIds(list);
         }
         return 0;
     }
@@ -75,7 +74,7 @@ public class ConfigServiceImpl implements ConfigService {
      */
     @Override
     public PageResponse<Config> findPage(PageRequest<Config> pageRequest) {
-        Page<Config> page = configMapper.selectPage(new Page<>(pageRequest.getCurrent(), pageRequest.getSize()),
+        Page<Config> page = this.configMapper.selectPage(new Page<>(pageRequest.getCurrent(), pageRequest.getSize()),
                 new QueryWrapper<>(pageRequest.getParams()));
         return PageResponse.<Config>builder()
                 .current(page.getCurrent())

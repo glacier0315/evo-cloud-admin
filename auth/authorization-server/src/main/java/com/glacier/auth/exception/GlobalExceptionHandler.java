@@ -1,6 +1,6 @@
 package com.glacier.auth.exception;
 
-import com.glacier.common.core.entity.vo.HttpResult;
+import com.glacier.common.core.entity.dto.result.HttpResult;
 import com.glacier.common.core.exception.AuthErrorType;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.oauth2.common.exceptions.InvalidGrantException;

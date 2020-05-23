@@ -1,7 +1,7 @@
 package com.glacier.sys.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.glacier.sys.entity.User;
+import com.glacier.sys.entity.pojo.User;
 
 /**
  * 用户数据层

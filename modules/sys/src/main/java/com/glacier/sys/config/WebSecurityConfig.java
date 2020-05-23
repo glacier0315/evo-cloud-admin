@@ -1,13 +1,12 @@
 package com.glacier.sys.config;
 
-import com.alibaba.fastjson.JSONWriter;
-import com.glacier.common.core.http.HttpResult;
 import com.glacier.sys.config.settings.SecuritySettings;
+import com.glacier.sys.oauth2.CustomAccessDeniedHandler;
+import com.glacier.sys.oauth2.CustomAuthenticationEntryPoint;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -69,16 +68,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeRequests(authorize -> {
-                    authorize.antMatchers(securitySettings.permitAll2Array())
+                    authorize.antMatchers(this.securitySettings.permitAll2Array())
                             .permitAll()
                             .anyRequest()
                             .authenticated();
                 })
                 .sessionManagement(sessionManagement -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .oauth2ResourceServer(resourceServerConfigurer -> {
-                    resourceServerConfigurer.accessDeniedHandler(myAccessDeniedHandler())
-                            .authenticationEntryPoint(myAuthenticationEntryPoint())
-                            .jwt(jwt -> jwt.decoder(jwtDecoder));
+                    resourceServerConfigurer.accessDeniedHandler(this.customAccessDeniedHandler())
+                            .authenticationEntryPoint(this.customAuthenticationEntryPoint())
+                            .jwt(jwt -> jwt.decoder(this.jwtDecoder));
                 })
                 .oauth2Login();
     }
@@ -108,16 +107,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      * @return
      */
     @Bean
-    public AccessDeniedHandler myAccessDeniedHandler() {
-        return (request, response, accessDeniedException) -> {
-            response.setStatus(HttpStatus.OK.value());
-            response.setContentType("application/json;charset=utf-8");
-            response.setCharacterEncoding("UTF-8");
-            JSONWriter jsonWriter = new JSONWriter(response.getWriter());
-            jsonWriter.writeObject(HttpResult.<String>error(403, "权限不足！"));
-            jsonWriter.flush();
-            jsonWriter.close();
-        };
+    public AccessDeniedHandler customAccessDeniedHandler() {
+        return new CustomAccessDeniedHandler();
     }
 
     /**
@@ -126,15 +117,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      * @return
      */
     @Bean
-    public AuthenticationEntryPoint myAuthenticationEntryPoint() {
-        return (request, response, authException) -> {
-            response.setStatus(HttpStatus.OK.value());
-            response.setContentType("application/json;charset=utf-8");
-            response.setCharacterEncoding("UTF-8");
-            JSONWriter jsonWriter = new JSONWriter(response.getWriter());
-            jsonWriter.writeObject(HttpResult.<String>error(401, "未进行认证！"));
-            jsonWriter.flush();
-            jsonWriter.close();
-        };
+    public AuthenticationEntryPoint customAuthenticationEntryPoint() {
+        return new CustomAuthenticationEntryPoint();
     }
 }

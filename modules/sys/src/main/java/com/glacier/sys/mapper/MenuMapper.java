@@ -1,7 +1,7 @@
 package com.glacier.sys.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.glacier.sys.entity.Menu;
+import com.glacier.sys.entity.pojo.Menu;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

@@ -7,7 +7,7 @@
         a.create_by, a.create_date, a.update_by, a.update_date, a.del_flag
     </sql>
 
-    <select id="findMenusByRoleId" resultType="com.glacier.sys.entity.Menu">
+    <select id="findMenusByRoleId" resultType="com.glacier.sys.entity.pojo.Menu">
         select
         <include refid="menu_columns"/>
         from sys_menu a
@@ -18,7 +18,7 @@
         </where>
     </select>
 
-    <select id="findMenusByUserId" resultType="com.glacier.sys.entity.Menu">
+    <select id="findMenusByUserId" resultType="com.glacier.sys.entity.pojo.Menu">
         select
         <include refid="menu_columns"/>
         from sys_menu a

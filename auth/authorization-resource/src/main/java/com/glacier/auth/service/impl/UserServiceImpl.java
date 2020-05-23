@@ -6,7 +6,7 @@ import com.glacier.auth.entity.vo.UserInfo;
 import com.glacier.auth.mapper.RoleMapper;
 import com.glacier.auth.mapper.UserMapper;
 import com.glacier.auth.service.UserService;
-import com.glacier.common.core.entity.vo.HttpResult;
+import com.glacier.common.core.entity.dto.result.HttpResult;
 import com.glacier.common.core.exception.AuthErrorType;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -40,13 +40,13 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public HttpResult<UserInfo> loadUserByUsername(String username) {
-        User user = userMapper.selectOne(new QueryWrapper<>(User
+        User user = this.userMapper.selectOne(new QueryWrapper<>(User
                 .builder()
                 .username(username)
                 .build()));
         if (user != null) {
             // 查找角色
-            List<String> roles = roleMapper.findCodeByUserId(user.getId());
+            List<String> roles = this.roleMapper.findCodeByUserId(user.getId());
             UserInfo userInfo = UserInfo.builder()
                     .id(user.getId())
                     .name(user.getUsername())

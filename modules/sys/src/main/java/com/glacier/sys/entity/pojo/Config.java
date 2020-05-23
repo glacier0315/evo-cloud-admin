@@ -1,31 +1,24 @@
-package com.glacier.sys.entity;
+package com.glacier.sys.entity.pojo;
 
 
-import com.baomidou.mybatisplus.annotation.TableId;
+import com.glacier.common.core.entity.pojo.BasePojo;
 import lombok.*;
 
-import java.io.Serializable;
-import java.util.Date;
-
 /**
+ * 配置
  * @author glacier
  * @version 1.0
- * @description
  * @date 2019-11-06 11:11
  */
 @Data
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(callSuper=false)
 @Builder
-public class Config implements Serializable {
+public class Config extends BasePojo {
 
     private static final long serialVersionUID = 3535850238275216235L;
-    /**
-     * 主键
-     */
-    @TableId
-    private String id;
     /**
      * 值
      */
@@ -50,22 +43,6 @@ public class Config implements Serializable {
      * 备注
      */
     private String remarks;
-    /**
-     * 创建人
-     */
-    private String createBy;
-    /**
-     * 创建时间
-     */
-    private Date createDate;
-    /**
-     * 更新人
-     */
-    private String updateBy;
-    /**
-     * 更新时间
-     */
-    private Date updateDate;
     /**
      * 删除标记
      */

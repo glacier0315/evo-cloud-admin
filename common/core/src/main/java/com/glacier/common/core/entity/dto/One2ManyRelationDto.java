@@ -1,4 +1,4 @@
-package com.glacier.common.core.entity.vo;
+package com.glacier.common.core.entity.dto;
 
 import io.swagger.annotations.ApiModel;
 import lombok.AllArgsConstructor;
@@ -19,7 +19,7 @@ import java.util.List;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class OneManyRelationVo implements Serializable {
+public class One2ManyRelationDto implements Serializable {
     private static final long serialVersionUID = 2858625583098650664L;
     /**
      * 父级id

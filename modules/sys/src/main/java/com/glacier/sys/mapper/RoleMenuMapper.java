@@ -1,7 +1,7 @@
 package com.glacier.sys.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.glacier.sys.entity.RoleMenu;
+import com.glacier.sys.entity.pojo.RoleMenu;
 
 /**
  * 角色菜单关联dao层

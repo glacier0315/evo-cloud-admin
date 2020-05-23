@@ -2,7 +2,7 @@ package com.glacier.sys.service.impl;
 
 import com.glacier.common.core.entity.dto.IdDto;
 import com.glacier.sys.common.Constant;
-import com.glacier.sys.entity.Dept;
+import com.glacier.sys.entity.pojo.Dept;
 import com.glacier.sys.mapper.DeptMapper;
 import com.glacier.sys.service.DeptService;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +20,6 @@ import java.util.stream.Collectors;
 /**
  * @author hebin
  * @version 1.0
- * @description
  * @date 2019-10-24 17:12
  */
 @Slf4j
@@ -42,9 +41,9 @@ public class DeptServiceImpl implements DeptService {
     public int save(Dept record) {
         int update = 0;
         if (record.getId() != null && !record.getId().isEmpty()) {
-            update = deptMapper.updateById(record);
+            update = this.deptMapper.updateById(record);
         } else {
-            update = deptMapper.insert(record);
+            update = this.deptMapper.insert(record);
         }
         return update;
     }
@@ -62,7 +61,7 @@ public class DeptServiceImpl implements DeptService {
             List<String> list = idDtos.stream()
                     .map(IdDto::getId)
                     .collect(Collectors.toList());
-            return deptMapper.deleteBatchIds(list);
+            return this.deptMapper.deleteBatchIds(list);
         }
         return 0;
     }
@@ -94,7 +93,7 @@ public class DeptServiceImpl implements DeptService {
         // 排序
         deptList.sort(Comparator.comparingInt(Dept::getOrderNum));
         // 组装子类菜单
-        findChildren(deptList, depts);
+        this.findChildren(deptList, depts);
         return deptList;
     }
 
@@ -127,7 +126,7 @@ public class DeptServiceImpl implements DeptService {
             }
             parent.setChildren(children);
             children.sort(Comparator.comparingInt(Dept::getOrderNum));
-            findChildren(children, depts);
+            this.findChildren(children, depts);
         }
     }
 
@@ -143,9 +142,9 @@ public class DeptServiceImpl implements DeptService {
             return deptList;
         }
         if (Constant.ADMIN_ID.equals(userId)) {
-            deptList = deptMapper.selectList(null);
+            deptList = this.deptMapper.selectList(null);
         } else {
-            deptList = deptMapper.findDeptsByUserId(userId);
+            deptList = this.deptMapper.findDeptsByUserId(userId);
         }
         return deptList;
     }

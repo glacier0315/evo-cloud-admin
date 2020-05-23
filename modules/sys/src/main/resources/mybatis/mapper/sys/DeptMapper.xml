@@ -11,7 +11,7 @@
         inner join sys_role_dept b on a.id=b.dept_id
     </sql>
 
-    <select id="findDeptsByRoleId" resultType="com.glacier.sys.entity.Dept">
+    <select id="findDeptsByRoleId" resultType="com.glacier.sys.entity.pojo.Dept">
         select
         <include refid="dept_columns"/>
         from sys_dept a
@@ -22,7 +22,7 @@
         </where>
     </select>
 
-    <select id="findDeptsByUserId" resultType="com.glacier.sys.entity.Dept">
+    <select id="findDeptsByUserId" resultType="com.glacier.sys.entity.pojo.Dept">
         select
         <include refid="dept_columns"/>
         from sys_dept a

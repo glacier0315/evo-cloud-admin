@@ -2,7 +2,7 @@ package com.glacier.sys.service.impl;
 
 import com.glacier.common.core.entity.dto.IdDto;
 import com.glacier.sys.common.Constant;
-import com.glacier.sys.entity.Menu;
+import com.glacier.sys.entity.pojo.Menu;
 import com.glacier.sys.mapper.MenuMapper;
 import com.glacier.sys.service.MenuService;
 import lombok.RequiredArgsConstructor;
@@ -15,9 +15,9 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
+ * 菜单业务层
  * @author glacier
  * @version 1.0
- * @description 菜单业务层
  * @date 2019-10-09 15:45
  */
 @Slf4j
@@ -39,9 +39,9 @@ public class MenuServiceImpl implements MenuService {
     public int save(Menu menu) {
         int update = 0;
         if (menu.getId() != null && !menu.getId().isEmpty()) {
-            update = menuMapper.updateById(menu);
+            update = this.menuMapper.updateById(menu);
         } else {
-            update = menuMapper.insert(menu);
+            update = this.menuMapper.insert(menu);
         }
         return update;
     }
@@ -60,7 +60,7 @@ public class MenuServiceImpl implements MenuService {
             List<String> list = idDtos.stream()
                     .map(IdDto::getId)
                     .collect(Collectors.toList());
-            return menuMapper.deleteBatchIds(list);
+            return this.menuMapper.deleteBatchIds(list);
         }
         return 0;
     }
@@ -73,7 +73,7 @@ public class MenuServiceImpl implements MenuService {
      */
     @Override
     public List<Menu> findMenusByRoleId(String roleId) {
-        return menuMapper.findMenusByRoleId(roleId);
+        return this.menuMapper.findMenusByRoleId(roleId);
     }
 
     /**
@@ -83,7 +83,7 @@ public class MenuServiceImpl implements MenuService {
      */
     @Override
     public List<Menu> findMenuTree() {
-        List<Menu> menus = menuMapper.selectList(null);
+        List<Menu> menus = this.menuMapper.selectList(null);
         return this.findMenuTree(menus, true);
     }
 
@@ -112,9 +112,9 @@ public class MenuServiceImpl implements MenuService {
             return permissions;
         }
         if (Constant.ADMIN_ID.equals(userId)) {
-            permissions = menuMapper.findAllPermissions();
+            permissions = this.menuMapper.findAllPermissions();
         } else {
-            permissions = menuMapper.findPermissionsByUserId(userId);
+            permissions = this.menuMapper.findPermissionsByUserId(userId);
         }
         if (permissions == null) {
             permissions = new HashSet<>(1);
@@ -156,7 +156,7 @@ public class MenuServiceImpl implements MenuService {
         // 排序
         menuList.sort(Comparator.comparingInt(Menu::getOrderNum));
         // 组装子类菜单
-        findChildren(menuList, menus, isContainButton);
+        this.findChildren(menuList, menus, isContainButton);
         return menuList;
     }
 
@@ -198,7 +198,7 @@ public class MenuServiceImpl implements MenuService {
             }
             parent.setChildren(children);
             children.sort(Comparator.comparingInt(Menu::getOrderNum));
-            findChildren(children, menus, isContainButton);
+            this.findChildren(children, menus, isContainButton);
         }
     }
 
@@ -214,9 +214,9 @@ public class MenuServiceImpl implements MenuService {
             return menuList;
         }
         if (Constant.ADMIN_ID.equals(userId)) {
-            menuList = menuMapper.selectList(null);
+            menuList = this.menuMapper.selectList(null);
         } else {
-            menuList = menuMapper.findMenusByUserId(userId);
+            menuList = this.menuMapper.findMenusByUserId(userId);
         }
         return menuList;
     }

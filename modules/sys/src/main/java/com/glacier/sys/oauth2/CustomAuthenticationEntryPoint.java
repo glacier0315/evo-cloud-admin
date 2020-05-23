@@ -1,4 +1,4 @@
-package com.glacier.auth.oauth2;
+package com.glacier.sys.oauth2;
 
 import com.alibaba.fastjson.JSONWriter;
 import com.glacier.common.core.entity.dto.result.HttpResult;
@@ -22,6 +22,7 @@ import java.io.IOException;
  */
 @Slf4j
 public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint {
+
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
         response.setStatus(HttpStatus.OK.value());

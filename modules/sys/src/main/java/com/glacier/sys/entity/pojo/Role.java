@@ -1,9 +1,7 @@
-package com.glacier.sys.entity;
+package com.glacier.sys.entity.pojo;
 
+import com.glacier.common.core.entity.pojo.BasePojo;
 import lombok.*;
-
-import java.io.Serializable;
-import java.util.Date;
 
 /**
  * 角色
@@ -16,13 +14,10 @@ import java.util.Date;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(callSuper=false)
 @Builder
-public class Role implements Serializable {
+public class Role extends BasePojo {
     private static final long serialVersionUID = -3318599726827564559L;
-    /**
-     * 主键
-     */
-    private String id;
     /**
      * 角色名称
      */
@@ -35,22 +30,6 @@ public class Role implements Serializable {
      * 状态 1 正常  2 禁用
      */
     private String status;
-    /**
-     * 创建人
-     */
-    private String createBy;
-    /**
-     * 创建时间
-     */
-    private Date createDate;
-    /**
-     * 更新人
-     */
-    private String updateBy;
-    /**
-     * 更新时间
-     */
-    private Date updateDate;
     /**
      * 删除标记
      */

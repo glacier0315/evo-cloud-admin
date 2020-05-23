@@ -1,7 +1,7 @@
 package com.glacier.auth.service;
 
 import com.glacier.auth.entity.vo.UserInfo;
-import com.glacier.common.core.entity.vo.HttpResult;
+import com.glacier.common.core.entity.dto.result.HttpResult;
 
 /**
  * 用户业务层

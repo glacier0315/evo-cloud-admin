@@ -1,52 +1,50 @@
-package com.glacier.sys.entity;
+package com.glacier.sys.entity.pojo;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.glacier.common.core.entity.pojo.BasePojo;
 import lombok.*;
 
-import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
 /**
+ * 组织机构
+ *
  * @author glacier
  * @version 1.0
- * @description 字典
- * @date 2019-12-01 21:16
+ * @date 2019-10-14 17:06
  */
 @Data
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(callSuper=false)
 @Builder
 @TableName(excludeProperty = {"level", "children", "parentName"})
-public class Dict implements Serializable {
-    private static final long serialVersionUID = -8004367732541881835L;
+public class Dept extends BasePojo {
+    private static final long serialVersionUID = 7605652474322748904L;
     /**
      * 主键
      */
     @TableId
     private String id;
     /**
-     * 编码名称
-     */
-    private String code;
-    /**
-     * 字典编码
+     * 名称
      */
     private String name;
     /**
-     * 字典类型
+     * 单位编码
      */
-    private String type;
+    private String code;
     /**
-     * 描述
+     * 类型
      */
-    private String description;
+    private Integer type;
     /**
-     * 备注
+     * 状态
      */
-    private String remarks;
+    private Integer status;
     /**
      * 父级id 顶级id默认为0
      */
@@ -75,7 +73,6 @@ public class Dict implements Serializable {
      * 删除标记
      */
     private String delFlag;
-
     /**
      * 层级
      */
@@ -83,7 +80,7 @@ public class Dict implements Serializable {
     /**
      * 下级单位
      */
-    private List<Dict> children;
+    private List<Dept> children;
     /**
      * 父级名称
      */

@@ -4,11 +4,11 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.glacier.common.core.entity.dto.IdDto;
-import com.glacier.common.core.page.PageRequest;
-import com.glacier.common.core.page.PageResponse;
-import com.glacier.sys.entity.Role;
-import com.glacier.sys.entity.RoleMenu;
-import com.glacier.sys.entity.UserRole;
+import com.glacier.common.core.entity.page.PageRequest;
+import com.glacier.common.core.entity.page.PageResponse;
+import com.glacier.sys.entity.pojo.Role;
+import com.glacier.sys.entity.pojo.RoleMenu;
+import com.glacier.sys.entity.pojo.UserRole;
 import com.glacier.sys.mapper.RoleMapper;
 import com.glacier.sys.mapper.RoleMenuMapper;
 import com.glacier.sys.mapper.UserRoleMapper;
@@ -42,7 +42,7 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public Role findById(Serializable id) {
-        return roleMapper.selectById(id);
+        return this.roleMapper.selectById(id);
     }
 
     /**
@@ -52,7 +52,7 @@ public class RoleServiceImpl implements RoleService {
      */
     @Override
     public List<Role> findAllList() {
-        return roleMapper.selectList(null);
+        return this.roleMapper.selectList(null);
     }
 
     /**
@@ -63,7 +63,7 @@ public class RoleServiceImpl implements RoleService {
      */
     @Override
     public List<Role> findByUserId(String userId) {
-        return roleMapper.findByUserId(userId);
+        return this.roleMapper.findByUserId(userId);
     }
 
     @Override
@@ -71,12 +71,12 @@ public class RoleServiceImpl implements RoleService {
         if (role != null && role.getCode() != null && role.getCode().trim().length() > 0) {
             Role role1 = null;
             if (role.getId() != null && role.getId().trim().length() > 0) {
-                role1 = roleMapper.selectById(role.getId());
+                role1 = this.roleMapper.selectById(role.getId());
                 if (role1 != null && role1.getCode() != null && role1.getCode().equals(role.getCode())) {
                     return false;
                 }
             }
-            List<Role> list = roleMapper.selectList(new QueryWrapper<>(role));
+            List<Role> list = this.roleMapper.selectList(new QueryWrapper<>(role));
             if (list != null && !list.isEmpty()) {
                 return true;
             }
@@ -93,7 +93,7 @@ public class RoleServiceImpl implements RoleService {
      */
     @Override
     public PageResponse<Role> findPage(PageRequest<Role> pageRequest) {
-        Page<Role> page = roleMapper.selectPage(new Page<>(pageRequest.getCurrent(), pageRequest.getSize()),
+        Page<Role> page = this.roleMapper.selectPage(new Page<>(pageRequest.getCurrent(), pageRequest.getSize()),
                 new QueryWrapper<>(pageRequest.getParams()));
         return PageResponse.<Role>builder()
                 .current(page.getCurrent())
@@ -114,9 +114,9 @@ public class RoleServiceImpl implements RoleService {
     public int save(Role record) {
         int update = 0;
         if (record.getId() != null && !record.getId().isEmpty()) {
-            update = roleMapper.updateById(record);
+            update = this.roleMapper.updateById(record);
         } else {
-            update = roleMapper.insert(record);
+            update = this.roleMapper.insert(record);
         }
         return update;
     }
@@ -135,7 +135,7 @@ public class RoleServiceImpl implements RoleService {
             List<String> list = idDtos.stream()
                     .map(IdDto::getId)
                     .collect(Collectors.toList());
-            unpdate = roleMapper.deleteBatchIds(list);
+            unpdate = this.roleMapper.deleteBatchIds(list);
             for (String roleId : list) {
                 // 删除用户角色关系
                 this.deleteUserRoleByRoleId(roleId);
@@ -158,7 +158,7 @@ public class RoleServiceImpl implements RoleService {
         int update = 0;
         if (roleId != null && !roleId.isEmpty() && menuIds != null && !menuIds.isEmpty()) {
             for (String menuId : menuIds) {
-                update += roleMenuMapper.insert(RoleMenu.builder().roleId(roleId).menuId(menuId).build());
+                update += this.roleMenuMapper.insert(RoleMenu.builder().roleId(roleId).menuId(menuId).build());
             }
         }
         return update;
@@ -173,7 +173,7 @@ public class RoleServiceImpl implements RoleService {
     private int deleteUserRoleByRoleId(final String roleId) {
         int update = 0;
         if (roleId != null && !roleId.isEmpty()) {
-            update = userRoleMapper.delete(new UpdateWrapper<>(UserRole.builder().roleId(roleId).build()));
+            update = this.userRoleMapper.delete(new UpdateWrapper<>(UserRole.builder().roleId(roleId).build()));
         }
         return update;
     }
@@ -187,7 +187,7 @@ public class RoleServiceImpl implements RoleService {
     private int deleteRoleMenuByRoleId(final String roleId) {
         int update = 0;
         if (roleId != null && !roleId.isEmpty()) {
-            update = roleMenuMapper.delete(new UpdateWrapper<>(RoleMenu.builder().roleId(roleId).build()));
+            update = this.roleMenuMapper.delete(new UpdateWrapper<>(RoleMenu.builder().roleId(roleId).build()));
         }
         return update;
     }

@@ -1,19 +1,29 @@
 package com.glacier.sys.service;
 
 import com.glacier.common.core.entity.dto.IdDto;
-import com.glacier.common.core.page.PageRequest;
-import com.glacier.common.core.page.PageResponse;
-import com.glacier.sys.entity.User;
+import com.glacier.common.core.entity.dto.result.HttpResult;
+import com.glacier.common.core.entity.page.PageRequest;
+import com.glacier.common.core.entity.page.PageResponse;
+import com.glacier.sys.entity.dto.UserInfo;
+import com.glacier.sys.entity.pojo.User;
 
 import java.util.List;
 
 /**
+ * 用户业务层
  * @author glacier
  * @version 1.0
- * @description 用户业务层
  * @date 2019-08-04 21:50
  */
 public interface UserService {
+
+    /**
+     * 根据用户名查用户
+     *
+     * @param username
+     * @return
+     */
+    HttpResult<UserInfo> loadUserInfoByUsername(String username);
 
     /**
      * 根据用户名查找用户

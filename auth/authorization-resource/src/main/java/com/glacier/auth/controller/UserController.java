@@ -2,7 +2,7 @@ package com.glacier.auth.controller;
 
 import com.glacier.auth.entity.vo.UserInfo;
 import com.glacier.auth.service.UserService;
-import com.glacier.common.core.entity.vo.HttpResult;
+import com.glacier.common.core.entity.dto.result.HttpResult;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +36,6 @@ public class UserController {
         log.info(">>>>>>>>>>>>>>>>>>>>>>>>");
         log.info("当前登录用户为: {}", principal);
         log.info(">>>>>>>>>>>>>>>>>>>>>>>>");
-        return userService.loadUserByUsername((String) principal);
+        return this.userService.loadUserByUsername((String) principal);
     }
 }

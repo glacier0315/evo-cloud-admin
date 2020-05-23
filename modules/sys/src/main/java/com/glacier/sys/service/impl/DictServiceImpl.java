@@ -1,7 +1,7 @@
 package com.glacier.sys.service.impl;
 
 import com.glacier.common.core.entity.dto.IdDto;
-import com.glacier.sys.entity.Dict;
+import com.glacier.sys.entity.pojo.Dict;
 import com.glacier.sys.mapper.DictMapper;
 import com.glacier.sys.service.DictService;
 import lombok.RequiredArgsConstructor;
@@ -17,9 +17,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
+ * 字典业务类
  * @author glacier
  * @version 1.0
- * @description 字典业务类
  * @date 2019-12-01 21:36
  */
 @Slf4j
@@ -35,9 +35,9 @@ public class DictServiceImpl implements DictService {
     public int save(Dict record) {
         int update = 0;
         if (record.getId() != null && !record.getId().isEmpty()) {
-            update = dictMapper.updateById(record);
+            update = this.dictMapper.updateById(record);
         } else {
-            update = dictMapper.insert(record);
+            update = this.dictMapper.insert(record);
         }
         return update;
     }
@@ -55,14 +55,14 @@ public class DictServiceImpl implements DictService {
             List<String> list = idDtos.stream()
                     .map(IdDto::getId)
                     .collect(Collectors.toList());
-            return dictMapper.deleteBatchIds(list);
+            return this.dictMapper.deleteBatchIds(list);
         }
         return 0;
     }
 
     @Override
     public List<Dict> findDictTree() {
-        List<Dict> list = dictMapper.selectList(null);
+        List<Dict> list = this.dictMapper.selectList(null);
         return this.findDictTree(list);
     }
 
@@ -90,7 +90,7 @@ public class DictServiceImpl implements DictService {
         // 排序
         dictList.sort(Comparator.comparingInt(Dict::getOrderNum));
         // 组装子类菜单
-        findChildren(dictList, dicts);
+        this.findChildren(dictList, dicts);
         return dictList;
     }
 
@@ -123,7 +123,7 @@ public class DictServiceImpl implements DictService {
             }
             children.sort(Comparator.comparingInt(Dict::getOrderNum));
             parent.setChildren(children);
-            findChildren(children, dicts);
+            this.findChildren(children, dicts);
         }
     }
 }

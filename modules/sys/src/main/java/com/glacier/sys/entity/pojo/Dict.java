@@ -1,49 +1,53 @@
-package com.glacier.sys.entity;
+package com.glacier.sys.entity.pojo;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.glacier.common.core.entity.pojo.BasePojo;
 import lombok.*;
 
-import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
 /**
- * 组织机构
- *
+ * 字典
  * @author glacier
  * @version 1.0
- * @date 2019-10-14 17:06
+ * @date 2019-12-01 21:16
  */
 @Data
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(callSuper=false)
 @Builder
 @TableName(excludeProperty = {"level", "children", "parentName"})
-public class Dept implements Serializable {
-    private static final long serialVersionUID = 7605652474322748904L;
+public class Dict extends BasePojo {
+    private static final long serialVersionUID = -8004367732541881835L;
     /**
      * 主键
      */
     @TableId
     private String id;
     /**
-     * 名称
-     */
-    private String name;
-    /**
-     * 单位编码
+     * 编码名称
      */
     private String code;
     /**
-     * 类型
+     * 字典编码
      */
-    private Integer type;
+    private String name;
     /**
-     * 状态
+     * 字典类型
      */
-    private Integer status;
+    private String type;
+    /**
+     * 描述
+     */
+    private String description;
+    /**
+     * 备注
+     */
+    private String remarks;
     /**
      * 父级id 顶级id默认为0
      */
@@ -72,6 +76,7 @@ public class Dept implements Serializable {
      * 删除标记
      */
     private String delFlag;
+
     /**
      * 层级
      */
@@ -79,7 +84,7 @@ public class Dept implements Serializable {
     /**
      * 下级单位
      */
-    private List<Dept> children;
+    private List<Dict> children;
     /**
      * 父级名称
      */

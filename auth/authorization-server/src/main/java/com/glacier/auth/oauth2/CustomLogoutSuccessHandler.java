@@ -1,7 +1,7 @@
 package com.glacier.auth.oauth2;
 
 import com.alibaba.fastjson.JSONWriter;
-import com.glacier.common.core.entity.vo.HttpResult;
+import com.glacier.common.core.entity.dto.result.HttpResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;

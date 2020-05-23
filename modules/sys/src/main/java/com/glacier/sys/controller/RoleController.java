@@ -1,12 +1,13 @@
 package com.glacier.sys.controller;
 
 import com.glacier.common.core.entity.dto.IdDto;
-import com.glacier.common.core.entity.dto.ParentChildrenDto;
-import com.glacier.common.core.http.HttpResult;
-import com.glacier.common.core.page.PageRequest;
-import com.glacier.common.core.page.PageResponse;
+import com.glacier.common.core.entity.dto.One2ManyRelationDto;
+import com.glacier.common.core.entity.dto.result.HttpResult;
+import com.glacier.common.core.entity.page.PageRequest;
+import com.glacier.common.core.entity.page.PageResponse;
+import com.glacier.common.core.exception.SystemErrorType;
 import com.glacier.sys.common.Constant;
-import com.glacier.sys.entity.Role;
+import com.glacier.sys.entity.pojo.Role;
 import com.glacier.sys.service.RoleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +36,7 @@ public class RoleController {
      */
     @GetMapping("/findAll")
     public HttpResult<List<Role>> findAll() {
-        return HttpResult.ok(roleService.findAllList());
+        return HttpResult.ok(this.roleService.findAllList());
     }
 
     /**
@@ -46,7 +47,7 @@ public class RoleController {
      */
     @PostMapping("/findPage")
     public HttpResult<PageResponse<Role>> findPage(@RequestBody PageRequest<Role> pageRequest) {
-        return HttpResult.ok(roleService.findPage(pageRequest));
+        return HttpResult.ok(this.roleService.findPage(pageRequest));
     }
 
     /**
@@ -57,7 +58,7 @@ public class RoleController {
      */
     @PostMapping("/save")
     public HttpResult<Integer> save(@RequestBody Role role) {
-        return HttpResult.ok(roleService.save(role));
+        return HttpResult.ok(this.roleService.save(role));
     }
 
     /**
@@ -68,7 +69,7 @@ public class RoleController {
      */
     @PostMapping("/delete")
     public HttpResult<Integer> delete(@RequestBody List<IdDto> idDtos) {
-        return HttpResult.ok(roleService.batchDelete(idDtos));
+        return HttpResult.ok(this.roleService.batchDelete(idDtos));
     }
 
     /**
@@ -80,7 +81,7 @@ public class RoleController {
     @PostMapping("/checkCode")
     public HttpResult<String> checkCode(@RequestBody Role role) {
         HttpResult<String> httpResult = HttpResult.ok();
-        httpResult.setData(String.valueOf(roleService.checkCode(role)));
+        httpResult.setData(String.valueOf(this.roleService.checkCode(role)));
         return httpResult;
     }
 
@@ -92,27 +93,28 @@ public class RoleController {
      */
     @GetMapping("/findByUserId")
     public HttpResult<List<Role>> findByUserId(String userId) {
-        return HttpResult.ok(roleService.findByUserId(userId));
+        return HttpResult.ok(this.roleService.findByUserId(userId));
     }
 
     /**
      * 保存角色菜单
      *
-     * @param parentChildrenDto
+     * @param one2ManyRelationDto
      * @return
      */
     @PostMapping("/saveRoleMenus")
-    public HttpResult<Integer> saveRoleMenus(@RequestBody ParentChildrenDto parentChildrenDto) {
-        if (parentChildrenDto != null && parentChildrenDto.getParentId() != null
-                && parentChildrenDto.getParentId().trim().length() > 0) {
+    public HttpResult<Integer> saveRoleMenus(@RequestBody One2ManyRelationDto one2ManyRelationDto) {
+        assert one2ManyRelationDto != null;
+        if (one2ManyRelationDto.getPid() != null
+                && one2ManyRelationDto.getPid().trim().length() > 0) {
             // 判断超级管理员
-            Role role = roleService.findById(parentChildrenDto.getParentId());
+            Role role = this.roleService.findById(one2ManyRelationDto.getPid());
             if (Constant.ADMIN.equals(role.getCode())) {
                 // 如果是超级管理员，不允许修改
-                return HttpResult.error("超级管理员拥有所有菜单权限，不允许修改！");
+                // todo 如果是超级管理员，不允许修改
+                return HttpResult.error(SystemErrorType.SYSTEM_ERROR);
             }
         }
-        assert parentChildrenDto != null;
-        return HttpResult.ok(roleService.saveRoleMenu(parentChildrenDto.getParentId(), parentChildrenDto.getChildrenIds()));
+        return HttpResult.ok(this.roleService.saveRoleMenu(one2ManyRelationDto.getPid(), one2ManyRelationDto.getIds()));
     }
 }

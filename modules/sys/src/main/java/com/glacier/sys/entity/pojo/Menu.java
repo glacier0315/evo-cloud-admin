@@ -1,11 +1,9 @@
-package com.glacier.sys.entity;
+package com.glacier.sys.entity.pojo;
 
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.glacier.common.core.entity.pojo.BasePojo;
 import lombok.*;
 
-import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -19,16 +17,12 @@ import java.util.List;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(callSuper=false)
 @Builder
 @TableName(excludeProperty = {"level", "children", "parentName"})
-public class Menu implements Serializable {
+public class Menu extends BasePojo {
 
     private static final long serialVersionUID = 1207728347319595982L;
-    /**
-     * 主键
-     */
-    @TableId
-    private String id;
     /**
      * 资源名称
      */
@@ -65,22 +59,6 @@ public class Menu implements Serializable {
      * 排序号
      */
     private Integer orderNum;
-    /**
-     * 创建人
-     */
-    private String createBy;
-    /**
-     * 创建时间
-     */
-    private Date createDate;
-    /**
-     * 更新人
-     */
-    private String updateBy;
-    /**
-     * 更新时间
-     */
-    private Date updateDate;
     /**
      * 删除标记
      */

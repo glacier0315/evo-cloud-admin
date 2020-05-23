@@ -1,10 +1,11 @@
 package com.glacier.sys.controller;
 
 import com.glacier.common.core.entity.dto.IdDto;
-import com.glacier.common.core.http.HttpResult;
-import com.glacier.common.core.page.PageRequest;
-import com.glacier.common.core.page.PageResponse;
-import com.glacier.sys.entity.User;
+import com.glacier.common.core.entity.dto.result.HttpResult;
+import com.glacier.common.core.entity.page.PageRequest;
+import com.glacier.common.core.entity.page.PageResponse;
+import com.glacier.sys.entity.dto.UserInfo;
+import com.glacier.sys.entity.pojo.User;
 import com.glacier.sys.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -28,13 +29,13 @@ import java.util.List;
 public class UserController {
     private final UserService userService;
 
-    @GetMapping(value = "/me")
-    public Object current(Authentication authentication) {
+    @GetMapping(value = "/info")
+    public HttpResult<UserInfo> current(Authentication authentication) {
         Object principal = authentication.getPrincipal();
         log.info(">>>>>>>>>>>>>>>>>>>>>>>>");
         log.info("当前登录用户为: {}", principal);
         log.info(">>>>>>>>>>>>>>>>>>>>>>>>");
-        return principal;
+        return this.userService.loadUserInfoByUsername(principal.toString());
     }
 
     /**
@@ -45,7 +46,7 @@ public class UserController {
      */
     @PostMapping("/findPage")
     public HttpResult<PageResponse<User>> findPage(@RequestBody PageRequest<User> pageRequest) {
-        return HttpResult.ok(userService.findPage(pageRequest));
+        return HttpResult.ok(this.userService.findPage(pageRequest));
     }
 
     /**
@@ -56,7 +57,18 @@ public class UserController {
      */
     @PostMapping("/save")
     public HttpResult<Integer> save(@RequestBody User user) {
-        return HttpResult.ok(userService.saveUserRole(user));
+        return HttpResult.ok(this.userService.saveUserRole(user));
+    }
+
+    /**
+     * 保存用户
+     *
+     * @param user
+     * @return
+     */
+    @PostMapping("/update")
+    public HttpResult<Integer> update(@RequestBody User user) {
+        return HttpResult.ok(this.userService.saveUserRole(user));
     }
 
     /**
@@ -67,6 +79,6 @@ public class UserController {
      */
     @PostMapping("/delete")
     public HttpResult<Integer> delete(@RequestBody List<IdDto> idDtos) {
-        return HttpResult.ok(userService.batchDelete(idDtos));
+        return HttpResult.ok(this.userService.batchDelete(idDtos));
     }
 }

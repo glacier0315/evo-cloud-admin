@@ -23,6 +23,8 @@ subprojects {
         implementation "com.baomidou:mybatis-plus-boot-starter:${mybatisPlusVersion}"
         implementation "com.alibaba:druid-spring-boot-starter:${druidVersion}"
 
+        implementation "org.modelmapper:modelmapper:${modelmapperVersion}"
+
         // swagger
         implementation  "io.springfox:springfox-swagger-ui:${swaggerVersion}"
         implementation "io.springfox:springfox-swagger2:${swaggerVersion}"

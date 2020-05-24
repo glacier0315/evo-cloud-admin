@@ -49,20 +49,20 @@ spring:
             client-id: eboot-sys
             client-secret: eboot-sys
             authorization-grant-type: authorization_code
-            redirect-uri: "{baseUrl}/login/oauth2/code/uas"
+            redirect-uri: "{baseUrl}/authorized/uas"
             scope: all
           uas_password:
             provider: uas
             client-id: eboot-sys
             client-secret: eboot-sys
             authorization-grant-type: password
-            redirect-uri: "{baseUrl}/login/oauth2/code/uas"
+            redirect-uri: "{baseUrl}/authorized/uas_password"
             scope: all
         provider:
           uas:
-            authorization-uri: ${AUTH-SERVER-URL:http://localhost:8510/uas}/oauth/authorize
-            token-uri: ${AUTH-SERVER-URL:http://localhost:8510/uas}/oauth/token
-            user-info-uri: ${AUTH-SERVER-URL:http://localhost:8510/uas}/api/user/info
+            authorization-uri: ${AUTH-SERVER-URL:http://localhost:8141/uas}/oauth/authorize
+            token-uri: ${AUTH-SERVER-URL:http://localhost:8141/uas}/oauth/token
+            user-info-uri: ${AUTH-SERVER-URL:http://localhost:8141/uas}/api/user/info
             user-name-attribute: username
 
 

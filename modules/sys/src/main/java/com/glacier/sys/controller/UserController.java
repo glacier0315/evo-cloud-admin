@@ -8,13 +8,11 @@ import com.glacier.sys.entity.form.UserAddForm;
 import com.glacier.sys.entity.form.UserQueryForm;
 import com.glacier.sys.entity.form.UserUpdateForm;
 import com.glacier.sys.entity.vo.UserDetailsVo;
-import com.glacier.sys.entity.vo.UserInfo;
 import com.glacier.sys.entity.vo.UserListVo;
 import com.glacier.sys.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -34,27 +32,12 @@ public class UserController {
     private final UserService userService;
 
     /**
-     * 获取当前用户信息
-     *
-     * @param authentication
-     * @return
-     */
-    @GetMapping(value = "/info")
-    public HttpResult<UserInfo> current(Authentication authentication) {
-        Object principal = authentication.getPrincipal();
-        log.info(">>>>>>>>>>>>>>>>>>>>>>>>");
-        log.info("当前登录用户为: {}", principal);
-        log.info(">>>>>>>>>>>>>>>>>>>>>>>>");
-        return HttpResult.ok(this.userService.findUserInfoByUsername(principal.toString()));
-    }
-
-    /**
      * 根据用户名获取用户信息
      *
      * @param username
      * @return
      */
-    @GetMapping(value = "/find/{username}")
+    @GetMapping(value = "/{username}")
     public HttpResult<UserDetailsVo> findByUsername(@PathVariable("username") String username) {
         return HttpResult.ok(this.userService.loadUserByUsername(username));
     }

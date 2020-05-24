@@ -1,4 +1,4 @@
-package com.glacier.sys.oauth2;
+package com.glacier.sys.config.oauth2;
 
 import com.alibaba.fastjson.JSONWriter;
 import com.glacier.common.core.entity.vo.HttpResult;

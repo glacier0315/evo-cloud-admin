@@ -1,6 +1,7 @@
 package com.glacier.sys.config;
 
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
+import com.glacier.sys.config.mybatis.PoMetaObjectHandler;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,6 +18,15 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableTransactionManagement
 @MapperScan("com.glacier.sys.mapper")
 public class MybatisConfig {
+
+    /**
+     * 通用处理
+     * @return
+     */
+    @Bean
+    public PoMetaObjectHandler poMetaObjectHandler() {
+        return new PoMetaObjectHandler();
+    }
 
     /**
      * mybatis-plus 分页插件

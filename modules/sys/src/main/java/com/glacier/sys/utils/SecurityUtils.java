@@ -5,7 +5,10 @@ import com.glacier.sys.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.oauth2.jwt.Jwt;
+
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * security 工具类
@@ -55,25 +58,16 @@ public class SecurityUtils {
      * @return
      */
     public static String getUsername() {
-        return getUsername(getAuthentication());
+        return (String) getClaims().get("user_name");
     }
 
     /**
-     * 获取用户名
+     * 获取当前用户名
      *
      * @return
      */
-    public static String getUsername(Authentication authentication) {
-        String username = null;
-        if (authentication != null) {
-            Object principal = authentication.getPrincipal();
-            log.info("principal: {}", principal);
-            if (principal instanceof UserDetails) {
-                username = ((UserDetails) principal).getUsername();
-            }
-        }
-        log.info("username: {}", username);
-        return username;
+    public static Map<String, Object> getClaims() {
+        return  ((Jwt) Objects.requireNonNull(getAuthentication()).getPrincipal()).getClaims();
     }
 
     /**
@@ -82,9 +76,6 @@ public class SecurityUtils {
      * @return
      */
     public static Authentication getAuthentication() {
-        if (SecurityContextHolder.getContext() == null) {
-            return null;
-        }
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         log.info("authentication: {}", authentication);
         return authentication;

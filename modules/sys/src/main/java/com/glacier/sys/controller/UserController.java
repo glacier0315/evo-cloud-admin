@@ -1,6 +1,6 @@
 package com.glacier.sys.controller;
 
-import com.glacier.common.core.entity.dto.IdDto;
+import com.glacier.common.core.entity.form.IdDto;
 import com.glacier.common.core.entity.page.PageRequest;
 import com.glacier.common.core.entity.page.PageResponse;
 import com.glacier.common.core.entity.vo.HttpResult;

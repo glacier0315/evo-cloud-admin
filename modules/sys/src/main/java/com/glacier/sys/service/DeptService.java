@@ -1,6 +1,6 @@
 package com.glacier.sys.service;
 
-import com.glacier.common.core.entity.dto.IdDto;
+import com.glacier.common.core.entity.form.IdDto;
 import com.glacier.sys.entity.pojo.Dept;
 
 import java.util.List;

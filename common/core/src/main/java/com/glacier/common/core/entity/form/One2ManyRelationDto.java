@@ -1,4 +1,4 @@
-package com.glacier.common.core.entity.dto;
+package com.glacier.common.core.entity.form;
 
 import io.swagger.annotations.ApiModel;
 import lombok.AllArgsConstructor;

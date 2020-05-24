@@ -1,6 +1,6 @@
 package com.glacier.sys.service.impl;
 
-import com.glacier.common.core.entity.dto.IdDto;
+import com.glacier.common.core.entity.form.IdDto;
 import com.glacier.sys.entity.pojo.Dict;
 import com.glacier.sys.mapper.DictMapper;
 import com.glacier.sys.service.DictService;

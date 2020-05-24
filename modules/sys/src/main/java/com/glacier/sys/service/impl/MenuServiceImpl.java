@@ -1,6 +1,6 @@
 package com.glacier.sys.service.impl;
 
-import com.glacier.common.core.entity.dto.IdDto;
+import com.glacier.common.core.entity.form.IdDto;
 import com.glacier.sys.common.Constant;
 import com.glacier.sys.entity.pojo.Menu;
 import com.glacier.sys.mapper.MenuMapper;

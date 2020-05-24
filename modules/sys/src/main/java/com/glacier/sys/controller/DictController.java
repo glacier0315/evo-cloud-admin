@@ -1,6 +1,6 @@
 package com.glacier.sys.controller;
 
-import com.glacier.common.core.entity.form.IdDto;
+import com.glacier.common.core.entity.form.IdForm;
 import com.glacier.common.core.entity.vo.HttpResult;
 import com.glacier.sys.entity.pojo.Dict;
 import com.glacier.sys.service.DictService;
@@ -48,11 +48,11 @@ public class DictController {
     /**
      * 删除指定字典
      *
-     * @param idDtos
+     * @param idForms
      * @return
      */
     @PostMapping("/delete")
-    public HttpResult<Integer> delete(@RequestBody List<IdDto> idDtos) {
-        return HttpResult.ok(this.dictService.batchDelete(idDtos));
+    public HttpResult<Integer> delete(@RequestBody List<IdForm> idForms) {
+        return HttpResult.ok(this.dictService.batchDelete(idForms));
     }
 }

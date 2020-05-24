@@ -19,7 +19,7 @@ import java.util.List;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class One2ManyRelationDto implements Serializable {
+public class One2ManyRelationForm implements Serializable {
     private static final long serialVersionUID = 2858625583098650664L;
     /**
      * 父级id

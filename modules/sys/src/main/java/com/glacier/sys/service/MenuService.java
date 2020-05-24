@@ -1,6 +1,6 @@
 package com.glacier.sys.service;
 
-import com.glacier.common.core.entity.form.IdDto;
+import com.glacier.common.core.entity.form.IdForm;
 import com.glacier.sys.entity.pojo.Menu;
 
 import java.util.List;
@@ -55,8 +55,8 @@ public interface MenuService {
     /**
      * 根据Id批量删除
      *
-     * @param idDtos
+     * @param idForms
      * @return
      */
-    int batchDelete(List<IdDto> idDtos);
+    int batchDelete(List<IdForm> idForms);
 }

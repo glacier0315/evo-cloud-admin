@@ -1,6 +1,6 @@
 package com.glacier.sys.controller;
 
-import com.glacier.common.core.entity.form.IdDto;
+import com.glacier.common.core.entity.form.IdForm;
 import com.glacier.common.core.entity.vo.HttpResult;
 import com.glacier.sys.entity.pojo.Menu;
 import com.glacier.sys.service.MenuService;
@@ -41,12 +41,12 @@ public class MenuController {
     /**
      * 删除指定菜单
      *
-     * @param idDtos
+     * @param idForms
      * @return
      */
     @PostMapping("/delete")
-    public HttpResult<Integer> delete(@RequestBody List<IdDto> idDtos) {
-        return HttpResult.ok(this.menuService.batchDelete(idDtos));
+    public HttpResult<Integer> delete(@RequestBody List<IdForm> idForms) {
+        return HttpResult.ok(this.menuService.batchDelete(idForms));
     }
 
     /**

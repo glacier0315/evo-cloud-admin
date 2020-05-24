@@ -1,6 +1,6 @@
 package com.glacier.sys.service.impl;
 
-import com.glacier.common.core.entity.form.IdDto;
+import com.glacier.common.core.entity.form.IdForm;
 import com.glacier.sys.common.Constant;
 import com.glacier.sys.entity.pojo.Menu;
 import com.glacier.sys.mapper.MenuMapper;
@@ -50,15 +50,15 @@ public class MenuServiceImpl implements MenuService {
     /**
      * 根据id批量删除
      *
-     * @param idDtos
+     * @param idForms
      * @return
      */
     @Transactional(rollbackFor = {})
     @Override
-    public int batchDelete(List<IdDto> idDtos) {
-        if (idDtos != null && !idDtos.isEmpty()) {
-            List<String> list = idDtos.stream()
-                    .map(IdDto::getId)
+    public int batchDelete(List<IdForm> idForms) {
+        if (idForms != null && !idForms.isEmpty()) {
+            List<String> list = idForms.stream()
+                    .map(IdForm::getId)
                     .collect(Collectors.toList());
             return this.menuMapper.deleteBatchIds(list);
         }

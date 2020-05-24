@@ -2,7 +2,7 @@ package com.glacier.sys.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.glacier.common.core.entity.form.IdDto;
+import com.glacier.common.core.entity.form.IdForm;
 import com.glacier.common.core.entity.page.PageRequest;
 import com.glacier.common.core.entity.page.PageResponse;
 import com.glacier.sys.entity.pojo.Config;
@@ -51,15 +51,15 @@ public class ConfigServiceImpl implements ConfigService {
     /**
      * 根据id批量删除
      *
-     * @param idDtos
+     * @param idForms
      * @return
      */
     @Transactional(rollbackFor = {})
     @Override
-    public int batchDelete(List<IdDto> idDtos) {
-        if (idDtos != null && !idDtos.isEmpty()) {
-            List<String> list = idDtos.stream()
-                    .map(IdDto::getId)
+    public int batchDelete(List<IdForm> idForms) {
+        if (idForms != null && !idForms.isEmpty()) {
+            List<String> list = idForms.stream()
+                    .map(IdForm::getId)
                     .collect(Collectors.toList());
             return this.configMapper.deleteBatchIds(list);
         }

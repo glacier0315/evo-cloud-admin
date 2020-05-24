@@ -1,7 +1,7 @@
 package com.glacier.sys.controller;
 
-import com.glacier.common.core.entity.form.IdDto;
-import com.glacier.common.core.entity.form.One2ManyRelationDto;
+import com.glacier.common.core.entity.form.IdForm;
+import com.glacier.common.core.entity.form.One2ManyRelationForm;
 import com.glacier.common.core.entity.page.PageRequest;
 import com.glacier.common.core.entity.page.PageResponse;
 import com.glacier.common.core.entity.vo.HttpResult;
@@ -64,12 +64,12 @@ public class RoleController {
     /**
      * 删除指定角色
      *
-     * @param idDtos
+     * @param idForms
      * @return
      */
     @PostMapping("/delete")
-    public HttpResult<Integer> delete(@RequestBody List<IdDto> idDtos) {
-        return HttpResult.ok(this.roleService.batchDelete(idDtos));
+    public HttpResult<Integer> delete(@RequestBody List<IdForm> idForms) {
+        return HttpResult.ok(this.roleService.batchDelete(idForms));
     }
 
     /**
@@ -99,22 +99,22 @@ public class RoleController {
     /**
      * 保存角色菜单
      *
-     * @param one2ManyRelationDto
+     * @param one2ManyRelationForm
      * @return
      */
     @PostMapping("/saveRoleMenus")
-    public HttpResult<Integer> saveRoleMenus(@RequestBody One2ManyRelationDto one2ManyRelationDto) {
-        assert one2ManyRelationDto != null;
-        if (one2ManyRelationDto.getPid() != null
-                && one2ManyRelationDto.getPid().trim().length() > 0) {
+    public HttpResult<Integer> saveRoleMenus(@RequestBody One2ManyRelationForm one2ManyRelationForm) {
+        assert one2ManyRelationForm != null;
+        if (one2ManyRelationForm.getPid() != null
+                && one2ManyRelationForm.getPid().trim().length() > 0) {
             // 判断超级管理员
-            Role role = this.roleService.findById(one2ManyRelationDto.getPid());
+            Role role = this.roleService.findById(one2ManyRelationForm.getPid());
             if (Constant.ADMIN.equals(role.getCode())) {
                 // 如果是超级管理员，不允许修改
                 // todo 如果是超级管理员，不允许修改
                 return HttpResult.error(SystemErrorType.SYSTEM_ERROR);
             }
         }
-        return HttpResult.ok(this.roleService.saveRoleMenu(one2ManyRelationDto.getPid(), one2ManyRelationDto.getIds()));
+        return HttpResult.ok(this.roleService.saveRoleMenu(one2ManyRelationForm.getPid(), one2ManyRelationForm.getIds()));
     }
 }

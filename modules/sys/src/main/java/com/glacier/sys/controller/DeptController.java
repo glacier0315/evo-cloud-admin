@@ -1,6 +1,6 @@
 package com.glacier.sys.controller;
 
-import com.glacier.common.core.entity.form.IdDto;
+import com.glacier.common.core.entity.form.IdForm;
 import com.glacier.common.core.entity.vo.HttpResult;
 import com.glacier.sys.entity.pojo.Dept;
 import com.glacier.sys.service.DeptService;
@@ -40,12 +40,12 @@ public class DeptController {
     /**
      * 删除指定组织机构
      *
-     * @param idDtos
+     * @param idForms
      * @return
      */
     @PostMapping("/delete")
-    public HttpResult<Integer> delete(@RequestBody List<IdDto> idDtos) {
-        return HttpResult.ok(this.deptService.batchDelete(idDtos));
+    public HttpResult<Integer> delete(@RequestBody List<IdForm> idForms) {
+        return HttpResult.ok(this.deptService.batchDelete(idForms));
     }
 
     /**

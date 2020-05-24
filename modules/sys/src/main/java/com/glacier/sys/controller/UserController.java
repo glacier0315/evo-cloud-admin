@@ -1,6 +1,6 @@
 package com.glacier.sys.controller;
 
-import com.glacier.common.core.entity.form.IdDto;
+import com.glacier.common.core.entity.form.IdForm;
 import com.glacier.common.core.entity.page.PageRequest;
 import com.glacier.common.core.entity.page.PageResponse;
 import com.glacier.common.core.entity.vo.HttpResult;
@@ -74,11 +74,11 @@ public class UserController {
     /**
      * 删除指定用户
      *
-     * @param idDtos
+     * @param idForms
      * @return
      */
     @PostMapping("/delete")
-    public HttpResult<Integer> delete(@RequestBody List<IdDto> idDtos) {
-        return HttpResult.ok(this.userService.batchDelete(idDtos));
+    public HttpResult<Integer> delete(@RequestBody List<IdForm> idForms) {
+        return HttpResult.ok(this.userService.batchDelete(idForms));
     }
 }

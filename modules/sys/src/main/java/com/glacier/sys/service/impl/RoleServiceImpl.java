@@ -3,7 +3,7 @@ package com.glacier.sys.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.glacier.common.core.entity.form.IdDto;
+import com.glacier.common.core.entity.form.IdForm;
 import com.glacier.common.core.entity.page.PageRequest;
 import com.glacier.common.core.entity.page.PageResponse;
 import com.glacier.sys.entity.pojo.Role;
@@ -124,16 +124,16 @@ public class RoleServiceImpl implements RoleService {
     /**
      * 根据id批量删除
      *
-     * @param idDtos
+     * @param idForms
      * @return
      */
     @Transactional(rollbackFor = {})
     @Override
-    public int batchDelete(List<IdDto> idDtos) {
+    public int batchDelete(List<IdForm> idForms) {
         int unpdate = 0;
-        if (idDtos != null && !idDtos.isEmpty()) {
-            List<String> list = idDtos.stream()
-                    .map(IdDto::getId)
+        if (idForms != null && !idForms.isEmpty()) {
+            List<String> list = idForms.stream()
+                    .map(IdForm::getId)
                     .collect(Collectors.toList());
             unpdate = this.roleMapper.deleteBatchIds(list);
             for (String roleId : list) {

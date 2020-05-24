@@ -12,7 +12,7 @@ import java.io.Serializable;
  */
 @Data
 @ToString
-public class IdDto implements Serializable {
+public class IdForm implements Serializable {
     private static final long serialVersionUID = -5618778600490092506L;
     /**
      * 主键

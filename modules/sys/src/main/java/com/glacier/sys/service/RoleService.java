@@ -1,6 +1,6 @@
 package com.glacier.sys.service;
 
-import com.glacier.common.core.entity.form.IdDto;
+import com.glacier.common.core.entity.form.IdForm;
 import com.glacier.common.core.entity.page.PageRequest;
 import com.glacier.common.core.entity.page.PageResponse;
 import com.glacier.sys.entity.pojo.Role;
@@ -67,10 +67,10 @@ public interface RoleService {
     /**
      * 根据Id批量删除
      *
-     * @param idDtos
+     * @param idForms
      * @return
      */
-    int batchDelete(List<IdDto> idDtos);
+    int batchDelete(List<IdForm> idForms);
 
     /**
      * 保存角色 菜单关系

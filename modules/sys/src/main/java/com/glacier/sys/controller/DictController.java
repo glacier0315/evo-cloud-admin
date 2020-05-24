@@ -1,7 +1,7 @@
 package com.glacier.sys.controller;
 
 import com.glacier.common.core.entity.dto.IdDto;
-import com.glacier.common.core.entity.dto.result.HttpResult;
+import com.glacier.common.core.entity.vo.HttpResult;
 import com.glacier.sys.entity.pojo.Dict;
 import com.glacier.sys.service.DictService;
 import lombok.RequiredArgsConstructor;

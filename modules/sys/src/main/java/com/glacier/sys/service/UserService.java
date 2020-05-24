@@ -1,9 +1,9 @@
 package com.glacier.sys.service;
 
 import com.glacier.common.core.entity.dto.IdDto;
-import com.glacier.common.core.entity.dto.result.HttpResult;
 import com.glacier.common.core.entity.page.PageRequest;
 import com.glacier.common.core.entity.page.PageResponse;
+import com.glacier.common.core.entity.vo.HttpResult;
 import com.glacier.sys.entity.dto.UserInfo;
 import com.glacier.sys.entity.pojo.User;
 

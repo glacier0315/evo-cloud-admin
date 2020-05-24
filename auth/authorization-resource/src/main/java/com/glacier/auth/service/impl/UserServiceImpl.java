@@ -6,7 +6,7 @@ import com.glacier.auth.entity.vo.UserInfo;
 import com.glacier.auth.mapper.RoleMapper;
 import com.glacier.auth.mapper.UserMapper;
 import com.glacier.auth.service.UserService;
-import com.glacier.common.core.entity.dto.result.HttpResult;
+import com.glacier.common.core.entity.vo.HttpResult;
 import com.glacier.common.core.exception.AuthErrorType;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

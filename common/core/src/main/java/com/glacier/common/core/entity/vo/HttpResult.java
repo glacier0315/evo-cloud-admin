@@ -1,4 +1,4 @@
-package com.glacier.common.core.entity.dto.result;
+package com.glacier.common.core.entity.vo;
 
 import com.glacier.common.core.exception.ErrorType;
 import com.glacier.common.core.exception.SystemErrorType;

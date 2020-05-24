@@ -1,28 +1,24 @@
 package com.glacier.sys.entity.vo;
 
-import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.User;
 
-import java.io.Serializable;
-import java.util.Set;
+import java.util.Collection;
 
 /**
  * @author glacier
  * @version 1.0
  * @date 2020-05-24 10:22
  */
-@Data
-@ToString
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
-public class UserDetailsVo implements Serializable {
-    private static final long serialVersionUID = -2993294506370864935L;
-    private String password;
-    private String username;
-    private Set<GrantedAuthority> authorities;
-    private boolean accountNonExpired;
-    private boolean accountNonLocked;
-    private boolean credentialsNonExpired;
-    private boolean enabled;
+public class UserDetailsVo extends User {
+
+    private static final long serialVersionUID = -2851887117398141040L;
+
+    public UserDetailsVo(String username, String password, Collection<? extends GrantedAuthority> authorities) {
+        super(username, password, authorities);
+    }
+
+    public UserDetailsVo(String username, String password, boolean enabled, boolean accountNonExpired, boolean credentialsNonExpired, boolean accountNonLocked, Collection<? extends GrantedAuthority> authorities) {
+        super(username, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
+    }
 }

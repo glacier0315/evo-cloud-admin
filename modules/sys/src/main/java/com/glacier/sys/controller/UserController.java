@@ -45,7 +45,7 @@ public class UserController {
         log.info(">>>>>>>>>>>>>>>>>>>>>>>>");
         log.info("当前登录用户为: {}", principal);
         log.info(">>>>>>>>>>>>>>>>>>>>>>>>");
-        return this.userService.loadUserInfoByUsername(principal.toString());
+        return HttpResult.ok(this.userService.findUserInfoByUsername(principal.toString()));
     }
 
     /**
@@ -56,7 +56,7 @@ public class UserController {
      */
     @GetMapping(value = "/find/{username}")
     public HttpResult<UserDetailsVo> findByUsername(@PathVariable("username") String username) {
-        return this.userService.loadUserByUsername(username);
+        return HttpResult.ok(this.userService.loadUserByUsername(username));
     }
 
     /**

@@ -6,9 +6,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.glacier.common.core.entity.form.IdForm;
 import com.glacier.common.core.entity.page.PageRequest;
 import com.glacier.common.core.entity.page.PageResponse;
-import com.glacier.common.core.entity.vo.HttpResult;
-import com.glacier.common.core.exception.AuthErrorType;
-import com.glacier.common.core.exception.SystemErrorType;
 import com.glacier.sys.entity.form.UserAddForm;
 import com.glacier.sys.entity.form.UserQueryForm;
 import com.glacier.sys.entity.form.UserUpdateForm;
@@ -53,47 +50,44 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public HttpResult<UserInfo> loadUserInfoByUsername(String username) {
-        User user = this.userMapper.selectOne(new QueryWrapper<>(User
+    public User findUserByUsername(String username) {
+        return this.userMapper.selectOne(new QueryWrapper<>(User
                 .builder()
                 .username(username)
                 .build()));
+    }
+
+    @Override
+    public UserInfo findUserInfoByUsername(String username) {
+        User user = this.findUserByUsername(username);
+        UserInfo userInfo = null;
         if (user != null) {
             // 查找角色
             List<String> roles = this.roleMapper.findCodeByUserId(user.getId());
-            UserInfo userInfo = UserInfo.builder()
+            userInfo = UserInfo.builder()
                     .id(user.getId())
                     .name(user.getUsername())
                     .roles(roles)
                     .build();
-            return HttpResult.ok(userInfo);
-        } else {
-            return HttpResult.error(AuthErrorType.INVALID_GRANT);
         }
+        return userInfo;
     }
 
     @Override
-    public HttpResult<UserDetailsVo> loadUserByUsername(String username) {
-        User user = this.userMapper.selectOne(new QueryWrapper<>(User
-                .builder()
-                .username(username)
-                .build()));
+    public UserDetailsVo loadUserByUsername(String username) {
+        User user = this.findUserByUsername(username);
+        UserDetailsVo userDetailsVo = null;
         if (user != null) {
             List<String> roles = this.roleMapper.findCodeByUserId(user.getId());
-            return HttpResult.ok(
-                    UserDetailsVo.builder()
-                            .username(user.getUsername())
-                            .password(user.getPassword())
-                            .authorities(
-                                    roles.stream()
-                                            .map(SimpleGrantedAuthority::new)
-                                            .collect(Collectors.toSet())
-                            )
-                            .build()
+            userDetailsVo = new UserDetailsVo(
+                    user.getUsername(),
+                    user.getPassword(),
+                    roles.stream()
+                            .map(SimpleGrantedAuthority::new)
+                            .collect(Collectors.toSet())
             );
-        } else {
-            return HttpResult.error(SystemErrorType.SYSTEM_ERROR, "用户不存在！");
         }
+        return userDetailsVo;
     }
 
     /**

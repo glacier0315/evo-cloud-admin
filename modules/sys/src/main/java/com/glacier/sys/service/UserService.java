@@ -3,10 +3,10 @@ package com.glacier.sys.service;
 import com.glacier.common.core.entity.form.IdForm;
 import com.glacier.common.core.entity.page.PageRequest;
 import com.glacier.common.core.entity.page.PageResponse;
-import com.glacier.common.core.entity.vo.HttpResult;
 import com.glacier.sys.entity.form.UserAddForm;
 import com.glacier.sys.entity.form.UserQueryForm;
 import com.glacier.sys.entity.form.UserUpdateForm;
+import com.glacier.sys.entity.pojo.User;
 import com.glacier.sys.entity.vo.UserDetailsVo;
 import com.glacier.sys.entity.vo.UserInfo;
 import com.glacier.sys.entity.vo.UserListVo;
@@ -22,12 +22,19 @@ import java.util.List;
 public interface UserService {
 
     /**
+     *
+     * @param username
+     * @return
+     */
+    User findUserByUsername(String username);
+
+    /**
      * 根据用户名查用户
      *
      * @param username
      * @return
      */
-    HttpResult<UserInfo> loadUserInfoByUsername(String username);
+    UserInfo findUserInfoByUsername(String username);
 
     /**
      * 根据用户名查找用户
@@ -35,7 +42,7 @@ public interface UserService {
      * @param username
      * @return
      */
-    HttpResult<UserDetailsVo> loadUserByUsername(String username);
+    UserDetailsVo loadUserByUsername(String username);
 
     /**
      * 分页查询

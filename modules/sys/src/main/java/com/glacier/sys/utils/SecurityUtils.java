@@ -44,7 +44,7 @@ public class SecurityUtils {
         String username = getUsername();
         if (username != null) {
             UserService userService = SpringContextUtil.getBean(UserService.class);
-            user = userService.loadUserByUsername(username);
+            user = userService.findUserByUsername(username);
         }
         return user;
     }
@@ -68,7 +68,7 @@ public class SecurityUtils {
         if (authentication != null) {
             Object principal = authentication.getPrincipal();
             log.info("principal: {}", principal);
-            if (principal != null && principal instanceof UserDetails) {
+            if (principal instanceof UserDetails) {
                 username = ((UserDetails) principal).getUsername();
             }
         }

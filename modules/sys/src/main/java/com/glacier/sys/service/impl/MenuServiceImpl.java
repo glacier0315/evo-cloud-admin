@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
  */
 @Slf4j
 @Transactional(readOnly = true)
-@Service("MenuService")
+@Service("menuService")
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class MenuServiceImpl implements MenuService {
 

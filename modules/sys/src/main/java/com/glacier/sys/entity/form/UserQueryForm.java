@@ -1,33 +1,24 @@
-package com.glacier.sys.entity.pojo;
+package com.glacier.sys.entity.form;
 
-import com.glacier.common.core.entity.pojo.BasePojo;
-import lombok.*;
+import lombok.Data;
+import lombok.ToString;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
- * 用户
- *
  * @author glacier
  * @version 1.0
- * @date 2019-08-04 13:45
+ * @date 2020-05-24 09:37
  */
 @Data
 @ToString
-@NoArgsConstructor
-@AllArgsConstructor
-@EqualsAndHashCode(callSuper=false)
-@Builder
-public class User extends BasePojo {
-    private static final long serialVersionUID = -3083387263445135811L;
+public class UserQueryForm implements Serializable {
+    private static final long serialVersionUID = 7302567686429075050L;
     /**
      * 用户名
      */
     private String username;
-    /**
-     * 密码
-     */
-    private String password;
     /**
      * 昵称
      */
@@ -60,15 +51,4 @@ public class User extends BasePojo {
      * 单位id
      */
     private String deptId;
-    /**
-     * 删除标记
-     */
-    private String delFlag;
-
-
-    /*非数据库字段*/
-    /**
-     * 单位名称
-     */
-    private String deptName;
 }

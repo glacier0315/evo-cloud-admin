@@ -8,16 +8,25 @@ import com.glacier.common.core.entity.page.PageRequest;
 import com.glacier.common.core.entity.page.PageResponse;
 import com.glacier.common.core.entity.vo.HttpResult;
 import com.glacier.common.core.exception.AuthErrorType;
-import com.glacier.sys.entity.dto.UserInfo;
+import com.glacier.common.core.exception.SystemErrorType;
+import com.glacier.sys.entity.form.UserAddForm;
+import com.glacier.sys.entity.form.UserQueryForm;
+import com.glacier.sys.entity.form.UserUpdateForm;
 import com.glacier.sys.entity.pojo.User;
 import com.glacier.sys.entity.pojo.UserRole;
+import com.glacier.sys.entity.vo.UserDetailsVo;
+import com.glacier.sys.entity.vo.UserInfo;
+import com.glacier.sys.entity.vo.UserListVo;
 import com.glacier.sys.mapper.RoleMapper;
 import com.glacier.sys.mapper.UserMapper;
 import com.glacier.sys.mapper.UserRoleMapper;
 import com.glacier.sys.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,15 +36,17 @@ import java.util.stream.Collectors;
 
 /**
  * 用户业务类
+ *
  * @author glacier
  * @version 1.0
  * @date 2019-08-04 21:50
  */
 @Slf4j
 @Transactional(readOnly = true)
-@Service(value = "UserService")
+@Service(value = "userService")
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class UserServiceImpl implements UserService {
+    private final ModelMapper modelMapper;
     private final UserMapper userMapper;
     private final RoleMapper roleMapper;
     private final UserRoleMapper userRoleMapper;
@@ -62,11 +73,27 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User loadUserByUsername(String username) {
-        return this.userMapper.selectOne(new QueryWrapper<>(User
+    public HttpResult<UserDetailsVo> loadUserByUsername(String username) {
+        User user = this.userMapper.selectOne(new QueryWrapper<>(User
                 .builder()
                 .username(username)
                 .build()));
+        if (user != null) {
+            List<String> roles = this.roleMapper.findCodeByUserId(user.getId());
+            return HttpResult.ok(
+                    UserDetailsVo.builder()
+                            .username(user.getUsername())
+                            .password(user.getPassword())
+                            .authorities(
+                                    roles.stream()
+                                            .map(SimpleGrantedAuthority::new)
+                                            .collect(Collectors.toSet())
+                            )
+                            .build()
+            );
+        } else {
+            return HttpResult.error(SystemErrorType.SYSTEM_ERROR, "用户不存在！");
+        }
     }
 
     /**
@@ -76,27 +103,49 @@ public class UserServiceImpl implements UserService {
      * @return
      */
     @Override
-    public PageResponse<User> findPage(PageRequest<User> pageRequest) {
-        Page<User> page = this.userMapper.selectPage(new Page<>(pageRequest.getCurrent(), pageRequest.getSize()),
-                new QueryWrapper<>(pageRequest.getParams()));
-        return PageResponse.<User>builder()
+    public PageResponse<UserListVo> findPage(PageRequest<UserQueryForm> pageRequest) {
+        Page<User> page = this.userMapper.selectPage(
+                new Page<>(
+                        pageRequest.getCurrent(),
+                        pageRequest.getSize()
+                ),
+                new QueryWrapper<>(
+                        this.modelMapper.map(
+                                pageRequest.getParams(),
+                                User.class
+                        )
+                ));
+        return PageResponse.<UserListVo>builder()
                 .current(page.getCurrent())
                 .size(page.getSize())
                 .total(page.getTotal())
-                .records(page.getRecords())
+                .records(
+                        this.modelMapper.map(
+                                page.getRecords(),
+                                new TypeToken<List<UserListVo>>() {
+                                }.getType()
+                        )
+                )
                 .build();
     }
 
     @Override
-    public int update(User user) {
+    public int update(UserUpdateForm userUpdateForm) {
         int update = 0;
-        if (user.getId() != null && !user.getId().isEmpty()) {
+        if (userUpdateForm != null
+                && userUpdateForm.getId() != null
+                && !userUpdateForm.getId().isEmpty()) {
             // 对原始密码加密
-            if (user.getPassword() != null && !user.getPassword().isEmpty()) {
+            if (userUpdateForm.getPassword() != null 
+                    && !userUpdateForm.getPassword().isEmpty()) {
                 // 加密密码
-                user.setPassword(this.passwordEncoder.encode(user.getPassword()));
+                userUpdateForm.setPassword(
+                        this.passwordEncoder.encode(userUpdateForm.getPassword())
+                );
             }
-            update = this.userMapper.updateById(user);
+            update = this.userMapper.updateById(
+                    this.modelMapper.map(userUpdateForm, User.class)
+            );
         }
         return update;
     }
@@ -104,28 +153,25 @@ public class UserServiceImpl implements UserService {
     /**
      * 保存用户
      *
-     * @param user
+     * @param userAddForm
      * @return
      */
     @Transactional(rollbackFor = {})
     @Override
-    public int saveUserRole(User user) {
+    public int save(UserAddForm userAddForm) {
         int update = 0;
-        if (user.getId() != null && !user.getId().isEmpty()) {
-            update = this.userMapper.updateById(user);
-            // 清空原 用户角色关系
-            this.deleteUserRoleByUserId(user.getId());
-        } else {
+        if (userAddForm != null) {
+            User user = this.modelMapper.map(userAddForm, User.class);
             // 对原始密码加密
-            if (user.getPassword() != null && !user.getPassword().isEmpty()) {
+            if (user.getPassword() != null
+                    && !user.getPassword().isEmpty()) {
                 // 加密密码
-                user.setPassword(this.passwordEncoder.encode(user.getPassword()));
+                user.setPassword(
+                        this.passwordEncoder.encode(user.getPassword())
+                );
             }
             update = this.userMapper.insert(user);
-
         }
-        // 保存用户角色关系
-        this.saveUserRole(user.getId(), user.getRoleIds());
         return update;
     }
 
@@ -159,16 +205,18 @@ public class UserServiceImpl implements UserService {
      * @param roleIds
      * @return
      */
-    private int saveUserRole(final String userId, List<String> roleIds) {
+    public int saveUserRole(final String userId, List<String> roleIds) {
         int update = 0;
         if (userId != null && !userId.isEmpty()
                 && roleIds != null && !roleIds.isEmpty()) {
             // 保存用户角色关系
             for (String roleId : roleIds) {
-                update += this.userRoleMapper.insert(UserRole.builder()
-                        .userId(userId)
-                        .roleId(roleId)
-                        .build());
+                update += this.userRoleMapper.insert(
+                        UserRole.builder()
+                                .userId(userId)
+                                .roleId(roleId)
+                                .build()
+                );
             }
         }
         return update;
@@ -183,7 +231,13 @@ public class UserServiceImpl implements UserService {
     private int deleteUserRoleByUserId(final String userId) {
         int update = 0;
         if (userId != null && !userId.isEmpty()) {
-            update = this.userRoleMapper.delete(new UpdateWrapper<>(UserRole.builder().userId(userId).build()));
+            update = this.userRoleMapper.delete(
+                    new UpdateWrapper<>(
+                            UserRole.builder()
+                                    .userId(userId)
+                                    .build()
+                    )
+            );
         }
         return update;
     }

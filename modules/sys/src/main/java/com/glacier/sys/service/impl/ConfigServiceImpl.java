@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
  */
 @Slf4j
 @Transactional(readOnly = true)
-@Service("ConfigService")
+@Service("configService")
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class ConfigServiceImpl implements ConfigService {
 

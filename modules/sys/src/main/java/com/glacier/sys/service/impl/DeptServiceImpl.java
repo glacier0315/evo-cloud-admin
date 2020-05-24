@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
  */
 @Slf4j
 @Transactional(readOnly = true)
-@Service("DeptService")
+@Service("deptService")
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class DeptServiceImpl implements DeptService {
 

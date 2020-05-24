@@ -5,6 +5,7 @@ import com.glacier.common.core.exception.AuthErrorType;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.oauth2.common.exceptions.InvalidGrantException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 /**
  * 异常处理
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
  * @version 1.0
  * @date 2020-05-03 09:54
  */
+@RestControllerAdvice
 public class GlobalExceptionHandler {
 
     /**

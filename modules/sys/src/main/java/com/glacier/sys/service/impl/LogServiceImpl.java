@@ -19,7 +19,7 @@ import org.springframework.stereotype.Service;
  * @date 2019-12-18 15:29
  */
 @Slf4j
-@Service("SysLogService")
+@Service("sysLogService")
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class LogServiceImpl implements LogService {
 

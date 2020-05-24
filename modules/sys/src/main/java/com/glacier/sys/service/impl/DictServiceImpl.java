@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
  */
 @Slf4j
 @Transactional(readOnly = true)
-@Service("DictService")
+@Service("dictService")
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class DictServiceImpl implements DictService {
 

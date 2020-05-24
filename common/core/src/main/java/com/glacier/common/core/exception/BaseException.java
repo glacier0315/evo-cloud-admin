@@ -8,6 +8,7 @@ package com.glacier.common.core.exception;
  * @date 2020-05-18 11:19
  */
 public class BaseException extends RuntimeException {
+    private static final long serialVersionUID = -720171527461795332L;
     /**
      * 异常对应的错误类型
      */
@@ -32,5 +33,9 @@ public class BaseException extends RuntimeException {
     public BaseException(ErrorType errorType, String message, Throwable cause) {
         super(message, cause);
         this.errorType = errorType;
+    }
+
+    public ErrorType getErrorType() {
+        return this.errorType;
     }
 }

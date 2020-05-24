@@ -4,8 +4,12 @@ import com.glacier.common.core.entity.form.IdForm;
 import com.glacier.common.core.entity.page.PageRequest;
 import com.glacier.common.core.entity.page.PageResponse;
 import com.glacier.common.core.entity.vo.HttpResult;
-import com.glacier.sys.entity.dto.UserInfo;
-import com.glacier.sys.entity.pojo.User;
+import com.glacier.sys.entity.form.UserAddForm;
+import com.glacier.sys.entity.form.UserQueryForm;
+import com.glacier.sys.entity.form.UserUpdateForm;
+import com.glacier.sys.entity.vo.UserDetailsVo;
+import com.glacier.sys.entity.vo.UserInfo;
+import com.glacier.sys.entity.vo.UserListVo;
 import com.glacier.sys.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -29,6 +33,12 @@ import java.util.List;
 public class UserController {
     private final UserService userService;
 
+    /**
+     * 获取当前用户信息
+     *
+     * @param authentication
+     * @return
+     */
     @GetMapping(value = "/info")
     public HttpResult<UserInfo> current(Authentication authentication) {
         Object principal = authentication.getPrincipal();
@@ -39,36 +49,47 @@ public class UserController {
     }
 
     /**
+     * 根据用户名获取用户信息
+     *
+     * @param username
+     * @return
+     */
+    @GetMapping(value = "/find/{username}")
+    public HttpResult<UserDetailsVo> findByUsername(@PathVariable("username") String username) {
+        return this.userService.loadUserByUsername(username);
+    }
+
+    /**
      * 分页查询用户
      *
      * @param pageRequest
      * @return
      */
     @PostMapping("/findPage")
-    public HttpResult<PageResponse<User>> findPage(@RequestBody PageRequest<User> pageRequest) {
+    public HttpResult<PageResponse<UserListVo>> findPage(@RequestBody PageRequest<UserQueryForm> pageRequest) {
         return HttpResult.ok(this.userService.findPage(pageRequest));
     }
 
     /**
      * 保存用户
      *
-     * @param user
+     * @param userAddForm
      * @return
      */
     @PostMapping("/save")
-    public HttpResult<Integer> save(@RequestBody User user) {
-        return HttpResult.ok(this.userService.saveUserRole(user));
+    public HttpResult<Integer> save(@RequestBody UserAddForm userAddForm) {
+        return HttpResult.ok(this.userService.save(userAddForm));
     }
 
     /**
-     * 保存用户
+     * 更新用户
      *
-     * @param user
+     * @param userUpdateForm
      * @return
      */
     @PostMapping("/update")
-    public HttpResult<Integer> update(@RequestBody User user) {
-        return HttpResult.ok(this.userService.saveUserRole(user));
+    public HttpResult<Integer> update(@RequestBody UserUpdateForm userUpdateForm) {
+        return HttpResult.ok(this.userService.update(userUpdateForm));
     }
 
     /**

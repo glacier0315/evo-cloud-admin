@@ -32,7 +32,7 @@ import java.util.stream.Collectors;
  */
 @Slf4j
 @Transactional(readOnly = true)
-@Service("RoleService")
+@Service("roleService")
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class RoleServiceImpl implements RoleService {
 

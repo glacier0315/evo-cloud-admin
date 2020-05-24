@@ -4,8 +4,12 @@ import com.glacier.common.core.entity.form.IdForm;
 import com.glacier.common.core.entity.page.PageRequest;
 import com.glacier.common.core.entity.page.PageResponse;
 import com.glacier.common.core.entity.vo.HttpResult;
-import com.glacier.sys.entity.dto.UserInfo;
-import com.glacier.sys.entity.pojo.User;
+import com.glacier.sys.entity.form.UserAddForm;
+import com.glacier.sys.entity.form.UserQueryForm;
+import com.glacier.sys.entity.form.UserUpdateForm;
+import com.glacier.sys.entity.vo.UserDetailsVo;
+import com.glacier.sys.entity.vo.UserInfo;
+import com.glacier.sys.entity.vo.UserListVo;
 
 import java.util.List;
 
@@ -31,7 +35,7 @@ public interface UserService {
      * @param username
      * @return
      */
-    User loadUserByUsername(String username);
+    HttpResult<UserDetailsVo> loadUserByUsername(String username);
 
     /**
      * 分页查询
@@ -39,23 +43,23 @@ public interface UserService {
      * @param pageRequest
      * @return
      */
-    PageResponse<User> findPage(PageRequest<User> pageRequest);
+    PageResponse<UserListVo> findPage(PageRequest<UserQueryForm> pageRequest);
 
     /**
      * 更新操作
      *
-     * @param record
+     * @param userUpdateForm
      * @return
      */
-    int update(User record);
+    int update(UserUpdateForm userUpdateForm);
 
     /**
-     * 保存操作，同时保存用户角色
+     * 保存用户
      *
-     * @param record
+     * @param userAddForm
      * @return
      */
-    int saveUserRole(User record);
+    int save(UserAddForm userAddForm);
 
     /**
      * 根据Id批量删除

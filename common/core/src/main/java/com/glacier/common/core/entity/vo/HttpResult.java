@@ -67,22 +67,21 @@ public class HttpResult<T> implements Serializable {
      * @return
      */
     public static <T> HttpResult<T> error(ErrorType errorType) {
-        return error(errorType, null);
+        return error(errorType, errorType.getMsg());
     }
 
     /**
      * 返回指定编码错误
      *
      * @param errorType
-     * @param data
+     * @param msg
      * @param <T>
      * @return
      */
-    public static <T> HttpResult<T> error(ErrorType errorType, T data) {
+    public static <T> HttpResult<T> error(ErrorType errorType, String msg) {
         return HttpResult.<T>builder()
                 .code(errorType.getCode())
-                .msg(errorType.getMsg())
-                .data(data)
+                .msg(msg)
                 .build();
     }
 

@@ -1,4 +1,4 @@
-package com.glacier.sys.entity.dto;
+package com.glacier.sys.entity.vo;
 
 import lombok.*;
 

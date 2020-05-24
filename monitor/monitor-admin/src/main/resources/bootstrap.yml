@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: monitor-admin
+  cloud:
+    nacos:
+      discovery:
+        server-addr: ${REGISTER_HOST:192.168.10.130}:${REGISTER_PORT:8848}

@@ -18,6 +18,9 @@ include 'auth:authorization-server'
 include 'auth:authorization-resource'
 include 'auth:authorization-client-demo1'
 
+// 引入 监控 monitor
+include 'monitor:monitor-admin'
+
 // 引入gateway
 include 'gateway:gateway-common'
 

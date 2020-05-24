@@ -1,0 +1,7 @@
+dependencies {
+    // 本地依赖
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+
+    implementation "org.jolokia:jolokia-core:1.6.2"
+}

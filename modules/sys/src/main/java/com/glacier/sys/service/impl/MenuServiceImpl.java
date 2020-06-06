@@ -3,6 +3,7 @@ package com.glacier.sys.service.impl;
 import com.glacier.common.core.entity.form.IdForm;
 import com.glacier.sys.common.Constant;
 import com.glacier.sys.entity.pojo.Menu;
+import com.glacier.sys.entity.vo.RouterVo;
 import com.glacier.sys.mapper.MenuMapper;
 import com.glacier.sys.service.MenuService;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +17,7 @@ import java.util.stream.Collectors;
 
 /**
  * 菜单业务层
+ *
  * @author glacier
  * @version 1.0
  * @date 2019-10-09 15:45
@@ -77,26 +79,26 @@ public class MenuServiceImpl implements MenuService {
     }
 
     /**
-     * 查询菜单树
-     *
-     * @return
-     */
-    @Override
-    public List<Menu> findMenuTree() {
-        List<Menu> menus = this.menuMapper.selectList(null);
-        return this.findMenuTree(menus, true);
-    }
-
-    /**
      * 根据用户id 查询菜单树
      *
      * @param userId
      * @return
      */
     @Override
-    public List<Menu> findTree(String userId) {
-        List<Menu> menus = this.findMenusByUserId(userId);
-        return this.findMenuTree(menus);
+    public List<Menu> findMenusByUserId(String userId) {
+        List<Menu> menuList = new ArrayList<>(1);
+        if (userId == null || userId.isEmpty()) {
+            return menuList;
+        }
+        if (Constant.ADMIN_ID.equals(userId)) {
+            menuList = this.menuMapper.selectList(null);
+        } else {
+            menuList = this.menuMapper.findMenusByUserId(userId);
+        }
+        if (menuList == null) {
+            menuList = new ArrayList<>(1);
+        }
+        return menuList;
     }
 
     /**
@@ -106,9 +108,9 @@ public class MenuServiceImpl implements MenuService {
      * @return
      */
     @Override
-    public Set<String> findPermissions(String userId) {
-        Set<String> permissions = new HashSet<>(10);
-        if (userId == null) {
+    public Set<String> findPermissionsByUserId(String userId) {
+        Set<String> permissions = new HashSet<>(1);
+        if (userId == null || userId.isEmpty()) {
             return permissions;
         }
         if (Constant.ADMIN_ID.equals(userId)) {
@@ -123,13 +125,17 @@ public class MenuServiceImpl implements MenuService {
     }
 
     /**
-     * 组装菜单树
-     *
+     * 组装路由
      * @param menus
      * @return
      */
-    private List<Menu> findMenuTree(List<Menu> menus) {
-        return this.findMenuTree(menus, false);
+    @Override
+    public List<RouterVo> buildRouters(List<Menu> menus) {
+        List<RouterVo> routerVos = new ArrayList<>(1);
+        if (menus != null && !menus.isEmpty()) {
+
+        }
+        return routerVos;
     }
 
     /**
@@ -190,7 +196,6 @@ public class MenuServiceImpl implements MenuService {
                     if (parent.getLevel() == null) {
                         parent.setLevel(0);
                     }
-                    menu.setParentName(parent.getName());
                     menu.setLevel(parent.getLevel() + 1);
                     children.add(menu);
                     iterator.remove();
@@ -200,24 +205,5 @@ public class MenuServiceImpl implements MenuService {
             children.sort(Comparator.comparingInt(Menu::getOrderNum));
             this.findChildren(children, menus, isContainButton);
         }
-    }
-
-    /**
-     * 根据用户ID查找所有可见菜单
-     *
-     * @param userId
-     * @return
-     */
-    private List<Menu> findMenusByUserId(String userId) {
-        List<Menu> menuList = new ArrayList<>(10);
-        if (userId == null) {
-            return menuList;
-        }
-        if (Constant.ADMIN_ID.equals(userId)) {
-            menuList = this.menuMapper.selectList(null);
-        } else {
-            menuList = this.menuMapper.findMenusByUserId(userId);
-        }
-        return menuList;
     }
 }

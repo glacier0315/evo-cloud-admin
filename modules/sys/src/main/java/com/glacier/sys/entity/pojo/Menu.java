@@ -1,6 +1,5 @@
 package com.glacier.sys.entity.pojo;
 
-import com.baomidou.mybatisplus.annotation.TableName;
 import com.glacier.common.core.entity.pojo.BasePojo;
 import lombok.*;
 
@@ -19,7 +18,6 @@ import java.util.List;
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper=false)
 @Builder
-@TableName(excludeProperty = {"level", "children", "parentName"})
 public class Menu extends BasePojo {
 
     private static final long serialVersionUID = 1207728347319595982L;
@@ -28,29 +26,39 @@ public class Menu extends BasePojo {
      */
     private String name;
     /**
-     * 端点路径
+     * 布局
      */
-    private String url;
+    private String layout;
     /**
-     * 权限
+     * 端点相对路径
      */
-    private String perms;
+    private String path;
+    /**
+     * 组件
+     */
+    private String component;
+    /**
+     * 图标
+     */
+    private String icon;
+    /**
+     * 权限标识
+     */
+    private String permission;
     /**
      * 1 目录  2 端点  3 权限标识
      */
     private Integer type;
     /**
-     * 端点打开方式  默认 1 正常  2 iframe  3 新窗口
+     * 1 显示  2 隐藏
      */
-    private Integer open;
+    private Integer visible;
+
     /**
-     * 1 正常  2 隐藏
+     * 是否外链 1 是  2 否
      */
-    private Integer status;
-    /**
-     * 图标
-     */
-    private String icon;
+    private Integer isFrame;
+
     /**
      * 父级id 顶级id默认为0
      */
@@ -64,16 +72,7 @@ public class Menu extends BasePojo {
      */
     private String delFlag;
 
-    /**
-     * 层级
-     */
+    //
     private Integer level;
-    /**
-     * 下级单位
-     */
     private List<Menu> children;
-    /**
-     * 父级名称
-     */
-    private String parentName;
 }

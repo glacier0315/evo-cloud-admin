@@ -69,7 +69,7 @@ public class MenuController {
     public HttpResult<List<Menu>> findNavTree() {
         String userId = SecurityUtils.geUserId();
         log.debug("userId: {}", userId);
-        List<Menu> tree = this.menuService.findTree(userId);
+        List<Menu> tree = this.menuService.findMenuTreeByUserId(userId);
         return HttpResult.ok(tree);
     }
 
@@ -82,7 +82,7 @@ public class MenuController {
     public HttpResult<Set<String>> findPermissions() {
         String userId = SecurityUtils.geUserId();
         log.debug("userId: {}", userId);
-        return HttpResult.ok(this.menuService.findPermissions(userId));
+        return HttpResult.ok(this.menuService.findPermissionsByUserId(userId));
     }
 
     /**

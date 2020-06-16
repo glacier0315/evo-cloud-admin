@@ -26,10 +26,6 @@ public class Menu extends BasePojo {
      */
     private String name;
     /**
-     * 布局
-     */
-    private String layout;
-    /**
      * 端点相对路径
      */
     private String path;
@@ -72,7 +68,9 @@ public class Menu extends BasePojo {
      */
     private String delFlag;
 
-    //
+    /**
+     *
+     */
     private Integer level;
     private List<Menu> children;
 }

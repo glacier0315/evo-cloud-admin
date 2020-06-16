@@ -19,4 +19,17 @@ public interface Constant {
     public static final int SEX_MAN = 1;
     public static final int SEX_WO_MAN = 2;
     public static final int SEX_UNKNOW = 3;
+
+    /**
+     * 目录
+     */
+    public static final int MENU_DICTORY = 1;
+    /**
+     * 端点
+     */
+    public static final int MENU_ENDPOINT = 2;
+    /**
+     * 权限
+     */
+    public static final int MENU_PERMISSION = 3;
 }

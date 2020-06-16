@@ -2,7 +2,6 @@ package com.glacier.sys.service;
 
 import com.glacier.common.core.entity.form.IdForm;
 import com.glacier.sys.entity.pojo.Menu;
-import com.glacier.sys.entity.vo.RouterVo;
 
 import java.util.List;
 import java.util.Set;
@@ -22,13 +21,21 @@ public interface MenuService {
      */
     List<Menu> findMenusByRoleId(String roleId);
 
+
     /**
-     * 根据用户ID查找菜单
+     * 查找菜单树
+     *
+     * @return
+     */
+    List<Menu> findMenuTree();
+
+    /**
+     * 根据用户ID查找菜单树
      *
      * @param userId
      * @return
      */
-    List<Menu> findMenusByUserId(String userId);
+    List<Menu> findMenuTreeByUserId(String userId);
 
     /**
      * 根据用户ID查找权限
@@ -53,11 +60,4 @@ public interface MenuService {
      * @return
      */
     int batchDelete(List<IdForm> idForms);
-
-    /**
-     * 将菜单转为路由
-     * @param menus
-     * @return
-     */
-    List<RouterVo> buildRouters(List<Menu> menus);
 }

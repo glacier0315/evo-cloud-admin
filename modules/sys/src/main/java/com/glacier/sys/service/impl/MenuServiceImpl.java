@@ -3,16 +3,19 @@ package com.glacier.sys.service.impl;
 import com.glacier.common.core.entity.form.IdForm;
 import com.glacier.sys.common.Constant;
 import com.glacier.sys.entity.pojo.Menu;
-import com.glacier.sys.entity.vo.RouterVo;
 import com.glacier.sys.mapper.MenuMapper;
 import com.glacier.sys.service.MenuService;
+import com.glacier.sys.utils.MenuBuildFactory;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -78,6 +81,12 @@ public class MenuServiceImpl implements MenuService {
         return this.menuMapper.findMenusByRoleId(roleId);
     }
 
+    @Override
+    public List<Menu> findMenuTree() {
+        List<Menu> menuList = this.menuMapper.selectList(null);
+        return MenuBuildFactory.buildMenuTree(menuList);
+    }
+
     /**
      * 根据用户id 查询菜单树
      *
@@ -85,7 +94,7 @@ public class MenuServiceImpl implements MenuService {
      * @return
      */
     @Override
-    public List<Menu> findMenusByUserId(String userId) {
+    public List<Menu> findMenuTreeByUserId(String userId) {
         List<Menu> menuList = new ArrayList<>(1);
         if (userId == null || userId.isEmpty()) {
             return menuList;
@@ -95,10 +104,7 @@ public class MenuServiceImpl implements MenuService {
         } else {
             menuList = this.menuMapper.findMenusByUserId(userId);
         }
-        if (menuList == null) {
-            menuList = new ArrayList<>(1);
-        }
-        return menuList;
+        return MenuBuildFactory.buildMenuTree(menuList);
     }
 
     /**
@@ -124,86 +130,5 @@ public class MenuServiceImpl implements MenuService {
         return permissions;
     }
 
-    /**
-     * 组装路由
-     * @param menus
-     * @return
-     */
-    @Override
-    public List<RouterVo> buildRouters(List<Menu> menus) {
-        List<RouterVo> routerVos = new ArrayList<>(1);
-        if (menus != null && !menus.isEmpty()) {
 
-        }
-        return routerVos;
-    }
-
-    /**
-     * 组装菜单树
-     *
-     * @param menus
-     * @return
-     */
-    private List<Menu> findMenuTree(List<Menu> menus, boolean isContainButton) {
-        List<Menu> menuList = new ArrayList<>(10);
-        //
-        if (menus != null && !menus.isEmpty()) {
-            Iterator<Menu> iterator = menus.iterator();
-            while (iterator.hasNext()) {
-                Menu menu = iterator.next();
-                if (menu.getParentId() == null || "".equals(menu.getParentId().trim())
-                        || "0".equals(menu.getParentId())) {
-                    menuList.add(menu);
-                    // 删除
-                    iterator.remove();
-                }
-            }
-        }
-        // 排序
-        menuList.sort(Comparator.comparingInt(Menu::getOrderNum));
-        // 组装子类菜单
-        this.findChildren(menuList, menus, isContainButton);
-        return menuList;
-    }
-
-    /**
-     * 递归组装菜单
-     *
-     * @param menuList 当前父级菜单
-     * @param menus    待查询菜单
-     */
-    private void findChildren(List<Menu> menuList, List<Menu> menus, boolean isContainButton) {
-        // 为空则返回
-        if (menuList == null || menuList.isEmpty() || menus == null || menus.isEmpty()) {
-            return;
-        }
-        for (Menu parent : menuList) {
-            // 非目录 则跳过
-            if (!isContainButton && parent.getType() != 1) {
-                continue;
-            }
-            List<Menu> children = new ArrayList<>(10);
-            Iterator<Menu> iterator = menus.iterator();
-            while (iterator.hasNext()) {
-                Menu menu = iterator.next();
-                if (!isContainButton && menu.getType() == 3) {
-                    // 如果是获取菜单类型是按钮的，直接过滤掉
-                    iterator.remove();
-                    continue;
-                }
-                if (parent.getId() != null && parent.getId().equals(menu.getParentId())) {
-                    // 处理层级
-                    if (parent.getLevel() == null) {
-                        parent.setLevel(0);
-                    }
-                    menu.setLevel(parent.getLevel() + 1);
-                    children.add(menu);
-                    iterator.remove();
-                }
-            }
-            parent.setChildren(children);
-            children.sort(Comparator.comparingInt(Menu::getOrderNum));
-            this.findChildren(children, menus, isContainButton);
-        }
-    }
 }

@@ -3,7 +3,9 @@ package com.glacier.sys.controller;
 import com.glacier.common.core.entity.form.IdForm;
 import com.glacier.common.core.entity.vo.HttpResult;
 import com.glacier.sys.entity.pojo.Menu;
+import com.glacier.sys.entity.vo.RouterVo;
 import com.glacier.sys.service.MenuService;
+import com.glacier.sys.utils.MenuBuildFactory;
 import com.glacier.sys.utils.SecurityUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,6 +17,7 @@ import java.util.Set;
 
 /**
  * 菜单控制层
+ *
  * @author glacier
  * @version 1.0
  * @date 2019-10-09 15:59
@@ -73,17 +76,7 @@ public class MenuController {
         return HttpResult.ok(tree);
     }
 
-    /**
-     * 查询所有权限标识
-     *
-     * @return
-     */
-    @GetMapping(value = "/findPermissions")
-    public HttpResult<Set<String>> findPermissions() {
-        String userId = SecurityUtils.geUserId();
-        log.debug("userId: {}", userId);
-        return HttpResult.ok(this.menuService.findPermissionsByUserId(userId));
-    }
+
 
     /**
      * 查询所有菜单 树
@@ -94,5 +87,32 @@ public class MenuController {
     public HttpResult<List<Menu>> findRoleMenus(String roleId) {
         List<Menu> tree = this.menuService.findMenusByRoleId(roleId);
         return HttpResult.ok(tree);
+    }
+
+    /**
+     * 查询用户所有路由
+     *
+     * @return
+     */
+    @GetMapping(value = "/getRouters")
+    public HttpResult<List<RouterVo>> getRouters() {
+        String userId = SecurityUtils.geUserId();
+        log.debug("userId: {}", userId);
+        List<Menu> tree = this.menuService.findMenuTreeByUserId(userId);
+        return HttpResult.ok(
+                MenuBuildFactory.buildRouters(tree));
+    }
+
+    /**
+     * 查询所有权限标识
+     *
+     * @return
+     */
+    @GetMapping(value = "/getPermissions")
+    public HttpResult<Set<String>> getPermissions() {
+        String userId = SecurityUtils.geUserId();
+        log.debug("userId: {}", userId);
+        return HttpResult.ok(
+                this.menuService.findPermissionsByUserId(userId));
     }
 }

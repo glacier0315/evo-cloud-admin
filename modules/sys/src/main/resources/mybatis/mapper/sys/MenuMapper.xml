@@ -50,7 +50,7 @@
     </select>
 
     <select id="findAllPermissions" resultType="String">
-        select a.perms
+        select a.permission
         from sys_menu a
         <where>
             a.del_flag='0'

@@ -1,5 +1,6 @@
 package com.glacier.sys.entity.pojo;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.glacier.common.core.entity.pojo.BasePojo;
 import lombok.*;
 
@@ -18,6 +19,7 @@ import java.util.List;
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper=false)
 @Builder
+@TableName(excludeProperty = {"level", "children"})
 public class Menu extends BasePojo {
 
     private static final long serialVersionUID = 1207728347319595982L;

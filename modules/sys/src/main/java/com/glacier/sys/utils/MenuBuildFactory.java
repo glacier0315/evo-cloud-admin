@@ -38,6 +38,7 @@ public class MenuBuildFactory {
 
                 RouterVo routerVo = new RouterVo();
                 routerVo.setName(menu.getName());
+                routerVo.setPath(menu.getPath());
                 routerVo.setComponent(StringUtils.isEmpty(menu.getComponent()) ? "Layout" : menu.getComponent());
                 routerVo.setMeta(MetaVo.builder()
                         .icon(menu.getIcon())

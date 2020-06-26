@@ -20,11 +20,11 @@ CREATE TABLE oauth_client_details  (
 -- ----------------------------
 -- Records of oauth_client_details
 -- ----------------------------
-INSERT INTO oauth_client_details VALUES ('app', 'rid', '$2a$10$GOzKSM9MR0OQMl32hiYp9uNUxnfk4u1dSnHwKrcWnNiJyn.5apB1G', 'all', 'authorization_code,refresh_token,password', 'https://www.getpostman.com/oauth2/callback', NULL, 3600, 3600, NULL, '1');
-INSERT INTO oauth_client_details VALUES ('auth-client', NULL, '$2a$10$oK1FopDCVsaG76.p8YFRcuuSbqsKbayv9v7NlViAjJaK3HlU1LT16', 'all', 'authorization_code,client_credentials,refresh_token,password', 'http://192.168.10.1:8530/login/oauth2/code/uas', NULL, 3600, 3600, NULL, '1');
-INSERT INTO oauth_client_details VALUES ('eboot-sys', NULL, '$2a$10$pq1Jjw6cM.Rj3ZZhBOhvMOTEiTxWOuizkXn7RDbb9r2ik1isBK20S', 'all', 'authorization_code,client_credentials,refresh_token,password', 'http://localhost:8081/login/oauth2/code/uas', NULL, 3600, 36000, NULL, '1');
-INSERT INTO oauth_client_details VALUES ('order-client', NULL, '$2a$10$q7R4ap1/Qi3sXp9VKOKpzORD4DWAA2ol9lgg1XsO37cI5TIONTPhK', 'all', 'authorization_code,refresh_token,password', 'http://192.168.10.1:8530', NULL, 3600, 36000, NULL, '1');
-INSERT INTO oauth_client_details VALUES ('user-client', NULL, '$2a$10$v6.UycDNQSzZtvV9jjWQo.JTepd4d4j2fVxSK8Qyj7QVQqMrp8wWu', 'all', 'authorization_code,refresh_token,password', 'http://192.168.10.1:8530', NULL, 3600, 36000, NULL, '1');
+INSERT INTO oauth_client_details (client_id, resource_ids, client_secret, scope, authorized_grant_types, web_server_redirect_uri, authorities, access_token_validity, refresh_token_validity, additional_information, autoapprove) VALUES ('app', 'rid', '$2a$10$GOzKSM9MR0OQMl32hiYp9uNUxnfk4u1dSnHwKrcWnNiJyn.5apB1G', 'all', 'authorization_code,refresh_token,password', 'https://www.getpostman.com/oauth2/callback', null, 3600, 3600, null, '1');
+INSERT INTO oauth_client_details (client_id, resource_ids, client_secret, scope, authorized_grant_types, web_server_redirect_uri, authorities, access_token_validity, refresh_token_validity, additional_information, autoapprove) VALUES ('auth-client', null, '$2a$10$oK1FopDCVsaG76.p8YFRcuuSbqsKbayv9v7NlViAjJaK3HlU1LT16', 'all', 'authorization_code,client_credentials,refresh_token,password', 'http://192.168.10.1:8530/login/oauth2/code/uas', null, 3600, 3600, null, '1');
+INSERT INTO oauth_client_details (client_id, resource_ids, client_secret, scope, authorized_grant_types, web_server_redirect_uri, authorities, access_token_validity, refresh_token_validity, additional_information, autoapprove) VALUES ('eboot-sys', null, '$2a$10$pq1Jjw6cM.Rj3ZZhBOhvMOTEiTxWOuizkXn7RDbb9r2ik1isBK20S', 'all', 'authorization_code,client_credentials,refresh_token,password', 'http://localhost:8081/login/oauth2/code/uas', null, 3600, 36000, null, '1');
+INSERT INTO oauth_client_details (client_id, resource_ids, client_secret, scope, authorized_grant_types, web_server_redirect_uri, authorities, access_token_validity, refresh_token_validity, additional_information, autoapprove) VALUES ('order-client', null, '$2a$10$q7R4ap1/Qi3sXp9VKOKpzORD4DWAA2ol9lgg1XsO37cI5TIONTPhK', 'all', 'authorization_code,refresh_token,password', 'http://192.168.10.1:8530', null, 3600, 36000, null, '1');
+INSERT INTO oauth_client_details (client_id, resource_ids, client_secret, scope, authorized_grant_types, web_server_redirect_uri, authorities, access_token_validity, refresh_token_validity, additional_information, autoapprove) VALUES ('user-client', null, '$2a$10$v6.UycDNQSzZtvV9jjWQo.JTepd4d4j2fVxSK8Qyj7QVQqMrp8wWu', 'all', 'authorization_code,refresh_token,password', 'http://192.168.10.1:8530', null, 3600, 36000, null, '1');
 
 -- ----------------------------
 -- Table structure for oauth_code
@@ -68,8 +68,8 @@ CREATE TABLE sys_user  (
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
-INSERT INTO sys_user VALUES ('1', 'admin', '$2a$10$RCvUyaqalDebEuYPVSOqCOlpRBO9hfslhp4SEN1dK/kJcc0FYY0aW', '', NULL, '11111111111111111111', NULL, NULL, '14151', '1414', '4c963d38ae25416ea3c1f141656b8f78', '1', NULL, '2019-11-07 17:01:42', NULL, NULL, '0');
-INSERT INTO sys_user VALUES ('c35d5b94aca547799fbe56ddd90bcfc4', 'ceshi', '$2a$10$RP6MGP8lFqKhh0.2/SroKepKV25y8u2XSjvD8dzRXBzwAZGZYSYl.', '', NULL, NULL, NULL, NULL, '14151', '1414', '4c963d38ae25416ea3c1f141656b8f78', '1', NULL, NULL, NULL, NULL, '0');
+INSERT INTO sys_user (id, username, password, nickname, salt, id_card, birthday, sex, email, mobile, dept_id, status, create_by, create_date, update_by, update_date, del_flag) VALUES ('1', 'admin', '$2a$10$RCvUyaqalDebEuYPVSOqCOlpRBO9hfslhp4SEN1dK/kJcc0FYY0aW', '', null, '11111111111111111111', null, null, '14151', '1414', '4c963d38ae25416ea3c1f141656b8f78', '1', null, '2019-11-07 17:01:42', null, '2020-06-25 07:45:59', '0');
+INSERT INTO sys_user (id, username, password, nickname, salt, id_card, birthday, sex, email, mobile, dept_id, status, create_by, create_date, update_by, update_date, del_flag) VALUES ('c35d5b94aca547799fbe56ddd90bcfc4', 'ceshi', '$2a$10$RP6MGP8lFqKhh0.2/SroKepKV25y8u2XSjvD8dzRXBzwAZGZYSYl.', '', null, null, null, null, '14151', '1414', '4c963d38ae25416ea3c1f141656b8f78', '1', null, '2020-06-25 07:45:59', null, '2020-06-25 07:45:59', '0');
 
 -- ----------------------------
 -- Table structure for sys_menu
@@ -100,10 +100,10 @@ CREATE TABLE sys_menu  (
 -- ----------------------------
 -- Records of sys_menu
 -- ----------------------------
-INSERT INTO sys_menu VALUES ('1', 'permission', '/permission', 'Layout', 'lock', 1, 1, 2, NULL, NULL, 1, NULL, NULL, NULL, NULL, '0');
-INSERT INTO sys_menu VALUES ('2', 'PagePermission', '/permission/page', 'permission/page', NULL, 2, 1, 2, NULL, '1', 2, NULL, NULL, NULL, NULL, '0');
-INSERT INTO sys_menu VALUES ('3', 'directive', '/permission/directive', 'permission/directive', NULL, 2, 1, 2, NULL, '1', 3, NULL, NULL, NULL, NULL, '0');
-INSERT INTO sys_menu VALUES ('4', 'role', '/permission/role', 'permission/role', NULL, 2, 1, 2, NULL, '1', 4, NULL, NULL, NULL, NULL, '0');
+INSERT INTO sys_menu (id, name, path, component, icon, type, visible, is_frame, permission, parent_id, order_num, create_by, create_date, update_by, update_date, del_flag) VALUES ('1', 'permission', '/permission', 'Layout', 'lock', 1, 1, 2, null, null, 1, null, '2020-06-25 07:45:59', null, '2020-06-25 07:45:59', '0');
+INSERT INTO sys_menu (id, name, path, component, icon, type, visible, is_frame, permission, parent_id, order_num, create_by, create_date, update_by, update_date, del_flag) VALUES ('2', 'PagePermission', '/permission/page', 'permission/page', null, 2, 1, 2, null, '1', 2, null, '2020-06-25 07:45:59', null, '2020-06-25 07:45:59', '0');
+INSERT INTO sys_menu (id, name, path, component, icon, type, visible, is_frame, permission, parent_id, order_num, create_by, create_date, update_by, update_date, del_flag) VALUES ('3', 'directive', '/permission/directive', 'permission/directive', null, 2, 1, 2, null, '1', 3, null, '2020-06-25 07:45:59', null, '2020-06-25 07:45:59', '0');
+INSERT INTO sys_menu (id, name, path, component, icon, type, visible, is_frame, permission, parent_id, order_num, create_by, create_date, update_by, update_date, del_flag) VALUES ('4', 'role', '/permission/role', 'permission/role', null, 2, 1, 2, null, '1', 4, null, '2020-06-25 07:45:59', null, '2020-06-25 07:45:59', '0');
 
 -- ----------------------------
 -- Table structure for sys_role
@@ -128,13 +128,7 @@ CREATE TABLE sys_role  (
 -- ----------------------------
 -- Records of sys_role
 -- ----------------------------
-INSERT INTO sys_role VALUES ('036ad151bf814d4099d0cff1f9c16d2a', '普通用户', 'user', '1', NULL, NULL, NULL, NULL, NULL, '0');
-INSERT INTO sys_role VALUES ('0788f5ee529f4e28bac75a04af0fe78c', '普通用户5', 'user5', '1', NULL, NULL, NULL, NULL, NULL, '0');
-INSERT INTO sys_role VALUES ('5843d9a4b9d446749319d0f513f3c847', '普通用户3', 'user3', '1', NULL, NULL, NULL, NULL, NULL, '0');
-INSERT INTO sys_role VALUES ('63722bd9b1584911a6e5f61c507cb477', '用户2', 'user2', '2', NULL, NULL, NULL, NULL, NULL, '0');
-INSERT INTO sys_role VALUES ('7976b20a9dac472d93a7f658d92867d3', '超级管理员', 'admin', '1', NULL, NULL, NULL, NULL, NULL, '0');
-INSERT INTO sys_role VALUES ('c591f34ad5884280b2cf92fda053c6e6', '普通用户4', 'user4', '1', NULL, NULL, NULL, NULL, NULL, '0');
-INSERT INTO sys_role VALUES ('dd487df77aa843e4b2eb1e54a563a894', '普通用户2', 'user2', '1', NULL, NULL, NULL, NULL, NULL, '0');
+INSERT INTO sys_role (id, name, code, status, description, create_by, create_date, update_by, update_date, del_flag) VALUES ('1', '超级管理员', 'admin', '1', null, null, '2020-06-25 07:45:59', null, '2020-06-25 07:45:59', '0');
 
 -- ----------------------------
 -- Table structure for sys_role_dept
@@ -165,7 +159,10 @@ CREATE TABLE sys_role_menu  (
 -- ----------------------------
 -- Records of sys_role_menu
 -- ----------------------------
-
+INSERT INTO sys_role_menu (id, role_id, menu_id) VALUES ('1', '1', '1');
+INSERT INTO sys_role_menu (id, role_id, menu_id) VALUES ('2', '1', '2');
+INSERT INTO sys_role_menu (id, role_id, menu_id) VALUES ('3', '1', '3');
+INSERT INTO sys_role_menu (id, role_id, menu_id) VALUES ('4', '1', '4');
 
 -- ----------------------------
 -- Table structure for sys_user_role
@@ -183,7 +180,7 @@ CREATE TABLE sys_user_role  (
 -- ----------------------------
 -- Records of sys_user_role
 -- ----------------------------
-
+INSERT INTO sys_user_role (id, user_id, role_id) VALUES ('1', '1', '1');
 
 -- ----------------------------
 -- Table structure for sys_config
@@ -235,12 +232,12 @@ CREATE TABLE sys_dept  (
 -- ----------------------------
 -- Records of sys_dept
 -- ----------------------------
-INSERT INTO sys_dept VALUES ('21173617daf14ae68bfd3b5550ff7264', '测试3', 'cs3', 0, 0, 8, 2, 'b18e58a251d6415cb05dd77c2a0fb198', NULL, NULL, NULL, NULL, '0');
-INSERT INTO sys_dept VALUES ('4c963d38ae25416ea3c1f141656b8f78', '湖北英泽', 'hb001002', 0, 0, 2, 0, 'd018f06a3a194ac68a3d0f5677e4cfbe', NULL, NULL, NULL, NULL, '0');
-INSERT INTO sys_dept VALUES ('90e56a2a4e6a4add9a5b9a26fc212db2', '测试1', 'cs1', 0, 0, 3, 0, '0', NULL, NULL, NULL, NULL, '0');
-INSERT INTO sys_dept VALUES ('b18e58a251d6415cb05dd77c2a0fb198', '测试2', 'cs2', 0, 0, 2, 0, '90e56a2a4e6a4add9a5b9a26fc212db2', NULL, NULL, NULL, NULL, '0');
-INSERT INTO sys_dept VALUES ('ca06d9feadf143a7adb7977923e4e3cc', '湖北科尔', 'hb001001', 0, 0, 1, 0, 'd018f06a3a194ac68a3d0f5677e4cfbe', NULL, NULL, NULL, NULL, '0');
-INSERT INTO sys_dept VALUES ('d018f06a3a194ac68a3d0f5677e4cfbe', '湖北软件', 'hb001', 0, 0, 0, 0, '0', NULL, NULL, NULL, NULL, '0');
+INSERT INTO sys_dept (id, name, code, type, status, order_num, level, parent_id, create_by, create_date, update_by, update_date, del_flag) VALUES ('21173617daf14ae68bfd3b5550ff7264', '测试3', 'cs3', 0, 0, 8, 2, 'b18e58a251d6415cb05dd77c2a0fb198', null, '2020-06-25 07:45:59', null, '2020-06-25 07:45:59', '0');
+INSERT INTO sys_dept (id, name, code, type, status, order_num, level, parent_id, create_by, create_date, update_by, update_date, del_flag) VALUES ('4c963d38ae25416ea3c1f141656b8f78', '湖北英泽', 'hb001002', 0, 0, 2, 0, 'd018f06a3a194ac68a3d0f5677e4cfbe', null, '2020-06-25 07:45:59', null, '2020-06-25 07:45:59', '0');
+INSERT INTO sys_dept (id, name, code, type, status, order_num, level, parent_id, create_by, create_date, update_by, update_date, del_flag) VALUES ('90e56a2a4e6a4add9a5b9a26fc212db2', '测试1', 'cs1', 0, 0, 3, 0, '0', null, '2020-06-25 07:45:59', null, '2020-06-25 07:45:59', '0');
+INSERT INTO sys_dept (id, name, code, type, status, order_num, level, parent_id, create_by, create_date, update_by, update_date, del_flag) VALUES ('b18e58a251d6415cb05dd77c2a0fb198', '测试2', 'cs2', 0, 0, 2, 0, '90e56a2a4e6a4add9a5b9a26fc212db2', null, '2020-06-25 07:45:59', null, '2020-06-25 07:45:59', '0');
+INSERT INTO sys_dept (id, name, code, type, status, order_num, level, parent_id, create_by, create_date, update_by, update_date, del_flag) VALUES ('ca06d9feadf143a7adb7977923e4e3cc', '湖北科尔', 'hb001001', 0, 0, 1, 0, 'd018f06a3a194ac68a3d0f5677e4cfbe', null, '2020-06-25 07:45:59', null, '2020-06-25 07:45:59', '0');
+INSERT INTO sys_dept (id, name, code, type, status, order_num, level, parent_id, create_by, create_date, update_by, update_date, del_flag) VALUES ('d018f06a3a194ac68a3d0f5677e4cfbe', '湖北软件', 'hb001', 0, 0, 0, 0, '0', null, '2020-06-25 07:45:59', null, '2020-06-25 07:45:59', '0');
 
 -- ----------------------------
 -- Table structure for sys_dict
@@ -269,16 +266,17 @@ CREATE TABLE sys_dict  (
 -- ----------------------------
 -- Records of sys_dict
 -- ----------------------------
-INSERT INTO sys_dict VALUES ('023d32e793844de1803407e4dea29ded', 'man', '男', 'sex', '9f4bb4c5e1ea409bb05e8a7668c2da5b', '', 0, '', NULL, NULL, NULL, NULL, '0');
-INSERT INTO sys_dict VALUES ('0e1a286107ca4519b3ec43b4a511b49d', 'cs', '测试', 'cs', '0', 'cs', 1, 'cs', NULL, NULL, NULL, NULL, '1');
-INSERT INTO sys_dict VALUES ('1f92faf87c6843b19938e156973a9f69', 'cs1', '测试2', 'cs1', '0', 'cs1', 2, 'cs1', NULL, NULL, NULL, NULL, '0');
-INSERT INTO sys_dict VALUES ('6a804fa0642a4e3aa660f21fc443c17f', 'female', '女', 'sex', '9f4bb4c5e1ea409bb05e8a7668c2da5b', 'af', 0, 'af', NULL, NULL, NULL, NULL, '0');
-INSERT INTO sys_dict VALUES ('83a28cb2a9574fa6969cb4740177d462', 'cs32', 'cs32', 'cs21', 'dfe403957ef14f6ea47b71c2e7c17fb8', 'cs32', 4, 'cs32', NULL, NULL, NULL, NULL, '0');
-INSERT INTO sys_dict VALUES ('9f4bb4c5e1ea409bb05e8a7668c2da5b', 'sex', '性别', 'sex', '0', '', 0, '', NULL, NULL, NULL, NULL, '0');
-INSERT INTO sys_dict VALUES ('a9087cc36b504136a9d5790f832eb1b5', '1', 'ce测试', 'cs', 'cebeca4d875b40e0a2f44c7e4843bc23', '擦', 1, 'ca ', NULL, NULL, NULL, NULL, '1');
-INSERT INTO sys_dict VALUES ('acac16f2a6854de489ee72eb839ef607', 'cs2', 'cs2', '1', 'a9087cc36b504136a9d5790f832eb1b5', 'av', 0, 'va', NULL, NULL, NULL, NULL, '1');
-INSERT INTO sys_dict VALUES ('cebeca4d875b40e0a2f44c7e4843bc23', 'cs', '测试', 'cs', '0', 'cs', 3, 'cs', NULL, NULL, NULL, NULL, '1');
-INSERT INTO sys_dict VALUES ('dfe403957ef14f6ea47b71c2e7c17fb8', 'cs21', 'cs21', 'cs1', '1f92faf87c6843b19938e156973a9f69', 'cs21', 2, 'cs21', NULL, NULL, NULL, NULL, '0');
+
+INSERT INTO sys_dict (id, code, name, type, parent_id, description, order_num, remarks, create_by, create_date, update_by, update_date, del_flag) VALUES ('023d32e793844de1803407e4dea29ded', 'man', '男', 'sex', '9f4bb4c5e1ea409bb05e8a7668c2da5b', '', 0, '', null, '2020-06-25 07:45:59', null, '2020-06-25 07:45:59', '0');
+INSERT INTO sys_dict (id, code, name, type, parent_id, description, order_num, remarks, create_by, create_date, update_by, update_date, del_flag) VALUES ('0e1a286107ca4519b3ec43b4a511b49d', 'cs', '测试', 'cs', '0', 'cs', 1, 'cs', null, '2020-06-25 07:45:59', null, '2020-06-25 07:45:59', '1');
+INSERT INTO sys_dict (id, code, name, type, parent_id, description, order_num, remarks, create_by, create_date, update_by, update_date, del_flag) VALUES ('1f92faf87c6843b19938e156973a9f69', 'cs1', '测试2', 'cs1', '0', 'cs1', 2, 'cs1', null, '2020-06-25 07:45:59', null, '2020-06-25 07:45:59', '0');
+INSERT INTO sys_dict (id, code, name, type, parent_id, description, order_num, remarks, create_by, create_date, update_by, update_date, del_flag) VALUES ('6a804fa0642a4e3aa660f21fc443c17f', 'female', '女', 'sex', '9f4bb4c5e1ea409bb05e8a7668c2da5b', 'af', 0, 'af', null, '2020-06-25 07:45:59', null, '2020-06-25 07:45:59', '0');
+INSERT INTO sys_dict (id, code, name, type, parent_id, description, order_num, remarks, create_by, create_date, update_by, update_date, del_flag) VALUES ('83a28cb2a9574fa6969cb4740177d462', 'cs32', 'cs32', 'cs21', 'dfe403957ef14f6ea47b71c2e7c17fb8', 'cs32', 4, 'cs32', null, '2020-06-25 07:45:59', null, '2020-06-25 07:45:59', '0');
+INSERT INTO sys_dict (id, code, name, type, parent_id, description, order_num, remarks, create_by, create_date, update_by, update_date, del_flag) VALUES ('9f4bb4c5e1ea409bb05e8a7668c2da5b', 'sex', '性别', 'sex', '0', '', 0, '', null, '2020-06-25 07:45:59', null, '2020-06-25 07:45:59', '0');
+INSERT INTO sys_dict (id, code, name, type, parent_id, description, order_num, remarks, create_by, create_date, update_by, update_date, del_flag) VALUES ('a9087cc36b504136a9d5790f832eb1b5', '1', 'ce测试', 'cs', 'cebeca4d875b40e0a2f44c7e4843bc23', '擦', 1, 'ca ', null, '2020-06-25 07:45:59', null, '2020-06-25 07:45:59', '1');
+INSERT INTO sys_dict (id, code, name, type, parent_id, description, order_num, remarks, create_by, create_date, update_by, update_date, del_flag) VALUES ('acac16f2a6854de489ee72eb839ef607', 'cs2', 'cs2', '1', 'a9087cc36b504136a9d5790f832eb1b5', 'av', 0, 'va', null, '2020-06-25 07:45:59', null, '2020-06-25 07:45:59', '1');
+INSERT INTO sys_dict (id, code, name, type, parent_id, description, order_num, remarks, create_by, create_date, update_by, update_date, del_flag) VALUES ('cebeca4d875b40e0a2f44c7e4843bc23', 'cs', '测试', 'cs', '0', 'cs', 3, 'cs', null, '2020-06-25 07:45:59', null, '2020-06-25 07:45:59', '1');
+INSERT INTO sys_dict (id, code, name, type, parent_id, description, order_num, remarks, create_by, create_date, update_by, update_date, del_flag) VALUES ('dfe403957ef14f6ea47b71c2e7c17fb8', 'cs21', 'cs21', 'cs1', '1f92faf87c6843b19938e156973a9f69', 'cs21', 2, 'cs21', null, '2020-06-25 07:45:59', null, '2020-06-25 07:45:59', '0');
 
 -- ----------------------------
 -- Table structure for sys_log

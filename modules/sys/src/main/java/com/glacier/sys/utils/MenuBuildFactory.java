@@ -42,7 +42,7 @@ public class MenuBuildFactory {
                 routerVo.setComponent(StringUtils.isEmpty(menu.getComponent()) ? "Layout" : menu.getComponent());
                 routerVo.setMeta(MetaVo.builder()
                         .icon(menu.getIcon())
-                        .title(menu.getName())
+                        .title(menu.getTitle())
                         .build());
 
                 // 处理子菜单

@@ -36,6 +36,10 @@ public class Menu extends BasePojo {
      */
     private String component;
     /**
+     * 标题 支持国际化
+     */
+    private String title;
+    /**
      * 图标
      */
     private String icon;

@@ -47,7 +47,7 @@ public class User extends BasePojo {
      */
     private Integer sex;
     /**
-     * 状态  1 正常  0 锁定
+     * 状态  1 正常  2 锁定
      */
     private String status;
     /**

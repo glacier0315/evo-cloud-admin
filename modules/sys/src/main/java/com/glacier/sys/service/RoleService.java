@@ -1,8 +1,9 @@
 package com.glacier.sys.service;
 
-import com.glacier.common.core.entity.form.IdForm;
 import com.glacier.common.core.entity.page.PageRequest;
 import com.glacier.common.core.entity.page.PageResponse;
+import com.glacier.sys.entity.form.RoleForm;
+import com.glacier.sys.entity.form.RoleQueryForm;
 import com.glacier.sys.entity.pojo.Role;
 
 import java.io.Serializable;
@@ -31,7 +32,7 @@ public interface RoleService {
      * @param pageRequest
      * @return
      */
-    PageResponse<Role> findPage(PageRequest<Role> pageRequest);
+    PageResponse<Role> findPage(PageRequest<RoleQueryForm> pageRequest);
 
     /**
      * 根绝用户id 查询用户所拥有的角色
@@ -59,25 +60,17 @@ public interface RoleService {
     /**
      * 保存操作
      *
-     * @param record
+     * @param roleForm
      * @return
      */
-    int save(Role record);
+    int save(RoleForm roleForm);
 
     /**
-     * 根据Id批量删除
+     * 根据Id删除
      *
-     * @param idForms
+     * @param id
      * @return
      */
-    int batchDelete(List<IdForm> idForms);
+    int delete(String id);
 
-    /**
-     * 保存角色 菜单关系
-     *
-     * @param roleId
-     * @param menuIds
-     * @return
-     */
-    int saveRoleMenu(String roleId, List<String> menuIds);
 }

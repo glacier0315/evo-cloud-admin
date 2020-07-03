@@ -1,5 +1,6 @@
 package com.glacier.sys.entity.form;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.ToString;
 
@@ -30,6 +31,7 @@ public class UserQueryForm implements Serializable {
     /**
      * 出生日期
      */
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date birthday;
     /**
      * 性别 1=男 2=女 其他=保密

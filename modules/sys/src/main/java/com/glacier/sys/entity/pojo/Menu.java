@@ -1,5 +1,6 @@
 package com.glacier.sys.entity.pojo;
 
+import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.glacier.common.core.entity.pojo.BasePojo;
 import lombok.*;
@@ -36,10 +37,6 @@ public class Menu extends BasePojo {
      */
     private String component;
     /**
-     * 标题 支持国际化
-     */
-    private String title;
-    /**
      * 图标
      */
     private String icon;
@@ -72,11 +69,15 @@ public class Menu extends BasePojo {
     /**
      * 删除标记
      */
+    @TableLogic
     private String delFlag;
 
     /**
      *
      */
     private Integer level;
+    /**
+     * 子级菜单
+     */
     private List<Menu> children;
 }

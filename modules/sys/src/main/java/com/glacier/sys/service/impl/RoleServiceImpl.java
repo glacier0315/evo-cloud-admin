@@ -3,9 +3,10 @@ package com.glacier.sys.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.glacier.common.core.entity.form.IdForm;
 import com.glacier.common.core.entity.page.PageRequest;
 import com.glacier.common.core.entity.page.PageResponse;
+import com.glacier.sys.entity.form.RoleForm;
+import com.glacier.sys.entity.form.RoleQueryForm;
 import com.glacier.sys.entity.pojo.Role;
 import com.glacier.sys.entity.pojo.RoleMenu;
 import com.glacier.sys.entity.pojo.UserRole;
@@ -15,13 +16,14 @@ import com.glacier.sys.mapper.UserRoleMapper;
 import com.glacier.sys.service.RoleService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * 角色业务类
@@ -35,7 +37,7 @@ import java.util.stream.Collectors;
 @Service("roleService")
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class RoleServiceImpl implements RoleService {
-
+    private final ModelMapper modelMapper;
     private final RoleMapper roleMapper;
     private final UserRoleMapper userRoleMapper;
     private final RoleMenuMapper roleMenuMapper;
@@ -68,16 +70,20 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public boolean checkCode(Role role) {
-        if (role != null && role.getCode() != null && role.getCode().trim().length() > 0) {
+        if (role != null && role.getCode() != null
+                && role.getCode().trim().length() > 0) {
             Role role1 = null;
             if (role.getId() != null && role.getId().trim().length() > 0) {
                 role1 = this.roleMapper.selectById(role.getId());
-                if (role1 != null && role1.getCode() != null && role1.getCode().equals(role.getCode())) {
+                if (role1 != null
+                        && role1.getCode() != null
+                        && role1.getCode().equals(role.getCode())) {
                     return false;
                 }
             }
-            List<Role> list = this.roleMapper.selectList(new QueryWrapper<>(role));
-            if (list != null && !list.isEmpty()) {
+            Integer count = this.roleMapper.selectCount(
+                    new QueryWrapper<>(role));
+            if (count != null && count > 0) {
                 return true;
             }
         }
@@ -85,16 +91,20 @@ public class RoleServiceImpl implements RoleService {
     }
 
     /**
-     * 这个方法中用到了开头配置依赖的分页插件pagehelper
-     * 很简单，只需要在service层传入参数，然后将参数传递给一个插件的一个静态方法即可；
      *
      * @param pageRequest
      * @return
      */
     @Override
-    public PageResponse<Role> findPage(PageRequest<Role> pageRequest) {
-        Page<Role> page = this.roleMapper.selectPage(new Page<>(pageRequest.getCurrent(), pageRequest.getSize()),
-                new QueryWrapper<>(pageRequest.getParams()));
+    public PageResponse<Role> findPage(PageRequest<RoleQueryForm> pageRequest) {
+        Page<Role> page = this.roleMapper.selectPage(
+                new Page<>(
+                        pageRequest.getCurrent(),
+                        pageRequest.getSize()),
+                new QueryWrapper<>(
+                        this.modelMapper.map(
+                                pageRequest.getParams(),
+                                Role.class)));
         return PageResponse.<Role>builder()
                 .current(page.getCurrent())
                 .size(page.getSize())
@@ -106,59 +116,72 @@ public class RoleServiceImpl implements RoleService {
     /**
      * 保存
      *
-     * @param record
+     * @param roleForm
      * @return
      */
     @Transactional(rollbackFor = {})
     @Override
-    public int save(Role record) {
+    public int save(RoleForm roleForm) {
+        Role role = this.modelMapper.map(roleForm, Role.class);
         int update = 0;
-        if (record.getId() != null && !record.getId().isEmpty()) {
-            update = this.roleMapper.updateById(record);
+        if (role.getId() != null && !role.getId().isEmpty()) {
+            update = this.roleMapper.updateById(role);
         } else {
-            update = this.roleMapper.insert(record);
+            update = this.roleMapper.insert(role);
         }
+        // 保存角色和菜单
+        this.saveRoleMenu(
+                role.getId(),
+                Arrays.asList(
+                        roleForm.getMenus()));
         return update;
     }
 
     /**
      * 根据id批量删除
      *
-     * @param idForms
+     * @param id
      * @return
      */
     @Transactional(rollbackFor = {})
     @Override
-    public int batchDelete(List<IdForm> idForms) {
+    public int delete(String id) {
         int unpdate = 0;
-        if (idForms != null && !idForms.isEmpty()) {
-            List<String> list = idForms.stream()
-                    .map(IdForm::getId)
-                    .collect(Collectors.toList());
-            unpdate = this.roleMapper.deleteBatchIds(list);
-            for (String roleId : list) {
-                // 删除用户角色关系
-                this.deleteUserRoleByRoleId(roleId);
-                // 删除角色资源关系
-                this.deleteRoleMenuByRoleId(roleId);
-            }
+        if (id != null && !id.isEmpty()) {
+            unpdate = this.roleMapper.deleteById(id);
+            // 删除用户角色关系
+            this.deleteUserRoleByRoleId(id);
+            // 删除角色资源关系
+            this.deleteRoleMenuByRoleId(id);
         }
         return unpdate;
     }
 
     /**
      * 保存角色菜单关系
-     *
+     * 1 先清空
+     * 2 保存
      * @param roleId
      * @param menuIds
      * @return
      */
-    @Override
-    public int saveRoleMenu(String roleId, List<String> menuIds) {
+    private int saveRoleMenu(String roleId, List<String> menuIds) {
         int update = 0;
-        if (roleId != null && !roleId.isEmpty() && menuIds != null && !menuIds.isEmpty()) {
+        // 清空原角色和菜单关系
+        this.roleMenuMapper.delete(
+                new UpdateWrapper<>(
+                        RoleMenu.builder()
+                                .roleId(roleId)
+                                .build()));
+        // 保存角色菜单关系
+        if (roleId != null && !roleId.isEmpty()
+                && menuIds != null && !menuIds.isEmpty()) {
             for (String menuId : menuIds) {
-                update += this.roleMenuMapper.insert(RoleMenu.builder().roleId(roleId).menuId(menuId).build());
+                update += this.roleMenuMapper.insert(
+                        RoleMenu.builder()
+                                .roleId(roleId)
+                                .menuId(menuId)
+                                .build());
             }
         }
         return update;
@@ -173,7 +196,11 @@ public class RoleServiceImpl implements RoleService {
     private int deleteUserRoleByRoleId(final String roleId) {
         int update = 0;
         if (roleId != null && !roleId.isEmpty()) {
-            update = this.userRoleMapper.delete(new UpdateWrapper<>(UserRole.builder().roleId(roleId).build()));
+            update = this.userRoleMapper.delete(
+                    new UpdateWrapper<>(
+                            UserRole.builder()
+                                    .roleId(roleId)
+                                    .build()));
         }
         return update;
     }
@@ -187,7 +214,11 @@ public class RoleServiceImpl implements RoleService {
     private int deleteRoleMenuByRoleId(final String roleId) {
         int update = 0;
         if (roleId != null && !roleId.isEmpty()) {
-            update = this.roleMenuMapper.delete(new UpdateWrapper<>(RoleMenu.builder().roleId(roleId).build()));
+            update = this.roleMenuMapper.delete(
+                    new UpdateWrapper<>(
+                            RoleMenu.builder()
+                                    .roleId(roleId)
+                                    .build()));
         }
         return update;
     }

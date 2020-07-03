@@ -38,4 +38,11 @@ public interface MenuMapper extends BaseMapper<Menu> {
      * @return
      */
     Set<String> findAllPermissions();
+
+    /**
+     * 根据角色id 查询角色所拥有的菜单id
+     * @param roleId
+     * @return
+     */
+    List<String> findByRole(@Param("roleId") String roleId);
 }

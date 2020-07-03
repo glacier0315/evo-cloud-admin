@@ -1,6 +1,5 @@
 package com.glacier.sys.service;
 
-import com.glacier.common.core.entity.form.IdForm;
 import com.glacier.common.core.entity.page.PageRequest;
 import com.glacier.common.core.entity.page.PageResponse;
 import com.glacier.sys.entity.form.UserAddForm;
@@ -10,8 +9,6 @@ import com.glacier.sys.entity.pojo.User;
 import com.glacier.sys.entity.vo.UserDetailsVo;
 import com.glacier.sys.entity.vo.UserInfo;
 import com.glacier.sys.entity.vo.UserListVo;
-
-import java.util.List;
 
 /**
  * 用户业务层
@@ -66,13 +63,13 @@ public interface UserService {
      * @param userAddForm
      * @return
      */
-    int save(UserAddForm userAddForm);
+    int add(UserAddForm userAddForm);
 
     /**
-     * 根据Id批量删除
+     * 根据Id删除
      *
-     * @param idForms
+     * @param id
      * @return
      */
-    int batchDelete(List<IdForm> idForms);
+    int delete(String id);
 }

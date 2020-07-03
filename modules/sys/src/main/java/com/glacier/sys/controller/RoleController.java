@@ -1,12 +1,10 @@
 package com.glacier.sys.controller;
 
-import com.glacier.common.core.entity.form.IdForm;
-import com.glacier.common.core.entity.form.One2ManyRelationForm;
 import com.glacier.common.core.entity.page.PageRequest;
 import com.glacier.common.core.entity.page.PageResponse;
 import com.glacier.common.core.entity.vo.HttpResult;
-import com.glacier.common.core.exception.SystemErrorType;
-import com.glacier.sys.common.Constant;
+import com.glacier.sys.entity.form.RoleForm;
+import com.glacier.sys.entity.form.RoleQueryForm;
 import com.glacier.sys.entity.pojo.Role;
 import com.glacier.sys.service.RoleService;
 import lombok.RequiredArgsConstructor;
@@ -36,7 +34,8 @@ public class RoleController {
      */
     @GetMapping("/findAll")
     public HttpResult<List<Role>> findAll() {
-        return HttpResult.ok(this.roleService.findAllList());
+        return HttpResult.ok(
+                this.roleService.findAllList());
     }
 
     /**
@@ -45,31 +44,49 @@ public class RoleController {
      * @param pageRequest
      * @return
      */
-    @PostMapping("/findPage")
-    public HttpResult<PageResponse<Role>> findPage(@RequestBody PageRequest<Role> pageRequest) {
-        return HttpResult.ok(this.roleService.findPage(pageRequest));
+    @PostMapping("/pageList")
+    public HttpResult<PageResponse<Role>> findPage(
+            @RequestBody PageRequest<RoleQueryForm> pageRequest) {
+        return HttpResult.ok(
+                this.roleService.findPage(pageRequest));
     }
 
     /**
-     * 保存角色
+     * 新增角色
      *
-     * @param role
+     * @param roleForm
      * @return
      */
-    @PostMapping("/save")
-    public HttpResult<Integer> save(@RequestBody Role role) {
-        return HttpResult.ok(this.roleService.save(role));
+    @PostMapping("/add")
+    public HttpResult<Integer> add(
+            @RequestBody RoleForm roleForm) {
+        return HttpResult.ok(
+                this.roleService.save(roleForm));
+    }
+
+    /**
+     * 更新角色
+     *
+     * @param roleForm
+     * @return
+     */
+    @PutMapping("/update")
+    public HttpResult<Integer> update(
+            @RequestBody RoleForm roleForm) {
+        return HttpResult.ok(
+                this.roleService.save(roleForm));
     }
 
     /**
      * 删除指定角色
      *
-     * @param idForms
+     * @param id
      * @return
      */
-    @PostMapping("/delete")
-    public HttpResult<Integer> delete(@RequestBody List<IdForm> idForms) {
-        return HttpResult.ok(this.roleService.batchDelete(idForms));
+    @DeleteMapping("/delete")
+    public HttpResult<Integer> delete(String id) {
+        return HttpResult.ok(
+                this.roleService.delete(id));
     }
 
     /**
@@ -79,7 +96,8 @@ public class RoleController {
      * @return
      */
     @PostMapping("/checkCode")
-    public HttpResult<String> checkCode(@RequestBody Role role) {
+    public HttpResult<String> checkCode(
+            @RequestBody Role role) {
         HttpResult<String> httpResult = HttpResult.ok();
         httpResult.setData(String.valueOf(this.roleService.checkCode(role)));
         return httpResult;
@@ -94,27 +112,5 @@ public class RoleController {
     @GetMapping("/findByUserId")
     public HttpResult<List<Role>> findByUserId(String userId) {
         return HttpResult.ok(this.roleService.findByUserId(userId));
-    }
-
-    /**
-     * 保存角色菜单
-     *
-     * @param one2ManyRelationForm
-     * @return
-     */
-    @PostMapping("/saveRoleMenus")
-    public HttpResult<Integer> saveRoleMenus(@RequestBody One2ManyRelationForm one2ManyRelationForm) {
-        assert one2ManyRelationForm != null;
-        if (one2ManyRelationForm.getPid() != null
-                && one2ManyRelationForm.getPid().trim().length() > 0) {
-            // 判断超级管理员
-            Role role = this.roleService.findById(one2ManyRelationForm.getPid());
-            if (Constant.ADMIN.equals(role.getCode())) {
-                // 如果是超级管理员，不允许修改
-                // todo 如果是超级管理员，不允许修改
-                return HttpResult.error(SystemErrorType.SYSTEM_ERROR);
-            }
-        }
-        return HttpResult.ok(this.roleService.saveRoleMenu(one2ManyRelationForm.getPid(), one2ManyRelationForm.getIds()));
     }
 }

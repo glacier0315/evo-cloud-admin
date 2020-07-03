@@ -35,7 +35,7 @@ public class MenuController {
      *
      * @return
      */
-    @PostMapping("/list")
+    @GetMapping("/list")
     public HttpResult<List<Menu>> list() {
         return HttpResult.ok(
                 this.menuService.findAllList());
@@ -48,7 +48,8 @@ public class MenuController {
      * @return
      */
     @PostMapping("/add")
-    public HttpResult<Integer> add(@RequestBody MenuForm menuForm) {
+    public HttpResult<Integer> add(
+            @RequestBody MenuForm menuForm) {
         return HttpResult.ok(
                 this.menuService.save(menuForm));
     }
@@ -60,7 +61,8 @@ public class MenuController {
      * @return
      */
     @PutMapping("/update")
-    public HttpResult<Integer> update(@RequestBody MenuForm menuForm) {
+    public HttpResult<Integer> update(
+            @RequestBody MenuForm menuForm) {
         return HttpResult.ok(
                 this.menuService.save(menuForm));
     }
@@ -78,6 +80,17 @@ public class MenuController {
     }
 
     /**
+     * 查询角色具有的菜单
+     *
+     * @return
+     */
+    @GetMapping("/findByRole")
+    public HttpResult<List<String>> findByRole(String roleId) {
+        return HttpResult.ok(
+                this.menuService.findByRole(roleId));
+    }
+
+    /**
      * 查询用户所有路由
      *
      * @return
@@ -86,9 +99,9 @@ public class MenuController {
     public HttpResult<List<RouterVo>> getRouters() {
         String userId = SecurityUtils.geUserId();
         log.debug("userId: {}", userId);
-        List<Menu> tree = this.menuService.findMenuTreeByUserId(userId);
         return HttpResult.ok(
-                MenuBuildFactory.buildRouters(tree));
+                MenuBuildFactory.buildRouters(
+                        this.menuService.findMenuTreeByUserId(userId)));
     }
 
     /**

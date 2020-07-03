@@ -3,7 +3,6 @@ package com.glacier.sys.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.glacier.common.core.entity.form.IdForm;
 import com.glacier.common.core.entity.page.PageRequest;
 import com.glacier.common.core.entity.page.PageResponse;
 import com.glacier.sys.entity.form.UserAddForm;
@@ -123,6 +122,7 @@ public class UserServiceImpl implements UserService {
                 .build();
     }
 
+    @Transactional(rollbackFor = {})
     @Override
     public int update(UserUpdateForm userUpdateForm) {
         int update = 0;
@@ -130,7 +130,7 @@ public class UserServiceImpl implements UserService {
                 && userUpdateForm.getId() != null
                 && !userUpdateForm.getId().isEmpty()) {
             // 对原始密码加密
-            if (userUpdateForm.getPassword() != null 
+            if (userUpdateForm.getPassword() != null
                     && !userUpdateForm.getPassword().isEmpty()) {
                 // 加密密码
                 userUpdateForm.setPassword(
@@ -152,7 +152,7 @@ public class UserServiceImpl implements UserService {
      */
     @Transactional(rollbackFor = {})
     @Override
-    public int save(UserAddForm userAddForm) {
+    public int add(UserAddForm userAddForm) {
         int update = 0;
         if (userAddForm != null) {
             User user = this.modelMapper.map(userAddForm, User.class);
@@ -170,24 +170,19 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     * 根据id批量删除
+     * 根据id删除
      *
-     * @param idForms
+     * @param id
      * @return
      */
     @Transactional(rollbackFor = {})
     @Override
-    public int batchDelete(List<IdForm> idForms) {
+    public int delete(String id) {
         int update = 0;
-        if (idForms != null && !idForms.isEmpty()) {
-            List<String> list = idForms.stream()
-                    .map(IdForm::getId)
-                    .collect(Collectors.toList());
-            update = this.userMapper.deleteBatchIds(list);
+        if (id != null && !id.isEmpty()) {
+            update = this.userMapper.deleteById(id);
             // 删除用户角色关系
-            for (String userId : list) {
-                this.deleteUserRoleByUserId(userId);
-            }
+            this.deleteUserRoleByUserId(id);
         }
         return update;
     }

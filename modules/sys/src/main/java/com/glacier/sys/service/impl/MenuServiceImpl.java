@@ -73,6 +73,11 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
+    public List<String> findByRole(String roleId) {
+        return this.menuMapper.findByRole(roleId);
+    }
+
+    @Override
     public List<Menu> findAllList() {
         return this.menuMapper.selectList(null);
     }

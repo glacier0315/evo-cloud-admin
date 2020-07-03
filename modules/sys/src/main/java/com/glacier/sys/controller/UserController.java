@@ -1,6 +1,5 @@
 package com.glacier.sys.controller;
 
-import com.glacier.common.core.entity.form.IdForm;
 import com.glacier.common.core.entity.page.PageRequest;
 import com.glacier.common.core.entity.page.PageResponse;
 import com.glacier.common.core.entity.vo.HttpResult;
@@ -14,8 +13,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 /**
  * 用户管理
@@ -38,8 +35,10 @@ public class UserController {
      * @return
      */
     @GetMapping(value = "/{username}")
-    public HttpResult<UserDetailsVo> findByUsername(@PathVariable("username") String username) {
-        return HttpResult.ok(this.userService.loadUserByUsername(username));
+    public HttpResult<UserDetailsVo> findByUsername(
+            @PathVariable("username") String username) {
+        return HttpResult.ok(
+                this.userService.loadUserByUsername(username));
     }
 
     /**
@@ -48,9 +47,11 @@ public class UserController {
      * @param pageRequest
      * @return
      */
-    @PostMapping("/list")
-    public HttpResult<PageResponse<UserListVo>> findPage(@RequestBody PageRequest<UserQueryForm> pageRequest) {
-        return HttpResult.ok(this.userService.findPage(pageRequest));
+    @PostMapping("/pageList")
+    public HttpResult<PageResponse<UserListVo>> findPage(
+            @RequestBody PageRequest<UserQueryForm> pageRequest) {
+        return HttpResult.ok(
+                this.userService.findPage(pageRequest));
     }
 
     /**
@@ -60,8 +61,10 @@ public class UserController {
      * @return
      */
     @PostMapping("/add")
-    public HttpResult<Integer> add(@RequestBody UserAddForm userAddForm) {
-        return HttpResult.ok(this.userService.save(userAddForm));
+    public HttpResult<Integer> add(
+            @RequestBody UserAddForm userAddForm) {
+        return HttpResult.ok(
+                this.userService.add(userAddForm));
     }
 
     /**
@@ -70,19 +73,22 @@ public class UserController {
      * @param userUpdateForm
      * @return
      */
-    @PostMapping("/update")
-    public HttpResult<Integer> update(@RequestBody UserUpdateForm userUpdateForm) {
-        return HttpResult.ok(this.userService.update(userUpdateForm));
+    @PutMapping("/update")
+    public HttpResult<Integer> update(
+            @RequestBody UserUpdateForm userUpdateForm) {
+        return HttpResult.ok(
+                this.userService.update(userUpdateForm));
     }
 
     /**
      * 删除指定用户
      *
-     * @param idForms
+     * @param id
      * @return
      */
-    @PostMapping("/delete")
-    public HttpResult<Integer> delete(@RequestBody List<IdForm> idForms) {
-        return HttpResult.ok(this.userService.batchDelete(idForms));
+    @DeleteMapping("/delete")
+    public HttpResult<Integer> delete(String id) {
+        return HttpResult.ok(
+                this.userService.delete(id));
     }
 }

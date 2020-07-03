@@ -1,7 +1,10 @@
 package com.glacier.sys.entity.pojo;
 
-import com.glacier.common.core.entity.pojo.BasePojo;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.*;
+
+import java.io.Serializable;
 
 /**
  * 角色菜单关联表
@@ -14,11 +17,15 @@ import lombok.*;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(callSuper=false)
 @Builder
-public class RoleMenu extends BasePojo {
+public class RoleMenu implements Serializable {
 
     private static final long serialVersionUID = -234428421997899712L;
+    /**
+     * 主键
+     */
+    @TableId(type = IdType.ASSIGN_UUID)
+    private String id;
     /**
      * 角色id
      */

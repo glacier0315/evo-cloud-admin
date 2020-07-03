@@ -1,6 +1,8 @@
 package com.glacier.sys.entity.pojo;
 
+import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.glacier.common.core.entity.pojo.BasePojo;
 import lombok.*;
 
@@ -41,6 +43,7 @@ public class User extends BasePojo {
     /**
      * 出生日期
      */
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date birthday;
     /**
      * 性别 1=男 2=女 其他=保密
@@ -65,6 +68,7 @@ public class User extends BasePojo {
     /**
      * 删除标记
      */
+    @TableLogic
     private String delFlag;
 
 

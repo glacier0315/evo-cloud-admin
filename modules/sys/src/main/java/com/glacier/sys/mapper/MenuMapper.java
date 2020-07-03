@@ -16,15 +16,6 @@ import java.util.Set;
  */
 public interface MenuMapper extends BaseMapper<Menu> {
 
-
-    /**
-     * 根据角色id 查询所有菜单
-     *
-     * @param roleId
-     * @return
-     */
-    List<Menu> findMenusByRoleId(@Param("roleId") String roleId);
-
     /**
      * 根据用户名 查询所有菜单
      *

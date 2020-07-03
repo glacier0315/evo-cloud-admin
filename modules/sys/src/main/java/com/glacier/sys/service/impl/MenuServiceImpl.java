@@ -1,13 +1,14 @@
 package com.glacier.sys.service.impl;
 
-import com.glacier.common.core.entity.form.IdForm;
 import com.glacier.sys.common.Constant;
+import com.glacier.sys.entity.form.MenuForm;
 import com.glacier.sys.entity.pojo.Menu;
 import com.glacier.sys.mapper.MenuMapper;
 import com.glacier.sys.service.MenuService;
 import com.glacier.sys.utils.MenuBuildFactory;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,7 +17,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 /**
  * 菜单业务层
@@ -32,20 +32,25 @@ import java.util.stream.Collectors;
 public class MenuServiceImpl implements MenuService {
 
     private final MenuMapper menuMapper;
+    private final ModelMapper modelMapper;
 
     /**
      * 保存
      *
-     * @param menu
+     * @param menuForm
      * @return
      */
     @Transactional(rollbackFor = {})
     @Override
-    public int save(Menu menu) {
+    public int save(MenuForm menuForm) {
+        Menu menu = this.modelMapper.map(menuForm, Menu.class);
         int update = 0;
-        if (menu.getId() != null && !menu.getId().isEmpty()) {
+        if (menu.getId() != null
+                && !menu.getId().isEmpty()) {
+            // 更新
             update = this.menuMapper.updateById(menu);
         } else {
+            // 保存
             update = this.menuMapper.insert(menu);
         }
         return update;
@@ -53,37 +58,28 @@ public class MenuServiceImpl implements MenuService {
 
 
     /**
-     * 根据id批量删除
+     * 根据id删除
      *
-     * @param idForms
+     * @param id
      * @return
      */
     @Transactional(rollbackFor = {})
     @Override
-    public int batchDelete(List<IdForm> idForms) {
-        if (idForms != null && !idForms.isEmpty()) {
-            List<String> list = idForms.stream()
-                    .map(IdForm::getId)
-                    .collect(Collectors.toList());
-            return this.menuMapper.deleteBatchIds(list);
+    public int delete(String id) {
+        if (id != null && !id.isEmpty()) {
+            return this.menuMapper.deleteById(id);
         }
         return 0;
     }
 
-    /**
-     * 根据角色id查询菜单
-     *
-     * @param roleId
-     * @return
-     */
     @Override
-    public List<Menu> findMenusByRoleId(String roleId) {
-        return this.menuMapper.findMenusByRoleId(roleId);
+    public List<Menu> findAllList() {
+        return this.menuMapper.selectList(null);
     }
 
     @Override
     public List<Menu> findMenuTree() {
-        List<Menu> menuList = this.menuMapper.selectList(null);
+        List<Menu> menuList = this.findAllList();
         return MenuBuildFactory.buildMenuTree(menuList);
     }
 

@@ -1,6 +1,6 @@
 package com.glacier.sys.service;
 
-import com.glacier.common.core.entity.form.IdForm;
+import com.glacier.sys.entity.form.MenuForm;
 import com.glacier.sys.entity.pojo.Menu;
 
 import java.util.List;
@@ -14,12 +14,10 @@ import java.util.Set;
 public interface MenuService {
 
     /**
-     * 根据角色id 查询对应的菜单
-     *
-     * @param roleId
+     * 查询所有菜单树
      * @return
      */
-    List<Menu> findMenusByRoleId(String roleId);
+    List<Menu> findAllList();
 
 
     /**
@@ -51,13 +49,13 @@ public interface MenuService {
      * @param record
      * @return
      */
-    int save(Menu record);
+    int save(MenuForm record);
 
     /**
-     * 根据Id批量删除
+     * 根据Id删除
      *
-     * @param idForms
+     * @param id
      * @return
      */
-    int batchDelete(List<IdForm> idForms);
+    int delete(String id);
 }

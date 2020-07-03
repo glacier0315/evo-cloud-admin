@@ -1,7 +1,7 @@
 package com.glacier.sys.controller;
 
-import com.glacier.common.core.entity.form.IdForm;
 import com.glacier.common.core.entity.vo.HttpResult;
+import com.glacier.sys.entity.form.MenuForm;
 import com.glacier.sys.entity.pojo.Menu;
 import com.glacier.sys.entity.vo.RouterVo;
 import com.glacier.sys.service.MenuService;
@@ -31,62 +31,50 @@ public class MenuController {
     private final MenuService menuService;
 
     /**
-     * 保存菜单
+     * 查询所有菜单
      *
-     * @param menu
      * @return
      */
-    @PostMapping("/save")
-    public HttpResult<Integer> save(@RequestBody Menu menu) {
-        return HttpResult.ok(this.menuService.save(menu));
+    @PostMapping("/list")
+    public HttpResult<List<Menu>> list() {
+        return HttpResult.ok(
+                this.menuService.findAllList());
+    }
+
+    /**
+     * 添加菜单
+     *
+     * @param menuForm
+     * @return
+     */
+    @PostMapping("/add")
+    public HttpResult<Integer> add(@RequestBody MenuForm menuForm) {
+        return HttpResult.ok(
+                this.menuService.save(menuForm));
+    }
+
+    /**
+     * 更新菜单
+     *
+     * @param menuForm
+     * @return
+     */
+    @PutMapping("/update")
+    public HttpResult<Integer> update(@RequestBody MenuForm menuForm) {
+        return HttpResult.ok(
+                this.menuService.save(menuForm));
     }
 
     /**
      * 删除指定菜单
      *
-     * @param idForms
+     * @param id
      * @return
      */
-    @PostMapping("/delete")
-    public HttpResult<Integer> delete(@RequestBody List<IdForm> idForms) {
-        return HttpResult.ok(this.menuService.batchDelete(idForms));
-    }
-
-    /**
-     * 查询所有菜单 树
-     *
-     * @return
-     */
-    @GetMapping("/findMenuTree")
-    public HttpResult<List<Menu>> findMenuTree() {
-        List<Menu> tree = this.menuService.findMenuTree();
-        return HttpResult.ok(tree);
-    }
-
-    /**
-     * 查询所有菜单 树
-     *
-     * @return
-     */
-    @GetMapping("/findNavTree")
-    public HttpResult<List<Menu>> findNavTree() {
-        String userId = SecurityUtils.geUserId();
-        log.debug("userId: {}", userId);
-        List<Menu> tree = this.menuService.findMenuTreeByUserId(userId);
-        return HttpResult.ok(tree);
-    }
-
-
-
-    /**
-     * 查询所有菜单 树
-     *
-     * @return
-     */
-    @GetMapping("/findRoleMenus")
-    public HttpResult<List<Menu>> findRoleMenus(String roleId) {
-        List<Menu> tree = this.menuService.findMenusByRoleId(roleId);
-        return HttpResult.ok(tree);
+    @DeleteMapping("/delete")
+    public HttpResult<Integer> delete(String id) {
+        return HttpResult.ok(
+                this.menuService.delete(id));
     }
 
     /**

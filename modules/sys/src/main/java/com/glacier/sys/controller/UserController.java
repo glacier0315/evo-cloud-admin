@@ -48,7 +48,7 @@ public class UserController {
      * @param pageRequest
      * @return
      */
-    @PostMapping("/findPage")
+    @PostMapping("/list")
     public HttpResult<PageResponse<UserListVo>> findPage(@RequestBody PageRequest<UserQueryForm> pageRequest) {
         return HttpResult.ok(this.userService.findPage(pageRequest));
     }
@@ -59,8 +59,8 @@ public class UserController {
      * @param userAddForm
      * @return
      */
-    @PostMapping("/save")
-    public HttpResult<Integer> save(@RequestBody UserAddForm userAddForm) {
+    @PostMapping("/add")
+    public HttpResult<Integer> add(@RequestBody UserAddForm userAddForm) {
         return HttpResult.ok(this.userService.save(userAddForm));
     }
 

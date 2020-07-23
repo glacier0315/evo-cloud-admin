@@ -27,6 +27,18 @@ public class DeptController {
     private final DeptService deptService;
 
     /**
+     * 查询所有组织机构 树
+     *
+     * @return
+     */
+    @GetMapping("/list")
+    public HttpResult<List<Dept>> list() {
+        return HttpResult.ok(
+                this.deptService.findList()
+        );
+    }
+
+    /**
      * 保存组织机构
      *
      * @param dept

@@ -13,6 +13,21 @@ import java.util.List;
 public interface DeptService {
 
     /**
+     * 查找所有 组织机构
+     *
+     * @return
+     */
+    List<Dept> findList();
+
+    /**
+     * 根据用户ID查找所有 组织机构
+     *
+     * @param userId
+     * @return
+     */
+    List<Dept> findListByUserId(String userId);
+
+    /**
      * 根据用户id 查找单位树
      *
      * @param userId

@@ -31,6 +31,36 @@ public class DeptServiceImpl implements DeptService {
     private final DeptMapper deptMapper;
 
     /**
+     * 查找所有 组织机构
+     *
+     * @return
+     */
+    @Override
+    public List<Dept> findList() {
+        return this.deptMapper.selectList(null);
+    }
+
+    /**
+     * 根据用户ID查找所有 组织机构
+     *
+     * @param userId
+     * @return
+     */
+    @Override
+    public List<Dept> findListByUserId(String userId) {
+        List<Dept> deptList = new ArrayList<>(10);
+        if (userId == null) {
+            return deptList;
+        }
+        if (Constant.ADMIN_ID.equals(userId)) {
+            deptList = this.deptMapper.selectList(null);
+        } else {
+            deptList = this.deptMapper.findDeptsByUserId(userId);
+        }
+        return deptList;
+    }
+
+    /**
      * 保存
      *
      * @param record
@@ -75,7 +105,7 @@ public class DeptServiceImpl implements DeptService {
      */
     @Override
     public List<Dept> findTree(String userId) {
-        List<Dept> depts = this.findDeptsByUsername(userId);
+        List<Dept> depts = this.findListByUserId(userId);
         List<Dept> deptList = new ArrayList<>(10);
         //
         if (depts != null && !depts.isEmpty()) {
@@ -128,24 +158,5 @@ public class DeptServiceImpl implements DeptService {
             children.sort(Comparator.comparingInt(Dept::getOrderNum));
             this.findChildren(children, depts);
         }
-    }
-
-    /**
-     * 根据用户ID查找所有 组织机构
-     *
-     * @param userId
-     * @return
-     */
-    private List<Dept> findDeptsByUsername(String userId) {
-        List<Dept> deptList = new ArrayList<>(10);
-        if (userId == null) {
-            return deptList;
-        }
-        if (Constant.ADMIN_ID.equals(userId)) {
-            deptList = this.deptMapper.selectList(null);
-        } else {
-            deptList = this.deptMapper.findDeptsByUserId(userId);
-        }
-        return deptList;
     }
 }

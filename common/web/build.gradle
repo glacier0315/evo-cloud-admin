@@ -12,6 +12,7 @@ dependencyManagement {
 dependencies {
     implementation project(':common:core')
     // spring boot
+    implementation "com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-discovery"
     implementation "org.springframework.boot:spring-boot-starter-web"
 
     // swagger

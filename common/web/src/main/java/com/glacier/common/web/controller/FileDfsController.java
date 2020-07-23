@@ -36,8 +36,8 @@ public class FileDfsController {
      * @param file
      * @return
      */
-    @PostMapping("/singleUpload")
-    public HttpResult<String> singleUpload(@RequestParam("file") MultipartFile file) {
+    @PostMapping("/upload")
+    public HttpResult<String> upload(@RequestParam("file") MultipartFile file) {
         HttpResult<String> result = this.fastDfsClientUtil.uploadFile(file);
         if (StringUtils.equals(result.getCode(), HttpResult.SUCCUSS)) {
             String url = String.format("%s:%s/%s", this.dfsResConfig.getResHost(),
@@ -47,5 +47,17 @@ public class FileDfsController {
         }
         return result;
 
+    }
+
+
+    /**
+     * 单文件删除
+     *
+     * @param url
+     * @return
+     */
+    @PostMapping("/delete")
+    public HttpResult<String> deleteFile(String url) {
+        return this.fastDfsClientUtil.deleteFile(url);
     }
 }

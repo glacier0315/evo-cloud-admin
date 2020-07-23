@@ -7,16 +7,16 @@ import com.glacier.common.core.entity.form.IdForm;
 import com.glacier.common.core.entity.page.PageRequest;
 import com.glacier.common.core.entity.page.PageResponse;
 import com.glacier.sys.common.Constant;
-import com.glacier.sys.entity.form.UserAddForm;
-import com.glacier.sys.entity.form.UserPasswordForm;
-import com.glacier.sys.entity.form.UserQueryForm;
+import com.glacier.sys.entity.form.user.UserAddForm;
+import com.glacier.sys.entity.form.user.UserPasswordForm;
+import com.glacier.sys.entity.form.user.UserQueryForm;
 import com.glacier.sys.entity.pojo.Dept;
 import com.glacier.sys.entity.pojo.User;
 import com.glacier.sys.entity.pojo.UserRole;
-import com.glacier.sys.entity.vo.UserDetailsVo;
-import com.glacier.sys.entity.vo.UserInfo;
-import com.glacier.sys.entity.vo.UserListVo;
-import com.glacier.sys.entity.vo.UserProfileVo;
+import com.glacier.sys.entity.vo.user.UserDetailsVo;
+import com.glacier.sys.entity.vo.user.UserInfo;
+import com.glacier.sys.entity.vo.user.UserListVo;
+import com.glacier.sys.entity.vo.user.UserProfileVo;
 import com.glacier.sys.mapper.DeptMapper;
 import com.glacier.sys.mapper.RoleMapper;
 import com.glacier.sys.mapper.UserMapper;
@@ -100,10 +100,10 @@ public class UserServiceImpl implements UserService {
 //                    .email(user.getEmail())
 //                    .build();
             userProfile = this.modelMapper.map(user, UserProfileVo.class);
-            userProfile.setDeptName(ObjectUtils.defaultIfNull(
-                    this.deptMapper.selectById(
-                            user.getDeptId()), new Dept())
-                    .getName());
+            userProfile.setDeptName(
+                    ObjectUtils.defaultIfNull(
+                            this.deptMapper.selectById(user.getDeptId()), new Dept())
+                            .getName());
         }
         return userProfile;
     }
@@ -136,25 +136,30 @@ public class UserServiceImpl implements UserService {
         Page<User> page = this.userMapper.selectPage(
                 new Page<>(
                         pageRequest.getCurrent(),
-                        pageRequest.getSize()
-                ),
+                        pageRequest.getSize()),
                 new QueryWrapper<>(
                         this.modelMapper.map(
-                                pageRequest.getParams(),
-                                User.class
-                        )
+                                pageRequest.getParams(), User.class)
                 ));
+        List<UserListVo> userListVos = this.modelMapper.map(
+                page.getRecords(),
+                new TypeToken<List<UserListVo>>() {
+                }.getType());
+        // 处理工作单位
+        userListVos.forEach(userListVo -> {
+            if (userListVo.getDeptId() != null
+                    && !userListVo.getDeptId().isEmpty()) {
+                userListVo.setDeptName(
+                        ObjectUtils.defaultIfNull(
+                                this.deptMapper.selectById(userListVo.getDeptId()), new Dept())
+                                .getName());
+            }
+        });
         return PageResponse.<UserListVo>builder()
                 .current(page.getCurrent())
                 .size(page.getSize())
                 .total(page.getTotal())
-                .records(
-                        this.modelMapper.map(
-                                page.getRecords(),
-                                new TypeToken<List<UserListVo>>() {
-                                }.getType()
-                        )
-                )
+                .records(userListVos)
                 .build();
     }
 

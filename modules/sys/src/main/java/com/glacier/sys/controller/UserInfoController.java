@@ -1,7 +1,7 @@
 package com.glacier.sys.controller;
 
 import com.glacier.common.core.entity.vo.HttpResult;
-import com.glacier.sys.entity.vo.UserInfo;
+import com.glacier.sys.entity.vo.user.UserInfo;
 import com.glacier.sys.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

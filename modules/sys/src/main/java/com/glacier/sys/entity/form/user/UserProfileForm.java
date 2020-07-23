@@ -1,4 +1,4 @@
-package com.glacier.sys.entity.form;
+package com.glacier.sys.entity.form.user;
 
 import com.glacier.common.core.entity.form.IdForm;
 import lombok.Data;

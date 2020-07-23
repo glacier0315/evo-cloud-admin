@@ -1,6 +1,5 @@
-package com.glacier.sys.entity.form;
+package com.glacier.sys.entity.vo.user;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.ToString;
 
@@ -8,24 +7,22 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * 用户新增
- *
  * @author glacier
  * @version 1.0
- * @date 2020-05-24 08:56
+ * @date 2020-05-24 09:32
  */
 @Data
 @ToString
-public class UserAddForm implements Serializable {
-    private static final long serialVersionUID = 5710986214973433730L;
+public class UserListVo implements Serializable {
+    private static final long serialVersionUID = 3725415789818769982L;
+    /**
+     * 主键
+     */
+    private String id;
     /**
      * 用户名
      */
     private String username;
-    /**
-     * 密码
-     */
-    private String password;
     /**
      * 昵称
      */
@@ -37,7 +34,6 @@ public class UserAddForm implements Serializable {
     /**
      * 出生日期
      */
-    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date birthday;
     /**
      * 性别 1=男 2=女 其他=保密
@@ -59,4 +55,8 @@ public class UserAddForm implements Serializable {
      * 单位id
      */
     private String deptId;
+    /**
+     * 单位名称
+     */
+    private String deptName;
 }

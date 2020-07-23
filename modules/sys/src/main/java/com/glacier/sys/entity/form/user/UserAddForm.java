@@ -1,25 +1,31 @@
-package com.glacier.sys.entity.form;
+package com.glacier.sys.entity.form.user;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.glacier.common.core.entity.form.IdForm;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
- * 用户信息修改封装类
+ * 用户新增
  *
  * @author glacier
  * @version 1.0
- * @date 2020-05-24 08:57
+ * @date 2020-05-24 08:56
  */
-@EqualsAndHashCode(callSuper = true)
 @Data
 @ToString
-public class UserUpdateForm extends IdForm {
-    private static final long serialVersionUID = -3135681003079034721L;
+public class UserAddForm implements Serializable {
+    private static final long serialVersionUID = 5710986214973433730L;
+    /**
+     * 用户名
+     */
+    private String username;
+    /**
+     * 密码
+     */
+    private String password;
     /**
      * 昵称
      */

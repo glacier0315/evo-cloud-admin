@@ -1,4 +1,4 @@
-package com.glacier.sys.entity.vo;
+package com.glacier.sys.entity.vo.user;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;

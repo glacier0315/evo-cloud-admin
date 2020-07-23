@@ -4,10 +4,10 @@ import com.glacier.common.core.entity.page.PageRequest;
 import com.glacier.common.core.entity.page.PageResponse;
 import com.glacier.common.core.entity.vo.HttpResult;
 import com.glacier.sys.common.Constant;
-import com.glacier.sys.entity.form.*;
-import com.glacier.sys.entity.vo.UserDetailsVo;
-import com.glacier.sys.entity.vo.UserListVo;
-import com.glacier.sys.entity.vo.UserProfileVo;
+import com.glacier.sys.entity.form.user.*;
+import com.glacier.sys.entity.vo.user.UserDetailsVo;
+import com.glacier.sys.entity.vo.user.UserListVo;
+import com.glacier.sys.entity.vo.user.UserProfileVo;
 import com.glacier.sys.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -118,7 +118,8 @@ public class UserController {
      * @return
      */
     @PutMapping(value = "/profile")
-    public HttpResult<Integer> updateProfile(UserProfileForm userProfileForm) {
+    public HttpResult<Integer> updateProfile(
+            @RequestBody UserProfileForm userProfileForm) {
         return HttpResult.ok(
                 this.userService.update(userProfileForm));
     }
@@ -130,7 +131,8 @@ public class UserController {
      * @return
      */
     @PostMapping(value = "/avatar")
-    public HttpResult<Integer> avatar(UserAvatarForm userAvatarForm) {
+    public HttpResult<Integer> avatar(
+            @RequestBody UserAvatarForm userAvatarForm) {
         return HttpResult.ok(
                 this.userService.update(userAvatarForm));
     }

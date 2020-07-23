@@ -3,6 +3,7 @@ package com.glacier.sys.service;
 import com.glacier.common.core.entity.form.IdForm;
 import com.glacier.common.core.entity.page.PageRequest;
 import com.glacier.common.core.entity.page.PageResponse;
+import com.glacier.common.core.entity.vo.HttpResult;
 import com.glacier.sys.entity.form.user.UserAddForm;
 import com.glacier.sys.entity.form.user.UserPasswordForm;
 import com.glacier.sys.entity.form.user.UserQueryForm;
@@ -90,5 +91,5 @@ public interface UserService {
      * @param userPasswordForm
      * @return
      */
-    int updatePassword(UserPasswordForm userPasswordForm);
+    HttpResult<Integer> updatePassword(UserPasswordForm userPasswordForm);
 }

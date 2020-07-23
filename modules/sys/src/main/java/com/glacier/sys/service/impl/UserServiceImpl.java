@@ -6,6 +6,8 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.glacier.common.core.entity.form.IdForm;
 import com.glacier.common.core.entity.page.PageRequest;
 import com.glacier.common.core.entity.page.PageResponse;
+import com.glacier.common.core.entity.vo.HttpResult;
+import com.glacier.common.core.exception.SystemErrorType;
 import com.glacier.sys.common.Constant;
 import com.glacier.sys.entity.form.user.UserAddForm;
 import com.glacier.sys.entity.form.user.UserPasswordForm;
@@ -163,6 +165,14 @@ public class UserServiceImpl implements UserService {
                 .build();
     }
 
+    /**
+     * 修改用户
+     *
+     * @param form 更新封装类
+     * @param <T>
+     * @return
+     */
+    @Transactional(rollbackFor = {})
     @Override
     public <T extends IdForm> int update(T form) {
         int update = 0;
@@ -184,25 +194,32 @@ public class UserServiceImpl implements UserService {
      */
     @Transactional(rollbackFor = {})
     @Override
-    public int updatePassword(UserPasswordForm userPasswordForm) {
+    public HttpResult<Integer> updatePassword(UserPasswordForm userPasswordForm) {
         int update = 0;
         if (userPasswordForm != null
                 && userPasswordForm.getId() != null
                 && !userPasswordForm.getId().isEmpty()) {
             // 判断原始密码是否一致
             User user = this.userMapper.selectById(userPasswordForm.getId());
-            if (user != null
-                    && this.passwordEncoder.matches(
-                    userPasswordForm.getOldPassword(),
-                    user.getPassword())) {
-                // 加密密码
-                user.setPassword(
-                        this.passwordEncoder.encode(userPasswordForm.getNewPassword())
-                );
-                update = this.userMapper.updateById(user);
+            if (user != null) {
+                if (this.passwordEncoder.matches(
+                        userPasswordForm.getOldPassword(),
+                        user.getPassword())) {
+                    // 加密密码
+                    user.setPassword(
+                            this.passwordEncoder.encode(userPasswordForm.getNewPassword())
+                    );
+                    update = this.userMapper.updateById(user);
+                } else {
+                    return HttpResult.error("原始密码不正确！");
+                }
+            } else {
+                return HttpResult.error("未找到该用户！");
             }
+        } else {
+            return HttpResult.error(SystemErrorType.ARGUMENT_NOT_VALID);
         }
-        return update;
+        return HttpResult.ok("修改成功！", update);
     }
 
     /**

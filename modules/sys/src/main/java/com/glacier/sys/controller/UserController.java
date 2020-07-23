@@ -148,8 +148,7 @@ public class UserController {
             @RequestBody UserPasswordForm userPasswordForm) {
         // 设置重置密码
         userPasswordForm.setNewPassword(Constant.DEFAULT_PASSWD);
-        return HttpResult.ok(
-                this.userService.updatePassword(userPasswordForm));
+        return this.userService.updatePassword(userPasswordForm);
     }
 
     /**
@@ -161,7 +160,6 @@ public class UserController {
     @PutMapping("/updatePwd")
     public HttpResult<Integer> updatePwd(
             @RequestBody UserPasswordForm userPasswordForm) {
-        return HttpResult.ok(
-                this.userService.updatePassword(userPasswordForm));
+        return this.userService.updatePassword(userPasswordForm);
     }
 }

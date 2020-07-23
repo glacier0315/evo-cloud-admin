@@ -62,6 +62,10 @@ public class User extends BasePojo {
      */
     private String mobile;
     /**
+     * 头像地址
+     */
+    private String avatar;
+    /**
      * 单位id
      */
     private String deptId;

@@ -1,17 +1,20 @@
 package com.glacier.sys.service;
 
+import com.glacier.common.core.entity.form.IdForm;
 import com.glacier.common.core.entity.page.PageRequest;
 import com.glacier.common.core.entity.page.PageResponse;
 import com.glacier.sys.entity.form.UserAddForm;
+import com.glacier.sys.entity.form.UserPasswordForm;
 import com.glacier.sys.entity.form.UserQueryForm;
-import com.glacier.sys.entity.form.UserUpdateForm;
 import com.glacier.sys.entity.pojo.User;
 import com.glacier.sys.entity.vo.UserDetailsVo;
 import com.glacier.sys.entity.vo.UserInfo;
 import com.glacier.sys.entity.vo.UserListVo;
+import com.glacier.sys.entity.vo.UserProfileVo;
 
 /**
  * 用户业务层
+ *
  * @author glacier
  * @version 1.0
  * @date 2019-08-04 21:50
@@ -19,7 +22,6 @@ import com.glacier.sys.entity.vo.UserListVo;
 public interface UserService {
 
     /**
-     *
      * @param username
      * @return
      */
@@ -32,6 +34,14 @@ public interface UserService {
      * @return
      */
     UserInfo findUserInfoByUsername(String username);
+
+    /**
+     * 根据用户名查用户
+     *
+     * @param username
+     * @return
+     */
+    UserProfileVo findUserProfileByUsername(String username);
 
     /**
      * 根据用户名查找用户
@@ -52,10 +62,11 @@ public interface UserService {
     /**
      * 更新操作
      *
-     * @param userUpdateForm
+     * @param form 更新封装类
+     * @param <T>
      * @return
      */
-    int update(UserUpdateForm userUpdateForm);
+    <T extends IdForm> int update(T form);
 
     /**
      * 保存用户
@@ -72,4 +83,12 @@ public interface UserService {
      * @return
      */
     int delete(String id);
+
+    /**
+     * 修改密码
+     *
+     * @param userPasswordForm
+     * @return
+     */
+    int updatePassword(UserPasswordForm userPasswordForm);
 }

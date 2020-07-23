@@ -3,15 +3,17 @@ package com.glacier.sys.controller;
 import com.glacier.common.core.entity.page.PageRequest;
 import com.glacier.common.core.entity.page.PageResponse;
 import com.glacier.common.core.entity.vo.HttpResult;
-import com.glacier.sys.entity.form.UserAddForm;
-import com.glacier.sys.entity.form.UserQueryForm;
-import com.glacier.sys.entity.form.UserUpdateForm;
+import com.glacier.sys.common.Constant;
+import com.glacier.sys.entity.form.*;
 import com.glacier.sys.entity.vo.UserDetailsVo;
 import com.glacier.sys.entity.vo.UserListVo;
+import com.glacier.sys.entity.vo.UserProfileVo;
 import com.glacier.sys.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -90,5 +92,74 @@ public class UserController {
     public HttpResult<Integer> delete(String id) {
         return HttpResult.ok(
                 this.userService.delete(id));
+    }
+
+    /**
+     * 获取当前用户信息
+     *
+     * @param authentication
+     * @return
+     */
+    @GetMapping(value = "/profile")
+    public HttpResult<UserProfileVo> getProfile(Authentication authentication) {
+        log.info(">>>>>>>>>>>>>>>>>>>>>>>>");
+        log.info("当前登录用户为: {}", authentication);
+        log.info(">>>>>>>>>>>>>>>>>>>>>>>>");
+        String username = ((Jwt) authentication.getPrincipal())
+                .getClaim("user_name");
+        return HttpResult.ok(
+                this.userService.findUserProfileByUsername(username));
+    }
+
+    /**
+     * 更新当前用户信息
+     *
+     * @param userProfileForm
+     * @return
+     */
+    @PutMapping(value = "/profile")
+    public HttpResult<Integer> updateProfile(UserProfileForm userProfileForm) {
+        return HttpResult.ok(
+                this.userService.update(userProfileForm));
+    }
+
+    /**
+     * 更新当前用户头像信息
+     *
+     * @param userAvatarForm
+     * @return
+     */
+    @PostMapping(value = "/avatar")
+    public HttpResult<Integer> avatar(UserAvatarForm userAvatarForm) {
+        return HttpResult.ok(
+                this.userService.update(userAvatarForm));
+    }
+
+    /**
+     * 重置用户密码
+     *
+     * @param userPasswordForm
+     * @return
+     */
+    @PostMapping("/resetPwd")
+    public HttpResult<Integer> resetPwd(
+            @RequestBody UserPasswordForm userPasswordForm) {
+        // 设置重置密码
+        userPasswordForm.setNewPassword(Constant.DEFAULT_PASSWD);
+        return HttpResult.ok(
+                this.userService.updatePassword(userPasswordForm));
+    }
+
+    /**
+     * 修改用户密码
+     *
+     * @param userPasswordForm
+     * @return
+     */
+    @PutMapping("/updatePwd")
+    public HttpResult<Integer> updatePwd(
+            @RequestBody UserPasswordForm userPasswordForm) {
+        return HttpResult.ok(
+                this.userService.updatePassword(userPasswordForm));
     }
 }

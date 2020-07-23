@@ -36,7 +36,9 @@ public class UserInfoController {
         log.info(">>>>>>>>>>>>>>>>>>>>>>>>");
         log.info("当前登录用户为: {}", authentication);
         log.info(">>>>>>>>>>>>>>>>>>>>>>>>");
-        String username = ((Jwt) authentication.getPrincipal()).getClaim("user_name");
-        return HttpResult.ok(this.userService.findUserInfoByUsername(username));
+        String username = ((Jwt) authentication.getPrincipal())
+                .getClaim("user_name");
+        return HttpResult.ok(
+                this.userService.findUserInfoByUsername(username));
     }
 }

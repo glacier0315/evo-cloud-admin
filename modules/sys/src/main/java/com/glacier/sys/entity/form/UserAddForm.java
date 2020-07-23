@@ -8,6 +8,8 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
+ * 用户新增
+ *
  * @author glacier
  * @version 1.0
  * @date 2020-05-24 08:56

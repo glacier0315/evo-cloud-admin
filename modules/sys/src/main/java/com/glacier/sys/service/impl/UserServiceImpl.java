@@ -3,22 +3,28 @@ package com.glacier.sys.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.glacier.common.core.entity.form.IdForm;
 import com.glacier.common.core.entity.page.PageRequest;
 import com.glacier.common.core.entity.page.PageResponse;
+import com.glacier.sys.common.Constant;
 import com.glacier.sys.entity.form.UserAddForm;
+import com.glacier.sys.entity.form.UserPasswordForm;
 import com.glacier.sys.entity.form.UserQueryForm;
-import com.glacier.sys.entity.form.UserUpdateForm;
+import com.glacier.sys.entity.pojo.Dept;
 import com.glacier.sys.entity.pojo.User;
 import com.glacier.sys.entity.pojo.UserRole;
 import com.glacier.sys.entity.vo.UserDetailsVo;
 import com.glacier.sys.entity.vo.UserInfo;
 import com.glacier.sys.entity.vo.UserListVo;
+import com.glacier.sys.entity.vo.UserProfileVo;
+import com.glacier.sys.mapper.DeptMapper;
 import com.glacier.sys.mapper.RoleMapper;
 import com.glacier.sys.mapper.UserMapper;
 import com.glacier.sys.mapper.UserRoleMapper;
 import com.glacier.sys.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.ObjectUtils;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +51,7 @@ public class UserServiceImpl implements UserService {
     private final ModelMapper modelMapper;
     private final UserMapper userMapper;
     private final RoleMapper roleMapper;
+    private final DeptMapper deptMapper;
     private final UserRoleMapper userRoleMapper;
     private final PasswordEncoder passwordEncoder;
 
@@ -66,10 +73,39 @@ public class UserServiceImpl implements UserService {
             userInfo = UserInfo.builder()
                     .id(user.getId())
                     .name(user.getUsername())
+                    .avatar(user.getAvatar())
                     .roles(roles)
                     .build();
         }
         return userInfo;
+    }
+
+    @Override
+    public UserProfileVo findUserProfileByUsername(String username) {
+        User user = this.findUserByUsername(username);
+        UserProfileVo userProfile = null;
+        if (user != null) {
+//            userProfile = UserProfileVo.builder()
+//                    .id(user.getId())
+//                    .username(user.getUsername())
+//                    .nickname(user.getNickname())
+//                    .sex(user.getSex())
+//                    .avatar(user.getAvatar())
+//                    .deptId(user.getDeptId())
+//                    .deptName(ObjectUtils.defaultIfNull(
+//                            this.deptMapper.selectById(
+//                                    user.getDeptId()), new Dept())
+//                            .getName())
+//                    .mobile(user.getMobile())
+//                    .email(user.getEmail())
+//                    .build();
+            userProfile = this.modelMapper.map(user, UserProfileVo.class);
+            userProfile.setDeptName(ObjectUtils.defaultIfNull(
+                    this.deptMapper.selectById(
+                            user.getDeptId()), new Dept())
+                    .getName());
+        }
+        return userProfile;
     }
 
     @Override
@@ -122,24 +158,44 @@ public class UserServiceImpl implements UserService {
                 .build();
     }
 
+    @Override
+    public <T extends IdForm> int update(T form) {
+        int update = 0;
+        if (form != null
+                && form.getId() != null
+                && !form.getId().isEmpty()) {
+            update = this.userMapper.updateById(
+                    this.modelMapper.map(form, User.class)
+            );
+        }
+        return update;
+    }
+
+    /**
+     * 修改密码
+     *
+     * @param userPasswordForm
+     * @return
+     */
     @Transactional(rollbackFor = {})
     @Override
-    public int update(UserUpdateForm userUpdateForm) {
+    public int updatePassword(UserPasswordForm userPasswordForm) {
         int update = 0;
-        if (userUpdateForm != null
-                && userUpdateForm.getId() != null
-                && !userUpdateForm.getId().isEmpty()) {
-            // 对原始密码加密
-            if (userUpdateForm.getPassword() != null
-                    && !userUpdateForm.getPassword().isEmpty()) {
+        if (userPasswordForm != null
+                && userPasswordForm.getId() != null
+                && !userPasswordForm.getId().isEmpty()) {
+            // 判断原始密码是否一致
+            User user = this.userMapper.selectById(userPasswordForm.getId());
+            if (user != null
+                    && this.passwordEncoder.matches(
+                    userPasswordForm.getOldPassword(),
+                    user.getPassword())) {
                 // 加密密码
-                userUpdateForm.setPassword(
-                        this.passwordEncoder.encode(userUpdateForm.getPassword())
+                user.setPassword(
+                        this.passwordEncoder.encode(userPasswordForm.getNewPassword())
                 );
+                update = this.userMapper.updateById(user);
             }
-            update = this.userMapper.updateById(
-                    this.modelMapper.map(userUpdateForm, User.class)
-            );
         }
         return update;
     }
@@ -156,14 +212,14 @@ public class UserServiceImpl implements UserService {
         int update = 0;
         if (userAddForm != null) {
             User user = this.modelMapper.map(userAddForm, User.class);
-            // 对原始密码加密
-            if (user.getPassword() != null
-                    && !user.getPassword().isEmpty()) {
-                // 加密密码
-                user.setPassword(
-                        this.passwordEncoder.encode(user.getPassword())
-                );
+            if (user.getPassword() == null
+                    || user.getPassword().isEmpty()) {
+                user.setPassword(Constant.DEFAULT_PASSWD);
             }
+            // 对原始密码加密
+            user.setPassword(
+                    this.passwordEncoder.encode(user.getPassword())
+            );
             update = this.userMapper.insert(user);
         }
         return update;

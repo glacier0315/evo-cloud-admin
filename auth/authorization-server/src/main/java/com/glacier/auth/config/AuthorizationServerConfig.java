@@ -1,5 +1,6 @@
 package com.glacier.auth.config;
 
+import com.glacier.auth.oauth2.MyWebResponseExceptionTranslator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -7,6 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.common.exceptions.OAuth2Exception;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
@@ -15,6 +17,7 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
 import org.springframework.security.oauth2.provider.code.AuthorizationCodeServices;
 import org.springframework.security.oauth2.provider.code.JdbcAuthorizationCodeServices;
+import org.springframework.security.oauth2.provider.error.WebResponseExceptionTranslator;
 import org.springframework.security.oauth2.provider.token.AuthorizationServerTokenServices;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
@@ -55,7 +58,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
             /*clients.jdbc(dataSource)
                 .passwordEncoder(passwordEncoder);*/
         // 方式2
-        clients.withClientDetails(jdbcClientDetailsService());
+        clients.withClientDetails(this.jdbcClientDetailsService());
     }
 
     /**
@@ -67,12 +70,13 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         endpoints
-                .authorizationCodeServices(jdbcAuthorizationCodeServices())
+                .authorizationCodeServices(this.jdbcAuthorizationCodeServices())
                 // 配置密码模式
-                .authenticationManager(authenticationManager)
-                .userDetailsService(userDetailsService)
+                .authenticationManager(this.authenticationManager)
+                .userDetailsService(this.userDetailsService)
                 // 配置令牌服务
-                .tokenServices(tokenService());
+                .tokenServices(this.tokenService())
+                .exceptionTranslator(this.myWebResponseExceptionTranslator());
     }
 
     /**
@@ -82,8 +86,8 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
      */
     @Bean
     public JdbcClientDetailsService jdbcClientDetailsService() {
-        JdbcClientDetailsService jdbcClientDetailsService = new JdbcClientDetailsService(dataSource);
-        jdbcClientDetailsService.setPasswordEncoder(passwordEncoder);
+        JdbcClientDetailsService jdbcClientDetailsService = new JdbcClientDetailsService(this.dataSource);
+        jdbcClientDetailsService.setPasswordEncoder(this.passwordEncoder);
         return jdbcClientDetailsService;
     }
 
@@ -94,7 +98,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
      */
     @Bean
     public AuthorizationCodeServices jdbcAuthorizationCodeServices() {
-        return new JdbcAuthorizationCodeServices(dataSource);
+        return new JdbcAuthorizationCodeServices(this.dataSource);
     }
 
     /**
@@ -106,9 +110,9 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     public AuthorizationServerTokenServices tokenService() {
         DefaultTokenServices defaultTokenServices = new DefaultTokenServices();
         // 设置令牌存储策略
-        defaultTokenServices.setTokenStore(tokenStore);
+        defaultTokenServices.setTokenStore(this.tokenStore);
         // 配置jwt 转换
-        defaultTokenServices.setTokenEnhancer(tokenEnhancerChain);
+        defaultTokenServices.setTokenEnhancer(this.tokenEnhancerChain);
         // 是否产生刷新令牌
         defaultTokenServices.setSupportRefreshToken(true);
         // 设置令牌有效期2分钟
@@ -116,5 +120,15 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
         // 设置刷新令牌有效期3天  默认3天
         defaultTokenServices.setRefreshTokenValiditySeconds((int) TimeUnit.DAYS.toSeconds(3));
         return defaultTokenServices;
+    }
+
+    /**
+     * 自定义需要授权异常
+     *
+     * @return
+     */
+    @Bean
+    public WebResponseExceptionTranslator<OAuth2Exception> myWebResponseExceptionTranslator() {
+        return new MyWebResponseExceptionTranslator();
     }
 }

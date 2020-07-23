@@ -60,6 +60,16 @@ public class HttpResult<T> implements Serializable {
     }
 
     /**
+     * 返回默认 "-1" 错误
+     *
+     * @param <T>
+     * @return
+     */
+    public static <T> HttpResult<T> error(String msg) {
+        return error(SystemErrorType.SYSTEM_ERROR, msg);
+    }
+
+    /**
      * 返回指定编码错误
      *
      * @param errorType

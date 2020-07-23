@@ -3,8 +3,8 @@
 <mapper namespace="com.glacier.sys.mapper.RoleMapper">
 
     <sql id="role_columns">
-        a.id, a.name, a.code, a.status, a.create_by, a.create_date, a.update_by, a.update_date,
-        a.del_flag
+        a.id, a.name, a.code, a.status,
+        a.create_by, a.create_date, a.update_by, a.update_date,a.del_flag
     </sql>
 
     <sql id="roleJoins">

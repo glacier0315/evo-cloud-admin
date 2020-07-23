@@ -3,7 +3,7 @@
 <mapper namespace="com.glacier.sys.mapper.MenuMapper">
 
     <sql id="menu_columns">
-        a.id, a.name, a.title, a.path, a.component, a.permission, a.type, a.visible, a.order_num, a.icon, a.parent_id, a.isFrame,
+        a.id, a.name, a.path, a.component, a.permission, a.type, a.visible, a.order_num, a.icon, a.parent_id, a.is_frame,
         a.create_by, a.create_date, a.update_by, a.update_date, a.del_flag
     </sql>
 

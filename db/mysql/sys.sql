@@ -54,6 +54,7 @@ CREATE TABLE sys_user  (
   mobile varchar(20)  COMMENT '手机号',
   dept_id varchar(64)  COMMENT '单位',
   status varchar(4)  COMMENT '状态',
+  avatar varchar(255)  COMMENT '头像',
   create_by varchar(64)  COMMENT '创建人',
   create_date timestamp DEFAULT current_timestamp COMMENT '创建时间',
   update_by varchar(64)  COMMENT '更新人',

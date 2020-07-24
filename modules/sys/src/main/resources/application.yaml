@@ -62,7 +62,7 @@ spring:
           uas:
             authorization-uri: ${AUTH-SERVER-URL:http://localhost:8141/uas}/oauth/authorize
             token-uri: ${AUTH-SERVER-URL:http://localhost:8141/uas}/oauth/token
-            user-info-uri: ${AUTH-SERVER-URL:http://localhost:8141/uas}/api/user/info
+            user-info-uri: ${AUTH-SERVER-URL:http://localhost:8141/sys}/oauth/userInfo
             user-name-attribute: username
 
 

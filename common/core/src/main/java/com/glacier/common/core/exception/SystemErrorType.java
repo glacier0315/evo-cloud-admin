@@ -18,6 +18,10 @@ public enum SystemErrorType implements ErrorType {
      */
     SYSTEM_ERROR("-1", "系统异常"),
     /**
+     * 异常
+     */
+    BUSINESS_ERROR("500", "异常"),
+    /**
      * 系统繁忙,请稍候再试
      */
     SYSTEM_BUSY("000001", "系统繁忙,请稍候再试"),
@@ -61,11 +65,11 @@ public enum SystemErrorType implements ErrorType {
 
     @Override
     public String getCode() {
-        return code;
+        return this.code;
     }
 
     @Override
     public String getMsg() {
-        return msg;
+        return this.msg;
     }
 }

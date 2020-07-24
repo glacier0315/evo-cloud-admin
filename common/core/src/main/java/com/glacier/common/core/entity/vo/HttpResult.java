@@ -50,13 +50,13 @@ public class HttpResult<T> implements Serializable {
     private T data;
 
     /**
-     * 返回默认 "-1" 错误
+     * 返回默认 "500" 错误
      *
      * @param <T>
      * @return
      */
     public static <T> HttpResult<T> error() {
-        return error(SystemErrorType.SYSTEM_ERROR);
+        return error(SystemErrorType.BUSINESS_ERROR);
     }
 
     /**
@@ -66,7 +66,7 @@ public class HttpResult<T> implements Serializable {
      * @return
      */
     public static <T> HttpResult<T> error(String msg) {
-        return error(SystemErrorType.SYSTEM_ERROR, msg);
+        return error(SystemErrorType.BUSINESS_ERROR.getCode(), msg);
     }
 
     /**
@@ -77,20 +77,20 @@ public class HttpResult<T> implements Serializable {
      * @return
      */
     public static <T> HttpResult<T> error(ErrorType errorType) {
-        return error(errorType, errorType.getMsg());
+        return error(errorType.getCode(), errorType.getMsg());
     }
 
     /**
      * 返回指定编码错误
      *
-     * @param errorType
+     * @param code
      * @param msg
      * @param <T>
      * @return
      */
-    public static <T> HttpResult<T> error(ErrorType errorType, String msg) {
+    public static <T> HttpResult<T> error(String code, String msg) {
         return HttpResult.<T>builder()
-                .code(errorType.getCode())
+                .code(code)
                 .msg(msg)
                 .build();
     }

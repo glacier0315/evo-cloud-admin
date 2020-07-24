@@ -19,7 +19,7 @@ public class GlobalExceptionHandler {
      * @return
      */
     @ExceptionHandler(value = BaseException.class)
-    public HttpResult<?> authenticationException(BaseException e) {
-        return HttpResult.error(e.getErrorType(), e.getMessage());
+    public HttpResult<String> authenticationException(BaseException e) {
+        return HttpResult.error(e.getErrorType().getCode(), e.getMessage());
     }
 }

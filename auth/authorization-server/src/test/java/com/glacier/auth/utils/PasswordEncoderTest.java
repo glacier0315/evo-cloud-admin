@@ -1,9 +1,13 @@
 package com.glacier.auth.utils;
 
+import com.glacier.auth.AuthorizationServerApplication;
 import org.junit.Test;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.junit.runner.RunWith;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.test.context.junit4.SpringRunner;
 
+import javax.annotation.Resource;
 import java.util.Base64;
 
 /**
@@ -13,13 +17,16 @@ import java.util.Base64;
  * @version 1.0
  * @date 2020-02-14 16:33
  */
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = {AuthorizationServerApplication.class})
 public class PasswordEncoderTest {
+    @Resource
+    private PasswordEncoder passwordEncoder;
 
     @Test
     public void test() {
-        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String rawPassword = "auth-client";
-        String encode = passwordEncoder.encode(rawPassword);
+        String encode = this.passwordEncoder.encode(rawPassword);
         System.out.println(rawPassword + "\t加密后密码：\t" + encode);
     }
 

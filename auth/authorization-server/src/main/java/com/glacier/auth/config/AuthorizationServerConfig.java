@@ -1,5 +1,6 @@
 package com.glacier.auth.config;
 
+import com.glacier.auth.oauth2.CustomAuthenticationEntryPoint;
 import com.glacier.auth.oauth2.MyWebResponseExceptionTranslator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,6 +49,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
         security.tokenKeyAccess("permitAll()")
                 .checkTokenAccess("permitAll()")
+                .authenticationEntryPoint(this.customAuthenticationEntryPoint())
                 // 允许表单验证
                 .allowFormAuthenticationForClients();
     }
@@ -75,8 +77,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                 .authenticationManager(this.authenticationManager)
                 .userDetailsService(this.userDetailsService)
                 // 配置令牌服务
-                .tokenServices(this.tokenService())
-                .exceptionTranslator(this.myWebResponseExceptionTranslator());
+                .tokenServices(this.tokenService());
     }
 
     /**
@@ -123,12 +124,22 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     }
 
     /**
-     * 自定义需要授权异常
+     * 自定义异常处理
      *
      * @return
      */
     @Bean
     public WebResponseExceptionTranslator<OAuth2Exception> myWebResponseExceptionTranslator() {
         return new MyWebResponseExceptionTranslator();
+    }
+
+    /**
+     * 自定义异常
+     *
+     * @return
+     */
+    @Bean
+    public CustomAuthenticationEntryPoint customAuthenticationEntryPoint() {
+        return new CustomAuthenticationEntryPoint();
     }
 }

@@ -3,6 +3,7 @@ package com.glacier.common.web.controller;
 import com.glacier.common.core.entity.vo.HttpResult;
 import com.glacier.common.web.config.DfsResConfig;
 import com.glacier.common.web.util.FileDfsUtil;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,13 +23,11 @@ import org.springframework.web.multipart.MultipartFile;
 @Slf4j
 @RestController
 @RequestMapping("/dfs")
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class FileDfsController {
 
-    @Autowired
-    private FileDfsUtil fastDfsClientUtil;
-
-    @Autowired
-    private DfsResConfig dfsResConfig;
+    private final FileDfsUtil fastDfsClientUtil;
+    private final DfsResConfig dfsResConfig;
 
     /**
      * 单文件上传

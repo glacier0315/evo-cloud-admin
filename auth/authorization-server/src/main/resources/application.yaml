@@ -70,8 +70,6 @@ server:
 
 security:
   oauth2:
-    resource:
-      token-info-uri: /api/user/info
     authorization:
       jwt:
         key-store: eboot-jwt.jks

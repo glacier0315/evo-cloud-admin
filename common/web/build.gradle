@@ -19,7 +19,12 @@ dependencies {
     implementation  "io.springfox:springfox-swagger-ui:${swaggerVersion}"
     implementation "io.springfox:springfox-swagger2:${swaggerVersion}"
 
-    implementation "com.github.tobato:fastdfs-client:1.27.2"
+    implementation ("com.github.tobato:fastdfs-client:1.27.2") {
+        exclude group: 'commons-io'
+        exclude group: 'org.springframework'
+        exclude group: 'org.springframework.boot'
+    }
+    implementation "commons-io:commons-io:2.7"
 
     implementation 'org.springframework.boot:spring-boot-actuator'
     runtimeOnly "org.springframework.boot:spring-boot-devtools"

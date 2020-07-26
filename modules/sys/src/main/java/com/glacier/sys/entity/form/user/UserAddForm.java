@@ -37,7 +37,7 @@ public class UserAddForm implements Serializable {
     /**
      * 出生日期
      */
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date birthday;
     /**
      * 性别 1=男 2=女 其他=保密

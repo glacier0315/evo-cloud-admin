@@ -1,5 +1,6 @@
 package com.glacier.sys.config;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
@@ -25,6 +26,7 @@ import java.util.List;
  */
 @Configuration
 @EnableSwagger2
+@ConditionalOnProperty(name = "swagger.enable", havingValue = "true")
 public class SwaggerConfiguration {
 
     @Bean
@@ -40,7 +42,7 @@ public class SwaggerConfiguration {
                 .build();
         parameters.add(parameterBuilder.build());
         return new Docket(DocumentationType.SWAGGER_2)
-                .apiInfo(apiInfo())
+                .apiInfo(this.apiInfo())
                 .select()
                 .apis(RequestHandlerSelectors.any())
                 .paths(PathSelectors.any())

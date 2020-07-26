@@ -2,24 +2,20 @@
 -- Table structure for oauth_client_details
 -- ----------------------------
 DROP TABLE IF EXISTS oauth_client_details;
-CREATE TABLE oauth_client_details
-(
-    client_id               varchar(256) NOT NULL,
-    resource_ids            varchar(256),
-    client_secret           varchar(256),
-    scope                   varchar(256),
-    authorized_grant_types  varchar(256),
-    web_server_redirect_uri varchar(256),
-    authorities             varchar(256),
-    access_token_validity   int(11),
-    refresh_token_validity  int(11),
-    additional_information  varchar(4096),
-    autoapprove             varchar(256),
-    PRIMARY KEY (client_id)
-) ENGINE = InnoDB
-  CHARACTER SET = utf8
-  COLLATE = utf8_general_ci COMMENT = '授权客户端'
-  ROW_FORMAT = Dynamic;
+CREATE TABLE oauth_client_details  (
+  client_id varchar(256) NOT NULL,
+  resource_ids varchar(256),
+  client_secret varchar(256),
+  scope varchar(256),
+  authorized_grant_types varchar(256),
+  web_server_redirect_uri varchar(256),
+  authorities varchar(256),
+  access_token_validity int(11),
+  refresh_token_validity int(11),
+  additional_information varchar(4096),
+  autoapprove varchar(256),
+  PRIMARY KEY (client_id) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '授权客户端' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of oauth_client_details
@@ -34,14 +30,8 @@ INSERT INTO oauth_client_details (client_id, resource_ids, client_secret, scope,
 -- Table structure for oauth_code
 -- ----------------------------
 DROP TABLE IF EXISTS oauth_code;
-CREATE TABLE oauth_code
-(
-    code           varchar(255),
-    authentication blob NULL,
-    INDEX code_index (code)
-) ENGINE = InnoDB
-  CHARACTER SET = utf8
-  COLLATE = utf8_general_ci COMMENT = '授权码'
-  ROW_FORMAT = Dynamic;
-
-SET FOREIGN_KEY_CHECKS = 1;
+CREATE TABLE oauth_code  (
+  code varchar(255),
+  authentication blob NULL,
+  INDEX code_index(code) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '授权码' ROW_FORMAT = Dynamic;

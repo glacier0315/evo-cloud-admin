@@ -7,7 +7,6 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 
 import java.io.Serializable;
-import java.time.Instant;
 
 /**
  * HTTP结果封装
@@ -42,7 +41,7 @@ public class HttpResult<T> implements Serializable {
      * 请求生成时间戳
      */
     @ApiModelProperty(value = "请求结果生成时间戳")
-    private Instant time;
+    private Long time;
     /**
      * 响应返回数据
      */
@@ -92,6 +91,7 @@ public class HttpResult<T> implements Serializable {
         return HttpResult.<T>builder()
                 .code(code)
                 .msg(msg)
+                .time(System.currentTimeMillis())
                 .build();
     }
 
@@ -129,6 +129,7 @@ public class HttpResult<T> implements Serializable {
                 .code(SUCCUSS)
                 .msg(msg)
                 .data(data)
+                .time(System.currentTimeMillis())
                 .build();
     }
 }

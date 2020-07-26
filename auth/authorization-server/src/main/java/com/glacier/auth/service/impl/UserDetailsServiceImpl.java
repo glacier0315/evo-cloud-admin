@@ -41,7 +41,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
      */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userService.getByUsername(username);
+        User user = this.userService.getByUsername(username);
+        if (user == null || user.getId() == null || user.getId().isEmpty()) {
+            throw new UsernameNotFoundException("用户名或者密码不正确！");
+        }
         log.info("load user by username :{}", user.toString());
         return new org.springframework.security.core.userdetails.User(
                 user.getUsername(),
@@ -58,7 +61,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
      */
     protected Set<GrantedAuthority> obtainGrantedAuthorities(User user) {
         // 查找角色
-        List<String> authorityList = roleService.findCodeByUserId(user.getId());
+        List<String> authorityList = this.roleService.findCodeByUserId(user.getId());
         log.info("user: {}, roles: {}", user.getUsername(), authorityList);
         return authorityList.stream()
                 .map(SimpleGrantedAuthority::new)

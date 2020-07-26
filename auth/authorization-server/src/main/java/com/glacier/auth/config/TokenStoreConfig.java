@@ -16,6 +16,7 @@ import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenCo
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFactory;
 
+import java.security.KeyPair;
 import java.util.Arrays;
 import java.util.Optional;
 
@@ -40,7 +41,19 @@ public class TokenStoreConfig {
     @Bean
     @Primary
     public TokenStore tokenStore() {
-        return new JwtTokenStore(jwtAccessTokenConverter());
+        return new JwtTokenStore(this.jwtAccessTokenConverter());
+    }
+
+    @Bean
+    public KeyPair keyPair() {
+        Resource keyStore = new ClassPathResource(this.authorizationServerProperties.getJwt().getKeyStore());
+        char[] keyStorePassword = this.authorizationServerProperties.getJwt().getKeyStorePassword().toCharArray();
+        KeyStoreKeyFactory keyStoreKeyFactory = new KeyStoreKeyFactory(keyStore, keyStorePassword);
+        String keyAlias = this.authorizationServerProperties.getJwt().getKeyAlias();
+        char[] keyPassword = Optional.ofNullable(this.authorizationServerProperties.getJwt().getKeyPassword())
+                .map(String::toCharArray)
+                .orElse(keyStorePassword);
+        return keyStoreKeyFactory.getKeyPair(keyAlias, keyPassword);
     }
 
     /**
@@ -51,15 +64,8 @@ public class TokenStoreConfig {
     @Bean
     public JwtAccessTokenConverter jwtAccessTokenConverter() {
         JwtAccessTokenConverter accessTokenConverter = new JwtAccessTokenConverter();
-        Resource keyStore = new ClassPathResource(this.authorizationServerProperties.getJwt().getKeyStore());
-        char[] keyStorePassword = this.authorizationServerProperties.getJwt().getKeyStorePassword().toCharArray();
-        KeyStoreKeyFactory keyStoreKeyFactory = new KeyStoreKeyFactory(keyStore, keyStorePassword);
-        String keyAlias = this.authorizationServerProperties.getJwt().getKeyAlias();
-        char[] keyPassword = Optional.ofNullable(this.authorizationServerProperties.getJwt().getKeyPassword())
-                .map(String::toCharArray)
-                .orElse(keyStorePassword);
         // 使用非对称加密
-        accessTokenConverter.setKeyPair(keyStoreKeyFactory.getKeyPair(keyAlias, keyPassword));
+        accessTokenConverter.setKeyPair(this.keyPair());
         return accessTokenConverter;
     }
 
@@ -71,7 +77,7 @@ public class TokenStoreConfig {
     @Bean
     public TokenEnhancerChain tokenEnhancerChain() {
         TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
-        tokenEnhancerChain.setTokenEnhancers(Arrays.asList(jwtAccessTokenConverter(), new CustomTokenEnhancer()));
+        tokenEnhancerChain.setTokenEnhancers(Arrays.asList(this.jwtAccessTokenConverter(), new CustomTokenEnhancer()));
         return tokenEnhancerChain;
     }
 }

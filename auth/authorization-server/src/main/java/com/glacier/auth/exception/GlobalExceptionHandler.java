@@ -1,9 +1,10 @@
 package com.glacier.auth.exception;
 
 import com.glacier.common.core.entity.vo.HttpResult;
-import com.glacier.common.core.exception.AuthErrorType;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.oauth2.common.exceptions.InvalidGrantException;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.oauth2.common.exceptions.InvalidScopeException;
+import org.springframework.security.oauth2.common.exceptions.OAuth2Exception;
+import org.springframework.security.oauth2.common.exceptions.UnsupportedGrantTypeException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -14,26 +15,26 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
  * @version 1.0
  * @date 2020-05-03 09:54
  */
+@Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
     /**
      * 处理 认证异常
      *
+     * @param exception
      * @return
      */
-    @ExceptionHandler(value = UsernameNotFoundException.class)
-    public HttpResult<?> authenticationException(UsernameNotFoundException e) {
-        return HttpResult.error(AuthErrorType.UNSUPPORTED_GRANT_TYPE);
-    }
-
-    /**
-     * 处理 认证异常
-     *
-     * @return
-     */
-    @ExceptionHandler(value = InvalidGrantException.class)
-    public HttpResult<?> authenticationException(InvalidGrantException e) {
-        return HttpResult.error(AuthErrorType.UNSUPPORTED_GRANT_TYPE);
+    @ExceptionHandler(value = OAuth2Exception.class)
+    public HttpResult<String> exceptionHandler(OAuth2Exception exception) {
+        log.error("认证异常：", exception);
+        if (exception instanceof UnsupportedGrantTypeException) {
+            return HttpResult.error(
+                    exception.getMessage().replace("Unsupported", "不支持"));
+        } else if (exception instanceof InvalidScopeException) {
+            return HttpResult.error(
+                    exception.getMessage().replace("Invalid", "无效"));
+        }
+        return HttpResult.error(exception.getMessage());
     }
 }

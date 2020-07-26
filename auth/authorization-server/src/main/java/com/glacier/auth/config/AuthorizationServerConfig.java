@@ -1,7 +1,8 @@
 package com.glacier.auth.config;
 
+import com.glacier.auth.oauth2.CustomAccessDeniedHandler;
 import com.glacier.auth.oauth2.CustomAuthenticationEntryPoint;
-import com.glacier.auth.oauth2.MyWebResponseExceptionTranslator;
+import com.glacier.auth.oauth2.filter.CustomClientCredentialsTokenEndpointFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -9,7 +10,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.oauth2.common.exceptions.OAuth2Exception;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
@@ -18,11 +18,12 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
 import org.springframework.security.oauth2.provider.code.AuthorizationCodeServices;
 import org.springframework.security.oauth2.provider.code.JdbcAuthorizationCodeServices;
-import org.springframework.security.oauth2.provider.error.WebResponseExceptionTranslator;
 import org.springframework.security.oauth2.provider.token.AuthorizationServerTokenServices;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
 import org.springframework.security.oauth2.provider.token.TokenStore;
+import org.springframework.security.web.AuthenticationEntryPoint;
+import org.springframework.security.web.access.AccessDeniedHandler;
 
 import javax.sql.DataSource;
 import java.util.concurrent.TimeUnit;
@@ -47,11 +48,20 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
+        CustomClientCredentialsTokenEndpointFilter endpointFilter = new CustomClientCredentialsTokenEndpointFilter();
+        endpointFilter.setConfigurer(security);
+        endpointFilter.setAuthenticationEntryPoint(this.authenticationEntryPoint());
+        endpointFilter.afterPropertiesSet();
+        security.addTokenEndpointAuthenticationFilter(endpointFilter);
+
         security.tokenKeyAccess("permitAll()")
                 .checkTokenAccess("permitAll()")
-                .authenticationEntryPoint(this.customAuthenticationEntryPoint())
                 // 允许表单验证
-                .allowFormAuthenticationForClients();
+//                .allowFormAuthenticationForClients()
+                // 权限不足处理
+                .accessDeniedHandler(this.accessDeniedHandler())
+                // 处理异常
+                .authenticationEntryPoint(this.authenticationEntryPoint());
     }
 
     @Override
@@ -124,13 +134,13 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     }
 
     /**
-     * 自定义异常处理
+     * 自定义异常
      *
      * @return
      */
     @Bean
-    public WebResponseExceptionTranslator<OAuth2Exception> myWebResponseExceptionTranslator() {
-        return new MyWebResponseExceptionTranslator();
+    public AuthenticationEntryPoint authenticationEntryPoint() {
+        return new CustomAuthenticationEntryPoint();
     }
 
     /**
@@ -139,7 +149,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
      * @return
      */
     @Bean
-    public CustomAuthenticationEntryPoint customAuthenticationEntryPoint() {
-        return new CustomAuthenticationEntryPoint();
+    public AccessDeniedHandler accessDeniedHandler() {
+        return new CustomAccessDeniedHandler();
     }
 }

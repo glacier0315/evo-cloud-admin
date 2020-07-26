@@ -1,10 +1,10 @@
 package com.glacier.auth.oauth2;
 
-import com.alibaba.fastjson.JSONWriter;
-import com.glacier.common.core.constant.CommonConstant;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.glacier.common.core.entity.vo.HttpResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 
@@ -22,15 +22,23 @@ import java.io.IOException;
  */
 @Slf4j
 public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint {
+
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response,
                          AuthenticationException authException) throws IOException, ServletException {
+        log.error("异常：", authException);
         response.setStatus(HttpStatus.OK.value());
-        response.setContentType(CommonConstant.MEDIA_TYPE);
-        response.setCharacterEncoding(CommonConstant.CHARSET_UTF_8);
-        JSONWriter jsonWriter = new JSONWriter(response.getWriter());
-        jsonWriter.writeObject(HttpResult.<String>error(authException.getMessage()));
-        jsonWriter.flush();
-        jsonWriter.close();
+        response.setContentType("application/json;charset=utf-8");
+        response.setCharacterEncoding("UTF-8");
+        ObjectMapper objectMapper = new ObjectMapper();
+        if (authException instanceof BadCredentialsException) {
+            objectMapper.writeValue(
+                    response.getOutputStream(),
+                    HttpResult.error("客户端信息无效！"));
+        } else {
+            objectMapper.writeValue(
+                    response.getOutputStream(),
+                    HttpResult.error(authException.getMessage()));
+        }
     }
 }

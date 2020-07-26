@@ -8,6 +8,7 @@ dependencies {
     implementation "org.springframework.cloud:spring-cloud-starter-openfeign"
 
     implementation "com.nimbusds:nimbus-jose-jwt:8.19"
+    implementation "com.baomidou:dynamic-datasource-spring-boot-starter:$dynamicDatasourceVersion"
 
     runtimeOnly "mysql:mysql-connector-java"
 }

@@ -1,6 +1,8 @@
 package com.glacier.auth.service.impl;
 
 
+import com.baomidou.dynamic.datasource.annotation.DS;
+import com.glacier.auth.constant.Constant;
 import com.glacier.auth.entity.pojo.User;
 import com.glacier.auth.service.RoleService;
 import com.glacier.auth.service.UserService;
@@ -26,6 +28,7 @@ import java.util.stream.Collectors;
  * @date 2019-09-30 10:15
  */
 @Slf4j
+@DS(Constant.DATASOURCE_EBOOT_SYS)
 @Service("userDetailsService")
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class UserDetailsServiceImpl implements UserDetailsService {

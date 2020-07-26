@@ -1,9 +1,18 @@
 package com.glacier.auth.controller;
 
+import com.glacier.auth.entity.pojo.OauthClientDetails;
+import com.glacier.auth.entity.pojo.User;
+import com.glacier.auth.entity.pojo.vo.CustomUserClientList;
+import com.glacier.auth.service.OauthClientDetailsService;
+import com.glacier.auth.service.UserService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * 测试
@@ -14,7 +23,10 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @Slf4j
 @RestController
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class HelloController {
+    private final OauthClientDetailsService clientDetailsService;
+    private final UserService userService;
 
     @GetMapping(value = "/")
     public String index() {
@@ -24,5 +36,15 @@ public class HelloController {
     @GetMapping(value = "/hello")
     public String hello(String name) {
         return "hello " + name;
+    }
+
+    @GetMapping(value = "/list")
+    public CustomUserClientList list() {
+        List<User> userList = this.userService.findAll();
+        List<OauthClientDetails> oauthClientDetailsList = this.clientDetailsService.findAll();
+        return CustomUserClientList.builder()
+                .userList(userList)
+                .oauthClientDetailsList(oauthClientDetailsList)
+                .build();
     }
 }

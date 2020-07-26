@@ -2,6 +2,7 @@ package com.glacier.auth.controller;
 
 import com.glacier.common.core.entity.vo.HttpResult;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.provider.endpoint.TokenEndpoint;
@@ -18,6 +19,7 @@ import java.util.Map;
  * @version 1.0
  * @date 2020-07-24 12:47
  */
+@Slf4j
 @RestController
 @RequestMapping("/oauth")
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))

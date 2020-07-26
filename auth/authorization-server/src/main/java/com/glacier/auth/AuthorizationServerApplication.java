@@ -1,5 +1,6 @@
 package com.glacier.auth;
 
+import com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceAutoConfigure;
 import com.glacier.auth.config.settings.SecuritySettings;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -13,7 +14,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
  */
 @EnableConfigurationProperties(SecuritySettings.class)
 @EnableDiscoveryClient
-@SpringBootApplication
+@SpringBootApplication(exclude = DruidDataSourceAutoConfigure.class)
 public class AuthorizationServerApplication {
 
     public static void main(String[] args) {

@@ -1,5 +1,7 @@
 package com.glacier.auth.config;
 
+import com.baomidou.dynamic.datasource.DynamicRoutingDataSource;
+import com.glacier.auth.constant.Constant;
 import com.glacier.auth.oauth2.CustomAccessDeniedHandler;
 import com.glacier.auth.oauth2.CustomAuthenticationEntryPoint;
 import com.glacier.auth.oauth2.filter.CustomClientCredentialsTokenEndpointFilter;
@@ -97,7 +99,10 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
      */
     @Bean
     public JdbcClientDetailsService jdbcClientDetailsService() {
-        JdbcClientDetailsService jdbcClientDetailsService = new JdbcClientDetailsService(this.dataSource);
+        DynamicRoutingDataSource dynamicRoutingDataSource = (DynamicRoutingDataSource) this.dataSource;
+        DataSource dataSource = dynamicRoutingDataSource.getCurrentDataSources()
+                .get(Constant.DATASOURCE_AUTH);
+        JdbcClientDetailsService jdbcClientDetailsService = new JdbcClientDetailsService(dataSource);
         jdbcClientDetailsService.setPasswordEncoder(this.passwordEncoder);
         return jdbcClientDetailsService;
     }
@@ -109,7 +114,10 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
      */
     @Bean
     public AuthorizationCodeServices jdbcAuthorizationCodeServices() {
-        return new JdbcAuthorizationCodeServices(this.dataSource);
+        DynamicRoutingDataSource dynamicRoutingDataSource = (DynamicRoutingDataSource) this.dataSource;
+        DataSource dataSource = dynamicRoutingDataSource.getCurrentDataSources()
+                .get(Constant.DATASOURCE_AUTH);
+        return new JdbcAuthorizationCodeServices(dataSource);
     }
 
     /**

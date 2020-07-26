@@ -1,12 +1,13 @@
 package com.glacier.auth.service.impl;
 
+import com.baomidou.dynamic.datasource.annotation.DS;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.glacier.auth.constant.Constant;
+import com.glacier.auth.entity.pojo.Role;
 import com.glacier.auth.mapper.RoleMapper;
 import com.glacier.auth.service.RoleService;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -18,14 +19,12 @@ import java.util.List;
  * @date 2020-05-21 17:10
  */
 @Slf4j
-@Transactional(readOnly = true)
+@DS(Constant.DATASOURCE_EBOOT_SYS)
 @Service(value = "roleService")
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
-public class RoleServiceImpl implements RoleService {
-    private final RoleMapper roleMapper;
+public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements RoleService {
 
     @Override
     public List<String> findCodeByUserId(String userId) {
-        return roleMapper.findCodeByUserId(userId);
+        return this.baseMapper.findCodeByUserId(userId);
     }
 }

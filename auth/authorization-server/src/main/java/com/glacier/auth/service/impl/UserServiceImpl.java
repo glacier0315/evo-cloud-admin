@@ -1,14 +1,16 @@
 package com.glacier.auth.service.impl;
 
+import com.baomidou.dynamic.datasource.annotation.DS;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.glacier.auth.constant.Constant;
 import com.glacier.auth.entity.pojo.User;
 import com.glacier.auth.mapper.UserMapper;
 import com.glacier.auth.service.UserService;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
  * 用户业务类
@@ -18,17 +20,20 @@ import org.springframework.transaction.annotation.Transactional;
  * @date 2019-08-04 21:50
  */
 @Slf4j
-@Transactional(readOnly = true)
+@DS(Constant.DATASOURCE_EBOOT_SYS)
 @Service(value = "userService")
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
-public class UserServiceImpl implements UserService {
-    private final UserMapper userMapper;
+public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
 
     @Override
     public User getByUsername(String username) {
-        return userMapper.selectOne(new QueryWrapper<>(User
+        return this.baseMapper.selectOne(new QueryWrapper<>(User
                 .builder()
                 .username(username)
                 .build()));
+    }
+
+    @Override
+    public List<User> findAll() {
+        return this.baseMapper.selectList(null);
     }
 }

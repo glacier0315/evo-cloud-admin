@@ -15,3 +15,6 @@ spring:
   devtools:
     restart:
       trigger-file: trigger.txt
+
+swagger:
+  enable: true

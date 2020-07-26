@@ -12,3 +12,6 @@ spring:
     host: 192.168.10.130
     port: 6379
     database: 0
+
+swagger:
+  enable: true

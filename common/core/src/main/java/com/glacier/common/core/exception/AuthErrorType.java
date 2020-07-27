@@ -20,7 +20,7 @@ public enum AuthErrorType implements ErrorType {
     /**
      * 无效client_id
      */
-    INVALID_CLIENT("040002", "无效client_id"),
+    INVALID_CLIENT("040002", "无效client_id或client_secret"),
     /**
      * 无效授权
      */
@@ -81,11 +81,11 @@ public enum AuthErrorType implements ErrorType {
 
     @Override
     public String getCode() {
-        return code;
+        return this.code;
     }
 
     @Override
     public String getMsg() {
-        return msg;
+        return this.msg;
     }
 }

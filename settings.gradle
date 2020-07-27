@@ -16,7 +16,6 @@ include 'common:web'
 // 引入 auth
 include 'auth:authorization-server'
 include 'auth:authorization-resource'
-include 'auth:authorization-client-demo1'
 
 // 引入 监控 monitor
 include 'monitor:monitor-admin'

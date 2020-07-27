@@ -11,6 +11,7 @@ import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.MimeTypeUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -19,6 +20,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+import java.util.Objects;
 
 /**
  * fastdfs 工具类
@@ -41,15 +43,18 @@ public class FileDfsUtil {
      */
     public HttpResult<String> uploadFile(MultipartFile file) {
         try {
+            String extension = FilenameUtils.getExtension(file.getOriginalFilename());
+            if (extension == null || extension.isEmpty()) {
+                extension = MimeTypeUtils.parseMimeType(Objects.requireNonNull(file.getContentType())).getSubtype();
+            }
             StorePath path = this.storageClient.uploadFile(file.getInputStream(), file.getSize(),
-                    FilenameUtils.getExtension(file.getOriginalFilename()), null);
+                    extension, null);
             return HttpResult.ok(path.getFullPath());
         } catch (Exception e) {
             e.printStackTrace();
             log.error("上传失败，错误：", e);
             return HttpResult.error();
         }
-
     }
 
     /**
@@ -68,9 +73,11 @@ public class FileDfsUtil {
         } catch (Exception e) {
             e.printStackTrace();
             log.error("上传失败，错误：", e);
-            return HttpResult.error();
+            return HttpResult.error("上传失败");
         } finally {
-            IOUtils.closeQuietly(fileInputStream);
+            IOUtils.closeQuietly(fileInputStream, e -> {
+                log.error("关闭出现异常：", e);
+            });
         }
     }
 
@@ -119,8 +126,8 @@ public class FileDfsUtil {
             return HttpResult.ok();
         } catch (FdfsUnsupportStorePathException e) {
             e.printStackTrace();
-            log.error("上传失败，错误：", e);
-            return HttpResult.error();
+            log.error("文件删除错误：", e);
+            return HttpResult.error("文件删除出现错误！");
         }
     }
 }

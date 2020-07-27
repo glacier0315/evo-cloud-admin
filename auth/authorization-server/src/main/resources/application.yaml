@@ -37,7 +37,6 @@ spring:
           stat:
             log-slow-sql: true
             slow-sql-millis: 2000
-
   redis:
     jedis:
       pool:
@@ -45,6 +44,9 @@ spring:
         max-wait: 10
         max-idle: 10
         min-idle: 10
+  thymeleaf:
+    #是否使用缓存
+    cache: false
 
 mybatis-plus:
   # 映射文件位置

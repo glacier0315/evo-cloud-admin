@@ -5,6 +5,7 @@ dependencies {
     // implementation('org.springframework.session:spring-session-data-redis')
     // implementation('org.springframework.boot:spring-boot-starter-data-redis-reactive')
 
+    implementation('org.springframework.boot:spring-boot-starter-thymeleaf')
     implementation "org.springframework.cloud:spring-cloud-starter-openfeign"
 
     implementation "com.nimbusds:nimbus-jose-jwt:8.19"

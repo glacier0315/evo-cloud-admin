@@ -62,18 +62,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring()
-                .antMatchers("/favicon.ico", "/error", "/static/**", "/webjars/**");
+                .antMatchers("/favicon.ico", "/error", "/static/**", "/webjars/**", "/css/**", "/js/**", "/fonts/**");
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers(securitySettings.permitAll2Array())
+                .antMatchers(this.securitySettings.permitAll2Array())
                 .permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()
                 .formLogin()
+                .loginPage("/login")
                 .permitAll()
                 .and()
                 .httpBasic()

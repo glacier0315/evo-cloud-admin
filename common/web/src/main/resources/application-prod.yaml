@@ -1,2 +1,2 @@
 server:
-  port: 8001
+  port: ${random.int[8000,19000]}

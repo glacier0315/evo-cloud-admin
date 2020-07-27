@@ -1,3 +1,7 @@
+CREATE DATABASE auth CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+
+use auth;
+
 -- ----------------------------
 -- Table structure for oauth_client_details
 -- ----------------------------

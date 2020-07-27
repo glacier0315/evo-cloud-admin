@@ -1,3 +1,7 @@
+CREATE DATABASE eboot_sys CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+
+use eboot_sys;
+
 -- ----------------------------
 -- Table structure for sys_user
 -- ----------------------------

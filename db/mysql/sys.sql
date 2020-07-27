@@ -11,7 +11,6 @@ CREATE TABLE sys_user  (
   username varchar(200)  COMMENT '用户名',
   password varchar(255)  COMMENT '密码',
   nickname varchar(200)  COMMENT '昵称',
-  salt varchar(255)  COMMENT '盐值',
   id_card varchar(20)  COMMENT '身份证号',
   birthday date  COMMENT '生日',
   sex int(4) COMMENT '性别',
@@ -34,8 +33,8 @@ CREATE TABLE sys_user  (
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
-INSERT INTO sys_user (id, username, password, nickname, salt, id_card, birthday, sex, email, mobile, dept_id, status, create_by, create_date, update_by, update_date, del_flag) VALUES ('1', 'admin', '$2a$10$RCvUyaqalDebEuYPVSOqCOlpRBO9hfslhp4SEN1dK/kJcc0FYY0aW', '', null, '11111111111111111111', null, null, '14151', '1414', '4c963d38ae25416ea3c1f141656b8f78', '1', null, '2019-11-07 17:01:42', null, '2020-06-25 07:45:59', '0');
-INSERT INTO sys_user (id, username, password, nickname, salt, id_card, birthday, sex, email, mobile, dept_id, status, create_by, create_date, update_by, update_date, del_flag) VALUES ('c35d5b94aca547799fbe56ddd90bcfc4', 'ceshi', '$2a$10$RP6MGP8lFqKhh0.2/SroKepKV25y8u2XSjvD8dzRXBzwAZGZYSYl.', '', null, null, null, null, '14151', '1414', '4c963d38ae25416ea3c1f141656b8f78', '1', null, '2020-06-25 07:45:59', null, '2020-06-25 07:45:59', '0');
+INSERT INTO sys_user (id, username, password, nickname, id_card, birthday, sex, email, mobile, dept_id, status, avatar, create_by, create_date, update_by, update_date, del_flag) VALUES ('1', 'admin', '$2a$10$RCvUyaqalDebEuYPVSOqCOlpRBO9hfslhp4SEN1dK/kJcc0FYY0aW', '超级管理员', '11111111111111111111', null, 1, '14151@126.com', '15926081406', '4c963d38ae25416ea3c1f141656b8f78', '1', 'http://192.168.10.132:8001/group1/M00/00/00/wKgKhF8elwOAbe2IAACn8hIebpk33.jpeg', null, '2019-11-07 17:01:42', null, '2020-07-27 09:02:19', '0');
+INSERT INTO sys_user (id, username, password, nickname, id_card, birthday, sex, email, mobile, dept_id, status, avatar, create_by, create_date, update_by, update_date, del_flag) VALUES ('c35d5b94aca547799fbe56ddd90bcfc4', 'ceshi', '$2a$10$RP6MGP8lFqKhh0.2/SroKepKV25y8u2XSjvD8dzRXBzwAZGZYSYl.', '普通用户', '11111111111111111111', null, 2, '14151@126.com', '15926081406', '4c963d38ae25416ea3c1f141656b8f78', '1', 'http://192.168.10.132:8001/group1/M00/00/00/wKgKhF8elwOAbe2IAACn8hIebpk33.jpeg', null, '2020-06-25 07:45:59', null, '2020-06-25 07:45:59', '0');
 
 -- ----------------------------
 -- Table structure for sys_menu

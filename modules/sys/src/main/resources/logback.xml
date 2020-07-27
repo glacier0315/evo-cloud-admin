@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration scan="true" scanPeriod="30 seconds">
     <property name="LOG_PATH" value="./logs"/>
-    .
+
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
             <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符-->
@@ -10,9 +10,9 @@
     </appender>
 
     <appender name="logFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${LOG_PATH}/eboot-sys.log</file>
+        <file>${LOG_PATH}/modules-sys.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>${LOG_PATH}/eboot-sys.%d{yyyy-MM-dd}.zip</fileNamePattern>
+            <fileNamePattern>${LOG_PATH}/modules-sys.%d{yyyy-MM-dd}.zip</fileNamePattern>
             <maxHistory>30</maxHistory>
         </rollingPolicy>
 

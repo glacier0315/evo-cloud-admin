@@ -1,7 +1,7 @@
 package com.glacier.common.web.util;
 
 import com.glacier.common.core.entity.vo.HttpResult;
-import com.glacier.common.web.WebApplication;
+import com.glacier.common.web.CommonWebApplication;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,7 +16,7 @@ import java.io.File;
  * @date 2020-07-22 15:18
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = {WebApplication.class})
+@SpringBootTest(classes = {CommonWebApplication.class})
 public class FileDfsUtilTest {
 
     @Resource

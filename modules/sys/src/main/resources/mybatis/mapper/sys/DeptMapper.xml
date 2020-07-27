@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.glacier.sys.mapper.DeptMapper">
+<mapper namespace="com.glacier.modules.sys.mapper.DeptMapper">
 
     <sql id="dept_columns">
         a.id, a.name, a.code, a.level, a.type, a.status, a.order_num, a.parent_id,
@@ -11,7 +11,7 @@
         inner join sys_role_dept b on a.id=b.dept_id
     </sql>
 
-    <select id="findDeptsByRoleId" resultType="com.glacier.sys.entity.pojo.Dept">
+    <select id="findDeptsByRoleId" resultType="com.glacier.modules.sys.entity.pojo.Dept">
         select
         <include refid="dept_columns"/>
         from sys_dept a
@@ -22,7 +22,7 @@
         </where>
     </select>
 
-    <select id="findDeptsByUserId" resultType="com.glacier.sys.entity.pojo.Dept">
+    <select id="findDeptsByUserId" resultType="com.glacier.modules.sys.entity.pojo.Dept">
         select
         <include refid="dept_columns"/>
         from sys_dept a

@@ -14,14 +14,14 @@ include 'common:core'
 include 'common:web'
 
 // 引入 auth
-include 'auth:authorization-server'
-include 'auth:authorization-resource'
+include 'authorization:server'
+include 'authorization:resource'
 
 // 引入 监控 monitor
-include 'monitor:monitor-admin'
+include 'monitor:admin-server'
 
 // 引入gateway
-include 'gateway:gateway-common'
+include 'gateway:common'
 
 // modules
 include 'modules:sys'

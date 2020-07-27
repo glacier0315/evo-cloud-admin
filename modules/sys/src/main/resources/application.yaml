@@ -60,9 +60,9 @@ spring:
             scope: all
         provider:
           uas:
-            authorization-uri: ${AUTH-SERVER-URL:http://localhost:8141/uas}/oauth/authorize
-            token-uri: ${AUTH-SERVER-URL:http://localhost:8141/uas}/oauth/token
-            user-info-uri: ${AUTH-SERVER-URL:http://localhost:8141/sys}/oauth/userInfo
+            authorization-uri: ${AUTHORIZATION-SERVER:http://localhost:8141/authorization-server}/oauth/authorize
+            token-uri: ${AUTHORIZATION-SERVER:http://localhost:8141/authorization-server}/oauth/token
+            user-info-uri: ${USER-INFO-SERVER:http://localhost:8141/sys}/oauth/userInfo
             user-name-attribute: username
 
 
@@ -70,7 +70,7 @@ mybatis-plus:
   # 映射文件位置
   mapper-locations: classpath*:mybatis/mapper/**/*.xml
   #config-location:  classpath:mybatis/mybatis-config.xml
-  type-aliases-package: com.glacier.auth.**.entity
+  type-aliases-package: com.glacier.modules.sys.entity.pojo
   global-config:
     db-config:
       id-type: assign_uuid

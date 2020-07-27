@@ -1,0 +1,8 @@
+server:
+  port: ${random.int[8001,19000]}
+
+
+spring:
+  devtools:
+    restart:
+      trigger-file: trigger.txt

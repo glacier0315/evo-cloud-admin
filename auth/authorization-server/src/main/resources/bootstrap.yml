@@ -1,7 +1,0 @@
-spring:
-  application:
-    name: uas
-  cloud:
-    nacos:
-      discovery:
-        server-addr: ${REGISTER_HOST:192.168.10.130}:${REGISTER_PORT:8848}

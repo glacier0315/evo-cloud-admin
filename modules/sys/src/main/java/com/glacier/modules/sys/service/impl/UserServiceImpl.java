@@ -87,20 +87,6 @@ public class UserServiceImpl implements UserService {
         User user = this.findUserByUsername(username);
         UserProfileVo userProfile = null;
         if (user != null) {
-//            userProfile = UserProfileVo.builder()
-//                    .id(user.getId())
-//                    .username(user.getUsername())
-//                    .nickname(user.getNickname())
-//                    .sex(user.getSex())
-//                    .avatar(user.getAvatar())
-//                    .deptId(user.getDeptId())
-//                    .deptName(ObjectUtils.defaultIfNull(
-//                            this.deptMapper.selectById(
-//                                    user.getDeptId()), new Dept())
-//                            .getName())
-//                    .mobile(user.getMobile())
-//                    .email(user.getEmail())
-//                    .build();
             userProfile = this.modelMapper.map(user, UserProfileVo.class);
             userProfile.setDeptName(
                     ObjectUtils.defaultIfNull(
@@ -117,11 +103,14 @@ public class UserServiceImpl implements UserService {
         if (user != null) {
             List<String> roles = this.roleMapper.findCodeByUserId(user.getId());
             userDetailsVo = new UserDetailsVo(
+                    user.getId(),
                     user.getUsername(),
                     user.getPassword(),
                     roles.stream()
                             .map(SimpleGrantedAuthority::new)
-                            .collect(Collectors.toSet())
+                            .collect(Collectors.toSet()),
+                    true, true, true,
+                    Constant.USER_ENABLED.equals(user.getStatus())
             );
         }
         return userDetailsVo;

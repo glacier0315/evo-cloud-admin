@@ -1,6 +1,6 @@
 package com.glacier.modules.sys.config;
 
-import com.glacier.modules.sys.config.feign.Oauth2FeignRequestIntercepter;
+import com.glacier.modules.sys.config.feign.TokenFeignClientInterceptor;
 import feign.Logger;
 import feign.RequestInterceptor;
 import lombok.RequiredArgsConstructor;
@@ -41,27 +41,27 @@ public class FeignConfig {
      * @return
      */
     @Bean
-    public RequestInterceptor oauth2FeignRequestlnterceptor() {
-        return new Oauth2FeignRequestIntercepter();
+    public RequestInterceptor tokenFeignClientInterceptor() {
+        return new TokenFeignClientInterceptor();
     }
 
     @Bean
-    public RestTemplate rest() {
-        RestTemplate rest = new RestTemplate();
-        rest.getInterceptors().add((request, body, execution) -> {
-            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-            if (authentication == null) {
-                return execution.execute(request, body);
-            }
-
-            if (!(authentication.getCredentials() instanceof AbstractOAuth2Token)) {
-                return execution.execute(request, body);
-            }
-
-            AbstractOAuth2Token token = (AbstractOAuth2Token) authentication.getCredentials();
-            request.getHeaders().setBearerAuth(token.getTokenValue());
-            return execution.execute(request, body);
-        });
-        return rest;
+    public RestTemplate restTemplate() {
+        RestTemplate restTemplate = new RestTemplate();
+        restTemplate.getInterceptors()
+                .add((request, body, execution) -> {
+                    Authentication authentication = SecurityContextHolder.getContext()
+                            .getAuthentication();
+                    if (authentication == null) {
+                        return execution.execute(request, body);
+                    }
+                    if (!(authentication.getCredentials() instanceof AbstractOAuth2Token)) {
+                        return execution.execute(request, body);
+                    }
+                    AbstractOAuth2Token token = (AbstractOAuth2Token) authentication.getCredentials();
+                    request.getHeaders().setBearerAuth(token.getTokenValue());
+                    return execution.execute(request, body);
+                });
+        return restTemplate;
     }
 }

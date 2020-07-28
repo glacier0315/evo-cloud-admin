@@ -17,6 +17,12 @@ public interface Constant {
      */
     String ADMIN = "admin";
     String ADMIN_ID = "1";
+
+    /**
+     * 用户状态
+     */
+    String USER_ENABLED = "1";
+    String USER_DISABLED = "2";
     /**
      * 性别 1 男  2 女 3 未知
      */

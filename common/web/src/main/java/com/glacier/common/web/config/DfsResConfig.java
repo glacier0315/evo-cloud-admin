@@ -15,7 +15,7 @@ import java.io.Serializable;
  */
 @Data
 @Component
-@ConfigurationProperties("fdfs")
+@ConfigurationProperties(prefix = "fdfs")
 public class DfsResConfig implements Serializable {
 
     private static final long serialVersionUID = 7177348548467185269L;

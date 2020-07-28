@@ -12,8 +12,8 @@ spring:
 fdfs:
   soTimeout: 1500 #socket连接超时时长
   connectTimeout: 600 #连接tracker服务器超时时长
-  reqHost: 192.168.10.132   #nginx访问地址
-  reqPort: 8001             #nginx访问端口
+  resHost: 192.168.10.132   #nginx访问地址
+  resPort: 8001             #nginx访问端口
   thumbImage: #缩略图生成参数，可选
     width: 150
     height: 150

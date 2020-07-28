@@ -39,15 +39,14 @@ public class FileDfsController {
     public HttpResult<String> upload(@RequestParam("file") MultipartFile file) {
         HttpResult<String> result = this.fastDfsClientUtil.uploadFile(file);
         if (StringUtils.equals(result.getCode(), HttpResult.SUCCUSS)) {
-            String url = String.format("%s:%s/%s", this.dfsResConfig.getResHost(),
+            String url = String.format("%s://%s:%s/%s", "http",
+                    this.dfsResConfig.getResHost(),
                     this.dfsResConfig.getResPort(),
                     result.getData());
             return HttpResult.ok(url);
         }
         return result;
-
     }
-
 
     /**
      * 单文件删除

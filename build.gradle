@@ -8,10 +8,13 @@
 plugins {
     id "org.springframework.boot" version "$springBootVersion" apply(false)
     id "com.arenagod.gradle.MybatisGenerator" version "$mybatisGeneratorVersion" apply(false)
+    // 引入 lombock 方式一
+//    id "io.freefair.lombok" version "$lombokPluginVersion" apply(false)
 }
 // 配置子项目
 subprojects {
     apply plugin: 'java'
+//    apply plugin: "io.freefair.lombok"
 
     // 指定jdk版本
     sourceCompatibility = 1.8
@@ -33,12 +36,12 @@ subprojects {
     }
 
     dependencies {
-        // lombok
+        // 引入 lombok 方式二
         compileOnly "org.projectlombok:lombok:${lombokVersion}"
         annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
-
         testCompileOnly "org.projectlombok:lombok:${lombokVersion}"
         testAnnotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+
         // 配置junit 4 单元测试
         testImplementation "junit:junit:4.12"
     }
@@ -49,13 +52,16 @@ subprojects {
     }
 
     //配置 删除文件夹
-    task cleanTempFiles() {
-        println("delete $project out & logs")
-        delete "out"
-        delete "logs"
+    task cleanTempFiles {
+        doLast {
+            delete "out"
+            delete "logs"
+        }
     }
+    clean.dependsOn cleanTempFiles
+
     // 配置 创建源文件夹
-    task mkdirs() {
+    task mkdirs {
         sourceSets*.java.srcDirs*.each {
             it.mkdirs()
         }
@@ -65,7 +71,9 @@ subprojects {
     }
     // 拷贝jar包
     task copyJars(type:Copy) {
-        from configurations.compile // 编译   runtime 执行
-        into 'build/lib' // 目标位置
+        // 运行时
+        from configurations.runtimeClasspath
+        // 目标位置
+        into "$buildDir/libs"
     }
 }

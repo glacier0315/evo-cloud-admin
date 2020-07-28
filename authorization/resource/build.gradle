@@ -1,3 +1,7 @@
+bootJar {
+    baseName("eboot-authorization-resource")
+}
+
 dependencies {
     // 本地依赖
     implementation fileTree(dir: 'libs', include: ['*.jar'])

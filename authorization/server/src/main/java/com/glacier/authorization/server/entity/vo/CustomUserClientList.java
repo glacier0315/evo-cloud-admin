@@ -1,4 +1,4 @@
-package com.glacier.authorization.server.entity.pojo.vo;
+package com.glacier.authorization.server.entity.vo;
 
 import com.glacier.authorization.server.entity.pojo.OauthClientDetails;
 import com.glacier.authorization.server.entity.pojo.User;

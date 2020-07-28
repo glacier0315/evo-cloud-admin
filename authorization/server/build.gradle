@@ -15,5 +15,7 @@ dependencies {
     implementation "com.nimbusds:nimbus-jose-jwt:8.19"
     implementation "com.baomidou:dynamic-datasource-spring-boot-starter:$dynamicDatasourceVersion"
 
+    implementation "org.springframework.boot:spring-boot-starter-oauth2-client"
+
     runtimeOnly "mysql:mysql-connector-java"
 }

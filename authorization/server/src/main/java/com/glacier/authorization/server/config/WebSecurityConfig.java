@@ -18,6 +18,12 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.client.OAuth2AuthorizedClientManager;
+import org.springframework.security.oauth2.client.OAuth2AuthorizedClientProvider;
+import org.springframework.security.oauth2.client.OAuth2AuthorizedClientProviderBuilder;
+import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
+import org.springframework.security.oauth2.client.web.DefaultOAuth2AuthorizedClientManager;
+import org.springframework.security.oauth2.client.web.OAuth2AuthorizedClientRepository;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.access.AccessDeniedHandler;
 
@@ -69,22 +75,45 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                             .anyRequest()
                             .authenticated();
                 })
-                .formLogin(
-                        configurer -> {
-                            configurer.loginPage("/login")
-                                    .permitAll();
-                        }
-                )
-                .httpBasic(
-                        configurer -> {
-                            // configurer.authenticationEntryPoint(this.authenticationEntryPoint());
-                        }
-                )
-                .logout(
-                        configurer -> {
-                            configurer.logoutSuccessHandler(new CustomLogoutSuccessHandler());
-                        }
-                );
+                .formLogin(configurer -> {
+                    configurer.loginPage("/login")
+                            .permitAll();
+                })
+                .httpBasic(configurer -> {
+                })
+                .logout(configurer -> {
+                    configurer.logoutSuccessHandler(new CustomLogoutSuccessHandler());
+                })
+                .oauth2Client(configurer -> {
+
+                });
+    }
+
+    /**
+     * 配置客户端管理器
+     * @param clientRegistrationRepository
+     * @param authorizedClientRepository
+     * @return
+     */
+    @Bean
+    public OAuth2AuthorizedClientManager authorizedClientManager(
+            ClientRegistrationRepository clientRegistrationRepository,
+            OAuth2AuthorizedClientRepository authorizedClientRepository) {
+
+        OAuth2AuthorizedClientProvider authorizedClientProvider =
+                OAuth2AuthorizedClientProviderBuilder.builder()
+                        .authorizationCode()
+                        .refreshToken()
+                        .clientCredentials()
+                        .password()
+                        .build();
+
+        DefaultOAuth2AuthorizedClientManager authorizedClientManager =
+                new DefaultOAuth2AuthorizedClientManager(
+                        clientRegistrationRepository,
+                        authorizedClientRepository);
+        authorizedClientManager.setAuthorizedClientProvider(authorizedClientProvider);
+        return authorizedClientManager;
     }
 
     /**

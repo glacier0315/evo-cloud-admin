@@ -1,7 +1,6 @@
 package com.glacier.authorization.server.config;
 
-import com.baomidou.dynamic.datasource.DynamicRoutingDataSource;
-import com.glacier.authorization.server.constant.Constant;
+import com.glacier.authorization.server.oauth2.exception.CunstomWebResponseExceptionTranslator;
 import com.glacier.authorization.server.oauth2.filter.CustomClientCredentialsTokenEndpointFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +44,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     private final DataSource dataSource;
     private final TokenStore tokenStore;
     private final TokenEnhancerChain tokenEnhancerChain;
+    private final CunstomWebResponseExceptionTranslator webResponseExceptionTranslator;
     private final AuthenticationEntryPoint authenticationEntryPoint;
     private final AccessDeniedHandler accessDeniedHandler;
 
@@ -54,12 +54,14 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
         endpointFilter.setConfigurer(security);
         endpointFilter.setAuthenticationEntryPoint(this.authenticationEntryPoint);
         endpointFilter.afterPropertiesSet();
+        // 使用此方式，处理客户端异常
+        // 注意不能使用 allowFormAuthenticationForClients()，否则不生效
         security.addTokenEndpointAuthenticationFilter(endpointFilter);
 
         security.tokenKeyAccess("permitAll()")
                 .checkTokenAccess("permitAll()")
                 // 允许表单验证
-//                .allowFormAuthenticationForClients()
+                // .allowFormAuthenticationForClients()
                 // 权限不足处理
                 .accessDeniedHandler(this.accessDeniedHandler)
                 // 处理异常
@@ -84,6 +86,8 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         endpoints
+                // 处理异常
+                .exceptionTranslator(this.webResponseExceptionTranslator)
                 .authorizationCodeServices(this.jdbcAuthorizationCodeServices())
                 // 配置密码模式
                 .authenticationManager(this.authenticationManager)
@@ -99,10 +103,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
      */
     @Bean
     public JdbcClientDetailsService jdbcClientDetailsService() {
-        DynamicRoutingDataSource dynamicRoutingDataSource = (DynamicRoutingDataSource) this.dataSource;
-        DataSource dataSource = dynamicRoutingDataSource.getCurrentDataSources()
-                .get(Constant.DATASOURCE_AUTH);
-        JdbcClientDetailsService jdbcClientDetailsService = new JdbcClientDetailsService(dataSource);
+        JdbcClientDetailsService jdbcClientDetailsService = new JdbcClientDetailsService(this.dataSource);
         jdbcClientDetailsService.setPasswordEncoder(this.passwordEncoder);
         return jdbcClientDetailsService;
     }
@@ -114,10 +115,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
      */
     @Bean
     public AuthorizationCodeServices jdbcAuthorizationCodeServices() {
-        DynamicRoutingDataSource dynamicRoutingDataSource = (DynamicRoutingDataSource) this.dataSource;
-        DataSource dataSource = dynamicRoutingDataSource.getCurrentDataSources()
-                .get(Constant.DATASOURCE_AUTH);
-        return new JdbcAuthorizationCodeServices(dataSource);
+        return new JdbcAuthorizationCodeServices(this.dataSource);
     }
 
     /**

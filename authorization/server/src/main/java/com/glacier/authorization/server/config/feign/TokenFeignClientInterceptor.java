@@ -7,6 +7,7 @@ import feign.RequestTemplate;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.oauth2.core.OAuth2AccessToken;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -23,6 +24,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class TokenFeignClientInterceptor implements RequestInterceptor {
 
+    public static final String BEARER = "Bearer";
     private final TokenUtils tokenUtils;
 
     /**
@@ -39,9 +41,12 @@ public class TokenFeignClientInterceptor implements RequestInterceptor {
                     .getHeader(HttpHeaders.AUTHORIZATION);
         }
         // 请求中没有令牌，重新获取客户端令牌
-        if (token == null || token.isEmpty()) {
-            token = String.format("%s %s", "Bearer",
-                    this.tokenUtils.acquireAccessToken("uas"));
+        if (token == null || token.isEmpty() || !token.contains(BEARER)) {
+            OAuth2AccessToken accessToken = this.tokenUtils.acquireAccessToken("uas");
+            if (accessToken != null) {
+                token = String.format("%s %s", BEARER,
+                        accessToken.getTokenValue());
+            }
         }
 
         //添加token

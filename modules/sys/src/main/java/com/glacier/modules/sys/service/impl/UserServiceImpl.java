@@ -30,13 +30,11 @@ import org.apache.commons.lang3.ObjectUtils;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * 用户业务类
@@ -106,9 +104,7 @@ public class UserServiceImpl implements UserService {
                     user.getId(),
                     user.getUsername(),
                     user.getPassword(),
-                    roles.stream()
-                            .map(SimpleGrantedAuthority::new)
-                            .collect(Collectors.toSet()),
+                    roles,
                     true, true, true,
                     Constant.USER_ENABLED.equals(user.getStatus())
             );

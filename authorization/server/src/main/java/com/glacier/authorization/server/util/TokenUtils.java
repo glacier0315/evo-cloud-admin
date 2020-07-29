@@ -38,9 +38,12 @@ public class TokenUtils {
      * @return
      */
     public OAuth2AccessToken acquireAccessToken(String clientId) {
+        OAuth2AccessToken accessToken = null;
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        OAuth2AuthorizedClient oAuth2AuthorizedClient = this.authorizedClientService.loadAuthorizedClient("uas", authentication.getName());
-        OAuth2AccessToken accessToken = oAuth2AuthorizedClient.getAccessToken();
+        OAuth2AuthorizedClient oAuth2AuthorizedClient = this.authorizedClientService.loadAuthorizedClient(clientId, authentication.getName());
+        if (oAuth2AuthorizedClient != null) {
+            accessToken = oAuth2AuthorizedClient.getAccessToken();
+        }
         if (accessToken == null
                 || accessToken.getTokenValue() == null
                 || accessToken.getTokenValue().isEmpty()) {

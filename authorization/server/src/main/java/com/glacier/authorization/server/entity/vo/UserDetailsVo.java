@@ -2,13 +2,15 @@ package com.glacier.authorization.server.entity.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.springframework.security.core.CredentialsContainer;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * 用户
@@ -18,19 +20,20 @@ import java.util.Set;
  * @date 2020-05-24 10:22
  */
 @Data
+@NoArgsConstructor
 @AllArgsConstructor
 @ToString
 public class UserDetailsVo implements UserDetails, CredentialsContainer {
 
-    private static final long serialVersionUID = -4433713600535288510L;
-    private final String userId;
-    private final String username;
+    private static final long serialVersionUID = 7919080375772006733L;
+    private String userId;
+    private String username;
     private String password;
-    private final Set<GrantedAuthority> authorities;
-    private final boolean accountNonExpired;
-    private final boolean accountNonLocked;
-    private final boolean credentialsNonExpired;
-    private final boolean enabled;
+    private List<String> roles;
+    private boolean accountNonExpired;
+    private boolean accountNonLocked;
+    private boolean credentialsNonExpired;
+    private boolean enabled;
 
     @Override
     public void eraseCredentials() {
@@ -53,5 +56,16 @@ public class UserDetailsVo implements UserDetails, CredentialsContainer {
     @Override
     public int hashCode() {
         return Objects.hash(this.userId, this.username);
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        Set<SimpleGrantedAuthority> authorities = new HashSet<>(1);
+        if (this.roles != null && !this.roles.isEmpty()) {
+            authorities = this.roles.stream()
+                    .map(SimpleGrantedAuthority::new)
+                    .collect(Collectors.toSet());
+        }
+        return authorities;
     }
 }

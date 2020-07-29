@@ -22,5 +22,11 @@ public interface RoleMapper extends BaseMapper<Role> {
      */
     List<Role> findByUserId(@Param("userId") String userId);
 
+    /**
+     * 根据用户id 查询所有角色编码
+     *
+     * @param id
+     * @return
+     */
     List<String> findCodeByUserId(String id);
 }

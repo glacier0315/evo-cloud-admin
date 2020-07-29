@@ -39,3 +39,22 @@ CREATE TABLE oauth_code  (
   authentication blob NULL,
   INDEX code_index(code) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '授权码' ROW_FORMAT = Dynamic;
+
+DROP TABLE IF EXISTS oauth_access_token;
+CREATE TABLE oauth_access_token (
+  token_id varchar(255) DEFAULT NULL,
+  token blob,
+  authentication_id varchar(255) DEFAULT NULL,
+  user_name varchar(255) DEFAULT NULL,
+  client_id varchar(255) DEFAULT NULL,
+  authentication blob,
+  refresh_token varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE = utf8_general_ci COMMENT = '令牌' ROW_FORMAT = Dynamic;
+
+
+DROP TABLE IF EXISTS oauth_refresh_token;
+CREATE TABLE oauth_refresh_token (
+  token_id varchar(255) DEFAULT NULL,
+  token blob,
+  authentication blob
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE = utf8_general_ci COMMENT = '刷新令牌' ROW_FORMAT = Dynamic;

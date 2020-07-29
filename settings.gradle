@@ -15,6 +15,7 @@ include 'common:web'
 
 // 引入 auth
 include 'authorization:server'
+include 'authorization:server-dynamic'
 include 'authorization:resource'
 
 // 引入 监控 monitor

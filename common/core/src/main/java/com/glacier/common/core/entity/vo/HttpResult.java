@@ -102,7 +102,7 @@ public class HttpResult<T> implements Serializable {
      * @return
      */
     public static <T> HttpResult<T> ok() {
-        return ok(null, null);
+        return ok("成功！", null);
     }
 
     /**
@@ -113,7 +113,7 @@ public class HttpResult<T> implements Serializable {
      * @return
      */
     public static <T> HttpResult<T> ok(T data) {
-        return ok(null, data);
+        return ok("成功！", data);
     }
 
     /**

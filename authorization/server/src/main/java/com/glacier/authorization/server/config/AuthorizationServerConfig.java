@@ -2,8 +2,6 @@ package com.glacier.authorization.server.config;
 
 import com.baomidou.dynamic.datasource.DynamicRoutingDataSource;
 import com.glacier.authorization.server.constant.Constant;
-import com.glacier.authorization.server.oauth2.CustomAccessDeniedHandler;
-import com.glacier.authorization.server.oauth2.CustomAuthenticationEntryPoint;
 import com.glacier.authorization.server.oauth2.filter.CustomClientCredentialsTokenEndpointFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,12 +45,14 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     private final DataSource dataSource;
     private final TokenStore tokenStore;
     private final TokenEnhancerChain tokenEnhancerChain;
+    private final AuthenticationEntryPoint authenticationEntryPoint;
+    private final AccessDeniedHandler accessDeniedHandler;
 
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
         CustomClientCredentialsTokenEndpointFilter endpointFilter = new CustomClientCredentialsTokenEndpointFilter();
         endpointFilter.setConfigurer(security);
-        endpointFilter.setAuthenticationEntryPoint(this.authenticationEntryPoint());
+        endpointFilter.setAuthenticationEntryPoint(this.authenticationEntryPoint);
         endpointFilter.afterPropertiesSet();
         security.addTokenEndpointAuthenticationFilter(endpointFilter);
 
@@ -61,9 +61,9 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                 // 允许表单验证
 //                .allowFormAuthenticationForClients()
                 // 权限不足处理
-                .accessDeniedHandler(this.accessDeniedHandler())
+                .accessDeniedHandler(this.accessDeniedHandler)
                 // 处理异常
-                .authenticationEntryPoint(this.authenticationEntryPoint());
+                .authenticationEntryPoint(this.authenticationEntryPoint);
     }
 
     @Override
@@ -141,23 +141,4 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
         return defaultTokenServices;
     }
 
-    /**
-     * 自定义异常
-     *
-     * @return
-     */
-    @Bean
-    public AuthenticationEntryPoint authenticationEntryPoint() {
-        return new CustomAuthenticationEntryPoint();
-    }
-
-    /**
-     * 自定义异常
-     *
-     * @return
-     */
-    @Bean
-    public AccessDeniedHandler accessDeniedHandler() {
-        return new CustomAccessDeniedHandler();
-    }
 }

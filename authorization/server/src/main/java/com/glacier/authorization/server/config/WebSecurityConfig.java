@@ -1,6 +1,8 @@
 package com.glacier.authorization.server.config;
 
 import com.glacier.authorization.server.config.settings.SecuritySettings;
+import com.glacier.authorization.server.oauth2.CustomAccessDeniedHandler;
+import com.glacier.authorization.server.oauth2.CustomAuthenticationEntryPoint;
 import com.glacier.authorization.server.oauth2.CustomLogoutSuccessHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +15,11 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.AuthenticationEntryPoint;
+import org.springframework.security.web.access.AccessDeniedHandler;
 
 /**
  * security配置
@@ -30,16 +35,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final SecuritySettings securitySettings;
-
-    /**
-     * 密码工具类
-     *
-     * @return
-     */
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
 
     /**
      * 授权中心管理器，解决依赖注入问题
@@ -67,22 +62,58 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                .antMatchers(this.securitySettings.permitAll2Array())
-                .permitAll()
-                .anyRequest()
-                .authenticated()
-                .and()
-                .formLogin()
-                .loginPage("/login")
-                .permitAll()
-                .and()
-                .httpBasic()
-                .and()
-                .logout()
-                .logoutSuccessHandler(new CustomLogoutSuccessHandler())
-                .and()
-                .csrf()
-                .disable();
+        http.csrf(AbstractHttpConfigurer::disable)
+                .authorizeRequests(registry -> {
+                    registry.antMatchers(this.securitySettings.permitAll2Array())
+                            .permitAll()
+                            .anyRequest()
+                            .authenticated();
+                })
+                .formLogin(
+                        configurer -> {
+                            configurer.loginPage("/login")
+                                    .permitAll();
+                        }
+                )
+                .httpBasic(
+                        configurer -> {
+                            // configurer.authenticationEntryPoint(this.authenticationEntryPoint());
+                        }
+                )
+                .logout(
+                        configurer -> {
+                            configurer.logoutSuccessHandler(new CustomLogoutSuccessHandler());
+                        }
+                );
+    }
+
+    /**
+     * 密码工具类
+     *
+     * @return
+     */
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    /**
+     * 自定义异常
+     *
+     * @return
+     */
+    @Bean
+    public AuthenticationEntryPoint authenticationEntryPoint() {
+        return new CustomAuthenticationEntryPoint();
+    }
+
+    /**
+     * 自定义异常
+     *
+     * @return
+     */
+    @Bean
+    public AccessDeniedHandler accessDeniedHandler() {
+        return new CustomAccessDeniedHandler();
     }
 }

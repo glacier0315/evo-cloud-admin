@@ -1,5 +1,6 @@
 package com.glacier.authorization.server.consumer;
 
+import com.glacier.authorization.server.consumer.fallback.UserServiceFallbackImpl;
 import com.glacier.authorization.server.entity.vo.UserDetailsVo;
 import com.glacier.common.core.entity.vo.HttpResult;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
  * @version 1.0
  * @date 2019-08-04 21:50
  */
-@FeignClient(value = "sys", path = "/user")
+@FeignClient(value = "sys", path = "/user", fallback = UserServiceFallbackImpl.class)
 public interface UserService {
 
     /**

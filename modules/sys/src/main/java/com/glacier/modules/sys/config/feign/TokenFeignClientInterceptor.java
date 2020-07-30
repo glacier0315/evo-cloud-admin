@@ -1,39 +1,55 @@
 package com.glacier.modules.sys.config.feign;
 
+import com.glacier.modules.sys.utils.TokenUtils;
 import com.google.common.net.HttpHeaders;
 import feign.RequestInterceptor;
 import feign.RequestTemplate;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.oauth2.core.OAuth2AccessToken;
+import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 /**
- * feign 拦截器 传递token
+ * feign拦截器
  *
  * @author glacier
  * @version 1.0
- * @date 2020-05-19 12:49
+ * @date 2020-07-28 21:40
  */
+@Slf4j
+@Component
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class TokenFeignClientInterceptor implements RequestInterceptor {
 
     public static final String BEARER = "Bearer";
-    public static final String AUTHORIZATION = "Authorization";
+    private final TokenUtils tokenUtils;
 
+    /**
+     * 将token传递下去
+     *
+     * @param template
+     */
     @Override
     public void apply(RequestTemplate template) {
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        if (authentication != null && authentication.getCredentials() instanceof AbstractOAuth2Token) {
-//            AbstractOAuth2Token token = (AbstractOAuth2Token) authentication.getCredentials();
-//            // Clear out the header
-//            template.header(AUTHORIZATION);
-//            template.header(AUTHORIZATION, String.format("%s %s", BEARER, token.getTokenValue()));
-//        }
-
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        String token = null;
         if (attributes != null) {
-            //添加token
-            template.header(HttpHeaders.AUTHORIZATION,
-                    attributes.getRequest()
-                            .getHeader(HttpHeaders.AUTHORIZATION));
+            token = attributes.getRequest()
+                    .getHeader(HttpHeaders.AUTHORIZATION);
         }
+        // 请求中没有令牌，重新获取客户端令牌
+        if (token == null || token.isEmpty() || !token.contains(BEARER)) {
+            OAuth2AccessToken accessToken = this.tokenUtils.acquireAccessToken("uas");
+            if (accessToken != null) {
+                token = String.format("%s %s", BEARER,
+                        accessToken.getTokenValue());
+            }
+        }
+
+        //添加token
+        template.header(HttpHeaders.AUTHORIZATION, token);
     }
 }

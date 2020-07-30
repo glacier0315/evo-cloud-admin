@@ -45,18 +45,10 @@ spring:
       client:
         registration:
           uas:
-            # provider: uas
-            client-id: eboot-sys
-            client-secret: eboot-sys
-            authorization-grant-type: authorization_code
-            redirect-uri: "{baseUrl}/authorized/uas"
-            scope: all
-          uas_password:
             provider: uas
             client-id: eboot-sys
             client-secret: eboot-sys
-            authorization-grant-type: password
-            redirect-uri: "{baseUrl}/authorized/uas_password"
+            authorization-grant-type: client_credentials
             scope: all
         provider:
           uas:

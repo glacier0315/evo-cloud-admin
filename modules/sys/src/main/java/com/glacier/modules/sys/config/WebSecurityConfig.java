@@ -1,12 +1,14 @@
 package com.glacier.modules.sys.config;
 
-import com.glacier.modules.sys.config.oauth2.CustomAccessDeniedHandler;
-import com.glacier.modules.sys.config.oauth2.CustomAuthenticationEntryPoint;
+import com.alibaba.fastjson.JSONWriter;
+import com.glacier.common.core.entity.vo.HttpResult;
+import com.glacier.common.core.exception.AuthErrorType;
 import com.glacier.modules.sys.config.settings.SecuritySettings;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -43,16 +45,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private final JwtDecoder jwtDecoder;
 
     /**
-     * 密码工具类
-     *
-     * @return
-     */
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-
-    /**
      * 配置静态资源拦截问题
      *
      * @param web
@@ -66,22 +58,36 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf(AbstractHttpConfigurer::disable)
+        http
+                .csrf(AbstractHttpConfigurer::disable)
                 .authorizeRequests(authorize -> {
-                    authorize.antMatchers(this.securitySettings.permitAll2Array())
+                    authorize
+                            .antMatchers(this.securitySettings.permitAll2Array())
                             .permitAll()
                             .anyRequest()
                             .authenticated();
                 })
-                .sessionManagement(sessionManagement -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .oauth2ResourceServer(resourceServerConfigurer -> {
-                    resourceServerConfigurer.accessDeniedHandler(this.customAccessDeniedHandler())
-                            .authenticationEntryPoint(this.customAuthenticationEntryPoint())
-                            .jwt(jwt -> jwt.decoder(this.jwtDecoder));
+                .sessionManagement((sessionManagement) -> {
+                    sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                })
+                .oauth2ResourceServer(resourceServer -> {
+                    resourceServer
+                            .accessDeniedHandler(this.accessDeniedHandler())
+                            .authenticationEntryPoint(this.authenticationEntryPoint())
+                            .jwt(jwt -> {
+                                jwt.decoder(this.jwtDecoder);
+                            });
                 })
                 .oauth2Login();
     }
 
+    /**
+     * 配置客户端管理
+     *
+     * @param clientRegistrationRepository
+     * @param authorizedClientRepository
+     * @return
+     */
     @Bean
     public OAuth2AuthorizedClientManager authorizedClientManager(
             ClientRegistrationRepository clientRegistrationRepository,
@@ -102,13 +108,31 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     /**
-     * 自定义
+     * 密码工具类
      *
      * @return
      */
     @Bean
-    public AccessDeniedHandler customAccessDeniedHandler() {
-        return new CustomAccessDeniedHandler();
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    /**
+     * 自定义权限不足异常
+     *
+     * @return
+     */
+    @Bean
+    public AccessDeniedHandler accessDeniedHandler() {
+        return (request, response, accessDeniedException) -> {
+            response.setStatus(HttpStatus.OK.value());
+            response.setContentType("application/json;charset=utf-8");
+            response.setCharacterEncoding("UTF-8");
+            JSONWriter jsonWriter = new JSONWriter(response.getWriter());
+            jsonWriter.writeObject(HttpResult.<String>error(AuthErrorType.ACCESS_DENIED));
+            jsonWriter.flush();
+            jsonWriter.close();
+        };
     }
 
     /**
@@ -117,7 +141,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      * @return
      */
     @Bean
-    public AuthenticationEntryPoint customAuthenticationEntryPoint() {
-        return new CustomAuthenticationEntryPoint();
+    public AuthenticationEntryPoint authenticationEntryPoint() {
+        return (request, response, authException) -> {
+            response.setStatus(HttpStatus.OK.value());
+            response.setContentType("application/json;charset=utf-8");
+            response.setCharacterEncoding("UTF-8");
+            JSONWriter jsonWriter = new JSONWriter(response.getWriter());
+            jsonWriter.writeObject(HttpResult.<String>error(AuthErrorType.INVALID_GRANT));
+            jsonWriter.flush();
+            jsonWriter.close();
+        };
     }
 }

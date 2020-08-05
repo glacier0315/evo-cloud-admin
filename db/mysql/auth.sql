@@ -1,6 +1,6 @@
-CREATE DATABASE auth CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+CREATE DATABASE eboot_auth CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
-use auth;
+use eboot_auth;
 
 -- ----------------------------
 -- Table structure for oauth_client_details

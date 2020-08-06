@@ -2,7 +2,7 @@ package com.glacier.authorization.resource.oauth2;
 
 import com.alibaba.fastjson.JSONWriter;
 import com.glacier.common.core.constant.CommonConstant;
-import com.glacier.common.core.entity.vo.HttpResult;
+import com.glacier.common.core.entity.vo.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.AuthenticationException;
@@ -28,7 +28,7 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint 
         response.setContentType(CommonConstant.MEDIA_TYPE);
         response.setCharacterEncoding(CommonConstant.CHARSET_UTF_8);
         JSONWriter jsonWriter = new JSONWriter(response.getWriter());
-        jsonWriter.writeObject(HttpResult.<String>error(authException.getMessage()));
+        jsonWriter.writeObject(Result.<String>error(authException.getMessage()));
         jsonWriter.flush();
         jsonWriter.close();
     }

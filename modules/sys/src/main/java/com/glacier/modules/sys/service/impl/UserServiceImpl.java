@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.glacier.common.core.entity.form.IdForm;
 import com.glacier.common.core.entity.page.PageRequest;
 import com.glacier.common.core.entity.page.PageResponse;
-import com.glacier.common.core.entity.vo.HttpResult;
+import com.glacier.common.core.entity.vo.Result;
 import com.glacier.common.core.exception.SystemErrorType;
 import com.glacier.modules.sys.common.Constant;
 import com.glacier.modules.sys.entity.form.user.UserAddForm;
@@ -179,7 +179,7 @@ public class UserServiceImpl implements UserService {
      */
     @Transactional(rollbackFor = {})
     @Override
-    public HttpResult<Integer> updatePassword(UserPasswordForm userPasswordForm) {
+    public Result<Integer> updatePassword(UserPasswordForm userPasswordForm) {
         int update = 0;
         if (userPasswordForm != null
                 && userPasswordForm.getId() != null
@@ -196,15 +196,15 @@ public class UserServiceImpl implements UserService {
                     );
                     update = this.userMapper.updateById(user);
                 } else {
-                    return HttpResult.error("原始密码不正确！");
+                    return Result.error("原始密码不正确！");
                 }
             } else {
-                return HttpResult.error("未找到该用户！");
+                return Result.error("未找到该用户！");
             }
         } else {
-            return HttpResult.error(SystemErrorType.ARGUMENT_NOT_VALID);
+            return Result.error(SystemErrorType.ARGUMENT_NOT_VALID);
         }
-        return HttpResult.ok("修改成功！", update);
+        return Result.ok("修改成功！" , update);
     }
 
     /**

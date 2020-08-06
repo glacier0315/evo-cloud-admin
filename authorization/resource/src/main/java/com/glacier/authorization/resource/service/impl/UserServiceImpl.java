@@ -6,7 +6,7 @@ import com.glacier.authorization.resource.entity.vo.UserInfo;
 import com.glacier.authorization.resource.mapper.RoleMapper;
 import com.glacier.authorization.resource.mapper.UserMapper;
 import com.glacier.authorization.resource.service.UserService;
-import com.glacier.common.core.entity.vo.HttpResult;
+import com.glacier.common.core.entity.vo.Result;
 import com.glacier.common.core.exception.AuthErrorType;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -39,7 +39,7 @@ public class UserServiceImpl implements UserService {
      * @return
      */
     @Override
-    public HttpResult<UserInfo> loadUserByUsername(String username) {
+    public Result<UserInfo> loadUserByUsername(String username) {
         User user = this.userMapper.selectOne(new QueryWrapper<>(User
                 .builder()
                 .username(username)
@@ -52,9 +52,9 @@ public class UserServiceImpl implements UserService {
                     .name(user.getUsername())
                     .roles(roles)
                     .build();
-            return HttpResult.ok(userInfo);
+            return Result.ok(userInfo);
         } else {
-            return HttpResult.error(AuthErrorType.INVALID_GRANT);
+            return Result.error(AuthErrorType.INVALID_GRANT);
         }
     }
 }

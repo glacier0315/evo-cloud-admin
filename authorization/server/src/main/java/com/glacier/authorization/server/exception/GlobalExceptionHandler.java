@@ -1,6 +1,6 @@
 package com.glacier.authorization.server.exception;
 
-import com.glacier.common.core.entity.vo.HttpResult;
+import com.glacier.common.core.entity.vo.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -23,8 +23,8 @@ public class GlobalExceptionHandler {
      * @return
      */
     @ExceptionHandler(value = Exception.class)
-    public HttpResult<String> exceptionHandler(Exception exception) {
-        log.error("异常：", exception);
-        return HttpResult.error(exception.getMessage());
+    public Result<String> exceptionHandler(Exception exception) {
+        log.error("异常：" , exception);
+        return Result.error(exception.getMessage());
     }
 }

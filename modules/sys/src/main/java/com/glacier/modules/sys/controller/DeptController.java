@@ -1,7 +1,7 @@
 package com.glacier.modules.sys.controller;
 
 import com.glacier.common.core.entity.form.IdForm;
-import com.glacier.common.core.entity.vo.HttpResult;
+import com.glacier.common.core.entity.vo.Result;
 import com.glacier.modules.sys.entity.pojo.Dept;
 import com.glacier.modules.sys.service.DeptService;
 import com.glacier.modules.sys.utils.SecurityUtils;
@@ -32,8 +32,8 @@ public class DeptController {
      * @return
      */
     @GetMapping("/list")
-    public HttpResult<List<Dept>> list() {
-        return HttpResult.ok(
+    public Result<List<Dept>> list() {
+        return Result.ok(
                 this.deptService.findList()
         );
     }
@@ -45,8 +45,8 @@ public class DeptController {
      * @return
      */
     @PostMapping("/save")
-    public HttpResult<Integer> save(@RequestBody Dept dept) {
-        return HttpResult.ok(this.deptService.save(dept));
+    public Result<Integer> save(@RequestBody Dept dept) {
+        return Result.ok(this.deptService.save(dept));
     }
 
     /**
@@ -56,8 +56,8 @@ public class DeptController {
      * @return
      */
     @PostMapping("/delete")
-    public HttpResult<Integer> delete(@RequestBody List<IdForm> idForms) {
-        return HttpResult.ok(this.deptService.batchDelete(idForms));
+    public Result<Integer> delete(@RequestBody List<IdForm> idForms) {
+        return Result.ok(this.deptService.batchDelete(idForms));
     }
 
     /**
@@ -66,10 +66,10 @@ public class DeptController {
      * @return
      */
     @GetMapping("/findTree")
-    public HttpResult<List<Dept>> findTree() {
+    public Result<List<Dept>> findTree() {
         String userId = SecurityUtils.geUserId();
-        log.debug("userId: {}", userId);
+        log.debug("userId: {}" , userId);
         List<Dept> tree = this.deptService.findTree(userId);
-        return HttpResult.ok(tree);
+        return Result.ok(tree);
     }
 }

@@ -1,7 +1,7 @@
 package com.glacier.modules.sys.config;
 
 import com.alibaba.fastjson.JSONWriter;
-import com.glacier.common.core.entity.vo.HttpResult;
+import com.glacier.common.core.entity.vo.Result;
 import com.glacier.common.core.exception.AuthErrorType;
 import com.glacier.modules.sys.config.settings.SecuritySettings;
 import lombok.RequiredArgsConstructor;
@@ -129,7 +129,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             response.setContentType("application/json;charset=utf-8");
             response.setCharacterEncoding("UTF-8");
             JSONWriter jsonWriter = new JSONWriter(response.getWriter());
-            jsonWriter.writeObject(HttpResult.<String>error(AuthErrorType.ACCESS_DENIED));
+            jsonWriter.writeObject(Result.<String>error(AuthErrorType.ACCESS_DENIED));
             jsonWriter.flush();
             jsonWriter.close();
         };
@@ -147,7 +147,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             response.setContentType("application/json;charset=utf-8");
             response.setCharacterEncoding("UTF-8");
             JSONWriter jsonWriter = new JSONWriter(response.getWriter());
-            jsonWriter.writeObject(HttpResult.<String>error(AuthErrorType.INVALID_GRANT));
+            jsonWriter.writeObject(Result.<String>error(AuthErrorType.INVALID_GRANT));
             jsonWriter.flush();
             jsonWriter.close();
         };

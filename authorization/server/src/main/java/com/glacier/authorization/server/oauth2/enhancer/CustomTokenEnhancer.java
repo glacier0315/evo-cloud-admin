@@ -1,6 +1,6 @@
 package com.glacier.authorization.server.oauth2.enhancer;
 
-import com.glacier.common.core.entity.vo.HttpResult;
+import com.glacier.common.core.entity.vo.Result;
 import com.google.common.collect.Maps;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -30,7 +30,7 @@ public class CustomTokenEnhancer implements TokenEnhancer {
             log.info("userAuthentication: {}", userAuthentication);
         }
         // 自定义token内容，加入状态编码
-        additionalInfo.put("code", HttpResult.SUCCUSS);
+        additionalInfo.put("code" , Result.SUCCUSS);
         ((DefaultOAuth2AccessToken) accessToken).setAdditionalInformation(additionalInfo);
         return accessToken;
     }

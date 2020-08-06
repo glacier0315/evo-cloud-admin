@@ -2,7 +2,7 @@ package com.glacier.authorization.resource.oauth2;
 
 import com.alibaba.fastjson.JSONWriter;
 import com.glacier.common.core.constant.CommonConstant;
-import com.glacier.common.core.entity.vo.HttpResult;
+import com.glacier.common.core.entity.vo.Result;
 import com.glacier.common.core.exception.AuthErrorType;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -29,7 +29,7 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler {
         response.setContentType(CommonConstant.MEDIA_TYPE);
         response.setCharacterEncoding(CommonConstant.CHARSET_UTF_8);
         JSONWriter jsonWriter = new JSONWriter(response.getWriter());
-        jsonWriter.writeObject(HttpResult.<String>error(AuthErrorType.ACCESS_DENIED));
+        jsonWriter.writeObject(Result.<String>error(AuthErrorType.ACCESS_DENIED));
         jsonWriter.flush();
         jsonWriter.close();
     }

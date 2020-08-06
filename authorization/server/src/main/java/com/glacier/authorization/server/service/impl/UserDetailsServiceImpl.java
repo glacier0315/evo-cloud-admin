@@ -3,7 +3,7 @@ package com.glacier.authorization.server.service.impl;
 
 import com.glacier.authorization.server.consumer.UserService;
 import com.glacier.authorization.server.entity.vo.UserDetailsVo;
-import com.glacier.common.core.entity.vo.HttpResult;
+import com.glacier.common.core.entity.vo.Result;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,9 +34,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
      */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        log.info("load user by username :{}", username);
-        HttpResult<UserDetailsVo> result = this.userService.findByUsername(username);
-        if (HttpResult.SUCCUSS.equals(result.getCode())
+        log.info("load user by username :{}" , username);
+        Result<UserDetailsVo> result = this.userService.findByUsername(username);
+        if (Result.SUCCUSS.equals(result.getCode())
                 && result.getData() != null
                 && result.getData().getUserId() != null
                 && !result.getData().getUserId().isEmpty()) {

@@ -1,6 +1,6 @@
 package com.glacier.modules.sys.controller;
 
-import com.glacier.common.core.entity.vo.HttpResult;
+import com.glacier.common.core.entity.vo.Result;
 import com.glacier.modules.sys.entity.vo.user.UserInfo;
 import com.glacier.modules.sys.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -32,13 +32,13 @@ public class UserInfoController {
      * @return
      */
     @GetMapping(value = "/userInfo")
-    public HttpResult<UserInfo> userInfo(Authentication authentication) {
+    public Result<UserInfo> userInfo(Authentication authentication) {
         log.info(">>>>>>>>>>>>>>>>>>>>>>>>");
-        log.info("当前登录用户为: {}", authentication);
+        log.info("当前登录用户为: {}" , authentication);
         log.info(">>>>>>>>>>>>>>>>>>>>>>>>");
         String username = ((Jwt) authentication.getPrincipal())
                 .getClaim("user_name");
-        return HttpResult.ok(
+        return Result.ok(
                 this.userService.findUserInfoByUsername(username));
     }
 }

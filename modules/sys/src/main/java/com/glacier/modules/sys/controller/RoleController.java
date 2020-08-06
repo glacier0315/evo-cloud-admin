@@ -2,7 +2,7 @@ package com.glacier.modules.sys.controller;
 
 import com.glacier.common.core.entity.page.PageRequest;
 import com.glacier.common.core.entity.page.PageResponse;
-import com.glacier.common.core.entity.vo.HttpResult;
+import com.glacier.common.core.entity.vo.Result;
 import com.glacier.modules.sys.entity.form.RoleForm;
 import com.glacier.modules.sys.entity.form.RoleQueryForm;
 import com.glacier.modules.sys.entity.pojo.Role;
@@ -33,8 +33,8 @@ public class RoleController {
      * @return
      */
     @GetMapping("/findAll")
-    public HttpResult<List<Role>> findAll() {
-        return HttpResult.ok(
+    public Result<List<Role>> findAll() {
+        return Result.ok(
                 this.roleService.findAllList());
     }
 
@@ -45,9 +45,9 @@ public class RoleController {
      * @return
      */
     @PostMapping("/pageList")
-    public HttpResult<PageResponse<Role>> findPage(
+    public Result<PageResponse<Role>> findPage(
             @RequestBody PageRequest<RoleQueryForm> pageRequest) {
-        return HttpResult.ok(
+        return Result.ok(
                 this.roleService.findPage(pageRequest));
     }
 
@@ -58,9 +58,9 @@ public class RoleController {
      * @return
      */
     @PostMapping("/add")
-    public HttpResult<Integer> add(
+    public Result<Integer> add(
             @RequestBody RoleForm roleForm) {
-        return HttpResult.ok(
+        return Result.ok(
                 this.roleService.save(roleForm));
     }
 
@@ -71,9 +71,9 @@ public class RoleController {
      * @return
      */
     @PutMapping("/update")
-    public HttpResult<Integer> update(
+    public Result<Integer> update(
             @RequestBody RoleForm roleForm) {
-        return HttpResult.ok(
+        return Result.ok(
                 this.roleService.save(roleForm));
     }
 
@@ -84,8 +84,8 @@ public class RoleController {
      * @return
      */
     @DeleteMapping("/delete")
-    public HttpResult<Integer> delete(String id) {
-        return HttpResult.ok(
+    public Result<Integer> delete(String id) {
+        return Result.ok(
                 this.roleService.delete(id));
     }
 
@@ -96,11 +96,11 @@ public class RoleController {
      * @return
      */
     @PostMapping("/checkCode")
-    public HttpResult<String> checkCode(
+    public Result<String> checkCode(
             @RequestBody Role role) {
-        HttpResult<String> httpResult = HttpResult.ok();
-        httpResult.setData(String.valueOf(this.roleService.checkCode(role)));
-        return httpResult;
+        Result<String> result = Result.ok();
+        result.setData(String.valueOf(this.roleService.checkCode(role)));
+        return result;
     }
 
     /**
@@ -110,7 +110,7 @@ public class RoleController {
      * @return
      */
     @GetMapping("/findByUserId")
-    public HttpResult<List<Role>> findByUserId(String userId) {
-        return HttpResult.ok(this.roleService.findByUserId(userId));
+    public Result<List<Role>> findByUserId(String userId) {
+        return Result.ok(this.roleService.findByUserId(userId));
     }
 }

@@ -1,6 +1,6 @@
 package com.glacier.authorization.server.exception;
 
-import com.glacier.common.core.entity.vo.HttpResult;
+import com.glacier.common.core.entity.vo.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.oauth2.common.exceptions.InvalidScopeException;
 import org.springframework.security.oauth2.common.exceptions.OAuth2Exception;
@@ -26,15 +26,15 @@ public class GlobalExceptionHandler {
      * @return
      */
     @ExceptionHandler(value = OAuth2Exception.class)
-    public HttpResult<String> exceptionHandler(OAuth2Exception exception) {
-        log.error("认证异常：", exception);
+    public Result<String> exceptionHandler(OAuth2Exception exception) {
+        log.error("认证异常：" , exception);
         if (exception instanceof UnsupportedGrantTypeException) {
-            return HttpResult.error(
-                    exception.getMessage().replace("Unsupported", "不支持"));
+            return Result.error(
+                    exception.getMessage().replace("Unsupported" , "不支持"));
         } else if (exception instanceof InvalidScopeException) {
-            return HttpResult.error(
-                    exception.getMessage().replace("Invalid", "无效"));
+            return Result.error(
+                    exception.getMessage().replace("Invalid" , "无效"));
         }
-        return HttpResult.error(exception.getMessage());
+        return Result.error(exception.getMessage());
     }
 }

@@ -2,7 +2,7 @@ package com.glacier.modules.sys.controller;
 
 import com.glacier.common.core.entity.page.PageRequest;
 import com.glacier.common.core.entity.page.PageResponse;
-import com.glacier.common.core.entity.vo.HttpResult;
+import com.glacier.common.core.entity.vo.Result;
 import com.glacier.modules.sys.common.Constant;
 import com.glacier.modules.sys.entity.form.user.*;
 import com.glacier.modules.sys.entity.vo.user.UserDetailsVo;
@@ -37,9 +37,9 @@ public class UserController {
      * @return
      */
     @GetMapping(value = "/{username}")
-    public HttpResult<UserDetailsVo> findByUsername(
+    public Result<UserDetailsVo> findByUsername(
             @PathVariable("username") String username) {
-        return HttpResult.ok(
+        return Result.ok(
                 this.userService.loadUserByUsername(username));
     }
 
@@ -50,9 +50,9 @@ public class UserController {
      * @return
      */
     @PostMapping("/pageList")
-    public HttpResult<PageResponse<UserListVo>> findPage(
+    public Result<PageResponse<UserListVo>> findPage(
             @RequestBody PageRequest<UserQueryForm> pageRequest) {
-        return HttpResult.ok(
+        return Result.ok(
                 this.userService.findPage(pageRequest));
     }
 
@@ -63,9 +63,9 @@ public class UserController {
      * @return
      */
     @PostMapping("/add")
-    public HttpResult<Integer> add(
+    public Result<Integer> add(
             @RequestBody UserAddForm userAddForm) {
-        return HttpResult.ok(
+        return Result.ok(
                 this.userService.add(userAddForm));
     }
 
@@ -76,9 +76,9 @@ public class UserController {
      * @return
      */
     @PutMapping("/update")
-    public HttpResult<Integer> update(
+    public Result<Integer> update(
             @RequestBody UserUpdateForm userUpdateForm) {
-        return HttpResult.ok(
+        return Result.ok(
                 this.userService.update(userUpdateForm));
     }
 
@@ -89,8 +89,8 @@ public class UserController {
      * @return
      */
     @DeleteMapping("/delete")
-    public HttpResult<Integer> delete(String id) {
-        return HttpResult.ok(
+    public Result<Integer> delete(String id) {
+        return Result.ok(
                 this.userService.delete(id));
     }
 
@@ -101,13 +101,13 @@ public class UserController {
      * @return
      */
     @GetMapping(value = "/profile")
-    public HttpResult<UserProfileVo> getProfile(Authentication authentication) {
+    public Result<UserProfileVo> getProfile(Authentication authentication) {
         log.info(">>>>>>>>>>>>>>>>>>>>>>>>");
-        log.info("当前登录用户为: {}", authentication);
+        log.info("当前登录用户为: {}" , authentication);
         log.info(">>>>>>>>>>>>>>>>>>>>>>>>");
         String username = ((Jwt) authentication.getPrincipal())
                 .getClaim("user_name");
-        return HttpResult.ok(
+        return Result.ok(
                 this.userService.findUserProfileByUsername(username));
     }
 
@@ -118,9 +118,9 @@ public class UserController {
      * @return
      */
     @PutMapping(value = "/profile")
-    public HttpResult<Integer> updateProfile(
+    public Result<Integer> updateProfile(
             @RequestBody UserProfileForm userProfileForm) {
-        return HttpResult.ok(
+        return Result.ok(
                 this.userService.update(userProfileForm));
     }
 
@@ -131,9 +131,9 @@ public class UserController {
      * @return
      */
     @PostMapping(value = "/avatar")
-    public HttpResult<Integer> avatar(
+    public Result<Integer> avatar(
             @RequestBody UserAvatarForm userAvatarForm) {
-        return HttpResult.ok(
+        return Result.ok(
                 this.userService.update(userAvatarForm));
     }
 
@@ -144,7 +144,7 @@ public class UserController {
      * @return
      */
     @PostMapping("/resetPwd")
-    public HttpResult<Integer> resetPwd(
+    public Result<Integer> resetPwd(
             @RequestBody UserPasswordForm userPasswordForm) {
         // 设置重置密码
         userPasswordForm.setNewPassword(Constant.DEFAULT_PASSWD);
@@ -158,7 +158,7 @@ public class UserController {
      * @return
      */
     @PutMapping("/updatePwd")
-    public HttpResult<Integer> updatePwd(
+    public Result<Integer> updatePwd(
             @RequestBody UserPasswordForm userPasswordForm) {
         return this.userService.updatePassword(userPasswordForm);
     }

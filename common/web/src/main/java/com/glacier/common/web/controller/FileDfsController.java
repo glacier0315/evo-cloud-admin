@@ -1,6 +1,6 @@
 package com.glacier.common.web.controller;
 
-import com.glacier.common.core.entity.vo.HttpResult;
+import com.glacier.common.core.entity.vo.Result;
 import com.glacier.common.web.config.DfsResConfig;
 import com.glacier.common.web.util.FileDfsUtil;
 import lombok.RequiredArgsConstructor;
@@ -36,14 +36,14 @@ public class FileDfsController {
      * @return
      */
     @PostMapping("/upload")
-    public HttpResult<String> upload(@RequestParam("file") MultipartFile file) {
-        HttpResult<String> result = this.fastDfsClientUtil.uploadFile(file);
-        if (StringUtils.equals(result.getCode(), HttpResult.SUCCUSS)) {
-            String url = String.format("%s://%s:%s/%s", "http",
+    public Result<String> upload(@RequestParam("file") MultipartFile file) {
+        Result<String> result = this.fastDfsClientUtil.uploadFile(file);
+        if (StringUtils.equals(result.getCode(), Result.SUCCUSS)) {
+            String url = String.format("%s://%s:%s/%s" , "http" ,
                     this.dfsResConfig.getResHost(),
                     this.dfsResConfig.getResPort(),
                     result.getData());
-            return HttpResult.ok(url);
+            return Result.ok(url);
         }
         return result;
     }
@@ -55,7 +55,7 @@ public class FileDfsController {
      * @return
      */
     @PostMapping("/delete")
-    public HttpResult<String> deleteFile(String url) {
+    public Result<String> deleteFile(String url) {
         return this.fastDfsClientUtil.deleteFile(url);
     }
 }

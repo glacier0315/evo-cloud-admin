@@ -1,7 +1,7 @@
 package com.glacier.authorization.server.oauth2;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.glacier.common.core.entity.vo.HttpResult;
+import com.glacier.common.core.entity.vo.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
@@ -30,6 +30,6 @@ public class CustomLogoutSuccessHandler implements LogoutSuccessHandler {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.writeValue(
                 response.getOutputStream(),
-                HttpResult.ok());
+                Result.ok());
     }
 }

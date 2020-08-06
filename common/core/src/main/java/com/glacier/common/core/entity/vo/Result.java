@@ -20,7 +20,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class HttpResult<T> implements Serializable {
+public class Result<T> implements Serializable {
 
     private static final long serialVersionUID = -8984794300938868661L;
     /**
@@ -54,7 +54,7 @@ public class HttpResult<T> implements Serializable {
      * @param <T>
      * @return
      */
-    public static <T> HttpResult<T> error() {
+    public static <T> Result<T> error() {
         return error(SystemErrorType.BUSINESS_ERROR);
     }
 
@@ -64,7 +64,7 @@ public class HttpResult<T> implements Serializable {
      * @param <T>
      * @return
      */
-    public static <T> HttpResult<T> error(String msg) {
+    public static <T> Result<T> error(String msg) {
         return error(SystemErrorType.BUSINESS_ERROR.getCode(), msg);
     }
 
@@ -75,7 +75,7 @@ public class HttpResult<T> implements Serializable {
      * @param <T>
      * @return
      */
-    public static <T> HttpResult<T> error(ErrorType errorType) {
+    public static <T> Result<T> error(ErrorType errorType) {
         return error(errorType.getCode(), errorType.getMsg());
     }
 
@@ -87,8 +87,8 @@ public class HttpResult<T> implements Serializable {
      * @param <T>
      * @return
      */
-    public static <T> HttpResult<T> error(String code, String msg) {
-        return HttpResult.<T>builder()
+    public static <T> Result<T> error(String code, String msg) {
+        return Result.<T>builder()
                 .code(code)
                 .msg(msg)
                 .time(System.currentTimeMillis())
@@ -101,8 +101,8 @@ public class HttpResult<T> implements Serializable {
      * @param <T>
      * @return
      */
-    public static <T> HttpResult<T> ok() {
-        return ok("成功！", null);
+    public static <T> Result<T> ok() {
+        return ok("成功！" , null);
     }
 
     /**
@@ -112,8 +112,8 @@ public class HttpResult<T> implements Serializable {
      * @param <T>
      * @return
      */
-    public static <T> HttpResult<T> ok(T data) {
-        return ok("成功！", data);
+    public static <T> Result<T> ok(T data) {
+        return ok("成功！" , data);
     }
 
     /**
@@ -124,8 +124,8 @@ public class HttpResult<T> implements Serializable {
      * @param <T>
      * @return
      */
-    public static <T> HttpResult<T> ok(String msg, T data) {
-        return HttpResult.<T>builder()
+    public static <T> Result<T> ok(String msg, T data) {
+        return Result.<T>builder()
                 .code(SUCCUSS)
                 .msg(msg)
                 .data(data)

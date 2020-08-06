@@ -2,7 +2,7 @@ package com.glacier.authorization.server.controller;
 
 import com.glacier.authorization.server.entity.pojo.OauthClientDetails;
 import com.glacier.authorization.server.service.OauthClientDetailsService;
-import com.glacier.common.core.entity.vo.HttpResult;
+import com.glacier.common.core.entity.vo.Result;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +25,7 @@ public class OauthClientDetailsController {
     private final OauthClientDetailsService clientDetailsService;
 
     @GetMapping(value = "/list")
-    public HttpResult<List<OauthClientDetails>> list() {
-        return HttpResult.ok(this.clientDetailsService.findAll());
+    public Result<List<OauthClientDetails>> list() {
+        return Result.ok(this.clientDetailsService.findAll());
     }
 }

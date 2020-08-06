@@ -1,7 +1,7 @@
 package com.glacier.authorization.resource.service;
 
 import com.glacier.authorization.resource.entity.vo.UserInfo;
-import com.glacier.common.core.entity.vo.HttpResult;
+import com.glacier.common.core.entity.vo.Result;
 
 /**
  * 用户业务层
@@ -18,5 +18,5 @@ public interface UserService {
      * @param username
      * @return
      */
-    HttpResult<UserInfo> loadUserByUsername(String username);
+    Result<UserInfo> loadUserByUsername(String username);
 }

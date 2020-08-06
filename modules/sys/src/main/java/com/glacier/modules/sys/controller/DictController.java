@@ -1,7 +1,7 @@
 package com.glacier.modules.sys.controller;
 
 import com.glacier.common.core.entity.form.IdForm;
-import com.glacier.common.core.entity.vo.HttpResult;
+import com.glacier.common.core.entity.vo.Result;
 import com.glacier.modules.sys.entity.pojo.Dict;
 import com.glacier.modules.sys.service.DictService;
 import lombok.RequiredArgsConstructor;
@@ -30,8 +30,8 @@ public class DictController {
      * @return
      */
     @GetMapping("/findDictTree")
-    public HttpResult<List<Dict>> findDictTree() {
-        return HttpResult.ok(this.dictService.findDictTree());
+    public Result<List<Dict>> findDictTree() {
+        return Result.ok(this.dictService.findDictTree());
     }
 
     /**
@@ -41,8 +41,8 @@ public class DictController {
      * @return
      */
     @PostMapping("/save")
-    public HttpResult<Integer> save(@RequestBody Dict dict) {
-        return HttpResult.ok(this.dictService.save(dict));
+    public Result<Integer> save(@RequestBody Dict dict) {
+        return Result.ok(this.dictService.save(dict));
     }
 
     /**
@@ -52,7 +52,7 @@ public class DictController {
      * @return
      */
     @PostMapping("/delete")
-    public HttpResult<Integer> delete(@RequestBody List<IdForm> idForms) {
-        return HttpResult.ok(this.dictService.batchDelete(idForms));
+    public Result<Integer> delete(@RequestBody List<IdForm> idForms) {
+        return Result.ok(this.dictService.batchDelete(idForms));
     }
 }

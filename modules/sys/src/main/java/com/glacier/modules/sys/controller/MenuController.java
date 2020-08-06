@@ -1,6 +1,6 @@
 package com.glacier.modules.sys.controller;
 
-import com.glacier.common.core.entity.vo.HttpResult;
+import com.glacier.common.core.entity.vo.Result;
 import com.glacier.modules.sys.entity.form.MenuForm;
 import com.glacier.modules.sys.entity.pojo.Menu;
 import com.glacier.modules.sys.entity.vo.RouterVo;
@@ -36,8 +36,8 @@ public class MenuController {
      * @return
      */
     @GetMapping("/list")
-    public HttpResult<List<Menu>> list() {
-        return HttpResult.ok(
+    public Result<List<Menu>> list() {
+        return Result.ok(
                 this.menuService.findAllList());
     }
 
@@ -48,9 +48,9 @@ public class MenuController {
      * @return
      */
     @PostMapping("/add")
-    public HttpResult<Integer> add(
+    public Result<Integer> add(
             @RequestBody MenuForm menuForm) {
-        return HttpResult.ok(
+        return Result.ok(
                 this.menuService.save(menuForm));
     }
 
@@ -61,9 +61,9 @@ public class MenuController {
      * @return
      */
     @PutMapping("/update")
-    public HttpResult<Integer> update(
+    public Result<Integer> update(
             @RequestBody MenuForm menuForm) {
-        return HttpResult.ok(
+        return Result.ok(
                 this.menuService.save(menuForm));
     }
 
@@ -74,8 +74,8 @@ public class MenuController {
      * @return
      */
     @DeleteMapping("/delete")
-    public HttpResult<Integer> delete(String id) {
-        return HttpResult.ok(
+    public Result<Integer> delete(String id) {
+        return Result.ok(
                 this.menuService.delete(id));
     }
 
@@ -85,8 +85,8 @@ public class MenuController {
      * @return
      */
     @GetMapping("/findByRole")
-    public HttpResult<List<String>> findByRole(String roleId) {
-        return HttpResult.ok(
+    public Result<List<String>> findByRole(String roleId) {
+        return Result.ok(
                 this.menuService.findByRole(roleId));
     }
 
@@ -96,10 +96,10 @@ public class MenuController {
      * @return
      */
     @GetMapping(value = "/getRouters")
-    public HttpResult<List<RouterVo>> getRouters() {
+    public Result<List<RouterVo>> getRouters() {
         String userId = SecurityUtils.geUserId();
-        log.debug("userId: {}", userId);
-        return HttpResult.ok(
+        log.debug("userId: {}" , userId);
+        return Result.ok(
                 MenuBuildFactory.buildRouters(
                         this.menuService.findMenuTreeByUserId(userId)));
     }
@@ -110,10 +110,10 @@ public class MenuController {
      * @return
      */
     @GetMapping(value = "/getPermissions")
-    public HttpResult<Set<String>> getPermissions() {
+    public Result<Set<String>> getPermissions() {
         String userId = SecurityUtils.geUserId();
-        log.debug("userId: {}", userId);
-        return HttpResult.ok(
+        log.debug("userId: {}" , userId);
+        return Result.ok(
                 this.menuService.findPermissionsByUserId(userId));
     }
 }

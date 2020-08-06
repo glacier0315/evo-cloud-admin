@@ -2,7 +2,7 @@ package com.glacier.authorization.resource.controller;
 
 import com.glacier.authorization.resource.entity.vo.UserInfo;
 import com.glacier.authorization.resource.service.UserService;
-import com.glacier.common.core.entity.vo.HttpResult;
+import com.glacier.common.core.entity.vo.Result;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,11 +30,11 @@ public class UserController {
      *
      * @return
      */
-    @RequestMapping(value = "/info", method = {RequestMethod.GET, RequestMethod.POST})
-    public HttpResult<UserInfo> userInfo() {
+    @RequestMapping(value = "/info" , method = {RequestMethod.GET, RequestMethod.POST})
+    public Result<UserInfo> userInfo() {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         log.info(">>>>>>>>>>>>>>>>>>>>>>>>");
-        log.info("当前登录用户为: {}", principal);
+        log.info("当前登录用户为: {}" , principal);
         log.info(">>>>>>>>>>>>>>>>>>>>>>>>");
         return this.userService.loadUserByUsername((String) principal);
     }

@@ -4,7 +4,7 @@ package com.glacier.common.web.util;
 import com.github.tobato.fastdfs.domain.fdfs.StorePath;
 import com.github.tobato.fastdfs.exception.FdfsUnsupportStorePathException;
 import com.github.tobato.fastdfs.service.FastFileStorageClient;
-import com.glacier.common.core.entity.vo.HttpResult;
+import com.glacier.common.core.entity.vo.Result;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FilenameUtils;
@@ -41,7 +41,7 @@ public class FileDfsUtil {
      * @param file
      * @return
      */
-    public HttpResult<String> uploadFile(MultipartFile file) {
+    public Result<String> uploadFile(MultipartFile file) {
         try {
             String extension = FilenameUtils.getExtension(file.getOriginalFilename());
             if (extension == null || extension.isEmpty()) {
@@ -49,11 +49,11 @@ public class FileDfsUtil {
             }
             StorePath path = this.storageClient.uploadFile(file.getInputStream(), file.getSize(),
                     extension, null);
-            return HttpResult.ok(path.getFullPath());
+            return Result.ok(path.getFullPath());
         } catch (Exception e) {
             e.printStackTrace();
             log.error("上传失败，错误：", e);
-            return HttpResult.error();
+            return Result.error();
         }
     }
 
@@ -63,17 +63,17 @@ public class FileDfsUtil {
      * @param file
      * @return
      */
-    public HttpResult<String> uploadFile(File file) {
+    public Result<String> uploadFile(File file) {
         FileInputStream fileInputStream = null;
         try {
             fileInputStream = new FileInputStream(file);
             StorePath path = this.storageClient.uploadFile(fileInputStream, file.length(),
                     FilenameUtils.getExtension(file.getName()), null);
-            return HttpResult.ok(path.getFullPath());
+            return Result.ok(path.getFullPath());
         } catch (Exception e) {
             e.printStackTrace();
-            log.error("上传失败，错误：", e);
-            return HttpResult.error("上传失败");
+            log.error("上传失败，错误：" , e);
+            return Result.error("上传失败");
         } finally {
             IOUtils.closeQuietly(fileInputStream, e -> {
                 log.error("关闭出现异常：", e);
@@ -89,9 +89,9 @@ public class FileDfsUtil {
      * @param fileName
      * @return
      */
-    public HttpResult<String> uploadFileStream(InputStream is, long size, String fileName) {
+    public Result<String> uploadFileStream(InputStream is, long size, String fileName) {
         StorePath path = this.storageClient.uploadFile(is, size, fileName, null);
-        return HttpResult.ok(path.getFullPath());
+        return Result.ok(path.getFullPath());
     }
 
     /**
@@ -101,11 +101,11 @@ public class FileDfsUtil {
      * @param fileExtension
      * @return
      */
-    public HttpResult<String> uploadFile(String content, String fileExtension) {
+    public Result<String> uploadFile(String content, String fileExtension) {
         byte[] buff = content.getBytes(StandardCharsets.UTF_8);
         ByteArrayInputStream stream = new ByteArrayInputStream(buff);
         StorePath path = this.storageClient.uploadFile(stream, buff.length, fileExtension, null);
-        return HttpResult.ok(path.getFullPath());
+        return Result.ok(path.getFullPath());
     }
 
     /**
@@ -114,20 +114,20 @@ public class FileDfsUtil {
      * @param fileUrl
      * @return
      */
-    public HttpResult<String> deleteFile(String fileUrl) {
+    public Result<String> deleteFile(String fileUrl) {
 
         if (StringUtils.isEmpty(fileUrl)) {
             log.info("删除失败，路径为空！");
-            return HttpResult.error();
+            return Result.error();
         }
         try {
             StorePath storePath = StorePath.parseFromUrl(fileUrl);
             this.storageClient.deleteFile(storePath.getGroup(), storePath.getPath());
-            return HttpResult.ok();
+            return Result.ok();
         } catch (FdfsUnsupportStorePathException e) {
             e.printStackTrace();
             log.error("文件删除错误：", e);
-            return HttpResult.error("文件删除出现错误！");
+            return Result.error("文件删除出现错误！");
         }
     }
 }

@@ -1,7 +1,7 @@
 package com.glacier.authorization.server.oauth2;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.glacier.common.core.entity.vo.HttpResult;
+import com.glacier.common.core.entity.vo.Result;
 import com.glacier.common.core.exception.AuthErrorType;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -35,11 +35,11 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint 
         if (authException instanceof BadCredentialsException) {
             objectMapper.writeValue(
                     response.getOutputStream(),
-                    HttpResult.error(AuthErrorType.INVALID_CLIENT));
+                    Result.error(AuthErrorType.INVALID_CLIENT));
         } else {
             objectMapper.writeValue(
                     response.getOutputStream(),
-                    HttpResult.error(authException.getMessage()));
+                    Result.error(authException.getMessage()));
         }
     }
 }

@@ -1,6 +1,6 @@
 package com.glacier.common.web.util;
 
-import com.glacier.common.core.entity.vo.HttpResult;
+import com.glacier.common.core.entity.vo.Result;
 import com.glacier.common.web.CommonWebApplication;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -25,14 +25,14 @@ public class FileDfsUtilTest {
     @Test
     public void uploadFile() {
         File file = new File("D:\\12.jpg");
-        HttpResult<String> result = this.fileDfsUtil.uploadFile(file);
+        Result<String> result = this.fileDfsUtil.uploadFile(file);
         System.out.println(result);
     }
 
     @Test
     public void deleteFile() {
         String fileUrl = "group1/M00/00/00/wKgKhF8YPHOAbXxoAABNkeog2NU914.jpg";
-        HttpResult<String> result = this.fileDfsUtil.deleteFile(fileUrl);
+        Result<String> result = this.fileDfsUtil.deleteFile(fileUrl);
         System.out.println(result);
     }
 }

@@ -1,6 +1,6 @@
 package com.glacier.authorization.server.controller;
 
-import com.glacier.common.core.entity.vo.HttpResult;
+import com.glacier.common.core.entity.vo.Result;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,19 +28,19 @@ public class OauthController {
     private final TokenEndpoint tokenEndpoint;
 
     @GetMapping("/token")
-    public HttpResult<OAuth2AccessToken> getAccessToken(
+    public Result<OAuth2AccessToken> getAccessToken(
             Principal principal,
             @RequestParam Map<String, String> parameters) throws HttpRequestMethodNotSupportedException {
-        return HttpResult.ok(
+        return Result.ok(
                 this.tokenEndpoint.getAccessToken(principal, parameters)
                         .getBody());
     }
 
     @PostMapping("/token")
-    public HttpResult<OAuth2AccessToken> postAccessToken(
+    public Result<OAuth2AccessToken> postAccessToken(
             Principal principal,
             @RequestParam Map<String, String> parameters) throws HttpRequestMethodNotSupportedException {
-        return HttpResult.ok(
+        return Result.ok(
                 this.tokenEndpoint.postAccessToken(principal, parameters)
                         .getBody());
     }

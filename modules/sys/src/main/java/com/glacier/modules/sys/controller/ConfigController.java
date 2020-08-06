@@ -3,7 +3,7 @@ package com.glacier.modules.sys.controller;
 import com.glacier.common.core.entity.form.IdForm;
 import com.glacier.common.core.entity.page.PageRequest;
 import com.glacier.common.core.entity.page.PageResponse;
-import com.glacier.common.core.entity.vo.HttpResult;
+import com.glacier.common.core.entity.vo.Result;
 import com.glacier.modules.sys.entity.pojo.Config;
 import com.glacier.modules.sys.service.ConfigService;
 import lombok.RequiredArgsConstructor;
@@ -37,8 +37,8 @@ public class ConfigController {
      * @return
      */
     @PostMapping("/findPage")
-    public HttpResult<PageResponse<Config>> findPage(@RequestBody PageRequest<Config> pageRequest) {
-        return HttpResult.ok(this.configService.findPage(pageRequest));
+    public Result<PageResponse<Config>> findPage(@RequestBody PageRequest<Config> pageRequest) {
+        return Result.ok(this.configService.findPage(pageRequest));
     }
 
     /**
@@ -48,8 +48,8 @@ public class ConfigController {
      * @return
      */
     @PostMapping("/save")
-    public HttpResult<Integer> save(@RequestBody Config config) {
-        return HttpResult.ok(this.configService.save(config));
+    public Result<Integer> save(@RequestBody Config config) {
+        return Result.ok(this.configService.save(config));
     }
 
     /**
@@ -59,7 +59,7 @@ public class ConfigController {
      * @return
      */
     @PostMapping("/delete")
-    public HttpResult<Integer> delete(@RequestBody List<IdForm> idForms) {
-        return HttpResult.ok(this.configService.batchDelete(idForms));
+    public Result<Integer> delete(@RequestBody List<IdForm> idForms) {
+        return Result.ok(this.configService.batchDelete(idForms));
     }
 }

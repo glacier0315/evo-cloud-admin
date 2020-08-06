@@ -2,7 +2,7 @@ package com.glacier.modules.sys.controller;
 
 import com.glacier.common.core.entity.page.PageRequest;
 import com.glacier.common.core.entity.page.PageResponse;
-import com.glacier.common.core.entity.vo.HttpResult;
+import com.glacier.common.core.entity.vo.Result;
 import com.glacier.modules.sys.entity.pojo.Log;
 import com.glacier.modules.sys.service.LogService;
 import lombok.RequiredArgsConstructor;
@@ -33,7 +33,7 @@ public class LogController {
      * @return
      */
     @PostMapping("/findPage")
-    public HttpResult<PageResponse<Log>> findPage(@RequestBody PageRequest<Log> pageRequest) {
-        return HttpResult.ok(this.logService.findPage(pageRequest));
+    public Result<PageResponse<Log>> findPage(@RequestBody PageRequest<Log> pageRequest) {
+        return Result.ok(this.logService.findPage(pageRequest));
     }
 }

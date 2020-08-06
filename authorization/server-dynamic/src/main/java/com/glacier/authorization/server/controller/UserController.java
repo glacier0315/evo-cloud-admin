@@ -2,7 +2,7 @@ package com.glacier.authorization.server.controller;
 
 import com.glacier.authorization.server.entity.pojo.User;
 import com.glacier.authorization.server.service.UserService;
-import com.glacier.common.core.entity.vo.HttpResult;
+import com.glacier.common.core.entity.vo.Result;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +25,8 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping(value = "/list")
-    public HttpResult<List<User>> list() {
-        return HttpResult.ok(
+    public Result<List<User>> list() {
+        return Result.ok(
                 this.userService.findAll());
     }
 }

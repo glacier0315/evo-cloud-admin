@@ -1,7 +1,7 @@
 package com.glacier.authorization.server.oauth2;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.glacier.common.core.entity.vo.HttpResult;
+import com.glacier.common.core.entity.vo.Result;
 import com.glacier.common.core.exception.AuthErrorType;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -30,6 +30,6 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.writeValue(
                 response.getOutputStream(),
-                HttpResult.error(AuthErrorType.ACCESS_DENIED));
+                Result.error(AuthErrorType.ACCESS_DENIED));
     }
 }

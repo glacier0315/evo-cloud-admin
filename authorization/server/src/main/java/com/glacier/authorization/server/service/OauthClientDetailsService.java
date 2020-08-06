@@ -14,7 +14,7 @@ public interface OauthClientDetailsService {
     /**
      * 查询所有客户端
      *
-     * @return
+     * @return 所有客户端
      */
     List<OauthClientDetails> findAll();
 }

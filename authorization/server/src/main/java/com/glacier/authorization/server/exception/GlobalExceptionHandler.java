@@ -19,8 +19,8 @@ public class GlobalExceptionHandler {
     /**
      * 处理 认证异常
      *
-     * @param exception
-     * @return
+     * @param exception 异常
+     * @return 异常响应
      */
     @ExceptionHandler(value = Exception.class)
     public Result<String> exceptionHandler(Exception exception) {

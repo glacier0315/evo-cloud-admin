@@ -1,11 +1,11 @@
 package com.glacier.authorization.server.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.glacier.authorization.server.entity.pojo.OauthClientDetails;
 import com.glacier.authorization.server.mapper.OauthClientDetailsMapper;
 import com.glacier.authorization.server.service.OauthClientDetailsService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,7 +17,10 @@ import java.util.List;
  */
 @Slf4j
 @Service(value = "oauthClientDetailsService")
-public class OauthClientDetailsServiceImpl extends ServiceImpl<OauthClientDetailsMapper, OauthClientDetails> implements OauthClientDetailsService {
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+public class OauthClientDetailsServiceImpl implements OauthClientDetailsService {
+
+    private final OauthClientDetailsMapper oauthClientDetailsMapper;
 
     /**
      * 查询所有客户端
@@ -26,7 +29,7 @@ public class OauthClientDetailsServiceImpl extends ServiceImpl<OauthClientDetail
      */
     @Override
     public List<OauthClientDetails> findAll() {
-        return this.baseMapper.selectList(new QueryWrapper<>(null));
+        return this.oauthClientDetailsMapper.findAll();
     }
 
 }

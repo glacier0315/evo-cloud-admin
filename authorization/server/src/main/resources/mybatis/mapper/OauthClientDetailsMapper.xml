@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.glacier.authorization.server.mapper.OauthClientDetailsMapper">
+
+    <sql id="base_columns">
+        a.client_id, a.resource_ids, a.client_secret, a.scope, a.authorized_grant_types, a.web_server_redirect_uri,
+        a.authorities, a.access_token_validity, a.refresh_token_validity, a.additional_information, a.autoapprove
+    </sql>
+
+    <sql id="joins_columns">
+    </sql>
+
+    <sql id="joins">
+    </sql>
+
+    <select id="findAll" resultType="com.glacier.authorization.server.entity.pojo.OauthClientDetails">
+        select
+        <include refid="base_columns"/>
+        <include refid="joins_columns"/>
+        from oauth_client_details a
+        <include refid="joins"/>
+        <where>
+            <if test="clientId != null and clientId != '' ">
+                a.client_id = #{clientId}
+            </if>
+        </where>
+    </select>
+
+</mapper>

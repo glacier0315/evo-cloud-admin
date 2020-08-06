@@ -52,7 +52,7 @@ public class FileDfsUtil {
             return Result.ok(path.getFullPath());
         } catch (Exception e) {
             e.printStackTrace();
-            log.error("上传失败，错误：", e);
+            log.error("上传失败，错误：" , e);
             return Result.error();
         }
     }
@@ -76,7 +76,7 @@ public class FileDfsUtil {
             return Result.error("上传失败");
         } finally {
             IOUtils.closeQuietly(fileInputStream, e -> {
-                log.error("关闭出现异常：", e);
+                log.error("关闭出现异常：" , e);
             });
         }
     }
@@ -126,7 +126,7 @@ public class FileDfsUtil {
             return Result.ok();
         } catch (FdfsUnsupportStorePathException e) {
             e.printStackTrace();
-            log.error("文件删除错误：", e);
+            log.error("文件删除错误：" , e);
             return Result.error("文件删除出现错误！");
         }
     }

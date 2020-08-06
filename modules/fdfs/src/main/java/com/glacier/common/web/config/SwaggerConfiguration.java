@@ -26,7 +26,7 @@ import java.util.List;
  */
 @Configuration
 @EnableSwagger2
-@ConditionalOnProperty(name = "swagger.enable", havingValue = "true")
+@ConditionalOnProperty(name = "swagger.enable" , havingValue = "true")
 public class SwaggerConfiguration {
 
     @Bean

@@ -11,7 +11,7 @@ rootProject.name = 'eboot-platform'
 
 // 引入 common
 include 'common:core'
-include 'common:web'
+
 
 // 引入 auth
 include 'authorization:server'
@@ -26,3 +26,4 @@ include 'gateway:common'
 
 // modules
 include 'modules:sys'
+include 'modules:fdfs'

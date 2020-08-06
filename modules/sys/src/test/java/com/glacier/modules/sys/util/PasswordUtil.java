@@ -1,6 +1,6 @@
 package com.glacier.modules.sys.util;
 
-import com.glacier.modules.sys.ModulesSysApplication;
+import com.glacier.modules.sys.SysApplication;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -15,7 +15,7 @@ import javax.annotation.Resource;
  * @date 2020-07-23 19:30
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = {ModulesSysApplication.class})
+@SpringBootTest(classes = {SysApplication.class})
 public class PasswordUtil {
     @Resource
     private PasswordEncoder passwordEncoder;

@@ -14,6 +14,7 @@ dependencies {
 
     implementation "com.nimbusds:nimbus-jose-jwt:8.19"
     implementation "com.baomidou:dynamic-datasource-spring-boot-starter:$dynamicDatasourceVersion"
+    implementation "com.baomidou:mybatis-plus-boot-starter:${mybatisPlusVersion}"
 
     runtimeOnly "mysql:mysql-connector-java"
 }

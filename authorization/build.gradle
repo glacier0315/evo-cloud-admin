@@ -17,7 +17,6 @@ subprojects {
         implementation "org.springframework.cloud:spring-cloud-starter-oauth2"
         implementation "org.springframework.boot:spring-boot-starter-web"
 
-        implementation "com.baomidou:mybatis-plus-boot-starter:${mybatisPlusVersion}"
         implementation "com.alibaba:druid-spring-boot-starter:${druidVersion}"
 
         // swagger

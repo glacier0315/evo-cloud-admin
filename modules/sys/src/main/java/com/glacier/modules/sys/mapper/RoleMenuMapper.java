@@ -1,14 +1,37 @@
 package com.glacier.modules.sys.mapper;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.glacier.modules.sys.entity.pojo.RoleMenu;
 
 /**
- * 角色菜单关联dao层
+ * 角色菜单关联关系 数据层
  *
  * @author glacier
  * @version 1.0
- * @date 2019-10-09 14:51
+ * @date 2019-12-18 15:29
  */
-public interface RoleMenuMapper extends BaseMapper<RoleMenu> {
+public interface RoleMenuMapper {
+
+    /**
+     * 删除 角色菜单关联关系
+     *
+     * @param menuId 菜单id
+     * @return
+     */
+    int deleteByMenuId(String menuId);
+
+    /**
+     * 删除 角色菜单关联关系
+     *
+     * @param roleId 角色id
+     * @return
+     */
+    int deleteByRoleId(String roleId);
+
+    /**
+     * 保存角色菜单关联关系
+     *
+     * @param record
+     * @return
+     */
+    int insert(RoleMenu record);
 }

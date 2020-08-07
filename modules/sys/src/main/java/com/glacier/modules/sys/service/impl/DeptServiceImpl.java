@@ -37,7 +37,7 @@ public class DeptServiceImpl implements DeptService {
      */
     @Override
     public List<Dept> findList() {
-        return this.deptMapper.selectList(null);
+        return this.deptMapper.selectAll();
     }
 
     /**
@@ -53,9 +53,9 @@ public class DeptServiceImpl implements DeptService {
             return deptList;
         }
         if (Constant.ADMIN_ID.equals(userId)) {
-            deptList = this.deptMapper.selectList(null);
+            deptList = this.deptMapper.selectAll();
         } else {
-            deptList = this.deptMapper.findDeptsByUserId(userId);
+            deptList = this.deptMapper.findByUserId(userId);
         }
         return deptList;
     }
@@ -71,7 +71,7 @@ public class DeptServiceImpl implements DeptService {
     public int save(Dept record) {
         int update = 0;
         if (record.getId() != null && !record.getId().isEmpty()) {
-            update = this.deptMapper.updateById(record);
+            update = this.deptMapper.updateByPrimaryKey(record);
         } else {
             update = this.deptMapper.insert(record);
         }

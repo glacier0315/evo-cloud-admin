@@ -58,7 +58,7 @@
             targetPackage：生成的类要放的包，真实的包受enableSubPackages属性控制；
             targetProject：目标项目，指定一个存在的目录下，生成的内容会放到指定目录中，如果目录不存在，MBG不会自动建目录
          -->
-        <javaModelGenerator targetPackage="com.glacier.mybatis.entity" targetProject="src/main/java">
+        <javaModelGenerator targetPackage="com.glacier.modules.sys.entity.pojo" targetProject="src/main/java">
             <!-- 是否允许子包，即targetPackage.schemaName.tableName -->
             <property name="enableSubPackages" value="false"/>
             <!-- 是否对model添加 构造函数 -->
@@ -89,7 +89,8 @@
                 3，XMLMAPPER：会生成Mapper接口，接口完全依赖XML；
             注意，如果context是MyBatis3Simple：只支持ANNOTATEDMAPPER和XMLMAPPER
         -->
-        <javaClientGenerator targetPackage="com.glacier.mybatis.mapper" type="XMLMAPPER" targetProject="src/main/java">
+        <javaClientGenerator targetPackage="com.glacier.modules.sys.mapper" type="XMLMAPPER"
+                             targetProject="src/main/java">
             <!-- 在targetPackage的基础上，根据数据库的schema再生成一层package，最终生成的类放在这个package下，默认为false -->
             <property name="enableSubPackages" value="false"/>
         </javaClientGenerator>
@@ -99,13 +100,19 @@
             domainObjectName 给表对应的 model 起名字
             注意：大小写敏感问题。
          -->
-        <table tableName="sys_user">
+        <table tableName="sys_role" domainObjectName="Role">
             <!--用来修改表中某个列的属性,一个table元素中可以有多个columnOverride元素哈.
                 property属性来指定列要生成的属性名称.
              -->
             <!--<columnOverride column="username" property="userName" />-->
-            <domainObjectRenamingRule searchString="^Sys" replaceString=""/>
+            <!--<domainObjectRenamingRule searchString="^Sys" replaceString=""/>-->
         </table>
+        <table tableName="sys_role_menu" domainObjectName="RoleMenu"/>
+        <table tableName="sys_menu" domainObjectName="Menu"/>
+        <table tableName="sys_dept" domainObjectName="Dept"/>
+        <table tableName="sys_dict" domainObjectName="Dict"/>
+        <table tableName="sys_config" domainObjectName="Config"/>
+        <table tableName="sys_log" domainObjectName="SysLog"/>
 
     </context>
 </generatorConfiguration>

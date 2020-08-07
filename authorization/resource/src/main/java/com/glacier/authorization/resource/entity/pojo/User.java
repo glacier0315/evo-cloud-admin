@@ -1,5 +1,6 @@
 package com.glacier.authorization.resource.entity.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.glacier.common.core.entity.pojo.BasePojo;
 import lombok.*;
 
@@ -19,7 +20,7 @@ import java.util.Date;
 @EqualsAndHashCode(callSuper = false)
 @Builder
 public class User extends BasePojo {
-    private static final long serialVersionUID = -3083387263445135811L;
+    private static final long serialVersionUID = 8183158175539525771L;
     /**
      * 用户名
      */
@@ -28,14 +29,6 @@ public class User extends BasePojo {
      * 密码
      */
     private String password;
-    /**
-     * 邮箱
-     */
-    private String email;
-    /**
-     * 手机号
-     */
-    private String mobile;
     /**
      * 昵称
      */
@@ -47,18 +40,41 @@ public class User extends BasePojo {
     /**
      * 出生日期
      */
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date birthday;
     /**
      * 性别 1=男 2=女 其他=保密
      */
     private Integer sex;
     /**
-     * 状态  1 正常  0 锁定
+     * 状态  1 正常  2 锁定
      */
     private String status;
+    /**
+     * 邮箱
+     */
+    private String email;
+    /**
+     * 手机号
+     */
+    private String mobile;
+    /**
+     * 头像地址
+     */
+    private String avatar;
+    /**
+     * 单位id
+     */
+    private String deptId;
     /**
      * 删除标记
      */
     private String delFlag;
 
+
+    /*非数据库字段*/
+    /**
+     * 单位名称
+     */
+    private String deptName;
 }

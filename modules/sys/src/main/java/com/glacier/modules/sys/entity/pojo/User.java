@@ -1,6 +1,5 @@
 package com.glacier.modules.sys.entity.pojo;
 
-import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.glacier.common.core.entity.pojo.BasePojo;
 import lombok.*;
@@ -70,7 +69,6 @@ public class User extends BasePojo {
     /**
      * 删除标记
      */
-    @TableLogic
     private String delFlag;
 
 

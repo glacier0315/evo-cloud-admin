@@ -1,7 +1,5 @@
 package com.glacier.modules.sys.entity.pojo;
 
-import com.baomidou.mybatisplus.annotation.TableLogic;
-import com.baomidou.mybatisplus.annotation.TableName;
 import com.glacier.common.core.entity.pojo.BasePojo;
 import lombok.*;
 
@@ -20,7 +18,6 @@ import java.util.List;
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper=false)
 @Builder
-@TableName(excludeProperty = {"level", "children"})
 public class Menu extends BasePojo {
 
     private static final long serialVersionUID = 1207728347319595982L;
@@ -69,7 +66,6 @@ public class Menu extends BasePojo {
     /**
      * 删除标记
      */
-    @TableLogic
     private String delFlag;
 
     /**

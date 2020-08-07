@@ -1,7 +1,7 @@
 package com.glacier.modules.sys.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.glacier.common.core.entity.form.IdForm;
 import com.glacier.common.core.entity.page.PageRequest;
 import com.glacier.common.core.entity.page.PageResponse;
@@ -41,7 +41,7 @@ public class ConfigServiceImpl implements ConfigService {
     public int save(Config record) {
         int update = 0;
         if (record.getId() != null && !record.getId().isEmpty()) {
-            update = this.configMapper.updateById(record);
+            update = this.configMapper.updateByPrimaryKey(record);
         } else {
             update = this.configMapper.insert(record);
         }
@@ -74,13 +74,14 @@ public class ConfigServiceImpl implements ConfigService {
      */
     @Override
     public PageResponse<Config> findPage(PageRequest<Config> pageRequest) {
-        Page<Config> page = this.configMapper.selectPage(new Page<>(pageRequest.getPageNum(), pageRequest.getPageSize()),
-                new QueryWrapper<>(pageRequest.getParams()));
+        PageHelper.startPage(pageRequest.getPageNum(), pageRequest.getPageSize());
+        List<Config> userList = this.configMapper.selectList(pageRequest.getParams());
+        PageInfo<Config> pageInfo = PageInfo.of(userList);
         return PageResponse.<Config>builder()
-                .pageNum(page.getCurrent())
-                .pageSize(page.getSize())
-                .total(page.getTotal())
-                .list(page.getRecords())
+                .pageNum(pageInfo.getPageNum())
+                .pageSize(pageInfo.getPageSize())
+                .total(pageInfo.getTotal())
+                .list(pageInfo.getList())
                 .build();
     }
 }

@@ -6,7 +6,6 @@ import com.glacier.modules.sys.entity.form.RoleForm;
 import com.glacier.modules.sys.entity.form.RoleQueryForm;
 import com.glacier.modules.sys.entity.pojo.Role;
 
-import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -24,7 +23,7 @@ public interface RoleService {
      * @param id
      * @return
      */
-    Role findById(Serializable id);
+    Role findById(String id);
 
     /**
      * 分页查询

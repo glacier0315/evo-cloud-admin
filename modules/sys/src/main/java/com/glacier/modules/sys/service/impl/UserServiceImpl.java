@@ -1,6 +1,5 @@
 package com.glacier.modules.sys.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.glacier.common.core.entity.form.IdForm;
@@ -85,7 +84,7 @@ public class UserServiceImpl implements UserService {
             userProfile = this.modelMapper.map(user, UserProfileVo.class);
             userProfile.setDeptName(
                     ObjectUtils.defaultIfNull(
-                            this.deptMapper.selectById(user.getDeptId()), new Dept())
+                            this.deptMapper.selectByPrimaryKey(user.getDeptId()), new Dept())
                             .getName());
         }
         return userProfile;
@@ -265,13 +264,7 @@ public class UserServiceImpl implements UserService {
     private int deleteUserRoleByUserId(final String userId) {
         int update = 0;
         if (userId != null && !userId.isEmpty()) {
-            update = this.userRoleMapper.delete(
-                    new UpdateWrapper<>(
-                            UserRole.builder()
-                                    .userId(userId)
-                                    .build()
-                    )
-            );
+            update = this.userRoleMapper.deleteByUserId(userId);
         }
         return update;
     }

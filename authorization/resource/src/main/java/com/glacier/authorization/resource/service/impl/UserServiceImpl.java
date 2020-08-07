@@ -1,6 +1,5 @@
 package com.glacier.authorization.resource.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.glacier.authorization.resource.entity.pojo.User;
 import com.glacier.authorization.resource.entity.vo.UserInfo;
 import com.glacier.authorization.resource.mapper.RoleMapper;
@@ -40,10 +39,7 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public Result<UserInfo> loadUserByUsername(String username) {
-        User user = this.userMapper.selectOne(new QueryWrapper<>(User
-                .builder()
-                .username(username)
-                .build()));
+        User user = this.userMapper.selectOneByUsername(username);
         if (user != null) {
             // 查找角色
             List<String> roles = this.roleMapper.findCodeByUserId(user.getId());

@@ -48,7 +48,7 @@ public class MenuServiceImpl implements MenuService {
         if (menu.getId() != null
                 && !menu.getId().isEmpty()) {
             // 更新
-            update = this.menuMapper.updateById(menu);
+            update = this.menuMapper.updateByPrimaryKey(menu);
         } else {
             // 保存
             update = this.menuMapper.insert(menu);
@@ -67,19 +67,19 @@ public class MenuServiceImpl implements MenuService {
     @Override
     public int delete(String id) {
         if (id != null && !id.isEmpty()) {
-            return this.menuMapper.deleteById(id);
+            return this.menuMapper.deleteByPrimaryKey(id);
         }
         return 0;
     }
 
     @Override
     public List<String> findByRole(String roleId) {
-        return this.menuMapper.findByRole(roleId);
+        return this.menuMapper.findMenuIdsByRoleId(roleId);
     }
 
     @Override
     public List<Menu> findAllList() {
-        return this.menuMapper.selectList(null);
+        return this.menuMapper.selectAll();
     }
 
     @Override
@@ -101,9 +101,9 @@ public class MenuServiceImpl implements MenuService {
             return menuList;
         }
         if (Constant.ADMIN_ID.equals(userId)) {
-            menuList = this.menuMapper.selectList(null);
+            menuList = this.menuMapper.selectAll();
         } else {
-            menuList = this.menuMapper.findMenusByUserId(userId);
+            menuList = this.menuMapper.findByUserId(userId);
         }
         return MenuBuildFactory.buildMenuTree(menuList);
     }

@@ -1,32 +1,37 @@
 package com.glacier.modules.sys.mapper;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.glacier.common.core.mapper.BaseMapper;
 import com.glacier.modules.sys.entity.pojo.Role;
-import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
+
 /**
- * 角色数据层
+ * 角色 数据层
  *
  * @author glacier
  * @version 1.0
- * @date 2019-08-04 21:53
+ * @date 2019-12-18 15:29
  */
-public interface RoleMapper extends BaseMapper<Role> {
+public interface RoleMapper extends BaseMapper<Role, String> {
     /**
-     * 根绝用户id 查询用户所拥有的角色
+     * 根据用户id 查询角色编码
      *
-     * @param userId
-     * @return
+     * @param userId 用户id
+     * @return 角色编码
      */
-    List<Role> findByUserId(@Param("userId") String userId);
+    List<String> findCodeByUserId(String userId);
 
     /**
-     * 根据用户id 查询所有角色编码
-     *
-     * @param id
-     * @return
+     * @param userId
+     * @return 角色
      */
-    List<String> findCodeByUserId(String id);
+    List<Role> findByUserId(String userId);
+
+    /**
+     * @param role 角色
+     * @return 编码数量（排除指定id）
+     */
+    Integer selectCount(Role role);
+
 }

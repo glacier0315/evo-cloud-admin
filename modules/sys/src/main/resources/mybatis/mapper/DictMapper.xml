@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.glacier.modules.sys.mapper.DictMapper">
+    <resultMap id="BaseResultMap" type="com.glacier.modules.sys.entity.pojo.Dict">
+        <id column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="code" jdbcType="VARCHAR" property="code"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="type" jdbcType="VARCHAR" property="type"/>
+        <result column="parent_id" jdbcType="VARCHAR" property="parentId"/>
+        <result column="description" jdbcType="VARCHAR" property="description"/>
+        <result column="order_num" jdbcType="INTEGER" property="orderNum"/>
+        <result column="remarks" jdbcType="VARCHAR" property="remarks"/>
+        <result column="create_by" jdbcType="VARCHAR" property="createBy"/>
+        <result column="create_date" jdbcType="TIMESTAMP" property="createDate"/>
+        <result column="update_by" jdbcType="VARCHAR" property="updateBy"/>
+        <result column="update_date" jdbcType="TIMESTAMP" property="updateDate"/>
+        <result column="del_flag" jdbcType="VARCHAR" property="delFlag"/>
+    </resultMap>
+
+    <sql id="base_columns">
+        a.id, a.code, a.name, a.type, a.parent_id, a.description, a.order_num, a.remarks,
+        a.create_by, a.create_date, a.update_by, a.update_date, a.del_flag
+    </sql>
+
+    <sql id="join_columns">
+    </sql>
+
+    <sql id="joins">
+    </sql>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        delete
+        from sys_dict
+        where id = #{id}
+    </delete>
+
+    <delete id="deleteBatchIds">
+        update sys_dict a
+        set a.del_flag='1'
+        <where>
+            <choose>
+                <when test="list != null and list.size() > 0">
+                    and id in
+                    <foreach collection="list" item="item" separator="," open="(" close=")">
+                        #{item}
+                    </foreach>
+                </when>
+                <otherwise>
+                    0=1
+                </otherwise>
+            </choose>
+        </where>
+    </delete>
+
+    <insert id="insert" parameterType="com.glacier.modules.sys.entity.pojo.Dict">
+        insert into sys_dict (id, code, name,
+                              type, parent_id, description,
+                              order_num, remarks, create_by,
+                              create_date, update_by, update_date,
+                              del_flag)
+        values (#{id}, #{code}, #{name},
+                #{type}, #{parentId}, #{description},
+                #{orderNum}, #{remarks}, #{createBy},
+                #{createDate}, #{updateBy}, #{updateDate},
+                #{delFlag})
+    </insert>
+
+    <update id="updateByPrimaryKey" parameterType="com.glacier.modules.sys.entity.pojo.Dict">
+        update sys_dict
+        set code        = #{code},
+            name        = #{name},
+            type        = #{type},
+            parent_id   = #{parentId},
+            description = #{description},
+            order_num   = #{orderNum},
+            remarks     = #{remarks},
+            update_by   = #{updateBy},
+            update_date = #{updateDate}
+        where id = #{id}
+    </update>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="base_columns"/>
+        from sys_dict a
+        where a.id = #{id}
+    </select>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        select
+        <include refid="base_columns"/>
+        from sys_dict a
+        <where>
+            a.del_flag='0'
+        </where>
+    </select>
+
+    <select id="selectList" resultMap="BaseResultMap">
+        select
+        <include refid="base_columns"/>
+        from sys_dict a
+        <where>
+            a.del_flag='0'
+        </where>
+    </select>
+</mapper>

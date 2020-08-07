@@ -1,7 +1,5 @@
 package com.glacier.modules.sys.entity.pojo;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.*;
 
 import java.io.Serializable;
@@ -24,7 +22,6 @@ public class UserRole implements Serializable {
     /**
      * 主键
      */
-    @TableId(type = IdType.ASSIGN_UUID)
     private String id;
     /**
      * 用户id

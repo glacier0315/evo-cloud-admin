@@ -16,7 +16,7 @@ public class AppContextHolder {
     /**
      * 线程上下文
      */
-    private ThreadLocal<Map<String, String>> threadLocal;
+    private final ThreadLocal<Map<String, String>> threadLocal;
 
     private AppContextHolder() {
         this.threadLocal = new ThreadLocal<>();
@@ -28,7 +28,7 @@ public class AppContextHolder {
      * @return
      */
     public static AppContextHolder getInstance() {
-        return SingletonHolder.sInstance;
+        return SingletonHolder.SINGLETON_INSTANCE;
     }
 
     /**
@@ -36,7 +36,7 @@ public class AppContextHolder {
      * 单例初使化
      */
     private static class SingletonHolder {
-        private static final AppContextHolder sInstance = new AppContextHolder();
+        private static final AppContextHolder SINGLETON_INSTANCE = new AppContextHolder();
     }
 
     /**
@@ -45,7 +45,7 @@ public class AppContextHolder {
      * @param map
      */
     public void setContext(Map<String, String> map) {
-        threadLocal.set(map);
+        this.threadLocal.set(map);
     }
 
     /**
@@ -54,7 +54,7 @@ public class AppContextHolder {
      * @return
      */
     public Map<String, String> getContext() {
-        return threadLocal.get();
+        return this.threadLocal.get();
     }
 
     /**
@@ -63,7 +63,7 @@ public class AppContextHolder {
      * @return
      */
     public String getUsername() {
-        return Optional.ofNullable(threadLocal.get())
+        return Optional.ofNullable(this.threadLocal.get())
                 .orElse(Maps.newHashMap())
                 .get("username");
     }
@@ -72,6 +72,6 @@ public class AppContextHolder {
      * 清空上下文
      */
     public void clear() {
-        threadLocal.remove();
+        this.threadLocal.remove();
     }
 }

@@ -3,8 +3,8 @@ package com.glacier.modules.sys.controller;
 import com.glacier.common.core.entity.page.PageRequest;
 import com.glacier.common.core.entity.page.PageResponse;
 import com.glacier.common.core.entity.vo.Result;
-import com.glacier.modules.sys.entity.pojo.Log;
-import com.glacier.modules.sys.service.LogService;
+import com.glacier.modules.sys.entity.pojo.SysLog;
+import com.glacier.modules.sys.service.SysLogService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class LogController {
 
-    private final LogService logService;
+    private final SysLogService sysLogService;
 
     /**
      * 分页查询
@@ -33,7 +33,7 @@ public class LogController {
      * @return
      */
     @PostMapping("/findPage")
-    public Result<PageResponse<Log>> findPage(@RequestBody PageRequest<Log> pageRequest) {
-        return Result.ok(this.logService.findPage(pageRequest));
+    public Result<PageResponse<SysLog>> findPage(@RequestBody PageRequest<SysLog> pageRequest) {
+        return Result.ok(this.sysLogService.findPage(pageRequest));
     }
 }

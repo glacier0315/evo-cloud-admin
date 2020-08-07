@@ -58,19 +58,11 @@ spring:
             user-name-attribute: username
 
 
-mybatis-plus:
+mybatis:
   # 映射文件位置
   mapper-locations: classpath*:mybatis/mapper/**/*.xml
   #config-location:  classpath:mybatis/mybatis-config.xml
   type-aliases-package: com.glacier.modules.sys.entity.pojo
-  global-config:
-    db-config:
-      id-type: assign_uuid
-      logic-delete-field: delFlag
-      logic-delete-value: 1
-      logic-not-delete-value: 0
-      table-prefix: sys_
-    banner: false
   configuration:
     lazy-loading-enabled: true
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

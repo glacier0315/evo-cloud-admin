@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.glacier.modules.sys.mapper.SysLogMapper">
+    <resultMap id="BaseResultMap" type="com.glacier.modules.sys.entity.pojo.SysLog">
+        <id column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="user_id" jdbcType="VARCHAR" property="userId"/>
+        <result column="url" jdbcType="VARCHAR" property="url"/>
+        <result column="ip" jdbcType="VARCHAR" property="ip"/>
+        <result column="method" jdbcType="VARCHAR" property="method"/>
+        <result column="params" jdbcType="VARCHAR" property="params"/>
+        <result column="user_agent" jdbcType="VARCHAR" property="userAgent"/>
+        <result column="use_time" jdbcType="INTEGER" property="useTime"/>
+        <result column="create_date" jdbcType="TIMESTAMP" property="createDate"/>
+    </resultMap>
+
+    <sql id="base_columns">
+        a.id, a.user_id, a.url, a.ip, a.method, a.params, a.user_agent, a.use_time, a.create_date
+    </sql>
+
+    <sql id="join_columns">
+    </sql>
+
+    <sql id="joins">
+    </sql>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        delete
+        from sys_log
+        where id = #{id}
+    </delete>
+
+    <insert id="insert" parameterType="com.glacier.modules.sys.entity.pojo.SysLog">
+        insert into sys_log (id, user_id, url,
+                             ip, method, params,
+                             user_agent, use_time, create_date)
+        values (#{id}, #{userId}, #{url},
+                #{ip}, #{method}, #{params},
+                #{userAgent}, #{useTime}, #{createDate})
+    </insert>
+
+    <update id="updateByPrimaryKey" parameterType="com.glacier.modules.sys.entity.pojo.SysLog">
+        update sys_log
+        set user_id     = #{userId},
+            url         = #{url},
+            ip          = #{ip},
+            method      = #{method},
+            params      = #{params},
+            user_agent  = #{userAgent},
+            use_time    = #{useTime},
+            create_date = #{createDate}
+        where id = #{id}
+    </update>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="base_columns"/>
+        from sys_log a
+        where id = #{id}
+    </select>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        select
+        <include refid="base_columns"/>
+        from sys_log a
+    </select>
+
+    <select id="selectList" resultMap="BaseResultMap">
+        select
+        <include refid="base_columns"/>
+        from sys_log a
+    </select>
+</mapper>

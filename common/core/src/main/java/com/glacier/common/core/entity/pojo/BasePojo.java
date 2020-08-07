@@ -1,9 +1,5 @@
 package com.glacier.common.core.entity.pojo;
 
-import com.baomidou.mybatisplus.annotation.FieldFill;
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 import lombok.ToString;
 
@@ -24,26 +20,21 @@ public class BasePojo implements Serializable {
     /**
      * 主键
      */
-    @TableId(type = IdType.ASSIGN_UUID)
     private String id;
     /**
      * 创建人
      */
-    @TableField(fill = FieldFill.INSERT)
     private String createBy;
     /**
      * 创建时间
      */
-    @TableField(fill = FieldFill.INSERT)
     private Date createDate;
     /**
      * 更新人
      */
-    @TableField(fill = FieldFill.INSERT_UPDATE)
     private String updateBy;
     /**
      * 更新时间
      */
-    @TableField(fill = FieldFill.INSERT_UPDATE)
     private Date updateDate;
 }

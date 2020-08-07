@@ -35,7 +35,7 @@ public class DictServiceImpl implements DictService {
     public int save(Dict record) {
         int update = 0;
         if (record.getId() != null && !record.getId().isEmpty()) {
-            update = this.dictMapper.updateById(record);
+            update = this.dictMapper.updateByPrimaryKey(record);
         } else {
             update = this.dictMapper.insert(record);
         }
@@ -62,7 +62,7 @@ public class DictServiceImpl implements DictService {
 
     @Override
     public List<Dict> findDictTree() {
-        List<Dict> list = this.dictMapper.selectList(null);
+        List<Dict> list = this.dictMapper.selectAll();
         return this.findDictTree(list);
     }
 

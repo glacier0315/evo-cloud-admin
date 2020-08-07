@@ -17,7 +17,9 @@ dependencies {
     implementation "org.springframework.security:spring-security-oauth2-jose"
 
     implementation "com.nimbusds:nimbus-jose-jwt:8.19"
+    // mybatis
     implementation "org.mybatis.spring.boot:mybatis-spring-boot-starter:${mybatisVersion}"
+    implementation "com.github.pagehelper:pagehelper-spring-boot-starter:${pagehelperVersion}"
 
     runtimeOnly "mysql:mysql-connector-java"
 }

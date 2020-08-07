@@ -1,12 +1,25 @@
 package com.glacier.modules.sys.mapper;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.glacier.common.core.mapper.BaseMapper;
 import com.glacier.modules.sys.entity.pojo.Dict;
 
+import java.util.List;
+
+
 /**
+ * 字典 数据层
+ *
  * @author glacier
  * @version 1.0
- * @date 2019-12-01 21:28
+ * @date 2019-08-04 21:53
  */
-public interface DictMapper extends BaseMapper<Dict> {
+public interface DictMapper extends BaseMapper<Dict, String> {
+
+    /**
+     * 批量删除
+     *
+     * @param list 待删除id集合
+     * @return 删除记录数
+     */
+    int deleteBatchIds(List<String> list);
 }

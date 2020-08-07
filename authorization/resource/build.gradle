@@ -7,7 +7,9 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     implementation "org.springframework.cloud:spring-cloud-starter-openfeign"
-    implementation "com.baomidou:mybatis-plus-boot-starter:${mybatisPlusVersion}"
+    // mybatis
+    implementation "org.mybatis.spring.boot:mybatis-spring-boot-starter:${mybatisVersion}"
+    implementation "com.github.pagehelper:pagehelper-spring-boot-starter:${pagehelperVersion}"
 
     runtimeOnly "mysql:mysql-connector-java"
 }

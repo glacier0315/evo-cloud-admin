@@ -1,35 +1,40 @@
 package com.glacier.modules.sys.mapper;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.glacier.common.core.mapper.BaseMapper;
 import com.glacier.modules.sys.entity.pojo.Dept;
-import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
+
 /**
- * 组织机构dao层
+ * 组织机构 数据层
  *
  * @author glacier
  * @version 1.0
- * @date 2019-10-24 16:55
+ * @date 2019-08-04 21:53
  */
-public interface DeptMapper extends BaseMapper<Dept> {
+public interface DeptMapper extends BaseMapper<Dept, String> {
+    /**
+     * 根据用户id 查询组织机构
+     *
+     * @param userId 用户id
+     * @return 组织机构
+     */
+    List<Dept> findByUserId(String userId);
 
     /**
-     * 根据角色id 查询所有拥有权限的额组织机构id
+     * 根据角色id  查询组织机构
      *
-     * @param roleId
-     * @return
+     * @param roleId 角色id
+     * @return 组织机构
      */
-    List<Dept> findDeptsByRoleId(@Param("roleId") String roleId);
+    List<Dept> findByRoleId(String roleId);
 
     /**
-     * 根据用户名查找
+     * 批量删除
      *
-     * @param userId
-     * @return
+     * @param list 待删除id集合
+     * @return 删除记录数
      */
-    List<Dept> findDeptsByUserId(@Param("userId") String userId);
-
-
+    int deleteBatchIds(List<String> list);
 }

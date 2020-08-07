@@ -78,6 +78,13 @@ mybatis-plus:
     aggressive-lazy-loading: false
     auto-mapping-unknown-column-behavior: warning
 
+# pagehelper
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+
 management:
   endpoints:
     web:

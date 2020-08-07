@@ -1,8 +1,8 @@
 package com.glacier.modules.sys.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.glacier.common.core.entity.form.IdForm;
 import com.glacier.common.core.entity.page.PageRequest;
 import com.glacier.common.core.entity.page.PageResponse;
@@ -57,10 +57,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findUserByUsername(String username) {
-        return this.userMapper.selectOne(new QueryWrapper<>(User
-                .builder()
-                .username(username)
-                .build()));
+        return this.userMapper.selectOneByUsername(username);
     }
 
     @Override
@@ -120,33 +117,18 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public PageResponse<UserListVo> findPage(PageRequest<UserQueryForm> pageRequest) {
-        Page<User> page = this.userMapper.selectPage(
-                new Page<>(
-                        pageRequest.getCurrent(),
-                        pageRequest.getSize()),
-                new QueryWrapper<>(
-                        this.modelMapper.map(
-                                pageRequest.getParams(), User.class)
-                ));
-        List<UserListVo> userListVos = this.modelMapper.map(
-                page.getRecords(),
-                new TypeToken<List<UserListVo>>() {
-                }.getType());
-        // 处理工作单位
-        userListVos.forEach(userListVo -> {
-            if (userListVo.getDeptId() != null
-                    && !userListVo.getDeptId().isEmpty()) {
-                userListVo.setDeptName(
-                        ObjectUtils.defaultIfNull(
-                                this.deptMapper.selectById(userListVo.getDeptId()), new Dept())
-                                .getName());
-            }
-        });
+        PageHelper.startPage(pageRequest.getCurrent(), pageRequest.getSize());
+        List<User> userList = this.userMapper.selectList(this.modelMapper.map(
+                pageRequest.getParams(), User.class));
+        PageInfo<User> pageInfo = PageInfo.of(userList);
         return PageResponse.<UserListVo>builder()
-                .current(page.getCurrent())
-                .size(page.getSize())
-                .total(page.getTotal())
-                .records(userListVos)
+                .pageNum(pageInfo.getPageNum())
+                .pageSize(pageInfo.getPageSize())
+                .total(pageInfo.getTotal())
+                .list(this.modelMapper.map(pageInfo.getList(),
+                        new TypeToken<List<UserListVo>>() {
+                        }.getType())
+                )
                 .build();
     }
 
@@ -164,7 +146,7 @@ public class UserServiceImpl implements UserService {
         if (form != null
                 && form.getId() != null
                 && !form.getId().isEmpty()) {
-            update = this.userMapper.updateById(
+            update = this.userMapper.updateByPrimaryKey(
                     this.modelMapper.map(form, User.class)
             );
         }
@@ -185,7 +167,7 @@ public class UserServiceImpl implements UserService {
                 && userPasswordForm.getId() != null
                 && !userPasswordForm.getId().isEmpty()) {
             // 判断原始密码是否一致
-            User user = this.userMapper.selectById(userPasswordForm.getId());
+            User user = this.userMapper.selectByPrimaryKey(userPasswordForm.getId());
             if (user != null) {
                 if (this.passwordEncoder.matches(
                         userPasswordForm.getOldPassword(),
@@ -194,7 +176,7 @@ public class UserServiceImpl implements UserService {
                     user.setPassword(
                             this.passwordEncoder.encode(userPasswordForm.getNewPassword())
                     );
-                    update = this.userMapper.updateById(user);
+                    update = this.userMapper.updateByPrimaryKey(user);
                 } else {
                     return Result.error("原始密码不正确！");
                 }
@@ -243,7 +225,7 @@ public class UserServiceImpl implements UserService {
     public int delete(String id) {
         int update = 0;
         if (id != null && !id.isEmpty()) {
-            update = this.userMapper.deleteById(id);
+            update = this.userMapper.deleteByPrimaryKey(id);
             // 删除用户角色关系
             this.deleteUserRoleByUserId(id);
         }

@@ -1,7 +1,6 @@
 package com.glacier.modules.sys.entity.pojo;
 
 import com.baomidou.mybatisplus.annotation.TableLogic;
-import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.glacier.common.core.entity.pojo.BasePojo;
 import lombok.*;
@@ -21,7 +20,6 @@ import java.util.Date;
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper=false)
 @Builder
-@TableName(excludeProperty = {"deptName"})
 public class User extends BasePojo {
     private static final long serialVersionUID = -3083387263445135811L;
     /**

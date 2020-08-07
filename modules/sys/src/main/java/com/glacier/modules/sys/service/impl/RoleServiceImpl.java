@@ -106,10 +106,10 @@ public class RoleServiceImpl implements RoleService {
                                 pageRequest.getParams(),
                                 Role.class)));
         return PageResponse.<Role>builder()
-                .current(page.getCurrent())
-                .size(page.getSize())
+                .pageNum(page.getCurrent())
+                .pageSize(page.getSize())
                 .total(page.getTotal())
-                .records(page.getRecords())
+                .list(page.getRecords())
                 .build();
     }
 

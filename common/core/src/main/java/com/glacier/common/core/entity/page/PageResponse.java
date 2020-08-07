@@ -22,11 +22,11 @@ public class PageResponse<T> implements Serializable {
     /**
      * 当前页码
      */
-    private long current;
+    private long pageNum;
     /**
      * 每页数量
      */
-    private long size;
+    private long pageSize;
     /**
      * 总数
      */
@@ -34,5 +34,5 @@ public class PageResponse<T> implements Serializable {
     /**
      * 查询结果集
      */
-    private List<T> records;
+    private List<T> list;
 }

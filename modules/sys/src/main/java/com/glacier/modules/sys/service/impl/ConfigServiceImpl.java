@@ -77,10 +77,10 @@ public class ConfigServiceImpl implements ConfigService {
         Page<Config> page = this.configMapper.selectPage(new Page<>(pageRequest.getCurrent(), pageRequest.getSize()),
                 new QueryWrapper<>(pageRequest.getParams()));
         return PageResponse.<Config>builder()
-                .current(page.getCurrent())
-                .size(page.getSize())
+                .pageNum(page.getCurrent())
+                .pageSize(page.getSize())
                 .total(page.getTotal())
-                .records(page.getRecords())
+                .list(page.getRecords())
                 .build();
     }
 }

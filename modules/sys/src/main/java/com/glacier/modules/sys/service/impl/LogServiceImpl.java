@@ -30,10 +30,10 @@ public class LogServiceImpl implements LogService {
         Page<Log> page = this.logMapper.selectPage(new Page<>(pageRequest.getCurrent(), pageRequest.getSize()),
                 new QueryWrapper<>(pageRequest.getParams()));
         return PageResponse.<Log>builder()
-                .current(page.getCurrent())
-                .size(page.getSize())
+                .pageNum(page.getCurrent())
+                .pageSize(page.getSize())
                 .total(page.getTotal())
-                .records(page.getRecords())
+                .list(page.getRecords())
                 .build();
     }
 

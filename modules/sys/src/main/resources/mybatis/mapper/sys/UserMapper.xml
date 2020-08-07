@@ -1,6 +1,97 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.glacier.modules.sys.mapper.UserMapper">
+    <resultMap id="BaseResultMap" type="com.glacier.modules.sys.entity.pojo.User">
+        <id column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="username" jdbcType="VARCHAR" property="username"/>
+        <result column="password" jdbcType="VARCHAR" property="password"/>
+        <result column="nickname" jdbcType="VARCHAR" property="nickname"/>
+        <result column="id_card" jdbcType="VARCHAR" property="idCard"/>
+        <result column="birthday" jdbcType="DATE" property="birthday"/>
+        <result column="sex" jdbcType="INTEGER" property="sex"/>
+        <result column="email" jdbcType="VARCHAR" property="email"/>
+        <result column="mobile" jdbcType="VARCHAR" property="mobile"/>
+        <result column="dept_id" jdbcType="VARCHAR" property="deptId"/>
+        <result column="status" jdbcType="VARCHAR" property="status"/>
+        <result column="avatar" jdbcType="VARCHAR" property="avatar"/>
+        <result column="create_by" jdbcType="VARCHAR" property="createBy"/>
+        <result column="create_date" jdbcType="TIMESTAMP" property="createDate"/>
+        <result column="update_by" jdbcType="VARCHAR" property="updateBy"/>
+        <result column="update_date" jdbcType="TIMESTAMP" property="updateDate"/>
+        <result column="del_flag" jdbcType="VARCHAR" property="delFlag"/>
+    </resultMap>
 
+    <sql id="base_columns">
+        a.id, a.username, a.password, a.nickname, a.id_card, a.birthday, a.sex, a.email, a.mobile, a.dept_id,
+        a.status, a.avatar, a.create_by, a.create_date, a.update_by, a.update_date, a.del_flag
+    </sql>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        update sys_user a
+        set a.del_flag='1'
+        where id = #{id,jdbcType=VARCHAR}
+    </delete>
+    <insert id="insert" parameterType="com.glacier.modules.sys.entity.pojo.User">
+        insert into sys_user (id, username, password,
+                              nickname, id_card, birthday,
+                              sex, email, mobile,
+                              dept_id, status, avatar,
+                              create_by, create_date, update_by,
+                              update_date, del_flag)
+        values (#{id,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
+                #{nickname,jdbcType=VARCHAR}, #{idCard,jdbcType=VARCHAR}, #{birthday,jdbcType=DATE},
+                #{sex,jdbcType=INTEGER}, #{email,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR},
+                #{deptId,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{avatar,jdbcType=VARCHAR},
+                #{createBy,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR},
+                #{updateDate,jdbcType=TIMESTAMP}, #{delFlag,jdbcType=VARCHAR})
+    </insert>
+
+    <update id="updateByPrimaryKey" parameterType="com.glacier.modules.sys.entity.pojo.User">
+        update sys_user
+        set nickname    = #{nickname,jdbcType=VARCHAR},
+            id_card     = #{idCard,jdbcType=VARCHAR},
+            birthday    = #{birthday,jdbcType=DATE},
+            sex         = #{sex,jdbcType=INTEGER},
+            email       = #{email,jdbcType=VARCHAR},
+            mobile      = #{mobile,jdbcType=VARCHAR},
+            dept_id     = #{deptId,jdbcType=VARCHAR},
+            status      = #{status,jdbcType=VARCHAR},
+            avatar      = #{avatar,jdbcType=VARCHAR},
+            update_by   = #{updateBy,jdbcType=VARCHAR},
+            update_date = #{updateDate,jdbcType=TIMESTAMP}
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="base_columns"/>
+        from sys_user a
+        where a.del_flag='0'
+        and a.id = #{id,jdbcType=VARCHAR}
+    </select>
+
+    <select id="selectOneByUsername" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="base_columns"/>
+        from sys_user a
+        where a.del_flag='0'
+        and a.username=#{username}
+    </select>
+
+    <select id="selectList" resultMap="BaseResultMap">
+        select
+        <include refid="base_columns"/>
+        from sys_user a
+        <where>
+            a.del_flag='0'
+        </where>
+    </select>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        select
+        <include refid="base_columns"/>
+        from sys_user a
+        where a.del_flag='0'
+    </select>
 
 </mapper>

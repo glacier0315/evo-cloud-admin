@@ -1,5 +1,8 @@
 package com.glacier.generator;
 
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
 /**
  * @author glacier
  * @version 1.0

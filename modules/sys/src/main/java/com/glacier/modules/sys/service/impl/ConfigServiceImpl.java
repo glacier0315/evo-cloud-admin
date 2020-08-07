@@ -74,7 +74,7 @@ public class ConfigServiceImpl implements ConfigService {
      */
     @Override
     public PageResponse<Config> findPage(PageRequest<Config> pageRequest) {
-        Page<Config> page = this.configMapper.selectPage(new Page<>(pageRequest.getCurrent(), pageRequest.getSize()),
+        Page<Config> page = this.configMapper.selectPage(new Page<>(pageRequest.getPageNum(), pageRequest.getPageSize()),
                 new QueryWrapper<>(pageRequest.getParams()));
         return PageResponse.<Config>builder()
                 .pageNum(page.getCurrent())

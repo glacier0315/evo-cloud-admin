@@ -23,11 +23,11 @@ public class PageRequest<T> implements Serializable {
     /**
      * 当前页码
      */
-    private int current = 1;
+    private int pageNum = 1;
     /**
      * 每页数量
      */
-    private int size = 10;
+    private int pageSize = 10;
     /**
      * 查询参数
      */

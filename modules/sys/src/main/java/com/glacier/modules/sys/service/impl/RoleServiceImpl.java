@@ -99,8 +99,8 @@ public class RoleServiceImpl implements RoleService {
     public PageResponse<Role> findPage(PageRequest<RoleQueryForm> pageRequest) {
         Page<Role> page = this.roleMapper.selectPage(
                 new Page<>(
-                        pageRequest.getCurrent(),
-                        pageRequest.getSize()),
+                        pageRequest.getPageNum(),
+                        pageRequest.getPageSize()),
                 new QueryWrapper<>(
                         this.modelMapper.map(
                                 pageRequest.getParams(),

@@ -27,7 +27,7 @@ public class LogServiceImpl implements LogService {
 
     @Override
     public PageResponse<Log> findPage(PageRequest<Log> pageRequest) {
-        Page<Log> page = this.logMapper.selectPage(new Page<>(pageRequest.getCurrent(), pageRequest.getSize()),
+        Page<Log> page = this.logMapper.selectPage(new Page<>(pageRequest.getPageNum(), pageRequest.getPageSize()),
                 new QueryWrapper<>(pageRequest.getParams()));
         return PageResponse.<Log>builder()
                 .pageNum(page.getCurrent())

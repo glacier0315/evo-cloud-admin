@@ -10,25 +10,14 @@ dependencyManagement {
 }
 
 bootJar {
-    baseName("eboot-conmmon-web")
+    baseName("eboot-fdfs")
 }
 
 dependencies {
     implementation project(':common:core')
-    // spring boot
-    implementation "com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-discovery"
-    implementation "org.springframework.boot:spring-boot-starter-web"
-
-    // swagger
-    implementation  "io.springfox:springfox-swagger-ui:${swaggerVersion}"
-    implementation "io.springfox:springfox-swagger2:${swaggerVersion}"
 
     implementation ("com.github.tobato:fastdfs-client:1.27.2") {
         exclude group: 'commons-io', module: 'commons-io'
     }
     implementation "commons-io:commons-io:2.7"
-
-    implementation 'org.springframework.boot:spring-boot-starter-actuator'
-    runtimeOnly "org.springframework.boot:spring-boot-devtools"
-    testImplementation "org.springframework.boot:spring-boot-starter-test"
 }

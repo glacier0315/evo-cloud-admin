@@ -1,8 +1,8 @@
 package com.glacier.authorization.server.consumer.fallback;
 
 import com.glacier.authorization.server.consumer.UserService;
-import com.glacier.authorization.server.entity.vo.UserDetailsVo;
 import com.glacier.common.core.entity.vo.Result;
+import com.glacier.modules.sys.entity.vo.user.UserDetails;
 
 /**
  * @author glacier
@@ -12,7 +12,7 @@ import com.glacier.common.core.entity.vo.Result;
 public class UserServiceFallbackImpl implements UserService {
 
     @Override
-    public Result<UserDetailsVo> findByUsername(String username) {
+    public Result<UserDetails> findByUsername(String username) {
         return Result.error("服务降级了！");
     }
 }

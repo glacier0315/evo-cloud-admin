@@ -17,7 +17,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @Builder
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
-public class MetaVo implements Serializable {
+public class Meta implements Serializable {
     private static final long serialVersionUID = 8544347198911886718L;
     /**
      * 设置该路由在侧边栏和面包屑中展示的名字

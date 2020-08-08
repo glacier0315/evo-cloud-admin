@@ -5,10 +5,10 @@ import com.glacier.common.core.entity.page.PageResponse;
 import com.glacier.modules.sys.SysApplication;
 import com.glacier.modules.sys.entity.form.user.UserQueryForm;
 import com.glacier.modules.sys.entity.pojo.User;
-import com.glacier.modules.sys.entity.vo.user.UserDetailsVo;
+import com.glacier.modules.sys.entity.vo.user.UserDetails;
 import com.glacier.modules.sys.entity.vo.user.UserInfo;
-import com.glacier.modules.sys.entity.vo.user.UserListVo;
-import com.glacier.modules.sys.entity.vo.user.UserProfileVo;
+import com.glacier.modules.sys.entity.vo.user.UserProfile;
+import com.glacier.modules.sys.entity.vo.user.UserVo;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.After;
 import org.junit.Assert;
@@ -65,9 +65,9 @@ public class UserServiceTest {
     @Test
     public void findUserProfileByUsername() {
         String username = "admin";
-        UserProfileVo user = this.userService.findUserProfileByUsername(username);
+        UserProfile user = this.userService.findUserProfileByUsername(username);
         Assert.assertEquals(Optional.ofNullable(user)
-                        .orElse(new UserProfileVo())
+                        .orElse(new UserProfile())
                         .getUsername(),
                 username);
     }
@@ -75,9 +75,9 @@ public class UserServiceTest {
     @Test
     public void loadUserByUsername() {
         String username = "admin";
-        UserDetailsVo user = this.userService.loadUserByUsername(username);
+        UserDetails user = this.userService.loadUserByUsername(username);
         Assert.assertEquals(Optional.ofNullable(user)
-                        .orElse(new UserDetailsVo())
+                        .orElse(new UserDetails())
                         .getUsername(),
                 username);
     }
@@ -87,7 +87,7 @@ public class UserServiceTest {
         String username = "admin";
         UserQueryForm userQueryForm = new UserQueryForm();
         userQueryForm.setUsername(username);
-        PageResponse<UserListVo> page = this.userService.findPage(new PageRequest<UserQueryForm>(1, 10, userQueryForm));
+        PageResponse<UserVo> page = this.userService.findPage(new PageRequest<>(1, 10, userQueryForm));
         System.out.println(page);
         Assert.assertNotNull(page);
         Assert.assertTrue(page.getList() != null

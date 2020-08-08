@@ -43,8 +43,4 @@ public class Config extends BasePojo {
      * 备注
      */
     private String remarks;
-    /**
-     * 删除标记
-     */
-    private String delFlag;
 }

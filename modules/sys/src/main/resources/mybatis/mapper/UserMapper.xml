@@ -12,6 +12,7 @@
         <result column="email" jdbcType="VARCHAR" property="email"/>
         <result column="mobile" jdbcType="VARCHAR" property="mobile"/>
         <result column="dept_id" jdbcType="VARCHAR" property="deptId"/>
+        <result column="dept_name" jdbcType="VARCHAR" property="deptName"/>
         <result column="status" jdbcType="VARCHAR" property="status"/>
         <result column="avatar" jdbcType="VARCHAR" property="avatar"/>
         <result column="create_by" jdbcType="VARCHAR" property="createBy"/>
@@ -22,7 +23,7 @@
     </resultMap>
 
     <sql id="base_columns">
-        a.id, a.username, a.password, a.nickname, a.id_card, a.birthday, a.sex, a.email, a.mobile, a.dept_id,
+        a.id, a.username, a.password, a.nickname, a.id_card, a.birthday, a.sex, a.email, a.mobile, a.dept_id, a.dept_name,
         a.status, a.avatar, a.create_by, a.create_date, a.update_by, a.update_date, a.del_flag
     </sql>
 
@@ -42,13 +43,13 @@
         insert into sys_user (id, username, password,
                               nickname, id_card, birthday,
                               sex, email, mobile,
-                              dept_id, status, avatar,
+                              dept_id, dept_name, status, avatar,
                               create_by, create_date, update_by,
                               update_date, del_flag)
         values (#{id}, #{username}, #{password},
                 #{nickname}, #{idCard}, #{birthday},
                 #{sex}, #{email}, #{mobile},
-                #{deptId}, #{status}, #{avatar},
+                #{deptId}, #{deptName}, #{status}, #{avatar},
                 #{createBy}, #{createDate}, #{updateBy},
                 #{updateDate}, #{delFlag})
     </insert>
@@ -62,11 +63,18 @@
             email       = #{email},
             mobile      = #{mobile},
             dept_id     = #{deptId},
+            dept_name   = #{deptName},
             status      = #{status},
             avatar      = #{avatar},
             update_by   = #{updateBy},
             update_date = #{updateDate}
         where id = #{id}
+    </update>
+
+    <update id="updateDeptByDeptId" parameterType="com.glacier.modules.sys.entity.pojo.User">
+        update sys_user
+        set dept_name   = #{deptName}
+        where dept_id = #{deptId}
     </update>
 
     <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
@@ -91,6 +99,33 @@
         from sys_user a
         <where>
             a.del_flag='0'
+            <if test="nickname != null and nickname != '' ">
+                and a.nickname like concat('%',#{nickname},'%')
+            </if>
+            <if test="email != null and email != '' ">
+                and a.email=#{email}
+            </if>
+            <if test="status != null and status != '' ">
+                and a.status=#{status}
+            </if>
+            <if test="sex != null and sex != '' ">
+                and a.sex=#{sex}
+            </if>
+            <if test="birthday != null and birthday != '' ">
+                and a.birthday=#{birthday}
+            </if>
+            <if test="deptId != null and deptId != '' ">
+                and a.dept_id=#{deptId}
+            </if>
+            <if test="idCard != null and idCard != '' ">
+                and a.id_card=#{idCard}
+            </if>
+            <if test="mobile != null and mobile != '' ">
+                and a.mobile=#{mobile}
+            </if>
+            <if test="username != null and username != '' ">
+                and a.username=#{username}
+            </if>
         </where>
     </select>
 

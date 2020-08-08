@@ -45,10 +45,6 @@ public class Dept extends BasePojo {
      */
     private Integer orderNum;
     /**
-     * 删除标记
-     */
-    private String delFlag;
-    /**
      * 层级
      */
     private Integer level;

@@ -13,7 +13,7 @@ import java.util.Date;
  */
 @Data
 @ToString
-public class UserListVo implements Serializable {
+public class UserVo implements Serializable {
     private static final long serialVersionUID = 3725415789818769982L;
     /**
      * 主键

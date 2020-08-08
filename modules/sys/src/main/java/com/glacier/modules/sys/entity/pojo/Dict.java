@@ -47,10 +47,6 @@ public class Dict extends BasePojo {
      * 排序号
      */
     private Integer orderNum;
-    /**
-     * 删除标记
-     */
-    private String delFlag;
 
     /**
      * 层级

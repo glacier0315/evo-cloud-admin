@@ -1,23 +1,27 @@
-package com.glacier.modules.sys.entity.pojo;
+package com.glacier.common.core.entity.vo;
 
-import com.glacier.common.core.entity.pojo.BasePojo;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
+import java.io.Serializable;
 
 /**
- * 角色
- *
  * @author glacier
  * @version 1.0
- * @date 2019-08-04 13:45
+ * @date 2020-08-08 11:07
  */
 @Data
-@ToString
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(callSuper=false)
-@Builder
-public class Role extends BasePojo {
-    private static final long serialVersionUID = -3318599726827564559L;
+@ToString
+public class RoleDetails implements Serializable {
+    private static final long serialVersionUID = 2730122991817147481L;
+    /**
+     * 主键
+     */
+    private String id;
     /**
      * 角色名称
      */

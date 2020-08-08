@@ -3,8 +3,8 @@ package com.glacier.modules.sys.utils;
 import com.glacier.common.core.utils.StringUtils;
 import com.glacier.modules.sys.common.Constant;
 import com.glacier.modules.sys.entity.pojo.Menu;
-import com.glacier.modules.sys.entity.vo.MetaVo;
-import com.glacier.modules.sys.entity.vo.RouterVo;
+import com.glacier.modules.sys.entity.vo.Meta;
+import com.glacier.modules.sys.entity.vo.Router;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -29,32 +29,32 @@ public class MenuBuildFactory {
      * @param menus
      * @return
      */
-    public static List<RouterVo> buildRouters(final List<Menu> menus) {
-        List<RouterVo> routerVos = new ArrayList<>(1);
+    public static List<Router> buildRouters(final List<Menu> menus) {
+        List<Router> routers = new ArrayList<>(1);
         if (menus != null && !menus.isEmpty()) {
             Iterator<Menu> iterator = menus.iterator();
             while (iterator.hasNext()) {
                 Menu menu = iterator.next();
 
-                RouterVo routerVo = new RouterVo();
-                routerVo.setName(menu.getName());
-                routerVo.setPath(menu.getPath());
-                routerVo.setComponent(StringUtils.isEmpty(menu.getComponent()) ? "Layout" : menu.getComponent());
-                routerVo.setMeta(MetaVo.builder()
+                Router router = new Router();
+                router.setName(menu.getName());
+                router.setPath(menu.getPath());
+                router.setComponent(StringUtils.isEmpty(menu.getComponent()) ? "Layout" : menu.getComponent());
+                router.setMeta(Meta.builder()
                         .icon(menu.getIcon())
                         .title(menu.getName())
                         .build());
 
                 // 处理子菜单
                 if (menu.getChildren() != null && !menu.getChildren().isEmpty()) {
-                    routerVo.setAlwaysShow(true);
-                    routerVo.setRedirect("noRedirect");
-                    routerVo.setChildren(buildRouters(menu.getChildren()));
+                    router.setAlwaysShow(true);
+                    router.setRedirect("noRedirect");
+                    router.setChildren(buildRouters(menu.getChildren()));
                 }
-                routerVos.add(routerVo);
+                routers.add(router);
             }
         }
-        return routerVos;
+        return routers;
     }
 
     /**

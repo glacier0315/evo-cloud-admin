@@ -37,4 +37,8 @@ public class BasePojo implements Serializable {
      * 更新时间
      */
     private Date updateDate;
+    /**
+     * 删除标记 0 正常 （默认） 1 删除
+     */
+    private String delFlag = "0";
 }

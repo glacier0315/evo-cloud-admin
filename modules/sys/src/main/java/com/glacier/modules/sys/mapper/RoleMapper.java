@@ -14,21 +14,17 @@ import java.util.List;
  * @date 2019-12-18 15:29
  */
 public interface RoleMapper extends BaseMapper<Role, String> {
-    /**
-     * 根据用户id 查询角色编码
-     *
-     * @param userId 用户id
-     * @return 角色编码
-     */
-    List<String> findCodeByUserId(String userId);
 
     /**
-     * @param userId
+     * 根据用户id 查询角色
+     *
+     * @param userId 用户id
      * @return 角色
      */
     List<Role> findByUserId(String userId);
 
     /**
+     * 查询角色编码是否已使用
      * @param role 角色
      * @return 编码数量（排除指定id）
      */

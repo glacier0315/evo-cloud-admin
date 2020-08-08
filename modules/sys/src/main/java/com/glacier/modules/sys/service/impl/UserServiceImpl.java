@@ -6,27 +6,26 @@ import com.glacier.common.core.entity.form.IdForm;
 import com.glacier.common.core.entity.page.PageRequest;
 import com.glacier.common.core.entity.page.PageResponse;
 import com.glacier.common.core.entity.vo.Result;
+import com.glacier.common.core.entity.vo.RoleDetails;
 import com.glacier.common.core.exception.SystemErrorType;
 import com.glacier.common.core.utils.IdGen;
 import com.glacier.modules.sys.common.Constant;
 import com.glacier.modules.sys.entity.form.user.UserAddForm;
 import com.glacier.modules.sys.entity.form.user.UserPasswordForm;
 import com.glacier.modules.sys.entity.form.user.UserQueryForm;
-import com.glacier.modules.sys.entity.pojo.Dept;
+import com.glacier.modules.sys.entity.pojo.Role;
 import com.glacier.modules.sys.entity.pojo.User;
 import com.glacier.modules.sys.entity.pojo.UserRole;
-import com.glacier.modules.sys.entity.vo.user.UserDetailsVo;
+import com.glacier.modules.sys.entity.vo.user.UserDetails;
 import com.glacier.modules.sys.entity.vo.user.UserInfo;
-import com.glacier.modules.sys.entity.vo.user.UserListVo;
-import com.glacier.modules.sys.entity.vo.user.UserProfileVo;
-import com.glacier.modules.sys.mapper.DeptMapper;
+import com.glacier.modules.sys.entity.vo.user.UserProfile;
+import com.glacier.modules.sys.entity.vo.user.UserVo;
 import com.glacier.modules.sys.mapper.RoleMapper;
 import com.glacier.modules.sys.mapper.UserMapper;
 import com.glacier.modules.sys.mapper.UserRoleMapper;
 import com.glacier.modules.sys.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.ObjectUtils;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +33,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * 用户业务类
@@ -51,7 +53,6 @@ public class UserServiceImpl implements UserService {
     private final ModelMapper modelMapper;
     private final UserMapper userMapper;
     private final RoleMapper roleMapper;
-    private final DeptMapper deptMapper;
     private final UserRoleMapper userRoleMapper;
     private final PasswordEncoder passwordEncoder;
 
@@ -66,47 +67,47 @@ public class UserServiceImpl implements UserService {
         UserInfo userInfo = null;
         if (user != null) {
             // 查找角色
-            List<String> roles = this.roleMapper.findCodeByUserId(user.getId());
+            List<Role> roles = this.roleMapper.findByUserId(user.getId());
             userInfo = UserInfo.builder()
                     .id(user.getId())
                     .name(user.getUsername())
                     .avatar(user.getAvatar())
-                    .roles(roles)
+                    .roles(
+                            Optional.ofNullable(roles)
+                                    .orElse(Collections.emptyList())
+                                    .stream()
+                                    .map(Role::getCode)
+                                    .collect(Collectors.toList())
+                    )
                     .build();
         }
         return userInfo;
     }
 
     @Override
-    public UserProfileVo findUserProfileByUsername(String username) {
+    public UserProfile findUserProfileByUsername(String username) {
         User user = this.findUserByUsername(username);
-        UserProfileVo userProfile = null;
+        UserProfile userProfile = null;
         if (user != null) {
-            userProfile = this.modelMapper.map(user, UserProfileVo.class);
-            userProfile.setDeptName(
-                    ObjectUtils.defaultIfNull(
-                            this.deptMapper.selectByPrimaryKey(user.getDeptId()), new Dept())
-                            .getName());
+            userProfile = this.modelMapper.map(user, UserProfile.class);
         }
         return userProfile;
     }
 
     @Override
-    public UserDetailsVo loadUserByUsername(String username) {
+    public UserDetails loadUserByUsername(String username) {
         User user = this.findUserByUsername(username);
-        UserDetailsVo userDetailsVo = null;
+        UserDetails userDetails = null;
         if (user != null) {
-            List<String> roles = this.roleMapper.findCodeByUserId(user.getId());
-            userDetailsVo = new UserDetailsVo(
-                    user.getId(),
-                    user.getUsername(),
-                    user.getPassword(),
-                    roles,
-                    true, true, true,
-                    Constant.USER_ENABLED.equals(user.getStatus())
-            );
+            List<Role> roles = this.roleMapper.findByUserId(user.getId());
+            userDetails = this.modelMapper.map(user, UserDetails.class);
+            userDetails.setRoleDetails(
+                    this.modelMapper.map(
+                            roles,
+                            new TypeToken<List<RoleDetails>>() {
+                            }.getType()));
         }
-        return userDetailsVo;
+        return userDetails;
     }
 
     /**
@@ -116,17 +117,18 @@ public class UserServiceImpl implements UserService {
      * @return
      */
     @Override
-    public PageResponse<UserListVo> findPage(PageRequest<UserQueryForm> pageRequest) {
+    public PageResponse<UserVo> findPage(PageRequest<UserQueryForm> pageRequest) {
         PageHelper.startPage(pageRequest.getPageNum(), pageRequest.getPageSize());
         List<User> userList = this.userMapper.selectList(this.modelMapper.map(
                 pageRequest.getParams(), User.class));
         PageInfo<User> pageInfo = PageInfo.of(userList);
-        return PageResponse.<UserListVo>builder()
+        return PageResponse.<UserVo>builder()
                 .pageNum(pageInfo.getPageNum())
                 .pageSize(pageInfo.getPageSize())
                 .total(pageInfo.getTotal())
-                .list(this.modelMapper.map(pageInfo.getList(),
-                        new TypeToken<List<UserListVo>>() {
+                .list(this.modelMapper.map(
+                        pageInfo.getList(),
+                        new TypeToken<List<UserVo>>() {
                         }.getType())
                 )
                 .build();
@@ -186,7 +188,7 @@ public class UserServiceImpl implements UserService {
         } else {
             return Result.error(SystemErrorType.ARGUMENT_NOT_VALID);
         }
-        return Result.ok("修改成功！" , update);
+        return Result.ok("修改成功！", update);
     }
 
     /**

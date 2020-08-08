@@ -18,7 +18,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
-public class RouterVo implements Serializable {
+public class Router implements Serializable {
     private static final long serialVersionUID = -7180881732184069045L;
     /**
      * 路由名字
@@ -53,11 +53,11 @@ public class RouterVo implements Serializable {
     /**
      * 其他元素
      */
-    private MetaVo meta;
+    private Meta meta;
 
     /**
      * 子路由
      */
-    private List<RouterVo> children;
+    private List<Router> children;
 
 }

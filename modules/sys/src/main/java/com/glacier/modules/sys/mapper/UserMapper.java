@@ -12,6 +12,13 @@ import com.glacier.modules.sys.entity.pojo.User;
  */
 public interface UserMapper extends BaseMapper<User, String> {
 
+    /**
+     * 根据组织机构id 更新组织机构名称
+     *
+     * @param record
+     * @return
+     */
+    int updateDeptByDeptId(User record);
 
     /**
      * 根据用户名查询用户

@@ -5,9 +5,9 @@ import com.glacier.common.core.entity.page.PageResponse;
 import com.glacier.common.core.entity.vo.Result;
 import com.glacier.modules.sys.common.Constant;
 import com.glacier.modules.sys.entity.form.user.*;
-import com.glacier.modules.sys.entity.vo.user.UserDetailsVo;
-import com.glacier.modules.sys.entity.vo.user.UserListVo;
-import com.glacier.modules.sys.entity.vo.user.UserProfileVo;
+import com.glacier.modules.sys.entity.vo.user.UserDetails;
+import com.glacier.modules.sys.entity.vo.user.UserProfile;
+import com.glacier.modules.sys.entity.vo.user.UserVo;
 import com.glacier.modules.sys.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -37,7 +37,7 @@ public class UserController {
      * @return
      */
     @GetMapping(value = "/{username}")
-    public Result<UserDetailsVo> findByUsername(
+    public Result<UserDetails> findByUsername(
             @PathVariable("username") String username) {
         return Result.ok(
                 this.userService.loadUserByUsername(username));
@@ -50,7 +50,7 @@ public class UserController {
      * @return
      */
     @PostMapping("/pageList")
-    public Result<PageResponse<UserListVo>> findPage(
+    public Result<PageResponse<UserVo>> findPage(
             @RequestBody PageRequest<UserQueryForm> pageRequest) {
         return Result.ok(
                 this.userService.findPage(pageRequest));
@@ -101,9 +101,9 @@ public class UserController {
      * @return
      */
     @GetMapping(value = "/profile")
-    public Result<UserProfileVo> getProfile(Authentication authentication) {
+    public Result<UserProfile> getProfile(Authentication authentication) {
         log.info(">>>>>>>>>>>>>>>>>>>>>>>>");
-        log.info("当前登录用户为: {}" , authentication);
+        log.info("当前登录用户为: {}", authentication);
         log.info(">>>>>>>>>>>>>>>>>>>>>>>>");
         String username = ((Jwt) authentication.getPrincipal())
                 .getClaim("user_name");

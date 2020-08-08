@@ -1,38 +1,45 @@
-package com.glacier.modules.sys.entity.pojo;
+package com.glacier.modules.sys.entity.vo.user;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.glacier.common.core.entity.pojo.BasePojo;
-import lombok.*;
+import com.glacier.common.core.entity.vo.RoleDetails;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
+import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 用户
  *
  * @author glacier
  * @version 1.0
- * @date 2019-08-04 13:45
+ * @date 2020-05-24 10:22
  */
 @Data
-@ToString
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(callSuper=false)
-@Builder
-public class User extends BasePojo {
-    private static final long serialVersionUID = -3083387263445135811L;
+@ToString
+public class UserDetails implements Serializable {
+
+    private static final long serialVersionUID = -4433713600535288510L;
+    /**
+     * 主键
+     */
+    private String id;
     /**
      * 用户名
      */
     private String username;
     /**
-     * 密码
-     */
-    private String password;
-    /**
      * 昵称
      */
     private String nickname;
+    /**
+     * 密码
+     */
+    private String password;
     /**
      * 身份证号
      */
@@ -40,14 +47,13 @@ public class User extends BasePojo {
     /**
      * 出生日期
      */
-    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date birthday;
     /**
      * 性别 1=男 2=女 其他=保密
      */
     private Integer sex;
     /**
-     * 状态  1 正常  2 锁定
+     * 状态  1 正常  0 锁定
      */
     private String status;
     /**
@@ -59,10 +65,6 @@ public class User extends BasePojo {
      */
     private String mobile;
     /**
-     * 头像地址
-     */
-    private String avatar;
-    /**
      * 单位id
      */
     private String deptId;
@@ -70,4 +72,9 @@ public class User extends BasePojo {
      * 单位名称
      */
     private String deptName;
+
+    /**
+     * 角色编码集合
+     */
+    private List<RoleDetails> roleDetails;
 }

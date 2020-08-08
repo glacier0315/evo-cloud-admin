@@ -3,7 +3,7 @@ package com.glacier.modules.sys.controller;
 import com.glacier.common.core.entity.vo.Result;
 import com.glacier.modules.sys.entity.form.MenuForm;
 import com.glacier.modules.sys.entity.pojo.Menu;
-import com.glacier.modules.sys.entity.vo.RouterVo;
+import com.glacier.modules.sys.entity.vo.Router;
 import com.glacier.modules.sys.service.MenuService;
 import com.glacier.modules.sys.utils.MenuBuildFactory;
 import com.glacier.modules.sys.utils.SecurityUtils;
@@ -96,9 +96,9 @@ public class MenuController {
      * @return
      */
     @GetMapping(value = "/getRouters")
-    public Result<List<RouterVo>> getRouters() {
+    public Result<List<Router>> getRouters() {
         String userId = SecurityUtils.geUserId();
-        log.debug("userId: {}" , userId);
+        log.debug("userId: {}", userId);
         return Result.ok(
                 MenuBuildFactory.buildRouters(
                         this.menuService.findMenuTreeByUserId(userId)));

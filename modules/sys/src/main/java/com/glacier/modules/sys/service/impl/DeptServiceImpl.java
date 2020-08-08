@@ -4,7 +4,9 @@ import com.glacier.common.core.entity.form.IdForm;
 import com.glacier.common.core.utils.IdGen;
 import com.glacier.modules.sys.common.Constant;
 import com.glacier.modules.sys.entity.pojo.Dept;
+import com.glacier.modules.sys.entity.pojo.User;
 import com.glacier.modules.sys.mapper.DeptMapper;
+import com.glacier.modules.sys.mapper.UserMapper;
 import com.glacier.modules.sys.service.DeptService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -30,6 +32,7 @@ import java.util.stream.Collectors;
 public class DeptServiceImpl implements DeptService {
 
     private final DeptMapper deptMapper;
+    private final UserMapper userMapper;
 
     /**
      * 查找所有 组织机构
@@ -73,6 +76,12 @@ public class DeptServiceImpl implements DeptService {
         int update = 0;
         if (record.getId() != null && !record.getId().isEmpty()) {
             update = this.deptMapper.updateByPrimaryKey(record);
+            // 更新用户表 组织机构名称
+            this.userMapper.updateDeptByDeptId(
+                    User.builder()
+                            .deptId(record.getId())
+                            .deptName(record.getName())
+                            .build());
         } else {
             record.setId(IdGen.uuid());
             update = this.deptMapper.insert(record);

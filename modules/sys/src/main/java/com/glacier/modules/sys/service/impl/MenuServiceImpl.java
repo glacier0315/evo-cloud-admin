@@ -1,5 +1,6 @@
 package com.glacier.modules.sys.service.impl;
 
+import com.glacier.common.core.utils.IdGen;
 import com.glacier.modules.sys.common.Constant;
 import com.glacier.modules.sys.entity.form.MenuForm;
 import com.glacier.modules.sys.entity.pojo.Menu;
@@ -51,6 +52,7 @@ public class MenuServiceImpl implements MenuService {
             update = this.menuMapper.updateByPrimaryKey(menu);
         } else {
             // 保存
+            menu.setId(IdGen.uuid());
             update = this.menuMapper.insert(menu);
         }
         return update;

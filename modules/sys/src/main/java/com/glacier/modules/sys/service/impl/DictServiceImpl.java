@@ -1,6 +1,7 @@
 package com.glacier.modules.sys.service.impl;
 
 import com.glacier.common.core.entity.form.IdForm;
+import com.glacier.common.core.utils.IdGen;
 import com.glacier.modules.sys.entity.pojo.Dict;
 import com.glacier.modules.sys.mapper.DictMapper;
 import com.glacier.modules.sys.service.DictService;
@@ -37,6 +38,7 @@ public class DictServiceImpl implements DictService {
         if (record.getId() != null && !record.getId().isEmpty()) {
             update = this.dictMapper.updateByPrimaryKey(record);
         } else {
+            record.setId(IdGen.uuid());
             update = this.dictMapper.insert(record);
         }
         return update;

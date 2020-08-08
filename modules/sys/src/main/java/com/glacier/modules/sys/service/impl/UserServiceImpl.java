@@ -7,6 +7,7 @@ import com.glacier.common.core.entity.page.PageRequest;
 import com.glacier.common.core.entity.page.PageResponse;
 import com.glacier.common.core.entity.vo.Result;
 import com.glacier.common.core.exception.SystemErrorType;
+import com.glacier.common.core.utils.IdGen;
 import com.glacier.modules.sys.common.Constant;
 import com.glacier.modules.sys.entity.form.user.UserAddForm;
 import com.glacier.modules.sys.entity.form.user.UserPasswordForm;
@@ -208,6 +209,7 @@ public class UserServiceImpl implements UserService {
             user.setPassword(
                     this.passwordEncoder.encode(user.getPassword())
             );
+            user.setId(IdGen.uuid());
             update = this.userMapper.insert(user);
         }
         return update;
@@ -246,6 +248,7 @@ public class UserServiceImpl implements UserService {
             for (String roleId : roleIds) {
                 update += this.userRoleMapper.insert(
                         UserRole.builder()
+                                .id(IdGen.uuid())
                                 .userId(userId)
                                 .roleId(roleId)
                                 .build()

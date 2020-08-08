@@ -1,6 +1,7 @@
 package com.glacier.modules.sys.service.impl;
 
 import com.glacier.common.core.entity.form.IdForm;
+import com.glacier.common.core.utils.IdGen;
 import com.glacier.modules.sys.common.Constant;
 import com.glacier.modules.sys.entity.pojo.Dept;
 import com.glacier.modules.sys.mapper.DeptMapper;
@@ -73,6 +74,7 @@ public class DeptServiceImpl implements DeptService {
         if (record.getId() != null && !record.getId().isEmpty()) {
             update = this.deptMapper.updateByPrimaryKey(record);
         } else {
+            record.setId(IdGen.uuid());
             update = this.deptMapper.insert(record);
         }
         return update;

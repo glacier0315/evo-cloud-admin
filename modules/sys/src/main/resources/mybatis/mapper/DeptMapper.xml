@@ -76,7 +76,7 @@
     <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
         select
         <include refid="base_columns"/>
-        from sys_dept
+        from sys_dept a
         where id = #{id}
     </select>
 

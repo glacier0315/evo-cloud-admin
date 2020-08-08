@@ -4,6 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.glacier.common.core.entity.page.PageRequest;
 import com.glacier.common.core.entity.page.PageResponse;
+import com.glacier.common.core.utils.IdGen;
 import com.glacier.modules.sys.entity.pojo.SysLog;
 import com.glacier.modules.sys.mapper.SysLogMapper;
 import com.glacier.modules.sys.service.SysLogService;
@@ -52,6 +53,7 @@ public class SysLogServiceImpl implements SysLogService {
         if (record.getId() != null && !record.getId().isEmpty()) {
             update = this.sysLogMapper.updateByPrimaryKey(record);
         } else {
+            record.setId(IdGen.uuid());
             update = this.sysLogMapper.insert(record);
         }
         return update;
@@ -65,6 +67,7 @@ public class SysLogServiceImpl implements SysLogService {
     @Async
     @Override
     public void insertAsync(SysLog record) {
+        record.setId(IdGen.uuid());
         this.sysLogMapper.insert(record);
     }
 }

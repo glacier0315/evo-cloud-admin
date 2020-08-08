@@ -4,6 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.glacier.common.core.entity.page.PageRequest;
 import com.glacier.common.core.entity.page.PageResponse;
+import com.glacier.common.core.utils.IdGen;
 import com.glacier.modules.sys.entity.form.RoleForm;
 import com.glacier.modules.sys.entity.form.RoleQueryForm;
 import com.glacier.modules.sys.entity.pojo.Role;
@@ -119,6 +120,7 @@ public class RoleServiceImpl implements RoleService {
         if (role.getId() != null && !role.getId().isEmpty()) {
             update = this.roleMapper.updateByPrimaryKey(role);
         } else {
+            role.setId(IdGen.uuid());
             update = this.roleMapper.insert(role);
         }
         // 保存角色和菜单
@@ -167,6 +169,7 @@ public class RoleServiceImpl implements RoleService {
             for (String menuId : menuIds) {
                 update += this.roleMenuMapper.insert(
                         RoleMenu.builder()
+                                .id(IdGen.uuid())
                                 .roleId(roleId)
                                 .menuId(menuId)
                                 .build());

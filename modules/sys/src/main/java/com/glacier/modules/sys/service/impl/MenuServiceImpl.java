@@ -1,14 +1,15 @@
 package com.glacier.modules.sys.service.impl;
 
 import com.glacier.common.core.utils.IdGen;
+import com.glacier.common.core.utils.TreeBuildFactory;
 import com.glacier.modules.sys.common.Constant;
 import com.glacier.modules.sys.entity.form.MenuForm;
 import com.glacier.modules.sys.entity.pojo.Menu;
 import com.glacier.modules.sys.mapper.MenuMapper;
 import com.glacier.modules.sys.service.MenuService;
-import com.glacier.modules.sys.utils.MenuBuildFactory;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -46,8 +47,7 @@ public class MenuServiceImpl implements MenuService {
     public int save(MenuForm menuForm) {
         Menu menu = this.modelMapper.map(menuForm, Menu.class);
         int update = 0;
-        if (menu.getId() != null
-                && !menu.getId().isEmpty()) {
+        if (StringUtils.isNotEmpty(menu.getId())) {
             // 更新
             update = this.menuMapper.updateByPrimaryKey(menu);
         } else {
@@ -68,7 +68,7 @@ public class MenuServiceImpl implements MenuService {
     @Transactional(rollbackFor = {})
     @Override
     public int delete(String id) {
-        if (id != null && !id.isEmpty()) {
+        if (StringUtils.isNotEmpty(id)) {
             return this.menuMapper.deleteByPrimaryKey(id);
         }
         return 0;
@@ -87,7 +87,7 @@ public class MenuServiceImpl implements MenuService {
     @Override
     public List<Menu> findMenuTree() {
         List<Menu> menuList = this.findAllList();
-        return MenuBuildFactory.buildMenuTree(menuList);
+        return TreeBuildFactory.buildMenuTree(menuList);
     }
 
     /**
@@ -107,7 +107,7 @@ public class MenuServiceImpl implements MenuService {
         } else {
             menuList = this.menuMapper.findByUserId(userId);
         }
-        return MenuBuildFactory.buildMenuTree(menuList);
+        return TreeBuildFactory.buildMenuTree(menuList);
     }
 
     /**

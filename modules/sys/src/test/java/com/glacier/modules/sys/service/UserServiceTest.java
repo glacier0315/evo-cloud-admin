@@ -46,9 +46,7 @@ public class UserServiceTest {
     public void findUserByUsername() {
         String username = "admin";
         User user = this.userService.findUserByUsername(username);
-        Assert.assertEquals(Optional.ofNullable(user)
-                        .orElse(new User())
-                        .getUsername(),
+        Assert.assertEquals(user.getUsername(),
                 username);
     }
 

@@ -1,7 +1,8 @@
 package com.glacier.authorization.resource.entity.pojo;
 
-import com.glacier.common.core.entity.pojo.BasePojo;
 import lombok.*;
+
+import java.io.Serializable;
 
 /**
  * 用户角色关系
@@ -14,11 +15,13 @@ import lombok.*;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(callSuper = false)
 @Builder
-public class UserRole extends BasePojo {
-
-    private static final long serialVersionUID = -7193974752669679122L;
+public class UserRole implements Serializable {
+    private static final long serialVersionUID = 8523322889225203563L;
+    /**
+     * 主键
+     */
+    private String id;
     /**
      * 用户id
      */

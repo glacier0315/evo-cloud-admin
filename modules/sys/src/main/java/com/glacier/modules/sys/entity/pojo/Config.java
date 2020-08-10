@@ -1,7 +1,7 @@
 package com.glacier.modules.sys.entity.pojo;
 
 
-import com.glacier.common.core.entity.pojo.BasePojo;
+import com.glacier.common.core.entity.pojo.AbstractDataPojo;
 import lombok.*;
 
 /**
@@ -11,12 +11,12 @@ import lombok.*;
  * @date 2019-11-06 11:11
  */
 @Data
-@ToString
+@ToString(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(callSuper=false)
+@EqualsAndHashCode(callSuper = false)
 @Builder
-public class Config extends BasePojo {
+public class Config extends AbstractDataPojo {
 
     private static final long serialVersionUID = 3535850238275216235L;
     /**

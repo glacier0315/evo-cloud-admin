@@ -10,6 +10,7 @@ import com.glacier.modules.sys.mapper.SysLogMapper;
 import com.glacier.modules.sys.service.SysLogService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
@@ -33,12 +34,11 @@ public class SysLogServiceImpl implements SysLogService {
         PageHelper.startPage(pageRequest.getPageNum(), pageRequest.getPageSize());
         List<SysLog> sysLogList = this.sysLogMapper.selectList(pageRequest.getParams());
         PageInfo<SysLog> pageInfo = PageInfo.of(sysLogList);
-        return PageResponse.<SysLog>builder()
-                .pageNum(pageInfo.getPageNum())
-                .pageSize(pageInfo.getPageSize())
-                .total(pageInfo.getTotal())
-                .list(pageInfo.getList())
-                .build();
+        return new PageResponse<>(
+                pageInfo.getPageNum(),
+                pageInfo.getPages(),
+                pageInfo.getTotal(),
+                pageInfo.getList());
     }
 
     /**
@@ -50,7 +50,7 @@ public class SysLogServiceImpl implements SysLogService {
     @Override
     public int insert(SysLog record) {
         int update = 0;
-        if (record.getId() != null && !record.getId().isEmpty()) {
+        if (StringUtils.isNotEmpty(record.getId())) {
             update = this.sysLogMapper.updateByPrimaryKey(record);
         } else {
             record.setId(IdGen.uuid());

@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * @author glacier
@@ -42,4 +43,8 @@ public class RoleDetails implements Serializable {
      * 数据权限
      */
     private String dataScope;
+    /**
+     * 组织机构集合
+     */
+    private List<String> deptIds;
 }

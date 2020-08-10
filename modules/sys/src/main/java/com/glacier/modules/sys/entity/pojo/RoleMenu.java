@@ -12,7 +12,7 @@ import java.io.Serializable;
  * @date 2019-10-09 14:49
  */
 @Data
-@ToString
+@ToString(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder

@@ -25,9 +25,11 @@ public interface RoleMapper extends BaseMapper<Role, String> {
 
     /**
      * 查询角色编码是否已使用
+     * id 不为空时 排除该id的角色
+     *
      * @param role 角色
      * @return 编码数量（排除指定id）
      */
-    Integer selectCount(Role role);
+    int selectCount(Role role);
 
 }

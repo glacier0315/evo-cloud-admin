@@ -1,10 +1,5 @@
 package com.glacier.common.core.entity.page;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
-
 import java.io.Serializable;
 
 /**
@@ -14,10 +9,6 @@ import java.io.Serializable;
  * @version 1.0
  * @date 2019-10-14 15:53
  */
-@Data
-@ToString
-@NoArgsConstructor
-@AllArgsConstructor
 public class PageRequest<T> implements Serializable {
     private static final long serialVersionUID = 4076080201697869870L;
     /**
@@ -33,4 +24,49 @@ public class PageRequest<T> implements Serializable {
      */
     private T params;
 
+    public PageRequest() {
+    }
+
+    public PageRequest(int pageNum, int pageSize, T params) {
+        this.pageNum = pageNum;
+        this.pageSize = pageSize;
+        this.params = params;
+    }
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public int getPageNum() {
+        return this.pageNum;
+    }
+
+    public void setPageNum(int pageNum) {
+        this.pageNum = pageNum;
+    }
+
+    public int getPageSize() {
+        return this.pageSize;
+    }
+
+    public void setPageSize(int pageSize) {
+        this.pageSize = pageSize;
+    }
+
+    public T getParams() {
+        return this.params;
+    }
+
+    public void setParams(T params) {
+        this.params = params;
+    }
+
+    @Override
+    public String toString() {
+        return "PageRequest{" +
+                "pageNum=" + this.pageNum +
+                ", pageSize=" + this.pageSize +
+                ", params=" + this.params +
+                '}';
+    }
 }

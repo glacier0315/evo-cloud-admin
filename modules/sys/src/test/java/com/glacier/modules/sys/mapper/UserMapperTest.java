@@ -1,7 +1,6 @@
 package com.glacier.modules.sys.mapper;
 
 import com.glacier.modules.sys.SysApplication;
-import com.glacier.modules.sys.entity.pojo.User;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -9,7 +8,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
-import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
 
@@ -28,8 +26,11 @@ public class UserMapperTest {
     @Test
     public void selectOneByUsername() {
         String username = "admin";
-        User user = this.userMapper.selectOneByUsername(username);
-        System.out.println("user:\t" + user);
-        assertEquals(Optional.ofNullable(user).orElse(new User()).getUsername(), username);
+        this.userMapper.selectOneByUsername(username)
+                .ifPresent(user -> {
+                    System.out.println("user:\t" + user);
+                    assertEquals(user.getUsername(), username);
+                });
+
     }
 }

@@ -123,7 +123,8 @@ public class DeptServiceImpl implements DeptService {
             Iterator<Dept> iterator = depts.iterator();
             while (iterator.hasNext()) {
                 Dept dept = iterator.next();
-                if (dept.getParentId() == null || "".equals(dept.getParentId().trim())
+                if (dept.getParentId() == null
+                        || "".equals(dept.getParentId().trim())
                         || "0".equals(dept.getParentId())) {
                     deptList.add(dept);
                     // 删除
@@ -154,7 +155,8 @@ public class DeptServiceImpl implements DeptService {
             Iterator<Dept> iterator = depts.iterator();
             while (iterator.hasNext()) {
                 Dept dept = iterator.next();
-                if (parent.getId() != null && parent.getId().equals(dept.getParentId())) {
+                if (parent.getId() != null
+                        && parent.getId().equals(dept.getParentId())) {
                     // 处理层级
                     if (parent.getLevel() == null) {
                         parent.setLevel(0);

@@ -3,6 +3,8 @@ package com.glacier.modules.sys.mapper;
 import com.glacier.common.core.mapper.BaseMapper;
 import com.glacier.modules.sys.entity.pojo.User;
 
+import java.util.Optional;
+
 /**
  * 用户数据层
  *
@@ -26,5 +28,5 @@ public interface UserMapper extends BaseMapper<User, String> {
      * @param username 用户名
      * @return
      */
-    User selectOneByUsername(String username);
+    Optional<User> selectOneByUsername(String username);
 }

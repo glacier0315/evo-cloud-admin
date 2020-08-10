@@ -26,6 +26,7 @@ import com.glacier.modules.sys.mapper.UserRoleMapper;
 import com.glacier.modules.sys.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang.StringUtils;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 /**
@@ -57,56 +59,51 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder passwordEncoder;
 
     @Override
+    public User findById(String id) {
+        return this.userMapper.selectByPrimaryKey(id)
+                .orElseThrow(() -> new IllegalArgumentException("该用户不存在!"));
+    }
+
+    @Override
     public User findUserByUsername(String username) {
-        return this.userMapper.selectOneByUsername(username);
+        return this.userMapper.selectOneByUsername(username)
+                .orElseThrow(() -> new IllegalArgumentException("该用户不存在!"));
     }
 
     @Override
     public UserInfo findUserInfoByUsername(String username) {
         User user = this.findUserByUsername(username);
-        UserInfo userInfo = null;
-        if (user != null) {
-            // 查找角色
-            List<Role> roles = this.roleMapper.findByUserId(user.getId());
-            userInfo = UserInfo.builder()
-                    .id(user.getId())
-                    .name(user.getUsername())
-                    .avatar(user.getAvatar())
-                    .roles(
-                            Optional.ofNullable(roles)
-                                    .orElse(Collections.emptyList())
-                                    .stream()
-                                    .map(Role::getCode)
-                                    .collect(Collectors.toList())
-                    )
-                    .build();
-        }
-        return userInfo;
+        // 查找角色
+        List<Role> roles = this.roleMapper.findByUserId(user.getId());
+        return UserInfo.builder()
+                .id(user.getId())
+                .name(user.getUsername())
+                .avatar(user.getAvatar())
+                .roles(
+                        Optional.ofNullable(roles)
+                                .orElse(Collections.emptyList())
+                                .stream()
+                                .map(Role::getCode)
+                                .collect(Collectors.toList())
+                )
+                .build();
     }
 
     @Override
     public UserProfile findUserProfileByUsername(String username) {
         User user = this.findUserByUsername(username);
-        UserProfile userProfile = null;
-        if (user != null) {
-            userProfile = this.modelMapper.map(user, UserProfile.class);
-        }
-        return userProfile;
+        return this.modelMapper.map(user, UserProfile.class);
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) {
         User user = this.findUserByUsername(username);
-        UserDetails userDetails = null;
-        if (user != null) {
-            List<Role> roles = this.roleMapper.findByUserId(user.getId());
-            userDetails = this.modelMapper.map(user, UserDetails.class);
-            userDetails.setRoleDetails(
-                    this.modelMapper.map(
-                            roles,
-                            new TypeToken<List<RoleDetails>>() {
-                            }.getType()));
-        }
+        UserDetails userDetails = this.modelMapper.map(user, UserDetails.class);
+        userDetails.setRoleDetails(
+                this.modelMapper.map(
+                        this.roleMapper.findByUserId(user.getId()),
+                        new TypeToken<List<RoleDetails>>() {
+                        }.getType()));
         return userDetails;
     }
 
@@ -122,16 +119,14 @@ public class UserServiceImpl implements UserService {
         List<User> userList = this.userMapper.selectList(this.modelMapper.map(
                 pageRequest.getParams(), User.class));
         PageInfo<User> pageInfo = PageInfo.of(userList);
-        return PageResponse.<UserVo>builder()
-                .pageNum(pageInfo.getPageNum())
-                .pageSize(pageInfo.getPageSize())
-                .total(pageInfo.getTotal())
-                .list(this.modelMapper.map(
+        return new PageResponse<>(
+                pageInfo.getPageNum(),
+                pageInfo.getPages(),
+                pageInfo.getTotal(),
+                this.modelMapper.map(
                         pageInfo.getList(),
                         new TypeToken<List<UserVo>>() {
-                        }.getType())
-                )
-                .build();
+                        }.getType()));
     }
 
     /**
@@ -144,15 +139,12 @@ public class UserServiceImpl implements UserService {
     @Transactional(rollbackFor = {})
     @Override
     public <T extends IdForm> int update(T form) {
-        int update = 0;
-        if (form != null
-                && form.getId() != null
-                && !form.getId().isEmpty()) {
-            update = this.userMapper.updateByPrimaryKey(
-                    this.modelMapper.map(form, User.class)
-            );
-        }
-        return update;
+        AtomicInteger update = new AtomicInteger(0);
+        Optional.ofNullable(form).ifPresent(t -> {
+            update.set(this.userMapper.updateByPrimaryKey(
+                    this.modelMapper.map(form, User.class)));
+        });
+        return update.get();
     }
 
     /**
@@ -165,29 +157,21 @@ public class UserServiceImpl implements UserService {
     @Override
     public Result<Integer> updatePassword(UserPasswordForm userPasswordForm) {
         int update = 0;
-        if (userPasswordForm != null
-                && userPasswordForm.getId() != null
-                && !userPasswordForm.getId().isEmpty()) {
-            // 判断原始密码是否一致
-            User user = this.userMapper.selectByPrimaryKey(userPasswordForm.getId());
-            if (user != null) {
-                if (this.passwordEncoder.matches(
-                        userPasswordForm.getOldPassword(),
-                        user.getPassword())) {
-                    // 加密密码
-                    user.setPassword(
-                            this.passwordEncoder.encode(userPasswordForm.getNewPassword())
-                    );
-                    update = this.userMapper.updateByPrimaryKey(user);
-                } else {
-                    return Result.error("原始密码不正确！");
-                }
-            } else {
-                return Result.error("未找到该用户！");
-            }
-        } else {
+        if (userPasswordForm == null
+                || StringUtils.isEmpty(userPasswordForm.getId())) {
             return Result.error(SystemErrorType.ARGUMENT_NOT_VALID);
         }
+        // 判断原始密码是否一致
+        User user = this.findById(userPasswordForm.getId());
+        if (!this.passwordEncoder.matches(
+                userPasswordForm.getOldPassword(),
+                user.getPassword())) {
+            return Result.error("原始密码不正确！");
+        }
+        // 加密密码
+        user.setPassword(
+                this.passwordEncoder.encode(userPasswordForm.getNewPassword()));
+        update = this.userMapper.updateByPrimaryKey(user);
         return Result.ok("修改成功！", update);
     }
 
@@ -200,21 +184,19 @@ public class UserServiceImpl implements UserService {
     @Transactional(rollbackFor = {})
     @Override
     public int add(UserAddForm userAddForm) {
-        int update = 0;
-        if (userAddForm != null) {
-            User user = this.modelMapper.map(userAddForm, User.class);
-            if (user.getPassword() == null
-                    || user.getPassword().isEmpty()) {
-                user.setPassword(Constant.DEFAULT_PASSWD);
-            }
+        AtomicInteger update = new AtomicInteger(0);
+        Optional.ofNullable(userAddForm).ifPresent(u -> {
+            User user = this.modelMapper.map(u, User.class);
             // 对原始密码加密
             user.setPassword(
-                    this.passwordEncoder.encode(user.getPassword())
-            );
+                    this.passwordEncoder.encode(
+                            Optional.of(user)
+                                    .map(User::getPassword)
+                                    .orElse(Constant.DEFAULT_PASSWD)));
             user.setId(IdGen.uuid());
-            update = this.userMapper.insert(user);
-        }
-        return update;
+            update.set(this.userMapper.insert(user));
+        });
+        return update.get();
     }
 
     /**
@@ -226,13 +208,13 @@ public class UserServiceImpl implements UserService {
     @Transactional(rollbackFor = {})
     @Override
     public int delete(String id) {
-        int update = 0;
-        if (id != null && !id.isEmpty()) {
-            update = this.userMapper.deleteByPrimaryKey(id);
+        AtomicInteger update = new AtomicInteger(0);
+        Optional.ofNullable(id).ifPresent(s -> {
+            update.set(this.userMapper.deleteByPrimaryKey(id));
             // 删除用户角色关系
-            this.deleteUserRoleByUserId(id);
-        }
-        return update;
+            this.userRoleMapper.deleteByUserId(id);
+        });
+        return update.get();
     }
 
     /**
@@ -244,7 +226,7 @@ public class UserServiceImpl implements UserService {
      */
     public int saveUserRole(final String userId, List<String> roleIds) {
         int update = 0;
-        if (userId != null && !userId.isEmpty()
+        if (StringUtils.isNotEmpty(userId)
                 && roleIds != null && !roleIds.isEmpty()) {
             // 保存用户角色关系
             for (String roleId : roleIds) {
@@ -256,20 +238,6 @@ public class UserServiceImpl implements UserService {
                                 .build()
                 );
             }
-        }
-        return update;
-    }
-
-    /**
-     * 删除用户角色关系
-     *
-     * @param userId
-     * @return
-     */
-    private int deleteUserRoleByUserId(final String userId) {
-        int update = 0;
-        if (userId != null && !userId.isEmpty()) {
-            update = this.userRoleMapper.deleteByUserId(userId);
         }
         return update;
     }

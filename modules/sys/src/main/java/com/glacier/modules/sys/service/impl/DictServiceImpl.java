@@ -81,7 +81,8 @@ public class DictServiceImpl implements DictService {
             Iterator<Dict> iterator = dicts.iterator();
             while (iterator.hasNext()) {
                 Dict menu = iterator.next();
-                if (menu.getParentId() == null || "".equals(menu.getParentId().trim())
+                if (menu.getParentId() == null
+                        || "".equals(menu.getParentId().trim())
                         || "0".equals(menu.getParentId())) {
                     dictList.add(menu);
                     // 删除
@@ -112,7 +113,8 @@ public class DictServiceImpl implements DictService {
             Iterator<Dict> iterator = dicts.iterator();
             while (iterator.hasNext()) {
                 Dict dict = iterator.next();
-                if (parent.getId() != null && parent.getId().equals(dict.getParentId())) {
+                if (parent.getId() != null
+                        && parent.getId().equals(dict.getParentId())) {
                     // 处理层级
                     if (parent.getLevel() == null) {
                         parent.setLevel(0);

@@ -1,7 +1,7 @@
 package com.glacier.authorization.resource.entity.pojo;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.glacier.common.core.entity.pojo.BasePojo;
+import com.glacier.common.core.entity.pojo.AbstractDataPojo;
 import lombok.*;
 
 import java.util.Date;
@@ -14,13 +14,13 @@ import java.util.Date;
  * @date 2019-08-04 13:45
  */
 @Data
-@ToString
+@ToString(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
 @Builder
-public class User extends BasePojo {
-    private static final long serialVersionUID = 8183158175539525771L;
+public class User extends AbstractDataPojo {
+    private static final long serialVersionUID = -2411301606042619439L;
     /**
      * 用户名
      */
@@ -66,13 +66,6 @@ public class User extends BasePojo {
      * 单位id
      */
     private String deptId;
-    /**
-     * 删除标记
-     */
-    private String delFlag;
-
-
-    /*非数据库字段*/
     /**
      * 单位名称
      */

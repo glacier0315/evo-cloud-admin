@@ -1,9 +1,7 @@
 package com.glacier.modules.sys.entity.pojo;
 
-import com.glacier.common.core.entity.pojo.BasePojo;
+import com.glacier.common.core.entity.pojo.AbstractTreePojo;
 import lombok.*;
-
-import java.util.List;
 
 /**
  * 组织机构
@@ -13,17 +11,13 @@ import java.util.List;
  * @date 2019-10-14 17:06
  */
 @Data
-@ToString
+@ToString(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(callSuper=false)
+@EqualsAndHashCode(callSuper = false)
 @Builder
-public class Dept extends BasePojo {
+public class Dept extends AbstractTreePojo<Dept> {
     private static final long serialVersionUID = 7605652474322748904L;
-    /**
-     * 名称
-     */
-    private String name;
     /**
      * 单位编码
      */
@@ -36,22 +30,6 @@ public class Dept extends BasePojo {
      * 状态
      */
     private Integer status;
-    /**
-     * 父级id 顶级id默认为0
-     */
-    private String parentId;
-    /**
-     * 排序号
-     */
-    private Integer orderNum;
-    /**
-     * 层级
-     */
-    private Integer level;
-    /**
-     * 下级单位
-     */
-    private List<Dept> children;
     /**
      * 父级名称
      */

@@ -1,4 +1,4 @@
-package com.glacier.modules.sys.util;
+package com.glacier.modules.sys.utils;
 
 import com.glacier.modules.sys.SysApplication;
 import org.junit.Test;
@@ -16,7 +16,7 @@ import javax.annotation.Resource;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = {SysApplication.class})
-public class PasswordUtil {
+public class PasswordUtilTest {
     @Resource
     private PasswordEncoder passwordEncoder;
 

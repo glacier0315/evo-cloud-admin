@@ -1,7 +1,6 @@
 package com.glacier.common.core.utils;
 
-import com.google.common.collect.Maps;
-
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
@@ -64,8 +63,19 @@ public class AppContextHolder {
      */
     public String getUsername() {
         return Optional.ofNullable(this.threadLocal.get())
-                .orElse(Maps.newHashMap())
+                .orElseGet(HashMap::new)
                 .get("username");
+    }
+
+    /**
+     * 获取上下文中的用户id
+     *
+     * @return
+     */
+    public String getUserId() {
+        return Optional.ofNullable(this.threadLocal.get())
+                .orElseGet(HashMap::new)
+                .get("userId");
     }
 
     /**

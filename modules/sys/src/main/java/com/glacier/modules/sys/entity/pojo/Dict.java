@@ -1,9 +1,7 @@
 package com.glacier.modules.sys.entity.pojo;
 
-import com.glacier.common.core.entity.pojo.BasePojo;
+import com.glacier.common.core.entity.pojo.AbstractTreePojo;
 import lombok.*;
-
-import java.util.List;
 
 /**
  * 字典
@@ -12,21 +10,17 @@ import java.util.List;
  * @date 2019-12-01 21:16
  */
 @Data
-@ToString
+@ToString(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(callSuper=false)
+@EqualsAndHashCode(callSuper = false)
 @Builder
-public class Dict extends BasePojo {
+public class Dict extends AbstractTreePojo<Dict> {
     private static final long serialVersionUID = -8004367732541881835L;
-    /**
-     * 编码名称
-     */
-    private String code;
     /**
      * 字典编码
      */
-    private String name;
+    private String code;
     /**
      * 字典类型
      */
@@ -39,23 +33,6 @@ public class Dict extends BasePojo {
      * 备注
      */
     private String remarks;
-    /**
-     * 父级id 顶级id默认为0
-     */
-    private String parentId;
-    /**
-     * 排序号
-     */
-    private Integer orderNum;
-
-    /**
-     * 层级
-     */
-    private Integer level;
-    /**
-     * 下级单位
-     */
-    private List<Dict> children;
     /**
      * 父级名称
      */

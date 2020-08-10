@@ -5,7 +5,7 @@ import com.glacier.modules.sys.entity.form.MenuForm;
 import com.glacier.modules.sys.entity.pojo.Menu;
 import com.glacier.modules.sys.entity.vo.Router;
 import com.glacier.modules.sys.service.MenuService;
-import com.glacier.modules.sys.utils.MenuBuildFactory;
+import com.glacier.modules.sys.utils.RouteBuildFactory;
 import com.glacier.modules.sys.utils.SecurityUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -100,7 +100,7 @@ public class MenuController {
         String userId = SecurityUtils.geUserId();
         log.debug("userId: {}", userId);
         return Result.ok(
-                MenuBuildFactory.buildRouters(
+                RouteBuildFactory.buildRouters(
                         this.menuService.findMenuTreeByUserId(userId)));
     }
 

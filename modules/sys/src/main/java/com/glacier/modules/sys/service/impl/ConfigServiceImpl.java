@@ -79,11 +79,10 @@ public class ConfigServiceImpl implements ConfigService {
         PageHelper.startPage(pageRequest.getPageNum(), pageRequest.getPageSize());
         List<Config> userList = this.configMapper.selectList(pageRequest.getParams());
         PageInfo<Config> pageInfo = PageInfo.of(userList);
-        return PageResponse.<Config>builder()
-                .pageNum(pageInfo.getPageNum())
-                .pageSize(pageInfo.getPageSize())
-                .total(pageInfo.getTotal())
-                .list(pageInfo.getList())
-                .build();
+        return new PageResponse<>(
+                pageInfo.getPageNum(),
+                pageInfo.getPages(),
+                pageInfo.getTotal(),
+                pageInfo.getList());
     }
 }

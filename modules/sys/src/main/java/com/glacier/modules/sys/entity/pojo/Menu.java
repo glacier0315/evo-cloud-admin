@@ -1,9 +1,7 @@
 package com.glacier.modules.sys.entity.pojo;
 
-import com.glacier.common.core.entity.pojo.BasePojo;
+import com.glacier.common.core.entity.pojo.AbstractTreePojo;
 import lombok.*;
-
-import java.util.List;
 
 /**
  * 菜单
@@ -13,18 +11,14 @@ import java.util.List;
  * @date 2019-10-09 11:03
  */
 @Data
-@ToString
+@ToString(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(callSuper=false)
+@EqualsAndHashCode(callSuper = false)
 @Builder
-public class Menu extends BasePojo {
+public class Menu extends AbstractTreePojo<Menu> {
 
     private static final long serialVersionUID = 1207728347319595982L;
-    /**
-     * 资源名称
-     */
-    private String name;
     /**
      * 端点相对路径
      */
@@ -54,22 +48,4 @@ public class Menu extends BasePojo {
      * 是否外链 1 是  2 否
      */
     private Integer isFrame;
-
-    /**
-     * 父级id 顶级id默认为0
-     */
-    private String parentId;
-    /**
-     * 排序号
-     */
-    private Integer orderNum;
-
-    /**
-     *
-     */
-    private Integer level;
-    /**
-     * 子级菜单
-     */
-    private List<Menu> children;
 }

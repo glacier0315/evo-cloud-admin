@@ -23,6 +23,16 @@ import com.glacier.modules.sys.entity.vo.user.UserVo;
 public interface UserService {
 
     /**
+     * 根据用户id 查询
+     *
+     * @param id
+     * @return
+     */
+    User findById(String id);
+
+    /**
+     * 根据用户名查询
+     *
      * @param username
      * @return
      */

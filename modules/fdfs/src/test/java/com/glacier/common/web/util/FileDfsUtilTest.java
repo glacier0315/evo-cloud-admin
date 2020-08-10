@@ -2,10 +2,8 @@ package com.glacier.common.web.util;
 
 import com.glacier.common.core.entity.vo.Result;
 import com.glacier.common.web.FdfsApplication;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
 import java.io.File;
@@ -15,7 +13,6 @@ import java.io.File;
  * @version 1.0
  * @date 2020-07-22 15:18
  */
-@RunWith(SpringRunner.class)
 @SpringBootTest(classes = {FdfsApplication.class})
 public class FileDfsUtilTest {
 
@@ -31,7 +28,7 @@ public class FileDfsUtilTest {
 
     @Test
     public void deleteFile() {
-        String fileUrl = "group1/M00/00/00/wKgKhF8YPHOAbXxoAABNkeog2NU914.jpg";
+        String fileUrl = "group1/M00/00/00/wKgKhF8x9q2AXbSkAABNkeog2NU666.jpg";
         Result<String> result = this.fileDfsUtil.deleteFile(fileUrl);
         System.out.println(result);
     }

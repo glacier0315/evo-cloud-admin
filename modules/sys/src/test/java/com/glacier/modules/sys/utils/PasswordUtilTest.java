@@ -1,11 +1,8 @@
 package com.glacier.modules.sys.utils;
 
-import com.glacier.modules.sys.SysApplication;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
 
@@ -14,8 +11,7 @@ import javax.annotation.Resource;
  * @version 1.0
  * @date 2020-07-23 19:30
  */
-@RunWith(SpringRunner.class)
-@SpringBootTest(classes = {SysApplication.class})
+@SpringBootTest
 public class PasswordUtilTest {
     @Resource
     private PasswordEncoder passwordEncoder;

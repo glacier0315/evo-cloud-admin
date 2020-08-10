@@ -16,7 +16,7 @@ bootJar {
 dependencies {
     implementation project(':common:core')
 
-    implementation ("com.github.tobato:fastdfs-client:1.27.2") {
+    implementation("com.github.tobato:fastdfs-client:1.27.2") {
         exclude group: 'commons-io', module: 'commons-io'
     }
     implementation "commons-io:commons-io:2.7"

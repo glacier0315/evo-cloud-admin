@@ -1,6 +1,7 @@
 package com.glacier.common.core.utils;
 
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * @author glacier

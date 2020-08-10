@@ -41,8 +41,17 @@ subprojects {
         testCompileOnly "org.projectlombok:lombok:${lombokVersion}"
         testAnnotationProcessor "org.projectlombok:lombok:${lombokVersion}"
 
-        // 配置junit 4 单元测试
-        testImplementation "junit:junit:4.12"
+        // 配置junit 5 单元测试
+        testImplementation "org.junit.jupiter:junit-jupiter:5.6.2"
+    }
+
+    configurations {
+        // 排除兼容junit4 相关依赖
+        compile.exclude(group: "org.junit.vintage", module: "junit-vintage-engine")
+    }
+
+    test {
+        useJUnitPlatform()
     }
 
     // 设置编码为UTF-8
@@ -69,7 +78,7 @@ subprojects {
         }
     }
     // 拷贝jar包
-    task copyJars(type:Copy) {
+    task copyJars(type: Copy) {
         // 运行时
         from configurations.runtimeClasspath
         // 目标位置

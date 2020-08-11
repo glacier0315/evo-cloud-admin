@@ -2,9 +2,6 @@ package com.glacier.common.core.entity.vo;
 
 import com.glacier.common.core.exception.ErrorType;
 import com.glacier.common.core.exception.SystemErrorType;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import lombok.*;
 
 import java.io.Serializable;
 
@@ -14,12 +11,6 @@ import java.io.Serializable;
  * @author glacier
  * @date 2019-10-14 15:53
  */
-@ApiModel(description = "rest请求的返回模型，所有rest正常都返回该类的对象")
-@Data
-@ToString
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
 public class Result<T> implements Serializable {
 
     private static final long serialVersionUID = -8984794300938868661L;
@@ -30,23 +21,66 @@ public class Result<T> implements Serializable {
     /**
      * 响应编码
      */
-    @ApiModelProperty(value = "响应编码")
     private String code;
     /**
      * 响应信息
      */
-    @ApiModelProperty(value = "响应错误信息")
     private String msg;
     /**
      * 请求生成时间戳
      */
-    @ApiModelProperty(value = "请求结果生成时间戳")
     private Long time;
     /**
      * 响应返回数据
      */
-    @ApiModelProperty(value = "响应返回数据")
     private T data;
+
+    public Result() {
+        this(SUCCUSS, "ok", System.currentTimeMillis(), null);
+    }
+
+    public Result(String code, String msg, Long time, T data) {
+        this.code = code;
+        this.msg = msg;
+        this.time = time;
+        this.data = data;
+    }
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public String getCode() {
+        return this.code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getMsg() {
+        return this.msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
+
+    public Long getTime() {
+        return this.time;
+    }
+
+    public void setTime(Long time) {
+        this.time = time;
+    }
+
+    public T getData() {
+        return this.data;
+    }
+
+    public void setData(T data) {
+        this.data = data;
+    }
 
     /**
      * 返回默认 "500" 错误
@@ -88,11 +122,7 @@ public class Result<T> implements Serializable {
      * @return
      */
     public static <T> Result<T> error(String code, String msg) {
-        return Result.<T>builder()
-                .code(code)
-                .msg(msg)
-                .time(System.currentTimeMillis())
-                .build();
+        return new Result<>(code, msg, System.currentTimeMillis(), null);
     }
 
     /**
@@ -125,11 +155,16 @@ public class Result<T> implements Serializable {
      * @return
      */
     public static <T> Result<T> ok(String msg, T data) {
-        return Result.<T>builder()
-                .code(SUCCUSS)
-                .msg(msg)
-                .data(data)
-                .time(System.currentTimeMillis())
-                .build();
+        return new Result<>(SUCCUSS, msg, System.currentTimeMillis(), data);
+    }
+
+    @Override
+    public String toString() {
+        return "Result{" +
+                "code='" + this.code + '\'' +
+                ", msg='" + this.msg + '\'' +
+                ", time=" + this.time +
+                ", data=" + this.data +
+                '}';
     }
 }

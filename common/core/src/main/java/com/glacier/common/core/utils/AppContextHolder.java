@@ -53,7 +53,8 @@ public class AppContextHolder {
      * @return
      */
     public Map<String, String> getContext() {
-        return this.threadLocal.get();
+        return Optional.ofNullable(this.threadLocal.get())
+                .orElseGet(HashMap::new);
     }
 
     /**
@@ -62,9 +63,7 @@ public class AppContextHolder {
      * @return
      */
     public String getUsername() {
-        return Optional.ofNullable(this.threadLocal.get())
-                .orElseGet(HashMap::new)
-                .get("username");
+        return this.getContext().get("username");
     }
 
     /**
@@ -73,9 +72,7 @@ public class AppContextHolder {
      * @return
      */
     public String getUserId() {
-        return Optional.ofNullable(this.threadLocal.get())
-                .orElseGet(HashMap::new)
-                .get("userId");
+        return this.getContext().get("userId");
     }
 
     /**

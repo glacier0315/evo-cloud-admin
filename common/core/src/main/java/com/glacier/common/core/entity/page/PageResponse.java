@@ -1,5 +1,8 @@
 package com.glacier.common.core.entity.page;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -10,23 +13,28 @@ import java.util.List;
  * @version 1.0
  * @date 2020-02-14 18:10
  */
+@ApiModel(description = "分页响应模型")
 public class PageResponse<T> implements Serializable {
     private static final long serialVersionUID = -8475013295639046286L;
     /**
      * 当前页码
      */
+    @ApiModelProperty(value = "当前页码")
     private long pageNum;
     /**
      * 每页数量
      */
+    @ApiModelProperty(value = "每页数量")
     private long pageSize;
     /**
      * 总数
      */
+    @ApiModelProperty(value = "总数")
     private long total;
     /**
      * 查询结果集
      */
+    @ApiModelProperty(value = "查询结果集")
     private List<T> list;
 
     public PageResponse() {

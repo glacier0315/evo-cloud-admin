@@ -7,6 +7,8 @@ import com.glacier.modules.sys.entity.form.RoleForm;
 import com.glacier.modules.sys.entity.form.RoleQueryForm;
 import com.glacier.modules.sys.entity.pojo.Role;
 import com.glacier.modules.sys.service.RoleService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +22,7 @@ import java.util.List;
  * @version 1.0
  * @date 2019-08-11 21:24
  */
+@Api(tags = "角色管理")
 @RestController
 @RequestMapping(value = "/role")
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
@@ -32,6 +35,7 @@ public class RoleController {
      *
      * @return
      */
+    @ApiOperation("查找所有角色")
     @GetMapping("/findAll")
     public Result<List<Role>> findAll() {
         return Result.ok(
@@ -44,6 +48,7 @@ public class RoleController {
      * @param pageRequest
      * @return
      */
+    @ApiOperation("分页查询角色")
     @PostMapping("/pageList")
     public Result<PageResponse<Role>> findPage(
             @RequestBody PageRequest<RoleQueryForm> pageRequest) {
@@ -57,6 +62,7 @@ public class RoleController {
      * @param roleForm
      * @return
      */
+    @ApiOperation("新增角色")
     @PostMapping("/add")
     public Result<Integer> add(
             @RequestBody RoleForm roleForm) {
@@ -70,6 +76,7 @@ public class RoleController {
      * @param roleForm
      * @return
      */
+    @ApiOperation("更新角色")
     @PutMapping("/update")
     public Result<Integer> update(
             @RequestBody RoleForm roleForm) {
@@ -83,6 +90,7 @@ public class RoleController {
      * @param id
      * @return
      */
+    @ApiOperation("删除指定角色")
     @DeleteMapping("/delete")
     public Result<Integer> delete(String id) {
         return Result.ok(
@@ -95,12 +103,13 @@ public class RoleController {
      * @param role
      * @return
      */
+    @ApiOperation("检验角色编码")
     @PostMapping("/checkCode")
     public Result<String> checkCode(
             @RequestBody Role role) {
-        Result<String> result = Result.ok();
-        result.setData(String.valueOf(this.roleService.checkCode(role)));
-        return result;
+        return Result.ok(
+                String.valueOf(
+                        this.roleService.checkCode(role)));
     }
 
     /**
@@ -109,6 +118,7 @@ public class RoleController {
      * @param userId
      * @return
      */
+    @ApiOperation("根据用户id查询角色")
     @GetMapping("/findByUserId")
     public Result<List<Role>> findByUserId(String userId) {
         return Result.ok(this.roleService.findByUserId(userId));

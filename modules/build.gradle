@@ -25,6 +25,7 @@ subprojects {
         implementation "org.modelmapper:modelmapper:${modelmapperVersion}"
 
         // swagger
+        implementation("io.springfox:springfox-boot-starter:${swaggerVersion}")
 
         implementation 'org.springframework.boot:spring-boot-starter-actuator'
         runtimeOnly "org.springframework.boot:spring-boot-devtools"

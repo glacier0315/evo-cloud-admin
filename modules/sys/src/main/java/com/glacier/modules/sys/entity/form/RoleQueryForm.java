@@ -1,5 +1,6 @@
 package com.glacier.modules.sys.entity.form;
 
+import io.swagger.annotations.ApiModel;
 import lombok.Data;
 import lombok.ToString;
 
@@ -10,6 +11,7 @@ import java.io.Serializable;
  * @version 1.0
  * @date 2020-07-03 21:51
  */
+@ApiModel(description = "角色查询条件模型")
 @Data
 @ToString
 public class RoleQueryForm implements Serializable {

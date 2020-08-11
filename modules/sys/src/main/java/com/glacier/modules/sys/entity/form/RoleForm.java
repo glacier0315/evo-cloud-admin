@@ -1,15 +1,19 @@
 package com.glacier.modules.sys.entity.form;
 
+import io.swagger.annotations.ApiModel;
 import lombok.Data;
 import lombok.ToString;
 
 import java.io.Serializable;
 
 /**
+ * 角色模型
+ *
  * @author glacier
  * @version 1.0
  * @date 2020-07-03 21:52
  */
+@ApiModel(description = "角色模型")
 @Data
 @ToString
 public class RoleForm implements Serializable {
@@ -34,7 +38,6 @@ public class RoleForm implements Serializable {
      * 描述
      */
     private String description;
-
     /**
      * 菜单ID 集合
      */

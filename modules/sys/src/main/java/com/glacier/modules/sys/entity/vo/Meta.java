@@ -1,6 +1,7 @@
 package com.glacier.modules.sys.entity.vo;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import io.swagger.annotations.ApiModel;
 import lombok.*;
 
 import java.io.Serializable;
@@ -11,6 +12,7 @@ import java.io.Serializable;
  * @version 1.0
  * @date 2020-06-06 10:14
  */
+@ApiModel(description = "路由元数据模型")
 @Data
 @ToString
 @NoArgsConstructor

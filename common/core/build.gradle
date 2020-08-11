@@ -2,5 +2,5 @@ jar {
     baseName("eboot-common-core")
 }
 dependencies {
-
+    implementation("com.fasterxml.jackson.core:jackson-annotations:${jacksonAnnotationsVersion}")
 }

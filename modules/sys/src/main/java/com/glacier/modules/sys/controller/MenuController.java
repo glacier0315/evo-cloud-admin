@@ -7,6 +7,8 @@ import com.glacier.modules.sys.entity.vo.Router;
 import com.glacier.modules.sys.service.MenuService;
 import com.glacier.modules.sys.utils.RouteBuildFactory;
 import com.glacier.modules.sys.utils.SecurityUtils;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,12 +18,13 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * 菜单控制层
+ * 菜单管理
  *
  * @author glacier
  * @version 1.0
  * @date 2019-10-09 15:59
  */
+@Api(tags = "菜单管理")
 @Slf4j
 @RestController
 @RequestMapping(value = "/menu")
@@ -35,6 +38,7 @@ public class MenuController {
      *
      * @return
      */
+    @ApiOperation("查询所有菜单")
     @GetMapping("/list")
     public Result<List<Menu>> list() {
         return Result.ok(
@@ -47,6 +51,7 @@ public class MenuController {
      * @param menuForm
      * @return
      */
+    @ApiOperation("添加菜单")
     @PostMapping("/add")
     public Result<Integer> add(
             @RequestBody MenuForm menuForm) {
@@ -60,6 +65,7 @@ public class MenuController {
      * @param menuForm
      * @return
      */
+    @ApiOperation("更新菜单")
     @PutMapping("/update")
     public Result<Integer> update(
             @RequestBody MenuForm menuForm) {
@@ -73,6 +79,7 @@ public class MenuController {
      * @param id
      * @return
      */
+    @ApiOperation("删除指定菜单")
     @DeleteMapping("/delete")
     public Result<Integer> delete(String id) {
         return Result.ok(
@@ -84,6 +91,7 @@ public class MenuController {
      *
      * @return
      */
+    @ApiOperation("查询角色具有的菜单")
     @GetMapping("/findByRole")
     public Result<List<String>> findByRole(String roleId) {
         return Result.ok(
@@ -95,6 +103,7 @@ public class MenuController {
      *
      * @return
      */
+    @ApiOperation("查询用户所有路由")
     @GetMapping(value = "/getRouters")
     public Result<List<Router>> getRouters() {
         String userId = SecurityUtils.geUserId();
@@ -109,6 +118,7 @@ public class MenuController {
      *
      * @return
      */
+    @ApiOperation("查询所有权限标识")
     @GetMapping(value = "/getPermissions")
     public Result<Set<String>> getPermissions() {
         String userId = SecurityUtils.geUserId();

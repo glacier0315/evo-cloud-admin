@@ -6,6 +6,7 @@ import com.glacier.common.core.entity.page.PageResponse;
 import com.glacier.common.core.entity.vo.Result;
 import com.glacier.modules.sys.entity.pojo.Config;
 import com.glacier.modules.sys.service.ConfigService;
+import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,11 +18,13 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 /**
- * 配置控制层
+ * 配置管理
+ *
  * @author glacier
  * @version 1.0
  * @date 2019-12-01 20:43
  */
+@Api(tags = "配置管理")
 @Slf4j
 @RestController
 @RequestMapping(value = "/config")

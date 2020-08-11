@@ -4,6 +4,8 @@ import com.glacier.common.core.entity.form.IdForm;
 import com.glacier.common.core.entity.vo.Result;
 import com.glacier.modules.sys.entity.pojo.Dict;
 import com.glacier.modules.sys.service.DictService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,11 +14,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- * 字典控制层
+ * 字典管理
+ *
  * @author glacier
  * @version 1.0
  * @date 2019-12-01 21:13
  */
+@Api(tags = "字典管理")
 @Slf4j
 @RestController
 @RequestMapping(value = "/dict")
@@ -29,6 +33,7 @@ public class DictController {
      *
      * @return
      */
+    @ApiOperation("查询字典")
     @GetMapping("/findDictTree")
     public Result<List<Dict>> findDictTree() {
         return Result.ok(this.dictService.findDictTree());
@@ -40,6 +45,7 @@ public class DictController {
      * @param dict
      * @return
      */
+    @ApiOperation("保存字典")
     @PostMapping("/save")
     public Result<Integer> save(@RequestBody Dict dict) {
         return Result.ok(this.dictService.save(dict));
@@ -51,6 +57,7 @@ public class DictController {
      * @param idForms
      * @return
      */
+    @ApiOperation("删除指定字典")
     @PostMapping("/delete")
     public Result<Integer> delete(@RequestBody List<IdForm> idForms) {
         return Result.ok(this.dictService.batchDelete(idForms));

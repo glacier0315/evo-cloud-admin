@@ -2,6 +2,8 @@ package com.glacier.common.core.entity.vo;
 
 import com.glacier.common.core.exception.ErrorType;
 import com.glacier.common.core.exception.SystemErrorType;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
 
@@ -11,6 +13,7 @@ import java.io.Serializable;
  * @author glacier
  * @date 2019-10-14 15:53
  */
+@ApiModel(description = "rest请求的响应模型")
 public class Result<T> implements Serializable {
 
     private static final long serialVersionUID = -8984794300938868661L;
@@ -21,18 +24,22 @@ public class Result<T> implements Serializable {
     /**
      * 响应编码
      */
+    @ApiModelProperty(value = "响应编码")
     private String code;
     /**
      * 响应信息
      */
+    @ApiModelProperty(value = "响应信息")
     private String msg;
     /**
-     * 请求生成时间戳
+     * 响应时间戳
      */
+    @ApiModelProperty(value = "响应时间戳")
     private Long time;
     /**
      * 响应返回数据
      */
+    @ApiModelProperty(value = "响应返回数据")
     private T data;
 
     public Result() {

@@ -9,6 +9,8 @@ import com.glacier.modules.sys.entity.vo.user.UserDetails;
 import com.glacier.modules.sys.entity.vo.user.UserProfile;
 import com.glacier.modules.sys.entity.vo.user.UserVo;
 import com.glacier.modules.sys.service.UserService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,7 @@ import org.springframework.web.bind.annotation.*;
  * @version 1.0
  * @date 2019-08-04 22:13
  */
+@Api(tags = "用户管理")
 @Slf4j
 @RestController
 @RequestMapping(value = "/user")
@@ -36,6 +39,7 @@ public class UserController {
      * @param username
      * @return
      */
+    @ApiOperation("根据用户名查询用户")
     @GetMapping(value = "/{username}")
     public Result<UserDetails> findByUsername(
             @PathVariable("username") String username) {
@@ -49,6 +53,7 @@ public class UserController {
      * @param pageRequest
      * @return
      */
+    @ApiOperation("分页查询用户")
     @PostMapping("/pageList")
     public Result<PageResponse<UserVo>> findPage(
             @RequestBody PageRequest<UserQueryForm> pageRequest) {
@@ -62,6 +67,7 @@ public class UserController {
      * @param userAddForm
      * @return
      */
+    @ApiOperation("添加用户")
     @PostMapping("/add")
     public Result<Integer> add(
             @RequestBody UserAddForm userAddForm) {
@@ -75,6 +81,7 @@ public class UserController {
      * @param userUpdateForm
      * @return
      */
+    @ApiOperation("更新用户")
     @PutMapping("/update")
     public Result<Integer> update(
             @RequestBody UserUpdateForm userUpdateForm) {
@@ -88,6 +95,7 @@ public class UserController {
      * @param id
      * @return
      */
+    @ApiOperation("删除指定用户")
     @DeleteMapping("/delete")
     public Result<Integer> delete(String id) {
         return Result.ok(
@@ -100,6 +108,7 @@ public class UserController {
      * @param authentication
      * @return
      */
+    @ApiOperation("获取当前用户信息")
     @GetMapping(value = "/profile")
     public Result<UserProfile> getProfile(Authentication authentication) {
         log.info(">>>>>>>>>>>>>>>>>>>>>>>>");
@@ -117,6 +126,7 @@ public class UserController {
      * @param userProfileForm
      * @return
      */
+    @ApiOperation("更新当前用户信息")
     @PutMapping(value = "/profile")
     public Result<Integer> updateProfile(
             @RequestBody UserProfileForm userProfileForm) {
@@ -130,6 +140,7 @@ public class UserController {
      * @param userAvatarForm
      * @return
      */
+    @ApiOperation("更新当前用户头像信息")
     @PostMapping(value = "/avatar")
     public Result<Integer> avatar(
             @RequestBody UserAvatarForm userAvatarForm) {
@@ -143,6 +154,7 @@ public class UserController {
      * @param userPasswordForm
      * @return
      */
+    @ApiOperation("重置用户密码")
     @PostMapping("/resetPwd")
     public Result<Integer> resetPwd(
             @RequestBody UserPasswordForm userPasswordForm) {
@@ -157,6 +169,7 @@ public class UserController {
      * @param userPasswordForm
      * @return
      */
+    @ApiOperation("修改用户密码")
     @PutMapping("/updatePwd")
     public Result<Integer> updatePwd(
             @RequestBody UserPasswordForm userPasswordForm) {

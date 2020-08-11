@@ -43,8 +43,11 @@ public class AppContextHolder {
      *
      * @param map
      */
-    public void setContext(Map<String, String> map) {
-        this.threadLocal.set(map);
+    public void setContext(final Map<String, String> map) {
+        Optional.of(this.threadLocal)
+                .ifPresent(mapThreadLocal -> {
+                    mapThreadLocal.set(map);
+                });
     }
 
     /**
@@ -79,6 +82,7 @@ public class AppContextHolder {
      * 清空上下文
      */
     public void clear() {
-        this.threadLocal.remove();
+        Optional.of(this.threadLocal)
+                .ifPresent(ThreadLocal::remove);
     }
 }

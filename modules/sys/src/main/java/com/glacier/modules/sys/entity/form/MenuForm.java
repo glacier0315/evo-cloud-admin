@@ -1,5 +1,6 @@
 package com.glacier.modules.sys.entity.form;
 
+import io.swagger.annotations.ApiModel;
 import lombok.Data;
 import lombok.ToString;
 
@@ -10,6 +11,7 @@ import java.io.Serializable;
  * @version 1.0
  * @date 2020-07-03 17:21
  */
+@ApiModel(description = "菜单模型")
 @Data
 @ToString
 public class MenuForm implements Serializable {

@@ -1,6 +1,8 @@
 package com.glacier.modules.sys.entity.form.user;
 
 import com.glacier.common.core.entity.form.IdForm;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -12,6 +14,7 @@ import lombok.ToString;
  * @version 1.0
  * @date 2020-07-23 10:31
  */
+@ApiModel(description = "用户头像模型")
 @EqualsAndHashCode(callSuper = true)
 @Data
 @ToString
@@ -21,5 +24,6 @@ public class UserAvatarForm extends IdForm {
     /**
      * 头像地址
      */
+    @ApiModelProperty(value = "头像地址")
     private String avatar;
 }

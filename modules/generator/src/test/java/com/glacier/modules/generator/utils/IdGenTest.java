@@ -1,4 +1,4 @@
-package com.glacier.generator.utils;
+package com.glacier.modules.generator.utils;
 
 import com.glacier.common.core.utils.IdGen;
 import org.junit.jupiter.api.Assertions;

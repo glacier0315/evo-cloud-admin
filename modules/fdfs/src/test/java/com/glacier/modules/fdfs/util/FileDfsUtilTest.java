@@ -1,7 +1,7 @@
-package com.glacier.common.web.util;
+package com.glacier.modules.fdfs.util;
 
 import com.glacier.common.core.entity.vo.Result;
-import com.glacier.common.web.FdfsApplication;
+import com.glacier.modules.fdfs.FdfsApplication;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 

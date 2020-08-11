@@ -1,4 +1,4 @@
-package com.glacier.common.web;
+package com.glacier.modules.fdfs;
 
 import com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceAutoConfigure;
 import org.springframework.boot.SpringApplication;

@@ -1,4 +1,4 @@
-package com.glacier.common.web.config;
+package com.glacier.modules.fdfs.config;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

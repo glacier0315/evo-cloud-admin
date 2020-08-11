@@ -1,4 +1,4 @@
-package com.glacier.generator;
+package com.glacier.modules.generator;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

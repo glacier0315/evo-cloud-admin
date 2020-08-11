@@ -1,4 +1,4 @@
-package com.glacier.common.web.config;
+package com.glacier.modules.fdfs.config;
 
 
 import com.github.tobato.fastdfs.FdfsClientConfig;

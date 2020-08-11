@@ -1,8 +1,8 @@
-package com.glacier.common.web.controller;
+package com.glacier.modules.fdfs.controller;
 
 import com.glacier.common.core.entity.vo.Result;
-import com.glacier.common.web.config.DfsResConfig;
-import com.glacier.common.web.util.FileDfsUtil;
+import com.glacier.modules.fdfs.config.DfsResConfig;
+import com.glacier.modules.fdfs.util.FileDfsUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;

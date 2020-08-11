@@ -1,4 +1,4 @@
-package com.glacier.common.web.util;
+package com.glacier.modules.fdfs.util;
 
 
 import com.github.tobato.fastdfs.domain.fdfs.StorePath;

@@ -1,4 +1,4 @@
-package com.glacier.common.web.config;
+package com.glacier.modules.fdfs.config;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;

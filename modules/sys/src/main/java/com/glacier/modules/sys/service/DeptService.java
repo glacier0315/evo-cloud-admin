@@ -17,7 +17,7 @@ public interface DeptService {
      *
      * @return
      */
-    List<Dept> findList();
+    List<Dept> findAllList();
 
     /**
      * 根据用户ID查找所有 组织机构

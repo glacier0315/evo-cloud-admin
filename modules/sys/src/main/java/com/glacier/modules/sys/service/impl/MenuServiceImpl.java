@@ -1,6 +1,5 @@
 package com.glacier.modules.sys.service.impl;
 
-import com.glacier.common.core.utils.IdGen;
 import com.glacier.common.core.utils.TreeBuildFactory;
 import com.glacier.modules.sys.common.Constant;
 import com.glacier.modules.sys.entity.form.MenuForm;
@@ -15,10 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * 菜单业务层
@@ -46,16 +42,12 @@ public class MenuServiceImpl implements MenuService {
     @Override
     public int save(MenuForm menuForm) {
         Menu menu = this.modelMapper.map(menuForm, Menu.class);
-        int update = 0;
-        if (StringUtils.isNotEmpty(menu.getId())) {
-            // 更新
-            update = this.menuMapper.updateByPrimaryKey(menu);
-        } else {
-            // 保存
-            menu.setId(IdGen.uuid());
-            update = this.menuMapper.insert(menu);
+        if (menu.isNewRecord()) {
+            menu.preInsert();
+            return this.menuMapper.insert(menu);
         }
-        return update;
+        menu.preUpdate();
+        return this.menuMapper.updateByPrimaryKey(menu);
     }
 
 
@@ -118,19 +110,17 @@ public class MenuServiceImpl implements MenuService {
      */
     @Override
     public Set<String> findPermissionsByUserId(String userId) {
-        Set<String> permissions = new HashSet<>(1);
         if (userId == null || userId.isEmpty()) {
-            return permissions;
+            return new HashSet<>(1);
         }
+        Set<String> permissions = null;
         if (Constant.ADMIN_ID.equals(userId)) {
             permissions = this.menuMapper.findAllPermissions();
         } else {
             permissions = this.menuMapper.findPermissionsByUserId(userId);
         }
-        if (permissions == null) {
-            permissions = new HashSet<>(1);
-        }
-        return permissions;
+        return Optional.ofNullable(permissions)
+                .orElseGet(HashSet::new);
     }
 
 

@@ -28,13 +28,13 @@
     <sql id="joins">
     </sql>
 
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-        delete
-        from sys_dict
-        where id = #{id}
-    </delete>
+    <update id="deleteByPrimaryKey" parameterType="java.lang.String">
+        update sys_dict a
+        set a.del_flag='1'
+        where a.id = #{id}
+    </update>
 
-    <delete id="deleteBatchIds">
+    <update id="deleteBatchIds">
         update sys_dict a
         set a.del_flag='1'
         <where>
@@ -50,7 +50,7 @@
                 </otherwise>
             </choose>
         </where>
-    </delete>
+    </update>
 
     <insert id="insert" parameterType="com.glacier.modules.sys.entity.pojo.Dict">
         insert into sys_dict (id, code, name,

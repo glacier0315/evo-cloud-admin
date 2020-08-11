@@ -1,11 +1,11 @@
 package com.glacier.modules.sys.service;
 
-import com.glacier.common.core.entity.form.IdForm;
 import com.glacier.common.core.entity.page.PageRequest;
 import com.glacier.common.core.entity.page.PageResponse;
 import com.glacier.common.core.entity.vo.Result;
-import com.glacier.modules.sys.entity.form.user.UserAddForm;
+import com.glacier.modules.sys.entity.form.user.UserAvatarForm;
 import com.glacier.modules.sys.entity.form.user.UserPasswordForm;
+import com.glacier.modules.sys.entity.form.user.UserProfileForm;
 import com.glacier.modules.sys.entity.form.user.UserQueryForm;
 import com.glacier.modules.sys.entity.pojo.User;
 import com.glacier.modules.sys.entity.vo.user.UserDetails;
@@ -71,21 +71,13 @@ public interface UserService {
     PageResponse<UserVo> findPage(PageRequest<UserQueryForm> pageRequest);
 
     /**
-     * 更新操作
-     *
-     * @param form 更新封装类
-     * @param <T>
-     * @return
-     */
-    <T extends IdForm> int update(T form);
-
-    /**
      * 保存用户
      *
-     * @param userAddForm
+     * @param form 用户封装实体
+     * @param <T>  用户封装类型
      * @return
      */
-    int add(UserAddForm userAddForm);
+    <T> int save(T form);
 
     /**
      * 根据Id删除
@@ -102,4 +94,20 @@ public interface UserService {
      * @return
      */
     Result<Integer> updatePassword(UserPasswordForm userPasswordForm);
+
+    /**
+     * 更新个人信息
+     *
+     * @param userProfileForm
+     * @return
+     */
+    Result<Integer> updateProfile(UserProfileForm userProfileForm);
+
+    /**
+     * 更新头像
+     *
+     * @param userAvatarForm
+     * @return
+     */
+    Result<Integer> updateAvatar(UserAvatarForm userAvatarForm);
 }

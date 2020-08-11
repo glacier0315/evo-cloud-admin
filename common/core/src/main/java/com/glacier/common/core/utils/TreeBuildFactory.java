@@ -33,7 +33,7 @@ public class TreeBuildFactory {
                 .stream()
                 .filter(t -> t.getParentId() == null
                         || t.getParentId().isEmpty())
-                .peek(t -> t.setLevel(0))
+                .peek(t -> t.setGrade(1))
                 .sorted(Comparator.comparingInt(T::getOrderNum))
                 .collect(Collectors.toList());
         // 组装子类菜单
@@ -55,7 +55,7 @@ public class TreeBuildFactory {
                             .orElseGet(ArrayList::new)
                             .stream()
                             .filter(t1 -> t.getId().equals(t1.getParentId()))
-                            .peek(t1 -> t1.setLevel(t.getLevel() + 1))
+                            .peek(t1 -> t1.setGrade(t.getGrade() + 1))
                             .sorted(Comparator.comparingInt(T::getOrderNum))
                             .collect(Collectors.toList());
                     t.setChildren(subList);

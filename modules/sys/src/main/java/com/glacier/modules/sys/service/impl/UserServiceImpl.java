@@ -2,7 +2,6 @@ package com.glacier.modules.sys.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.glacier.common.core.entity.form.IdForm;
 import com.glacier.common.core.entity.page.PageRequest;
 import com.glacier.common.core.entity.page.PageResponse;
 import com.glacier.common.core.entity.vo.Result;
@@ -10,8 +9,9 @@ import com.glacier.common.core.entity.vo.RoleDetails;
 import com.glacier.common.core.exception.SystemErrorType;
 import com.glacier.common.core.utils.IdGen;
 import com.glacier.modules.sys.common.Constant;
-import com.glacier.modules.sys.entity.form.user.UserAddForm;
+import com.glacier.modules.sys.entity.form.user.UserAvatarForm;
 import com.glacier.modules.sys.entity.form.user.UserPasswordForm;
+import com.glacier.modules.sys.entity.form.user.UserProfileForm;
 import com.glacier.modules.sys.entity.form.user.UserQueryForm;
 import com.glacier.modules.sys.entity.pojo.Role;
 import com.glacier.modules.sys.entity.pojo.User;
@@ -130,24 +130,6 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     * 修改用户
-     *
-     * @param form 更新封装类
-     * @param <T>
-     * @return
-     */
-    @Transactional(rollbackFor = {})
-    @Override
-    public <T extends IdForm> int update(T form) {
-        AtomicInteger update = new AtomicInteger(0);
-        Optional.ofNullable(form).ifPresent(t -> {
-            update.set(this.userMapper.updateByPrimaryKey(
-                    this.modelMapper.map(form, User.class)));
-        });
-        return update.get();
-    }
-
-    /**
      * 修改密码
      *
      * @param userPasswordForm
@@ -175,26 +157,53 @@ public class UserServiceImpl implements UserService {
         return Result.ok("修改成功！", update);
     }
 
+    @Override
+    public Result<Integer> updateProfile(UserProfileForm userProfileForm) {
+        if (userProfileForm == null
+                || StringUtils.isEmpty(userProfileForm.getId())) {
+            return Result.error(SystemErrorType.ARGUMENT_NOT_VALID);
+        }
+        return Result.ok("修改成功！",
+                this.userMapper.updateProfileByPrimaryKey(
+                        this.modelMapper.map(userProfileForm, User.class)));
+    }
+
+    @Override
+    public Result<Integer> updateAvatar(UserAvatarForm UserAvatarForm) {
+        if (UserAvatarForm == null
+                || StringUtils.isEmpty(UserAvatarForm.getId())) {
+            return Result.error(SystemErrorType.ARGUMENT_NOT_VALID);
+        }
+        return Result.ok("修改成功！",
+                this.userMapper.updateAvatarByPrimaryKey(
+                        this.modelMapper.map(UserAvatarForm, User.class)));
+    }
+
     /**
      * 保存用户
      *
-     * @param userAddForm
+     * @param form 用户封装实体
+     * @param <T>
      * @return
      */
-    @Transactional(rollbackFor = {})
     @Override
-    public int add(UserAddForm userAddForm) {
+    public <T> int save(T form) {
         AtomicInteger update = new AtomicInteger(0);
-        Optional.ofNullable(userAddForm).ifPresent(u -> {
-            User user = this.modelMapper.map(u, User.class);
-            // 对原始密码加密
-            user.setPassword(
-                    this.passwordEncoder.encode(
-                            Optional.of(user)
-                                    .map(User::getPassword)
-                                    .orElse(Constant.DEFAULT_PASSWD)));
-            user.setId(IdGen.uuid());
-            update.set(this.userMapper.insert(user));
+        Optional.ofNullable(form).ifPresent(t -> {
+            User user = this.modelMapper.map(form, User.class);
+            if (!user.isNewRecord()) {
+                user.preUpdate();
+                update.set(this.userMapper.updateByPrimaryKey(user));
+            } else {
+                // 对原始密码加密
+                user.setPassword(
+                        this.passwordEncoder.encode(
+                                Optional.of(user)
+                                        .map(User::getPassword)
+                                        .orElse(Constant.DEFAULT_PASSWD)));
+                user.preInsert();
+                update.set(this.userMapper.insert(user));
+            }
         });
         return update.get();
     }

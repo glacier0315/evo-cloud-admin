@@ -39,7 +39,7 @@ public class DeptController {
     @GetMapping("/list")
     public Result<List<Dept>> list() {
         return Result.ok(
-                this.deptService.findList());
+                this.deptService.findAllList());
     }
 
     /**

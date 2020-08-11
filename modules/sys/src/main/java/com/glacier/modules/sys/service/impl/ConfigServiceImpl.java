@@ -5,7 +5,6 @@ import com.github.pagehelper.PageInfo;
 import com.glacier.common.core.entity.form.IdForm;
 import com.glacier.common.core.entity.page.PageRequest;
 import com.glacier.common.core.entity.page.PageResponse;
-import com.glacier.common.core.utils.IdGen;
 import com.glacier.modules.sys.entity.pojo.Config;
 import com.glacier.modules.sys.mapper.ConfigMapper;
 import com.glacier.modules.sys.service.ConfigService;
@@ -40,14 +39,12 @@ public class ConfigServiceImpl implements ConfigService {
     @Transactional(rollbackFor = {})
     @Override
     public int save(Config record) {
-        int update = 0;
-        if (record.getId() != null && !record.getId().isEmpty()) {
-            update = this.configMapper.updateByPrimaryKey(record);
-        } else {
-            record.setId(IdGen.uuid());
-            update = this.configMapper.insert(record);
+        if (record.isNewRecord()) {
+            record.preInsert();
+            return this.configMapper.insert(record);
         }
-        return update;
+        record.preUpdate();
+        return this.configMapper.updateByPrimaryKey(record);
     }
 
     /**

@@ -81,11 +81,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void update() {
-    }
-
-    @Test
-    public void add() {
+    public void save() {
     }
 
     @Test
@@ -94,5 +90,13 @@ public class UserServiceTest {
 
     @Test
     public void updatePassword() {
+    }
+
+    @Test
+    public void updateProfile() {
+    }
+
+    @Test
+    public void updateAvatar() {
     }
 }

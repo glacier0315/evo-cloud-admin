@@ -32,11 +32,11 @@
     <sql id="joins">
     </sql>
 
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    <update id="deleteByPrimaryKey" parameterType="java.lang.String">
         update sys_menu a
         set a.del_flag='1'
         where a.id = #{id}
-    </delete>
+    </update>
 
     <insert id="insert" parameterType="com.glacier.modules.sys.entity.pojo.Menu">
         insert into sys_menu (id, name, path,

@@ -29,4 +29,20 @@ public interface UserMapper extends BaseMapper<User, String> {
      * @return
      */
     Optional<User> selectOneByUsername(String username);
+
+    /**
+     * 更新个人信息
+     *
+     * @param record
+     * @return
+     */
+    int updateProfileByPrimaryKey(User record);
+
+    /**
+     * 更新头像
+     *
+     * @param record
+     * @return
+     */
+    int updateAvatarByPrimaryKey(User record);
 }

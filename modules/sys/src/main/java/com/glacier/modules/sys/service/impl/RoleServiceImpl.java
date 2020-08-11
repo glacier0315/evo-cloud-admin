@@ -111,10 +111,11 @@ public class RoleServiceImpl implements RoleService {
     public int save(RoleForm roleForm) {
         Role role = this.modelMapper.map(roleForm, Role.class);
         int update = 0;
-        if (StringUtils.isNotEmpty(role.getId())) {
+        if (!role.isNewRecord()) {
+            role.preUpdate();
             update = this.roleMapper.updateByPrimaryKey(role);
         } else {
-            role.setId(IdGen.uuid());
+            role.preInsert();
             update = this.roleMapper.insert(role);
         }
         // 保存角色和菜单

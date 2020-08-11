@@ -34,4 +34,8 @@ public class Dept extends AbstractTreePojo<Dept> {
      * 父级名称
      */
     private String parentName;
+    /**
+     * 父级Id,格式：,id1,id2,
+     */
+    private String parentIds;
 }

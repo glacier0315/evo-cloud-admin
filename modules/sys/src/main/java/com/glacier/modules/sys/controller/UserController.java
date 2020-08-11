@@ -72,7 +72,7 @@ public class UserController {
     public Result<Integer> add(
             @RequestBody UserAddForm userAddForm) {
         return Result.ok(
-                this.userService.add(userAddForm));
+                this.userService.save(userAddForm));
     }
 
     /**
@@ -86,7 +86,7 @@ public class UserController {
     public Result<Integer> update(
             @RequestBody UserUpdateForm userUpdateForm) {
         return Result.ok(
-                this.userService.update(userUpdateForm));
+                this.userService.save(userUpdateForm));
     }
 
     /**
@@ -130,8 +130,7 @@ public class UserController {
     @PutMapping(value = "/profile")
     public Result<Integer> updateProfile(
             @RequestBody UserProfileForm userProfileForm) {
-        return Result.ok(
-                this.userService.update(userProfileForm));
+        return this.userService.updateProfile(userProfileForm);
     }
 
     /**
@@ -144,8 +143,7 @@ public class UserController {
     @PostMapping(value = "/avatar")
     public Result<Integer> avatar(
             @RequestBody UserAvatarForm userAvatarForm) {
-        return Result.ok(
-                this.userService.update(userAvatarForm));
+        return this.userService.updateAvatar(userAvatarForm);
     }
 
     /**

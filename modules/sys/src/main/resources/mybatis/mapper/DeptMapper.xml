@@ -9,8 +9,10 @@
         <result column="type" jdbcType="INTEGER" property="type"/>
         <result column="status" jdbcType="INTEGER" property="status"/>
         <result column="order_num" jdbcType="INTEGER" property="orderNum"/>
-        <result column="level" jdbcType="INTEGER" property="level"/>
+        <result column="grade" jdbcType="INTEGER" property="grade"/>
         <result column="parent_id" jdbcType="VARCHAR" property="parentId"/>
+        <result column="parent_name" jdbcType="VARCHAR" property="parentName"/>
+        <result column="parent_ids" jdbcType="VARCHAR" property="parentIds"/>
         <result column="create_by" jdbcType="VARCHAR" property="createBy"/>
         <result column="create_date" jdbcType="TIMESTAMP" property="createDate"/>
         <result column="update_by" jdbcType="VARCHAR" property="updateBy"/>
@@ -19,7 +21,7 @@
     </resultMap>
 
     <sql id="base_columns">
-        a.id, a.name, a.code, a.level, a.type, a.status, a.order_num, a.parent_id,
+        a.id, a.name, a.code, a.grade, a.type, a.status, a.order_num, a.parent_id, a.parent_name, a.parent_ids,
         a.create_by, a.create_date, a.update_by, a.update_date, a.del_flag
     </sql>
 
@@ -29,13 +31,13 @@
     <sql id="joins">
     </sql>
 
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    <update id="deleteByPrimaryKey" parameterType="java.lang.String">
         update sys_dept a
         set a.del_flag='1'
         where id = #{id}
-    </delete>
+    </update>
 
-    <delete id="deleteBatchIds">
+    <update id="deleteBatchIds">
         update sys_dept a
         set a.del_flag='1'
         <where>
@@ -51,12 +53,13 @@
                 </otherwise>
             </choose>
         </where>
-    </delete>
+    </update>
 
     <insert id="insert" parameterType="com.glacier.modules.sys.entity.pojo.Dept">
-        insert into sys_dept (id, name, code, type, status, order_num, level, parent_id,
+        insert into sys_dept (id, name, code, type, status, order_num, grade, parent_id, parent_name, parent_ids,
                               create_by, create_date, update_by, update_date, del_flag)
-        values (#{id}, #{name}, #{code}, #{type}, #{status}, #{orderNum}, #{level}, #{parentId},
+        values (#{id}, #{name}, #{code}, #{type}, #{status}, #{orderNum}, #{grade}, #{parentId}, #{parentName},
+                #{parentIds},
                 #{createBy}, #{createDate}, #{updateBy}, #{updateDate}, #{delFlag})
     </insert>
 
@@ -67,12 +70,15 @@
             type        = #{type},
             status      = #{status},
             order_num   = #{orderNum},
-            level       = #{level},
+            grade       = #{grade},
             parent_id   = #{parentId},
+            parent_name = #{parentName},
+            parent_ids  = #{parentIds},
             update_by   = #{updateBy},
             update_date = #{updateDate}
         where id = #{id}
     </update>
+
     <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
         select
         <include refid="base_columns"/>

@@ -1,7 +1,7 @@
 package com.glacier.modules.sys.service.impl;
 
 import com.glacier.common.core.entity.form.IdForm;
-import com.glacier.common.core.utils.IdGen;
+import com.glacier.common.core.utils.TreeBuildFactory;
 import com.glacier.modules.sys.common.Constant;
 import com.glacier.modules.sys.entity.pojo.Dept;
 import com.glacier.modules.sys.entity.pojo.User;
@@ -15,8 +15,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -40,7 +38,7 @@ public class DeptServiceImpl implements DeptService {
      * @return
      */
     @Override
-    public List<Dept> findList() {
+    public List<Dept> findAllList() {
         return this.deptMapper.selectAll();
     }
 
@@ -52,16 +50,13 @@ public class DeptServiceImpl implements DeptService {
      */
     @Override
     public List<Dept> findListByUserId(String userId) {
-        List<Dept> deptList = new ArrayList<>(10);
-        if (userId == null) {
-            return deptList;
+        if (userId == null || userId.isEmpty()) {
+            return new ArrayList<>(1);
         }
         if (Constant.ADMIN_ID.equals(userId)) {
-            deptList = this.deptMapper.selectAll();
-        } else {
-            deptList = this.deptMapper.findByUserId(userId);
+            return this.deptMapper.selectAll();
         }
-        return deptList;
+        return this.deptMapper.findByUserId(userId);
     }
 
     /**
@@ -73,19 +68,18 @@ public class DeptServiceImpl implements DeptService {
     @Transactional(rollbackFor = {})
     @Override
     public int save(Dept record) {
-        int update = 0;
-        if (record.getId() != null && !record.getId().isEmpty()) {
-            update = this.deptMapper.updateByPrimaryKey(record);
-            // 更新用户表 组织机构名称
-            this.userMapper.updateDeptByDeptId(
-                    User.builder()
-                            .deptId(record.getId())
-                            .deptName(record.getName())
-                            .build());
-        } else {
-            record.setId(IdGen.uuid());
-            update = this.deptMapper.insert(record);
+        if (record.isNewRecord()) {
+            record.preInsert();
+            return this.deptMapper.insert(record);
         }
+        record.preUpdate();
+        int update = this.deptMapper.updateByPrimaryKey(record);
+        // 更新用户表 组织机构名称
+        this.userMapper.updateDeptByDeptId(
+                User.builder()
+                        .deptId(record.getId())
+                        .deptName(record.getName())
+                        .build());
         return update;
     }
 
@@ -116,60 +110,7 @@ public class DeptServiceImpl implements DeptService {
      */
     @Override
     public List<Dept> findTree(String userId) {
-        List<Dept> depts = this.findListByUserId(userId);
-        List<Dept> deptList = new ArrayList<>(10);
-        //
-        if (depts != null && !depts.isEmpty()) {
-            Iterator<Dept> iterator = depts.iterator();
-            while (iterator.hasNext()) {
-                Dept dept = iterator.next();
-                if (dept.getParentId() == null
-                        || "".equals(dept.getParentId().trim())
-                        || "0".equals(dept.getParentId())) {
-                    deptList.add(dept);
-                    // 删除
-                    iterator.remove();
-                }
-            }
-        }
-        // 排序
-        deptList.sort(Comparator.comparingInt(Dept::getOrderNum));
-        // 组装子类菜单
-        this.findChildren(deptList, depts);
-        return deptList;
-    }
-
-    /**
-     * 递归组装菜单
-     *
-     * @param deptList 当前父级菜单
-     * @param depts    待查询菜单
-     */
-    private void findChildren(List<Dept> deptList, List<Dept> depts) {
-        // 为空则返回
-        if (deptList == null || deptList.isEmpty() || depts == null || depts.isEmpty()) {
-            return;
-        }
-        for (Dept parent : deptList) {
-            List<Dept> children = new ArrayList<>(10);
-            Iterator<Dept> iterator = depts.iterator();
-            while (iterator.hasNext()) {
-                Dept dept = iterator.next();
-                if (parent.getId() != null
-                        && parent.getId().equals(dept.getParentId())) {
-                    // 处理层级
-                    if (parent.getLevel() == null) {
-                        parent.setLevel(0);
-                    }
-                    dept.setParentName(parent.getName());
-                    dept.setLevel(parent.getLevel() + 1);
-                    children.add(dept);
-                    iterator.remove();
-                }
-            }
-            parent.setChildren(children);
-            children.sort(Comparator.comparingInt(Dept::getOrderNum));
-            this.findChildren(children, depts);
-        }
+        return TreeBuildFactory.buildMenuTree(
+                this.findListByUserId(userId));
     }
 }

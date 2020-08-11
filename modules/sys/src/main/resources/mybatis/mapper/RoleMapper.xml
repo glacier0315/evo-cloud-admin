@@ -27,11 +27,11 @@
         inner join sys_user_role b on a.id=b.role_id
     </sql>
 
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    <update id="deleteByPrimaryKey" parameterType="java.lang.String">
         update sys_role a
         set a.del_flag='1'
         where a.id = #{id}
-    </delete>
+    </update>
 
     <insert id="insert" parameterType="com.glacier.modules.sys.entity.pojo.Role">
         insert into sys_role (id, name, code,

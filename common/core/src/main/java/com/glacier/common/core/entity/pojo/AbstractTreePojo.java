@@ -9,25 +9,24 @@ import java.util.List;
  * @version 1.0
  * @date 2020-08-10 17:40
  */
-public abstract class AbstractTreePojo<T extends AbstractTreePojo> extends AbstractDataPojo {
+public abstract class AbstractTreePojo<T extends AbstractTreePojo<T>> extends AbstractDataPojo {
     private static final long serialVersionUID = 5789176651104516887L;
     /**
      * 名称
      */
     private String name;
     /**
-     * 父级id 顶级id默认为0
+     * 父级id 顶级id默认为空
      */
     private String parentId;
     /**
      * 排序号
      */
     private Integer orderNum;
-
     /**
      * 层级
      */
-    private Integer level;
+    private Integer grade;
     /**
      * 子类
      */
@@ -61,12 +60,12 @@ public abstract class AbstractTreePojo<T extends AbstractTreePojo> extends Abstr
         this.orderNum = orderNum;
     }
 
-    public Integer getLevel() {
-        return this.level;
+    public Integer getGrade() {
+        return this.grade;
     }
 
-    public void setLevel(Integer level) {
-        this.level = level;
+    public void setGrade(Integer grade) {
+        this.grade = grade;
     }
 
     public List<T> getChildren() {
@@ -83,7 +82,7 @@ public abstract class AbstractTreePojo<T extends AbstractTreePojo> extends Abstr
                 "name='" + this.name + '\'' +
                 ", parentId='" + this.parentId + '\'' +
                 ", orderNum=" + this.orderNum +
-                ", level=" + this.level +
+                ", grade=" + this.grade +
                 ", children=" + this.children +
                 ", createBy='" + this.createBy + '\'' +
                 ", createDate=" + this.createDate +

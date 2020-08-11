@@ -27,13 +27,13 @@
     <sql id="joins">
     </sql>
 
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    <update id="deleteByPrimaryKey" parameterType="java.lang.String">
         update sys_config a
         set a.del_flag='1'
         where id = #{id}
-    </delete>
+    </update>
 
-    <delete id="deleteBatchIds">
+    <update id="deleteBatchIds">
         update sys_config a
         set a.del_flag='1'
         <where>
@@ -49,7 +49,7 @@
                 </otherwise>
             </choose>
         </where>
-    </delete>
+    </update>
 
     <insert id="insert" parameterType="com.glacier.modules.sys.entity.pojo.Config">
         insert into sys_config (id, value, label,

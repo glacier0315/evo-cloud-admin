@@ -1,8 +1,8 @@
 package com.glacier.modules.sys.controller;
 
 import com.glacier.common.core.entity.vo.Result;
-import com.glacier.modules.sys.entity.form.MenuForm;
-import com.glacier.modules.sys.entity.pojo.Menu;
+import com.glacier.modules.sys.entity.form.menu.MenuForm;
+import com.glacier.modules.sys.entity.vo.MenuVo;
 import com.glacier.modules.sys.entity.vo.Router;
 import com.glacier.modules.sys.service.MenuService;
 import com.glacier.modules.sys.utils.RouteBuildFactory;
@@ -40,34 +40,20 @@ public class MenuController {
      */
     @ApiOperation("查询所有菜单")
     @GetMapping("/list")
-    public Result<List<Menu>> list() {
+    public Result<List<MenuVo>> list() {
         return Result.ok(
                 this.menuService.findAllList());
     }
 
     /**
-     * 添加菜单
+     * 保存菜单
      *
      * @param menuForm
      * @return
      */
-    @ApiOperation("添加菜单")
-    @PostMapping("/add")
-    public Result<Integer> add(
-            @RequestBody MenuForm menuForm) {
-        return Result.ok(
-                this.menuService.save(menuForm));
-    }
-
-    /**
-     * 更新菜单
-     *
-     * @param menuForm
-     * @return
-     */
-    @ApiOperation("更新菜单")
-    @PutMapping("/update")
-    public Result<Integer> update(
+    @ApiOperation("保存菜单")
+    @PostMapping("/save")
+    public Result<Integer> save(
             @RequestBody MenuForm menuForm) {
         return Result.ok(
                 this.menuService.save(menuForm));

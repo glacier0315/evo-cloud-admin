@@ -1,7 +1,7 @@
 package com.glacier.modules.sys.service;
 
-import com.glacier.modules.sys.entity.form.MenuForm;
-import com.glacier.modules.sys.entity.pojo.Menu;
+import com.glacier.modules.sys.entity.form.menu.MenuForm;
+import com.glacier.modules.sys.entity.vo.MenuVo;
 
 import java.util.List;
 import java.util.Set;
@@ -17,7 +17,7 @@ public interface MenuService {
      * 查询所有菜单树
      * @return
      */
-    List<Menu> findAllList();
+    List<MenuVo> findAllList();
 
 
     /**
@@ -25,7 +25,7 @@ public interface MenuService {
      *
      * @return
      */
-    List<Menu> findMenuTree();
+    List<MenuVo> findMenuTree();
 
     /**
      * 根据用户ID查找菜单树
@@ -33,7 +33,7 @@ public interface MenuService {
      * @param userId
      * @return
      */
-    List<Menu> findMenuTreeByUserId(String userId);
+    List<MenuVo> findMenuTreeByUserId(String userId);
 
     /**
      * 根据用户ID查找权限

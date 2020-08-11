@@ -36,11 +36,11 @@ public class Menu extends AbstractTreePojo<Menu> {
      */
     private String permission;
     /**
-     * 1 目录  2 端点  3 权限标识
+     * 类型 1 目录  2 端点  3 权限标识
      */
     private Integer type;
     /**
-     * 1 显示  2 隐藏
+     * 是否显示 1 显示  2 隐藏
      */
     private Integer visible;
 

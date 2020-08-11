@@ -1,36 +1,41 @@
-package com.glacier.common.core.entity.pojo;
+package com.glacier.common.core.entity.form;
 
-import java.util.List;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 /**
- * 树形基类
- *
  * @author glacier
  * @version 1.0
- * @date 2020-08-10 17:40
+ * @date 2020-08-11 21:25
  */
-public abstract class AbstractTreePojo<T extends AbstractTreePojo<T>> extends AbstractDataPojo {
-    private static final long serialVersionUID = 5789176651104516887L;
+@ApiModel(description = "树形模型")
+public class TreeForm extends IdForm {
+    private static final long serialVersionUID = -1422718419166727130L;
     /**
      * 名称
      */
+    @ApiModelProperty(value = "名称")
     protected String name;
     /**
      * 父级id 顶级id默认为空
      */
+    @ApiModelProperty(value = "父级id 顶级id默认为空")
     protected String parentId;
+    /**
+     * 父级名称
+     */
+    @ApiModelProperty(value = "父级名称")
+    protected String parentName;
     /**
      * 排序号
      */
+    @ApiModelProperty(value = "排序号")
     protected Integer orderNum;
     /**
      * 层级
      */
+    @ApiModelProperty(value = "层级")
     protected Integer grade;
-    /**
-     * 子类
-     */
-    protected List<T> children;
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
@@ -52,6 +57,14 @@ public abstract class AbstractTreePojo<T extends AbstractTreePojo<T>> extends Ab
         this.parentId = parentId;
     }
 
+    public String getParentName() {
+        return this.parentName;
+    }
+
+    public void setParentName(String parentName) {
+        this.parentName = parentName;
+    }
+
     public Integer getOrderNum() {
         return this.orderNum;
     }
@@ -68,27 +81,14 @@ public abstract class AbstractTreePojo<T extends AbstractTreePojo<T>> extends Ab
         this.grade = grade;
     }
 
-    public List<T> getChildren() {
-        return this.children;
-    }
-
-    public void setChildren(List<T> children) {
-        this.children = children;
-    }
-
     @Override
     public String toString() {
-        return "AbstractTreePojo{" +
+        return "TreeForm{" +
                 "name='" + this.name + '\'' +
                 ", parentId='" + this.parentId + '\'' +
+                ", parentName='" + this.parentName + '\'' +
                 ", orderNum=" + this.orderNum +
                 ", grade=" + this.grade +
-                ", children=" + this.children +
-                ", createBy='" + this.createBy + '\'' +
-                ", createDate=" + this.createDate +
-                ", updateBy='" + this.updateBy + '\'' +
-                ", updateDate=" + this.updateDate +
-                ", delFlag='" + this.delFlag + '\'' +
                 ", id='" + this.id + '\'' +
                 '}';
     }

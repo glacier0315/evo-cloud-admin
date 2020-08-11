@@ -1,39 +1,58 @@
-package com.glacier.common.core.entity.pojo;
+package com.glacier.common.core.entity.vo;
 
+import io.swagger.annotations.ApiModelProperty;
+
+import java.io.Serializable;
 import java.util.List;
 
 /**
- * 树形基类
- *
  * @author glacier
  * @version 1.0
- * @date 2020-08-10 17:40
+ * @date 2020-08-11 21:11
  */
-public abstract class AbstractTreePojo<T extends AbstractTreePojo<T>> extends AbstractDataPojo {
-    private static final long serialVersionUID = 5789176651104516887L;
+public abstract class AbstractTreeVo<T extends AbstractTreeVo<T>> implements Serializable {
+    private static final long serialVersionUID = -1036159069007440310L;
+    /**
+     * 主键
+     */
+    @ApiModelProperty(value = "主键")
+    private String id;
     /**
      * 名称
      */
-    protected String name;
+    @ApiModelProperty(value = "名称")
+    private String name;
     /**
      * 父级id 顶级id默认为空
      */
-    protected String parentId;
+    @ApiModelProperty(value = "父级id 顶级id默认为空")
+    private String parentId;
     /**
      * 排序号
      */
-    protected Integer orderNum;
+    @ApiModelProperty(value = "排序号")
+    private Integer orderNum;
     /**
      * 层级
      */
-    protected Integer grade;
+    @ApiModelProperty(value = "层级")
+    private Integer grade;
     /**
      * 子类
      */
-    protected List<T> children;
+    @ApiModelProperty(value = "子类")
+    private List<T> children;
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
+    }
+
+    public String getId() {
+        return this.id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -78,18 +97,13 @@ public abstract class AbstractTreePojo<T extends AbstractTreePojo<T>> extends Ab
 
     @Override
     public String toString() {
-        return "AbstractTreePojo{" +
-                "name='" + this.name + '\'' +
+        return "AbstractTreeVo{" +
+                "id='" + this.id + '\'' +
+                ", name='" + this.name + '\'' +
                 ", parentId='" + this.parentId + '\'' +
                 ", orderNum=" + this.orderNum +
                 ", grade=" + this.grade +
                 ", children=" + this.children +
-                ", createBy='" + this.createBy + '\'' +
-                ", createDate=" + this.createDate +
-                ", updateBy='" + this.updateBy + '\'' +
-                ", updateDate=" + this.updateDate +
-                ", delFlag='" + this.delFlag + '\'' +
-                ", id='" + this.id + '\'' +
                 '}';
     }
 }

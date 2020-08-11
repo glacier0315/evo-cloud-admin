@@ -2,14 +2,16 @@ package com.glacier.modules.sys.service.impl;
 
 import com.glacier.common.core.utils.TreeBuildFactory;
 import com.glacier.modules.sys.common.Constant;
-import com.glacier.modules.sys.entity.form.MenuForm;
+import com.glacier.modules.sys.entity.form.menu.MenuForm;
 import com.glacier.modules.sys.entity.pojo.Menu;
+import com.glacier.modules.sys.entity.vo.MenuVo;
 import com.glacier.modules.sys.mapper.MenuMapper;
 import com.glacier.modules.sys.service.MenuService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -72,14 +74,17 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
-    public List<Menu> findAllList() {
-        return this.menuMapper.selectAll();
+    public List<MenuVo> findAllList() {
+        return this.modelMapper.map(
+                this.menuMapper.selectAll(),
+                new TypeToken<List<MenuVo>>() {
+                }.getType());
     }
 
     @Override
-    public List<Menu> findMenuTree() {
-        List<Menu> menuList = this.findAllList();
-        return TreeBuildFactory.buildMenuTree(menuList);
+    public List<MenuVo> findMenuTree() {
+        return TreeBuildFactory.buildMenuTree(
+                this.findAllList());
     }
 
     /**
@@ -89,15 +94,18 @@ public class MenuServiceImpl implements MenuService {
      * @return
      */
     @Override
-    public List<Menu> findMenuTreeByUserId(String userId) {
-        List<Menu> menuList = new ArrayList<>(1);
+    public List<MenuVo> findMenuTreeByUserId(String userId) {
+        List<MenuVo> menuList = new ArrayList<>(1);
         if (userId == null || userId.isEmpty()) {
             return menuList;
         }
         if (Constant.ADMIN_ID.equals(userId)) {
-            menuList = this.menuMapper.selectAll();
+            menuList = this.findAllList();
         } else {
-            menuList = this.menuMapper.findByUserId(userId);
+            menuList = this.modelMapper.map(
+                    this.menuMapper.findByUserId(userId),
+                    new TypeToken<List<MenuVo>>() {
+                    }.getType());
         }
         return TreeBuildFactory.buildMenuTree(menuList);
     }
@@ -122,6 +130,4 @@ public class MenuServiceImpl implements MenuService {
         return Optional.ofNullable(permissions)
                 .orElseGet(HashSet::new);
     }
-
-
 }

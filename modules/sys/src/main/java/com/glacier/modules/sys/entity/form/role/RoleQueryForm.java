@@ -1,6 +1,7 @@
-package com.glacier.modules.sys.entity.form;
+package com.glacier.modules.sys.entity.form.role;
 
 import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.ToString;
 
@@ -19,13 +20,16 @@ public class RoleQueryForm implements Serializable {
     /**
      * 角色名称
      */
+    @ApiModelProperty(value = "角色名称")
     private String name;
     /**
      * 角色编码
      */
+    @ApiModelProperty(value = "角色编码")
     private String code;
     /**
      * 状态 1 正常  2 禁用
      */
+    @ApiModelProperty(value = "状态 1 正常  2 禁用")
     private String status;
 }

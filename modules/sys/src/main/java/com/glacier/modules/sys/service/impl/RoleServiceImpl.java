@@ -5,8 +5,8 @@ import com.github.pagehelper.PageInfo;
 import com.glacier.common.core.entity.page.PageRequest;
 import com.glacier.common.core.entity.page.PageResponse;
 import com.glacier.common.core.utils.IdGen;
-import com.glacier.modules.sys.entity.form.RoleForm;
-import com.glacier.modules.sys.entity.form.RoleQueryForm;
+import com.glacier.modules.sys.entity.form.role.RoleForm;
+import com.glacier.modules.sys.entity.form.role.RoleQueryForm;
 import com.glacier.modules.sys.entity.pojo.Role;
 import com.glacier.modules.sys.entity.pojo.RoleMenu;
 import com.glacier.modules.sys.mapper.RoleMapper;
@@ -21,7 +21,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
@@ -71,7 +70,7 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public boolean checkCode(Role role) {
+    public boolean checkCode(final Role role) {
         AtomicReference<Boolean> ifExists = new AtomicReference<>(false);
         Optional.ofNullable(role)
                 .map(Role::getCode)
@@ -90,8 +89,8 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public PageResponse<Role> findPage(PageRequest<RoleQueryForm> pageRequest) {
         PageHelper.startPage(pageRequest.getPageNum(), pageRequest.getPageSize());
-        List<Role> roleList = this.roleMapper.selectList(this.modelMapper.map(
-                pageRequest.getParams(), Role.class));
+        List<Role> roleList = this.roleMapper.selectList(
+                this.modelMapper.map(pageRequest.getParams(), Role.class));
         PageInfo<Role> pageInfo = PageInfo.of(roleList);
         return new PageResponse<>(
                 pageInfo.getPageNum(),
@@ -120,7 +119,7 @@ public class RoleServiceImpl implements RoleService {
         }
         // 保存角色和菜单
         this.saveRoleMenu(role.getId(),
-                Arrays.asList(roleForm.getMenus()));
+                roleForm.getMenus());
         return update;
     }
 

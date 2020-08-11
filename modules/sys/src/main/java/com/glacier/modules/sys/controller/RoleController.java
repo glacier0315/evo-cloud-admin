@@ -3,8 +3,8 @@ package com.glacier.modules.sys.controller;
 import com.glacier.common.core.entity.page.PageRequest;
 import com.glacier.common.core.entity.page.PageResponse;
 import com.glacier.common.core.entity.vo.Result;
-import com.glacier.modules.sys.entity.form.RoleForm;
-import com.glacier.modules.sys.entity.form.RoleQueryForm;
+import com.glacier.modules.sys.entity.form.role.RoleForm;
+import com.glacier.modules.sys.entity.form.role.RoleQueryForm;
 import com.glacier.modules.sys.entity.pojo.Role;
 import com.glacier.modules.sys.service.RoleService;
 import io.swagger.annotations.Api;
@@ -78,7 +78,7 @@ public class RoleController {
      */
     @ApiOperation("更新角色")
     @PutMapping("/update")
-    public Result<Integer> update(
+    public Result<Integer> save(
             @RequestBody RoleForm roleForm) {
         return Result.ok(
                 this.roleService.save(roleForm));

@@ -1,6 +1,6 @@
 package com.glacier.common.core.utils;
 
-import com.glacier.common.core.entity.pojo.AbstractTreePojo;
+import com.glacier.common.core.entity.vo.AbstractTreeVo;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -26,7 +26,7 @@ public class TreeBuildFactory {
      * @param list
      * @return
      */
-    public static <T extends AbstractTreePojo<T>> List<T> buildMenuTree(final List<T> list) {
+    public static <T extends AbstractTreeVo<T>> List<T> buildMenuTree(final List<T> list) {
         // 分离出所有一级
         List<T> topList = Optional.ofNullable(list)
                 .orElseGet(ArrayList::new)
@@ -47,7 +47,7 @@ public class TreeBuildFactory {
      * @param topList 当前父级菜单
      * @param list    待查询菜单
      */
-    private static <T extends AbstractTreePojo<T>> void buildChildren(final List<T> topList, final List<T> list) {
+    private static <T extends AbstractTreeVo<T>> void buildChildren(final List<T> topList, final List<T> list) {
         Optional.ofNullable(topList)
                 .orElseGet(ArrayList::new)
                 .forEach(t -> {

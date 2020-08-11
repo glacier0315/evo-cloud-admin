@@ -190,7 +190,7 @@ public class UserServiceImpl implements UserService {
     public <T> int save(T form) {
         AtomicInteger update = new AtomicInteger(0);
         Optional.ofNullable(form).ifPresent(t -> {
-            User user = this.modelMapper.map(form, User.class);
+            User user = this.modelMapper.map(t, User.class);
             if (!user.isNewRecord()) {
                 user.preUpdate();
                 update.set(this.userMapper.updateByPrimaryKey(user));

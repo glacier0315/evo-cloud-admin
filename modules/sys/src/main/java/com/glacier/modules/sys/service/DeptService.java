@@ -1,7 +1,8 @@
 package com.glacier.modules.sys.service;
 
 import com.glacier.common.core.entity.form.IdForm;
-import com.glacier.modules.sys.entity.pojo.Dept;
+import com.glacier.modules.sys.entity.form.dept.DeptForm;
+import com.glacier.modules.sys.entity.vo.DeptVo;
 
 import java.util.List;
 
@@ -17,7 +18,7 @@ public interface DeptService {
      *
      * @return
      */
-    List<Dept> findAllList();
+    List<DeptVo> findAllList();
 
     /**
      * 根据用户ID查找所有 组织机构
@@ -25,7 +26,7 @@ public interface DeptService {
      * @param userId
      * @return
      */
-    List<Dept> findListByUserId(String userId);
+    List<DeptVo> findListByUserId(String userId);
 
     /**
      * 根据用户id 查找单位树
@@ -33,7 +34,7 @@ public interface DeptService {
      * @param userId
      * @return
      */
-    List<Dept> findTree(String userId);
+    List<DeptVo> findTree(String userId);
 
     /**
      * 保存操作
@@ -41,7 +42,7 @@ public interface DeptService {
      * @param record
      * @return
      */
-    int save(Dept record);
+    int save(DeptForm deptForm);
 
     /**
      * 根据Id批量删除

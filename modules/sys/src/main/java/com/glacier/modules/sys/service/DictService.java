@@ -2,6 +2,7 @@ package com.glacier.modules.sys.service;
 
 import com.glacier.common.core.entity.form.IdForm;
 import com.glacier.modules.sys.entity.pojo.Dict;
+import com.glacier.modules.sys.entity.vo.DictVo;
 
 import java.util.List;
 
@@ -17,7 +18,7 @@ public interface DictService {
      *
      * @return
      */
-    List<Dict> findDictTree();
+    List<DictVo> findDictTree();
 
     /**
      * 保存操作

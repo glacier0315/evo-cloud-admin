@@ -3,6 +3,7 @@ package com.glacier.modules.sys.controller;
 import com.glacier.common.core.entity.form.IdForm;
 import com.glacier.common.core.entity.vo.Result;
 import com.glacier.modules.sys.entity.pojo.Dict;
+import com.glacier.modules.sys.entity.vo.DictVo;
 import com.glacier.modules.sys.service.DictService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -35,7 +36,7 @@ public class DictController {
      */
     @ApiOperation("查询字典")
     @GetMapping("/findDictTree")
-    public Result<List<Dict>> findDictTree() {
+    public Result<List<DictVo>> findDictTree() {
         return Result.ok(this.dictService.findDictTree());
     }
 

@@ -17,7 +17,7 @@ public class IdForm implements Serializable {
      * 主键
      */
     @ApiModelProperty(value = "主键")
-    private String id;
+    protected String id;
 
     public IdForm() {
     }

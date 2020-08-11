@@ -1,7 +1,7 @@
 package com.glacier.modules.sys.utils;
 
 import com.glacier.modules.sys.common.Constant;
-import com.glacier.modules.sys.entity.pojo.Menu;
+import com.glacier.modules.sys.entity.vo.MenuVo;
 import com.glacier.modules.sys.entity.vo.Meta;
 import com.glacier.modules.sys.entity.vo.Router;
 
@@ -28,7 +28,7 @@ public class RouteBuildFactory {
      * @param menus
      * @return
      */
-    public static List<Router> buildRouters(final List<Menu> menus) {
+    public static List<Router> buildRouters(final List<MenuVo> menus) {
         return Optional.ofNullable(menus)
                 .orElseGet(ArrayList::new)
                 .stream()

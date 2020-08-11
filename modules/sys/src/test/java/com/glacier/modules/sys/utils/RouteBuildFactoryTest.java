@@ -1,6 +1,6 @@
 package com.glacier.modules.sys.utils;
 
-import com.glacier.modules.sys.entity.pojo.Menu;
+import com.glacier.modules.sys.entity.vo.MenuVo;
 import com.glacier.modules.sys.service.MenuService;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -23,7 +23,7 @@ public class RouteBuildFactoryTest {
 
     @Test
     public void buildRouters() {
-        List<Menu> allList = this.menuService.findMenuTree();
+        List<MenuVo> allList = this.menuService.findMenuTree();
         Optional.ofNullable(allList)
                 .map(RouteBuildFactory::buildRouters)
                 .ifPresent(System.out::println);

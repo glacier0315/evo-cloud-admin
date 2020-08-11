@@ -1,6 +1,6 @@
 package com.glacier.modules.sys.service;
 
-import com.glacier.modules.sys.entity.pojo.Menu;
+import com.glacier.modules.sys.entity.vo.MenuVo;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -20,14 +20,14 @@ public class MenuServiceTest {
 
     @Test
     public void findAllList() {
-        List<Menu> allList = this.menuService.findAllList();
+        List<MenuVo> allList = this.menuService.findAllList();
         Optional.ofNullable(allList)
                 .ifPresent(System.out::println);
     }
 
     @Test
     public void findMenuTree() {
-        List<Menu> menuTree = this.menuService.findMenuTree();
+        List<MenuVo> menuTree = this.menuService.findMenuTree();
         Optional.ofNullable(menuTree)
                 .ifPresent(System.out::println);
     }
@@ -35,7 +35,7 @@ public class MenuServiceTest {
     @Test
     public void findMenuTreeByUserId() {
         String userId = "1";
-        List<Menu> menuTree = this.menuService.findMenuTreeByUserId(userId);
+        List<MenuVo> menuTree = this.menuService.findMenuTreeByUserId(userId);
         Optional.ofNullable(menuTree)
                 .ifPresent(System.out::println);
     }
@@ -43,7 +43,7 @@ public class MenuServiceTest {
     @Test
     public void findPermissionsByUserId() {
         String userId = "1";
-        List<Menu> menuTree = this.menuService.findMenuTreeByUserId(userId);
+        List<MenuVo> menuTree = this.menuService.findMenuTreeByUserId(userId);
         Optional.ofNullable(menuTree)
                 .ifPresent(System.out::println);
     }

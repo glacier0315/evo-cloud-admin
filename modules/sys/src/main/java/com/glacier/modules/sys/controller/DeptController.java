@@ -2,7 +2,8 @@ package com.glacier.modules.sys.controller;
 
 import com.glacier.common.core.entity.form.IdForm;
 import com.glacier.common.core.entity.vo.Result;
-import com.glacier.modules.sys.entity.pojo.Dept;
+import com.glacier.modules.sys.entity.form.dept.DeptForm;
+import com.glacier.modules.sys.entity.vo.DeptVo;
 import com.glacier.modules.sys.service.DeptService;
 import com.glacier.modules.sys.utils.SecurityUtils;
 import io.swagger.annotations.Api;
@@ -37,7 +38,7 @@ public class DeptController {
      */
     @ApiOperation("查询所有组织机构")
     @GetMapping("/list")
-    public Result<List<Dept>> list() {
+    public Result<List<DeptVo>> list() {
         return Result.ok(
                 this.deptService.findAllList());
     }
@@ -45,14 +46,14 @@ public class DeptController {
     /**
      * 保存组织机构
      *
-     * @param dept
+     * @param deptForm
      * @return
      */
     @ApiOperation("保存组织机构")
     @PostMapping("/save")
-    public Result<Integer> save(@RequestBody Dept dept) {
+    public Result<Integer> save(@RequestBody DeptForm deptForm) {
         return Result.ok(
-                this.deptService.save(dept));
+                this.deptService.save(deptForm));
     }
 
     /**
@@ -75,7 +76,7 @@ public class DeptController {
      */
     @ApiOperation("查询所有组织机构树")
     @GetMapping("/findTree")
-    public Result<List<Dept>> findTree() {
+    public Result<List<DeptVo>> findTree() {
         String userId = SecurityUtils.geUserId();
         log.debug("userId: {}", userId);
         return Result.ok(

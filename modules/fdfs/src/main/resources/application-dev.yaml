@@ -1,6 +1,2 @@
 server:
   port: ${random.int[8001,19000]}
-
-
-swagger:
-  enable: true

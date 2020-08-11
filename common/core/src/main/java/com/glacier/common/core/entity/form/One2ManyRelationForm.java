@@ -1,7 +1,5 @@
 package com.glacier.common.core.entity.form;
 
-import io.swagger.annotations.ApiModel;
-
 import java.io.Serializable;
 import java.util.List;
 
@@ -10,7 +8,6 @@ import java.util.List;
  * @version 1.0
  * @date 2020-05-18 16:02
  */
-@ApiModel(description = "一对多或者多对一，关联关系处理类")
 public class One2ManyRelationForm implements Serializable {
     private static final long serialVersionUID = 2858625583098650664L;
     /**

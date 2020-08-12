@@ -1,7 +1,7 @@
 package com.glacier.modules.sys.service;
 
 import com.glacier.modules.sys.entity.form.menu.MenuForm;
-import com.glacier.modules.sys.entity.vo.MenuVo;
+import com.glacier.modules.sys.entity.vo.menu.MenuVo;
 
 import java.util.List;
 import java.util.Set;

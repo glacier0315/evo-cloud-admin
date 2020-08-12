@@ -1,4 +1,4 @@
-package com.glacier.modules.sys.entity.vo;
+package com.glacier.modules.sys.entity.vo.menu;
 
 import com.glacier.common.core.entity.vo.AbstractTreeVo;
 import io.swagger.annotations.ApiModel;

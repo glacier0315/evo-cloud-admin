@@ -1,4 +1,4 @@
-package com.glacier.modules.sys.entity.vo;
+package com.glacier.modules.sys.entity.vo.menu;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.annotations.ApiModel;

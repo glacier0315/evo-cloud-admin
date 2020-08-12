@@ -1,9 +1,9 @@
 package com.glacier.modules.sys.utils;
 
 import com.glacier.modules.sys.common.Constant;
-import com.glacier.modules.sys.entity.vo.MenuVo;
-import com.glacier.modules.sys.entity.vo.Meta;
-import com.glacier.modules.sys.entity.vo.Router;
+import com.glacier.modules.sys.entity.vo.menu.MenuVo;
+import com.glacier.modules.sys.entity.vo.menu.Meta;
+import com.glacier.modules.sys.entity.vo.menu.Router;
 
 import java.util.ArrayList;
 import java.util.List;

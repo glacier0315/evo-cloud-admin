@@ -157,6 +157,7 @@ public class UserServiceImpl implements UserService {
         return Result.ok("修改成功！", update);
     }
 
+    @Transactional(rollbackFor = {})
     @Override
     public Result<Integer> updateProfile(UserProfileForm userProfileForm) {
         if (userProfileForm == null
@@ -168,6 +169,7 @@ public class UserServiceImpl implements UserService {
                         this.modelMapper.map(userProfileForm, User.class)));
     }
 
+    @Transactional(rollbackFor = {})
     @Override
     public Result<Integer> updateAvatar(UserAvatarForm UserAvatarForm) {
         if (UserAvatarForm == null
@@ -186,6 +188,7 @@ public class UserServiceImpl implements UserService {
      * @param <T>
      * @return
      */
+    @Transactional(rollbackFor = {})
     @Override
     public <T> int save(T form) {
         AtomicInteger update = new AtomicInteger(0);
@@ -233,6 +236,7 @@ public class UserServiceImpl implements UserService {
      * @param roleIds
      * @return
      */
+    @Transactional(rollbackFor = {})
     public int saveUserRole(final String userId, List<String> roleIds) {
         int update = 0;
         if (StringUtils.isNotEmpty(userId)
@@ -240,12 +244,7 @@ public class UserServiceImpl implements UserService {
             // 保存用户角色关系
             for (String roleId : roleIds) {
                 update += this.userRoleMapper.insert(
-                        UserRole.builder()
-                                .id(IdGen.uuid())
-                                .userId(userId)
-                                .roleId(roleId)
-                                .build()
-                );
+                        new UserRole(IdGen.uuid(), userId, roleId));
             }
         }
         return update;

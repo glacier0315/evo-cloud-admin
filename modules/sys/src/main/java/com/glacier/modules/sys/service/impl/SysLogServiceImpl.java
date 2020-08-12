@@ -14,6 +14,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -22,6 +23,7 @@ import java.util.List;
  * @version 1.0
  * @date 2019-12-18 15:29
  */
+@Transactional(readOnly = true)
 @Slf4j
 @Service("sysLogService")
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
@@ -47,6 +49,7 @@ public class SysLogServiceImpl implements SysLogService {
      * @param record
      * @return
      */
+    @Transactional(rollbackFor = {})
     @Override
     public int insert(SysLog record) {
         int update = 0;
@@ -64,6 +67,7 @@ public class SysLogServiceImpl implements SysLogService {
      *
      * @param record
      */
+    @Transactional(rollbackFor = {})
     @Async
     @Override
     public void insertAsync(SysLog record) {

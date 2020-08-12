@@ -41,7 +41,8 @@ public class ConfigController {
      */
     @PostMapping("/findPage")
     public Result<PageResponse<Config>> findPage(@RequestBody PageRequest<Config> pageRequest) {
-        return Result.ok(this.configService.findPage(pageRequest));
+        return Result.ok(
+                this.configService.findPage(pageRequest));
     }
 
     /**
@@ -52,7 +53,8 @@ public class ConfigController {
      */
     @PostMapping("/save")
     public Result<Integer> save(@RequestBody Config config) {
-        return Result.ok(this.configService.save(config));
+        return Result.ok(
+                this.configService.save(config));
     }
 
     /**
@@ -63,6 +65,7 @@ public class ConfigController {
      */
     @PostMapping("/delete")
     public Result<Integer> delete(@RequestBody List<IdForm> idForms) {
-        return Result.ok(this.configService.batchDelete(idForms));
+        return Result.ok(
+                this.configService.batchDelete(idForms));
     }
 }

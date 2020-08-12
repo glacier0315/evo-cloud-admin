@@ -87,11 +87,10 @@ public class DeptServiceImpl implements DeptService {
                 dept.preUpdate();
                 update.set(this.deptMapper.updateByPrimaryKey(dept));
                 // 更新用户表 组织机构名称
-                this.userMapper.updateDeptByDeptId(
-                        User.builder()
-                                .deptId(dept.getId())
-                                .deptName(dept.getName())
-                                .build());
+                User user = new User();
+                user.setDeptId(dept.getId());
+                user.setDeptName(dept.getName());
+                this.userMapper.updateDeptByDeptId(user);
             } else {
                 dept.preInsert();
                 update.set(this.deptMapper.insert(dept));
@@ -116,6 +115,16 @@ public class DeptServiceImpl implements DeptService {
             return this.deptMapper.deleteBatchIds(list);
         }
         return 0;
+    }
+
+    @Override
+    public List<String> findByRole(String roleId) {
+        return Optional.ofNullable(roleId)
+                .map(s -> {
+                    // TODO: 2020/8/12 根据角色id 查询角色所具有的单位
+                    return new ArrayList<String>(1);
+                })
+                .orElseGet(ArrayList::new);
     }
 
 

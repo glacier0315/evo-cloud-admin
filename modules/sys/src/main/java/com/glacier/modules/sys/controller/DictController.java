@@ -37,7 +37,8 @@ public class DictController {
     @ApiOperation("查询字典")
     @GetMapping("/findDictTree")
     public Result<List<DictVo>> findDictTree() {
-        return Result.ok(this.dictService.findDictTree());
+        return Result.ok(
+                this.dictService.findDictTree());
     }
 
     /**
@@ -49,7 +50,8 @@ public class DictController {
     @ApiOperation("保存字典")
     @PostMapping("/save")
     public Result<Integer> save(@RequestBody Dict dict) {
-        return Result.ok(this.dictService.save(dict));
+        return Result.ok(
+                this.dictService.save(dict));
     }
 
     /**
@@ -61,6 +63,7 @@ public class DictController {
     @ApiOperation("删除指定字典")
     @PostMapping("/delete")
     public Result<Integer> delete(@RequestBody List<IdForm> idForms) {
-        return Result.ok(this.dictService.batchDelete(idForms));
+        return Result.ok(
+                this.dictService.batchDelete(idForms));
     }
 }

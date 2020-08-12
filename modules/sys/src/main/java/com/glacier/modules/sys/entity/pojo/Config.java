@@ -2,7 +2,9 @@ package com.glacier.modules.sys.entity.pojo;
 
 
 import com.glacier.common.core.entity.pojo.AbstractDataPojo;
-import lombok.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 /**
  * 配置
@@ -12,10 +14,7 @@ import lombok.*;
  */
 @Data
 @ToString(callSuper = true)
-@NoArgsConstructor
-@AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-@Builder
 public class Config extends AbstractDataPojo {
 
     private static final long serialVersionUID = 3535850238275216235L;

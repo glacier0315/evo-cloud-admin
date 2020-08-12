@@ -14,7 +14,7 @@ import java.util.Date;
  * @version 1.0
  * @date 2020-05-24 09:32
  */
-@ApiModel(description = "用户列表模型")
+@ApiModel(description = "用户显示模型")
 @Data
 @ToString
 public class UserVo implements Serializable {

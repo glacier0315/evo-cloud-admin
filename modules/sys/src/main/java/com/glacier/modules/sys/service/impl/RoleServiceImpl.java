@@ -9,6 +9,7 @@ import com.glacier.modules.sys.entity.form.role.RoleForm;
 import com.glacier.modules.sys.entity.form.role.RoleQueryForm;
 import com.glacier.modules.sys.entity.pojo.Role;
 import com.glacier.modules.sys.entity.pojo.RoleMenu;
+import com.glacier.modules.sys.entity.vo.RoleVo;
 import com.glacier.modules.sys.mapper.RoleMapper;
 import com.glacier.modules.sys.mapper.RoleMenuMapper;
 import com.glacier.modules.sys.mapper.UserRoleMapper;
@@ -17,6 +18,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -43,9 +45,10 @@ public class RoleServiceImpl implements RoleService {
     private final RoleMenuMapper roleMenuMapper;
 
     @Override
-    public Role findById(String id) {
-        return this.roleMapper.selectByPrimaryKey(id)
-                .orElseThrow(() -> new IllegalArgumentException("角色不存在!"));
+    public RoleVo findById(String id) {
+        return this.modelMapper.map(
+                this.roleMapper.selectByPrimaryKey(id)
+                        .orElseThrow(() -> new IllegalArgumentException("角色不存在!")), RoleVo.class);
     }
 
     /**
@@ -54,8 +57,11 @@ public class RoleServiceImpl implements RoleService {
      * @return
      */
     @Override
-    public List<Role> findAllList() {
-        return this.roleMapper.selectAll();
+    public List<RoleVo> findAllList() {
+        return this.modelMapper.map(
+                this.roleMapper.selectAll(),
+                new TypeToken<List<RoleVo>>() {
+                }.getType());
     }
 
     /**
@@ -65,16 +71,22 @@ public class RoleServiceImpl implements RoleService {
      * @return
      */
     @Override
-    public List<Role> findByUserId(String userId) {
-        return this.roleMapper.findByUserId(userId);
+    public List<RoleVo> findByUserId(String userId) {
+        return this.modelMapper.map(
+                this.roleMapper.findByUserId(userId),
+                new TypeToken<List<RoleVo>>() {
+                }.getType());
     }
 
     @Override
-    public boolean checkCode(final Role role) {
+    public boolean checkCode(final RoleForm roleForm) {
         AtomicReference<Boolean> ifExists = new AtomicReference<>(false);
-        Optional.ofNullable(role)
-                .map(Role::getCode)
+        Optional.ofNullable(roleForm)
+                .map(RoleForm::getCode)
                 .ifPresent(s -> {
+                    Role role = new Role();
+                    role.setId(roleForm.getId());
+                    role.setCode(roleForm.getCode());
                     ifExists.set(
                             this.roleMapper.selectCount(role) > 0);
                 });
@@ -82,21 +94,24 @@ public class RoleServiceImpl implements RoleService {
     }
 
     /**
-     *
      * @param pageRequest
      * @return
      */
     @Override
-    public PageResponse<Role> findPage(PageRequest<RoleQueryForm> pageRequest) {
+    public PageResponse<RoleVo> findPage(PageRequest<RoleQueryForm> pageRequest) {
         PageHelper.startPage(pageRequest.getPageNum(), pageRequest.getPageSize());
         List<Role> roleList = this.roleMapper.selectList(
-                this.modelMapper.map(pageRequest.getParams(), Role.class));
+                this.modelMapper.map(
+                        pageRequest.getParams(), Role.class));
         PageInfo<Role> pageInfo = PageInfo.of(roleList);
         return new PageResponse<>(
                 pageInfo.getPageNum(),
                 pageInfo.getPages(),
                 pageInfo.getTotal(),
-                pageInfo.getList());
+                this.modelMapper.map(
+                        pageInfo.getList(),
+                        new TypeToken<List<RoleVo>>() {
+                        }.getType()));
     }
 
     /**
@@ -160,11 +175,8 @@ public class RoleServiceImpl implements RoleService {
             if (menuIds != null && !menuIds.isEmpty()) {
                 for (String menuId : menuIds) {
                     update += this.roleMenuMapper.insert(
-                            RoleMenu.builder()
-                                    .id(IdGen.uuid())
-                                    .roleId(roleId)
-                                    .menuId(menuId)
-                                    .build());
+                            new RoleMenu(
+                                    IdGen.uuid(), roleId, menuId));
                 }
             }
         }

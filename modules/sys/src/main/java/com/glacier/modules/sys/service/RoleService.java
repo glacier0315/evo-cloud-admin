@@ -4,7 +4,7 @@ import com.glacier.common.core.entity.page.PageRequest;
 import com.glacier.common.core.entity.page.PageResponse;
 import com.glacier.modules.sys.entity.form.role.RoleForm;
 import com.glacier.modules.sys.entity.form.role.RoleQueryForm;
-import com.glacier.modules.sys.entity.pojo.Role;
+import com.glacier.modules.sys.entity.vo.RoleVo;
 
 import java.util.List;
 
@@ -23,7 +23,7 @@ public interface RoleService {
      * @param id
      * @return
      */
-    Role findById(String id);
+    RoleVo findById(String id);
 
     /**
      * 分页查询
@@ -31,7 +31,7 @@ public interface RoleService {
      * @param pageRequest
      * @return
      */
-    PageResponse<Role> findPage(PageRequest<RoleQueryForm> pageRequest);
+    PageResponse<RoleVo> findPage(PageRequest<RoleQueryForm> pageRequest);
 
     /**
      * 根绝用户id 查询用户所拥有的角色
@@ -39,14 +39,14 @@ public interface RoleService {
      * @param userId
      * @return
      */
-    List<Role> findByUserId(String userId);
+    List<RoleVo> findByUserId(String userId);
 
     /**
      * 查询所有
      *
      * @return
      */
-    List<Role> findAllList();
+    List<RoleVo> findAllList();
 
     /**
      * 校验
@@ -54,7 +54,7 @@ public interface RoleService {
      * @param role
      * @return
      */
-    boolean checkCode(Role role);
+    boolean checkCode(RoleForm role);
 
     /**
      * 保存操作

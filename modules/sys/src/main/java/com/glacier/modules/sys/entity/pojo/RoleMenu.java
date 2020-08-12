@@ -1,6 +1,7 @@
 package com.glacier.modules.sys.entity.pojo;
 
-import lombok.*;
+import lombok.Data;
+import lombok.ToString;
 
 import java.io.Serializable;
 
@@ -12,10 +13,7 @@ import java.io.Serializable;
  * @date 2019-10-09 14:49
  */
 @Data
-@ToString(callSuper = true)
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
+@ToString
 public class RoleMenu implements Serializable {
 
     private static final long serialVersionUID = -234428421997899712L;
@@ -31,4 +29,13 @@ public class RoleMenu implements Serializable {
      * 菜单id
      */
     private String menuId;
+
+    public RoleMenu() {
+    }
+
+    public RoleMenu(String id, String roleId, String menuId) {
+        this.id = id;
+        this.roleId = roleId;
+        this.menuId = menuId;
+    }
 }

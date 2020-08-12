@@ -1,7 +1,9 @@
 package com.glacier.modules.sys.entity.pojo;
 
 import com.glacier.common.core.entity.pojo.AbstractTreePojo;
-import lombok.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 /**
  * 组织机构
@@ -12,10 +14,7 @@ import lombok.*;
  */
 @Data
 @ToString(callSuper = true)
-@NoArgsConstructor
-@AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-@Builder
 public class Dept extends AbstractTreePojo<Dept> {
     private static final long serialVersionUID = 7605652474322748904L;
     /**

@@ -1,7 +1,9 @@
 package com.glacier.modules.sys.entity.pojo;
 
 import com.glacier.common.core.entity.pojo.AbstractDataPojo;
-import lombok.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 /**
  * 角色
@@ -12,10 +14,7 @@ import lombok.*;
  */
 @Data
 @ToString(callSuper = true)
-@NoArgsConstructor
-@AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-@Builder
 public class Role extends AbstractDataPojo {
     private static final long serialVersionUID = -3318599726827564559L;
     /**
@@ -35,7 +34,7 @@ public class Role extends AbstractDataPojo {
      */
     private String description;
     /**
-     * 数据权限
+     * 数据权限 1 所有权限  2 一级单位及以下  3 二级单位及以下  4 所属单位部门及以下  5 自己
      */
     private String dataScope;
 }

@@ -39,7 +39,7 @@ public interface DeptService {
     /**
      * 保存操作
      *
-     * @param record
+     * @param deptForm
      * @return
      */
     int save(DeptForm deptForm);
@@ -51,4 +51,12 @@ public interface DeptService {
      * @return
      */
     int batchDelete(List<IdForm> idForms);
+
+    /**
+     * 根据角色id 查询所具有的单位
+     *
+     * @param roleId
+     * @return
+     */
+    List<String> findByRole(String roleId);
 }

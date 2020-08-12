@@ -2,7 +2,9 @@ package com.glacier.modules.sys.entity.pojo;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.glacier.common.core.entity.pojo.AbstractDataPojo;
-import lombok.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import java.util.Date;
 
@@ -15,10 +17,7 @@ import java.util.Date;
  */
 @Data
 @ToString(callSuper = true)
-@NoArgsConstructor
-@AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-@Builder
 public class User extends AbstractDataPojo {
     private static final long serialVersionUID = -3083387263445135811L;
     /**

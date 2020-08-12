@@ -30,33 +30,33 @@ public class RouteBuildFactory {
      */
     public static List<Router> buildRouters(final List<MenuVo> menus) {
         return Optional.ofNullable(menus)
-                .orElseGet(ArrayList::new)
-                .stream()
-                .filter(menu ->
-                        !(menu.getType() != null
-                                && menu.getType() == Constant.MENU_PERMISSION))
-                .map(menu -> {
-                    Router router = new Router();
-                    router.setName(menu.getName());
-                    router.setPath(menu.getPath());
-                    router.setComponent(
-                            Optional.ofNullable(menu.getComponent())
-                                    .orElseGet(() -> "Layout"));
-                    router.setMeta(
-                            Meta.builder()
-                                    .icon(menu.getIcon())
-                                    .title(menu.getName())
-                                    .build());
+                .map(menuVos -> menuVos.stream()
+                        .filter(menu ->
+                                !(menu.getType() != null
+                                        && menu.getType() == Constant.MENU_PERMISSION))
+                        .map(menu -> {
+                            Router router = new Router();
+                            router.setName(menu.getName());
+                            router.setPath(menu.getPath());
+                            router.setComponent(
+                                    Optional.ofNullable(menu.getComponent())
+                                            .orElseGet(() -> "Layout"));
+                            router.setMeta(
+                                    Meta.builder()
+                                            .icon(menu.getIcon())
+                                            .title(menu.getName())
+                                            .build());
 
-                    // 处理子菜单
-                    Optional.ofNullable(menu.getChildren())
-                            .ifPresent(menuList -> {
+                            // 处理子菜单
+                            if (menu.getChildren() != null
+                                    && !menu.getChildren().isEmpty()) {
                                 router.setAlwaysShow(true);
                                 router.setRedirect("noRedirect");
-                                router.setChildren(buildRouters(menuList));
-                            });
-                    return router;
-                })
-                .collect(Collectors.toList());
+                                router.setChildren(buildRouters(menu.getChildren()));
+                            }
+                            return router;
+                        })
+                        .collect(Collectors.toList()))
+                .orElseGet(ArrayList::new);
     }
 }

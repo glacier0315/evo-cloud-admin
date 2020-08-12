@@ -1,6 +1,7 @@
 package com.glacier.modules.sys.entity.pojo;
 
-import lombok.*;
+import lombok.Data;
+import lombok.ToString;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -12,9 +13,6 @@ import java.util.Date;
  */
 @Data
 @ToString
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
 public class SysLog implements Serializable {
     private static final long serialVersionUID = 2402303891367907111L;
     /**

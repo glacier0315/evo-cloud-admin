@@ -82,4 +82,16 @@ public class DeptController {
         return Result.ok(
                 this.deptService.findTree(userId));
     }
+
+    /**
+     * 查询角色具有的单位
+     *
+     * @return
+     */
+    @ApiOperation("查询角色具有的单位")
+    @GetMapping("/findByRole")
+    public Result<List<String>> findByRole(String roleId) {
+        return Result.ok(
+                this.deptService.findByRole(roleId));
+    }
 }

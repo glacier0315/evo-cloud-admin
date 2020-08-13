@@ -37,7 +37,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 /**
@@ -171,14 +170,14 @@ public class UserServiceImpl implements UserService {
 
     @Transactional(rollbackFor = {})
     @Override
-    public Result<Integer> updateAvatar(UserAvatarForm UserAvatarForm) {
-        if (UserAvatarForm == null
-                || StringUtils.isEmpty(UserAvatarForm.getId())) {
+    public Result<Integer> updateAvatar(UserAvatarForm userAvatarForm) {
+        if (userAvatarForm == null
+                || StringUtils.isEmpty(userAvatarForm.getId())) {
             return Result.error(SystemErrorType.ARGUMENT_NOT_VALID);
         }
         return Result.ok("修改成功！",
                 this.userMapper.updateAvatarByPrimaryKey(
-                        this.modelMapper.map(UserAvatarForm, User.class)));
+                        this.modelMapper.map(userAvatarForm, User.class)));
     }
 
     /**
@@ -191,24 +190,22 @@ public class UserServiceImpl implements UserService {
     @Transactional(rollbackFor = {})
     @Override
     public <T> int save(T form) {
-        AtomicInteger update = new AtomicInteger(0);
-        Optional.ofNullable(form).ifPresent(t -> {
-            User user = this.modelMapper.map(t, User.class);
-            if (!user.isNewRecord()) {
-                user.preUpdate();
-                update.set(this.userMapper.updateByPrimaryKey(user));
-            } else {
-                // 对原始密码加密
-                user.setPassword(
-                        this.passwordEncoder.encode(
-                                Optional.of(user)
-                                        .map(User::getPassword)
-                                        .orElse(Constant.DEFAULT_PASSWD)));
-                user.preInsert();
-                update.set(this.userMapper.insert(user));
-            }
-        });
-        return update.get();
+        if (form == null) {
+            return 0;
+        }
+        User user = this.modelMapper.map(form, User.class);
+        if (!user.isNewRecord()) {
+            user.preUpdate();
+            return this.userMapper.updateByPrimaryKey(user);
+        }
+        // 对原始密码加密
+        user.setPassword(
+                this.passwordEncoder.encode(
+                        Optional.of(user)
+                                .map(User::getPassword)
+                                .orElse(Constant.DEFAULT_PASSWD)));
+        user.preInsert();
+        return this.userMapper.insert(user);
     }
 
     /**
@@ -220,13 +217,13 @@ public class UserServiceImpl implements UserService {
     @Transactional(rollbackFor = {})
     @Override
     public int delete(String id) {
-        AtomicInteger update = new AtomicInteger(0);
-        Optional.ofNullable(id).ifPresent(s -> {
-            update.set(this.userMapper.deleteByPrimaryKey(id));
+        if (StringUtils.isNotEmpty(id)) {
+            int update = this.userMapper.deleteByPrimaryKey(id);
             // 删除用户角色关系
             this.userRoleMapper.deleteByUserId(id);
-        });
-        return update.get();
+            return update;
+        }
+        return 0;
     }
 
     /**
@@ -240,7 +237,8 @@ public class UserServiceImpl implements UserService {
     public int saveUserRole(final String userId, List<String> roleIds) {
         int update = 0;
         if (StringUtils.isNotEmpty(userId)
-                && roleIds != null && !roleIds.isEmpty()) {
+                && roleIds != null
+                && !roleIds.isEmpty()) {
             // 保存用户角色关系
             for (String roleId : roleIds) {
                 update += this.userRoleMapper.insert(

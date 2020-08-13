@@ -7,6 +7,7 @@
         <result column="name" jdbcType="VARCHAR" property="name"/>
         <result column="code" jdbcType="VARCHAR" property="code"/>
         <result column="status" jdbcType="VARCHAR" property="status"/>
+        <result column="data_scope" jdbcType="VARCHAR" property="dataScope"/>
         <result column="description" jdbcType="VARCHAR" property="description"/>
         <result column="create_by" jdbcType="VARCHAR" property="createBy"/>
         <result column="create_date" jdbcType="TIMESTAMP" property="createDate"/>
@@ -16,7 +17,7 @@
     </resultMap>
 
     <sql id="base_columns">
-        a.id, a.name, a.code, a.status,
+        a.id, a.name, a.code, a.status,a.data_scope,
         a.create_by, a.create_date, a.update_by, a.update_date,a.del_flag
     </sql>
 
@@ -34,14 +35,10 @@
     </update>
 
     <insert id="insert" parameterType="com.glacier.modules.sys.entity.pojo.Role">
-        insert into sys_role (id, name, code,
-                              status, description, create_by,
-                              create_date, update_by, update_date,
-                              del_flag)
-        values (#{id}, #{name}, #{code},
-                #{status}, #{description}, #{createBy},
-                #{createDate}, #{updateBy}, #{updateDate},
-                #{delFlag})
+        insert into sys_role (id, name, code, status, data_scope, description,
+                        create_by, create_date, update_by, update_date, del_flag)
+        values (#{id}, #{name}, #{code}, #{status}, #{dataScope}, #{description},
+                #{createBy}, #{createDate}, #{updateBy}, #{updateDate}, #{delFlag})
     </insert>
 
     <update id="updateByPrimaryKey" parameterType="com.glacier.modules.sys.entity.pojo.Role">
@@ -49,12 +46,10 @@
         set name        = #{name},
             code        = #{code},
             status      = #{status},
+            data_scope  = #{dataScope},
             description = #{description},
-            create_by   = #{createBy},
-            create_date = #{createDate},
             update_by   = #{updateBy},
-            update_date = #{updateDate},
-            del_flag    = #{delFlag}
+            update_date = #{updateDate}
         where id = #{id}
     </update>
 

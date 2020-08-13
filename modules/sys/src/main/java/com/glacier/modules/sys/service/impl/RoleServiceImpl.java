@@ -2,14 +2,17 @@ package com.glacier.modules.sys.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.glacier.common.core.constant.CommonConstant;
 import com.glacier.common.core.entity.page.PageRequest;
 import com.glacier.common.core.entity.page.PageResponse;
 import com.glacier.common.core.utils.IdGen;
 import com.glacier.modules.sys.entity.form.role.RoleForm;
 import com.glacier.modules.sys.entity.form.role.RoleQueryForm;
 import com.glacier.modules.sys.entity.pojo.Role;
+import com.glacier.modules.sys.entity.pojo.RoleDept;
 import com.glacier.modules.sys.entity.pojo.RoleMenu;
 import com.glacier.modules.sys.entity.vo.RoleVo;
+import com.glacier.modules.sys.mapper.RoleDeptMapper;
 import com.glacier.modules.sys.mapper.RoleMapper;
 import com.glacier.modules.sys.mapper.RoleMenuMapper;
 import com.glacier.modules.sys.mapper.UserRoleMapper;
@@ -24,8 +27,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * 角色业务类
@@ -43,6 +44,7 @@ public class RoleServiceImpl implements RoleService {
     private final RoleMapper roleMapper;
     private final UserRoleMapper userRoleMapper;
     private final RoleMenuMapper roleMenuMapper;
+    private final RoleDeptMapper roleDeptMapper;
 
     @Override
     public RoleVo findById(String id) {
@@ -80,17 +82,14 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public boolean checkCode(final RoleForm roleForm) {
-        AtomicReference<Boolean> ifExists = new AtomicReference<>(false);
-        Optional.ofNullable(roleForm)
-                .map(RoleForm::getCode)
-                .ifPresent(s -> {
-                    Role role = new Role();
-                    role.setId(roleForm.getId());
-                    role.setCode(roleForm.getCode());
-                    ifExists.set(
-                            this.roleMapper.selectCount(role) > 0);
-                });
-        return ifExists.get();
+        if (roleForm != null
+                && StringUtils.isNotEmpty(roleForm.getCode())) {
+            Role role = new Role();
+            role.setId(roleForm.getId());
+            role.setCode(roleForm.getCode());
+            return this.roleMapper.selectCount(role) > 0;
+        }
+        return false;
     }
 
     /**
@@ -133,8 +132,9 @@ public class RoleServiceImpl implements RoleService {
             update = this.roleMapper.insert(role);
         }
         // 保存角色和菜单
-        this.saveRoleMenu(role.getId(),
-                roleForm.getMenus());
+        this.saveRoleMenu(role.getId(), roleForm.getMenus());
+        // 保存角色和单位
+        this.saveRoleDept(role.getId(), role.getDataScope(), roleForm.getDepts());
         return update;
     }
 
@@ -154,6 +154,8 @@ public class RoleServiceImpl implements RoleService {
             this.userRoleMapper.deleteByRoleId(id);
             // 删除角色资源关系
             this.roleMenuMapper.deleteByRoleId(id);
+            // 删除角色单位关系
+            this.roleDeptMapper.deleteByRoleId(id);
         }
         return unpdate;
     }
@@ -162,6 +164,7 @@ public class RoleServiceImpl implements RoleService {
      * 保存角色菜单关系
      * 1 先清空
      * 2 保存
+     *
      * @param roleId
      * @param menuIds
      * @return
@@ -172,11 +175,37 @@ public class RoleServiceImpl implements RoleService {
             // 清空原角色和菜单关系
             this.roleMenuMapper.deleteByRoleId(roleId);
             // 保存角色菜单关系
-            if (menuIds != null && !menuIds.isEmpty()) {
+            if (menuIds != null
+                    && !menuIds.isEmpty()) {
                 for (String menuId : menuIds) {
-                    update += this.roleMenuMapper.insert(
-                            new RoleMenu(
-                                    IdGen.uuid(), roleId, menuId));
+                    update += this.roleMenuMapper.insert(new RoleMenu(IdGen.uuid(), roleId, menuId));
+                }
+            }
+        }
+        return update;
+    }
+
+    /**
+     * 保存角色单位关系
+     * 1 先清空
+     * 2 保存 仅自定义时保存
+     *
+     * @param roleId
+     * @param dataScope
+     * @param deptIds
+     * @return
+     */
+    private int saveRoleDept(String roleId, String dataScope, List<String> deptIds) {
+        int update = 0;
+        if (StringUtils.isNotEmpty(roleId)) {
+            // 清空原角色和单位关系
+            this.roleDeptMapper.deleteByRoleId(roleId);
+            // 保存角单位单关系
+            if (CommonConstant.DATASCOPE_CUSTOMIZE_DEPT.equals(dataScope)
+                    && deptIds != null
+                    && !deptIds.isEmpty()) {
+                for (String deptId : deptIds) {
+                    update += this.roleDeptMapper.insert(new RoleDept(IdGen.uuid(), roleId, deptId));
                 }
             }
         }

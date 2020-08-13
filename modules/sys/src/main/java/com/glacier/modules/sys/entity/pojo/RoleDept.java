@@ -6,7 +6,7 @@ import lombok.ToString;
 import java.io.Serializable;
 
 /**
- * 角色菜单关联模型
+ * 角色组织机构关联模型
  *
  * @author glacier
  * @version 1.0
@@ -14,9 +14,8 @@ import java.io.Serializable;
  */
 @Data
 @ToString
-public class RoleMenu implements Serializable {
-
-    private static final long serialVersionUID = -234428421997899712L;
+public class RoleDept implements Serializable {
+    private static final long serialVersionUID = 6012509805874207086L;
     /**
      * 主键
      */
@@ -26,16 +25,16 @@ public class RoleMenu implements Serializable {
      */
     private String roleId;
     /**
-     * 菜单id
+     * 单位id
      */
-    private String menuId;
+    private String deptId;
 
-    public RoleMenu() {
+    public RoleDept() {
     }
 
-    public RoleMenu(String id, String roleId, String menuId) {
+    public RoleDept(String id, String roleId, String deptId) {
         this.id = id;
         this.roleId = roleId;
-        this.menuId = menuId;
+        this.deptId = deptId;
     }
 }

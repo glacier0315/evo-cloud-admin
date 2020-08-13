@@ -8,10 +8,12 @@ import com.glacier.modules.sys.entity.pojo.Dept;
 import com.glacier.modules.sys.entity.pojo.User;
 import com.glacier.modules.sys.entity.vo.DeptVo;
 import com.glacier.modules.sys.mapper.DeptMapper;
+import com.glacier.modules.sys.mapper.RoleDeptMapper;
 import com.glacier.modules.sys.mapper.UserMapper;
 import com.glacier.modules.sys.service.DeptService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +39,7 @@ public class DeptServiceImpl implements DeptService {
     private final ModelMapper modelMapper;
     private final DeptMapper deptMapper;
     private final UserMapper userMapper;
+    private final RoleDeptMapper roleDeptMapper;
 
     /**
      * 查找所有 组织机构
@@ -108,23 +111,24 @@ public class DeptServiceImpl implements DeptService {
     @Transactional(rollbackFor = {})
     @Override
     public int batchDelete(List<IdForm> idForms) {
-        if (idForms != null && !idForms.isEmpty()) {
+        if (idForms != null
+                && !idForms.isEmpty()) {
             List<String> list = idForms.stream()
                     .map(IdForm::getId)
                     .collect(Collectors.toList());
-            return this.deptMapper.deleteBatchIds(list);
+            int deleteBatchIds = this.deptMapper.deleteBatchIds(list);
+            this.roleDeptMapper.deleteByDeptIds(list);
+            return deleteBatchIds;
         }
         return 0;
     }
 
     @Override
     public List<String> findByRole(String roleId) {
-        return Optional.ofNullable(roleId)
-                .map(s -> {
-                    // TODO: 2020/8/12 根据角色id 查询角色所具有的单位
-                    return new ArrayList<String>(1);
-                })
-                .orElseGet(ArrayList::new);
+        if (StringUtils.isNotEmpty(roleId)) {
+            // TODO: 2020/8/12 根据角色id 查询角色所具有的单位
+        }
+        return new ArrayList<String>(1);
     }
 
 

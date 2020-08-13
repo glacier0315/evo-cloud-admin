@@ -44,26 +44,26 @@ INSERT INTO sys_user (id, username, password, nickname, id_card, birthday, sex, 
 -- ----------------------------
 DROP TABLE IF EXISTS sys_menu;
 CREATE TABLE sys_menu  (
-                           id          varchar(64) NOT NULL DEFAULT '1' COMMENT '主键',
-                           name        varchar(200) COMMENT '名称',
-                           path        varchar(255) COMMENT '端点路径',
-                           component   varchar(255) COMMENT '组件',
-                           icon        varchar(255) COMMENT '图标',
-                           type        int(4)               DEFAULT 1 COMMENT '类型',
-                           visible     int(4)               DEFAULT 1 COMMENT '1 显示  2 隐藏',
-                           is_frame    int(4)               DEFAULT 2 COMMENT '是否外链 1 是  2 否',
-                           permission  varchar(255) COMMENT '权限',
-                           parent_id   varchar(255) COMMENT '父级id',
-                           grade       int(4) COMMENT '层级',
-                           order_num   int(4) COMMENT '排序号',
-                           create_by   varchar(64) COMMENT '创建人',
-                           create_date timestamp            DEFAULT current_timestamp COMMENT '创建时间',
-                           update_by   varchar(64) COMMENT '更新人',
-                           update_date timestamp            DEFAULT current_timestamp COMMENT '更新时间',
-                           del_flag    varchar(4)           default '0' COMMENT '删除标记',
-                           PRIMARY KEY (id) USING BTREE,
-                           INDEX sys_menu_1 (parent_id) USING BTREE,
-                           INDEX sys_menu_2 (type) USING BTREE
+   id          varchar(64) NOT NULL DEFAULT '1' COMMENT '主键',
+   name        varchar(200) COMMENT '名称',
+   path        varchar(255) COMMENT '端点路径',
+   component   varchar(255) COMMENT '组件',
+   icon        varchar(255) COMMENT '图标',
+   type        int(4)               DEFAULT 1 COMMENT '类型',
+   visible     int(4)               DEFAULT 1 COMMENT '1 显示  2 隐藏',
+   is_frame    int(4)               DEFAULT 2 COMMENT '是否外链 1 是  2 否',
+   permission  varchar(255) COMMENT '权限',
+   parent_id   varchar(255) COMMENT '父级id',
+   grade       int(4) COMMENT '层级',
+   order_num   int(4) COMMENT '排序号',
+   create_by   varchar(64) COMMENT '创建人',
+   create_date timestamp            DEFAULT current_timestamp COMMENT '创建时间',
+   update_by   varchar(64) COMMENT '更新人',
+   update_date timestamp            DEFAULT current_timestamp COMMENT '更新时间',
+   del_flag    varchar(4)           default '0' COMMENT '删除标记',
+   PRIMARY KEY (id) USING BTREE,
+   INDEX sys_menu_1 (parent_id) USING BTREE,
+   INDEX sys_menu_2 (type) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '菜单表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
@@ -92,6 +92,7 @@ CREATE TABLE sys_role  (
   name varchar(200)  COMMENT '角色名',
   code varchar(255)  COMMENT '角色编码',
   status varchar(4) default '1'  COMMENT '状态',
+  data_scope varchar(4) default '6' COMMENT '数据权限 1 所有单位  2 所属一级单位及以下  3 所属二级单位及以下  4 所属单位部门及以下  5 自定义 6 自己',
   description varchar(500)  COMMENT '说明',
   create_by varchar(64)  COMMENT '创建人',
   create_date timestamp DEFAULT current_timestamp  COMMENT '创建时间',
@@ -110,17 +111,46 @@ INSERT INTO sys_role (id, name, code, status, description, create_by, create_dat
 INSERT INTO sys_role (id, name, code, status, description, create_by, create_date, update_by, update_date, del_flag) VALUES ('d1ece8903278fe25e8be2804fd755025', '普通用户', 'user', '1', '普通用户', null, '2020-07-04 01:49:03', null, '2020-07-04 03:39:13', '0');
 
 -- ----------------------------
--- Table structure for sys_role_dept
+-- Table structure for sys_dept
 -- ----------------------------
-DROP TABLE IF EXISTS sys_role_dept;
-CREATE TABLE sys_role_dept  (
-  id varchar(64) NOT NULL COMMENT '主键',
-  role_id varchar(64)  COMMENT '角色主键',
-  dept_id varchar(64)  COMMENT '组织机构主键',
-  PRIMARY KEY (id) USING BTREE,
-  INDEX sys_role_dept_1(dept_id) USING BTREE,
-  INDEX sys_role_dept_2(role_id) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '角色和组织机构关联表' ROW_FORMAT = Dynamic;
+DROP TABLE IF EXISTS sys_dept;
+CREATE TABLE sys_dept
+(
+    id          varchar(64) NOT NULL COMMENT '主键',
+    name        varchar(200) COMMENT '名称',
+    code        varchar(255) COMMENT '编码',
+    type        int(4) COMMENT '类型',
+    status      int(4) COMMENT '状态',
+    order_num   int(4) COMMENT '排序号',
+    grade       int(4) COMMENT '层级',
+    parent_id   varchar(255) COMMENT '父级id',
+    parent_name varchar(255) COMMENT '父级单位',
+    parent_ids  varchar(255) COMMENT '所有父级id,格式：,id1,id2,',
+    create_by   varchar(64) COMMENT '创建人',
+    create_date timestamp  DEFAULT current_timestamp COMMENT '创建时间',
+    update_by   varchar(64) COMMENT '更新人',
+    update_date timestamp  DEFAULT current_timestamp COMMENT '更新时间',
+    del_flag    varchar(4) default '0' COMMENT '删除标记',
+    PRIMARY KEY (id) USING BTREE,
+    INDEX sys_dept_1 (parent_id) USING BTREE,
+    INDEX sys_dept_2 (type) USING BTREE,
+    INDEX sys_dept_3 (status) USING BTREE,
+    INDEX sys_dept_4 (code) USING BTREE
+) ENGINE = InnoDB
+  CHARACTER SET = utf8
+  COLLATE = utf8_general_ci COMMENT = '组织机构表'
+  ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of sys_dept
+-- ----------------------------
+
+INSERT INTO sys_dept (id, name, code, type, status, order_num, grade, parent_id, parent_name, parent_ids, create_by, create_date, update_by, update_date, del_flag) VALUES ('d018f06a3a194ac68a3d0f5677e4cfbe', '湖北', 'hb001', 0, 0, 0, 1, null, null, null, null, '2020-06-25 07:45:59', null, '2020-06-25 07:45:59', '0');
+INSERT INTO sys_dept (id, name, code, type, status, order_num, grade, parent_id, parent_name, parent_ids, create_by, create_date, update_by, update_date, del_flag) VALUES ('90e56a2a4e6a4add9a5b9a26fc212db2', '湖南', 'cs1', 0, 0, 3, 1, null, null, null, null, '2020-06-25 07:45:59', null, '2020-06-25 07:45:59', '0');
+INSERT INTO sys_dept (id, name, code, type, status, order_num, grade, parent_id, parent_name, parent_ids, create_by, create_date, update_by, update_date, del_flag) VALUES ('ca06d9feadf143a7adb7977923e4e3cc', '湖北武汉', 'hb001001', 0, 0, 1, 2, 'd018f06a3a194ac68a3d0f5677e4cfbe', '湖北', ',d018f06a3a194ac68a3d0f5677e4cfbe,', null, '2020-06-25 07:45:59', null, '2020-06-25 07:45:59', '0');
+INSERT INTO sys_dept (id, name, code, type, status, order_num, grade, parent_id, parent_name, parent_ids, create_by, create_date, update_by, update_date, del_flag) VALUES ('4c963d38ae25416ea3c1f141656b8f78', '湖北荆州', 'hb001002', 0, 0, 2, 2, 'd018f06a3a194ac68a3d0f5677e4cfbe', '湖北', ',d018f06a3a194ac68a3d0f5677e4cfbe,', null, '2020-06-25 07:45:59', null, '2020-06-25 07:45:59', '0');
+INSERT INTO sys_dept (id, name, code, type, status, order_num, grade, parent_id, parent_name, parent_ids, create_by, create_date, update_by, update_date, del_flag) VALUES ('b18e58a251d6415cb05dd77c2a0fb198', '长沙', 'cs2', 0, 0, 2, 2, '90e56a2a4e6a4add9a5b9a26fc212db2', '湖南', ',90e56a2a4e6a4add9a5b9a26fc212db2,', null, '2020-06-25 07:45:59', null, '2020-06-25 07:45:59', '0');
+INSERT INTO sys_dept (id, name, code, type, status, order_num, grade, parent_id, parent_name, parent_ids, create_by, create_date, update_by, update_date, del_flag) VALUES ('21173617daf14ae68bfd3b5550ff7264', '长沙1', 'cs3', 0, 0, 8, 3, 'b18e58a251d6415cb05dd77c2a0fb198', '长沙', ',90e56a2a4e6a4add9a5b9a26fc212db2,b18e58a251d6415cb05dd77c2a0fb198,', null, '2020-06-25 07:45:59', null, '2020-06-25 07:45:59', '0');
 
 -- ----------------------------
 -- Table structure for sys_role_menu
@@ -169,88 +199,17 @@ CREATE TABLE sys_user_role  (
 INSERT INTO sys_user_role (id, user_id, role_id) VALUES ('1', '1', '1');
 
 -- ----------------------------
--- Table structure for sys_config
+-- Table structure for sys_role_dept
 -- ----------------------------
-DROP TABLE IF EXISTS sys_config;
-CREATE TABLE sys_config  (
+DROP TABLE IF EXISTS sys_role_dept;
+CREATE TABLE sys_role_dept  (
   id varchar(64) NOT NULL COMMENT '主键',
-  value varchar(255)  COMMENT '值',
-  label varchar(255)  COMMENT '名称',
-  type varchar(255)  COMMENT '类型',
-  description varchar(500)  COMMENT '描述',
-  order_num int(4)  COMMENT '排序',
-  remarks varchar(500)  COMMENT '备注',
-  create_by varchar(64)  COMMENT '创建人',
-  create_date timestamp DEFAULT current_timestamp  COMMENT '创建时间',
-  update_by varchar(64)  COMMENT '更新人',
-  update_date timestamp DEFAULT current_timestamp  COMMENT '更新时间',
-  del_flag varchar(4) default '0'  COMMENT '删除标记',
+  role_id varchar(64)  COMMENT '角色主键',
+  dept_id varchar(64)  COMMENT '组织机构主键',
   PRIMARY KEY (id) USING BTREE,
-  INDEX sys_config_1(type) USING BTREE,
-  INDEX sys_config_2(value) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '设置表' ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Table structure for sys_dept
--- ----------------------------
-DROP TABLE IF EXISTS sys_dept;
-CREATE TABLE sys_dept
-(
-    id          varchar(64) NOT NULL COMMENT '主键',
-    name        varchar(200) COMMENT '名称',
-    code        varchar(255) COMMENT '编码',
-    type        int(4) COMMENT '类型',
-    status      int(4) COMMENT '状态',
-    order_num   int(4) COMMENT '排序号',
-    grade       int(4) COMMENT '层级',
-    parent_id   varchar(255) COMMENT '父级id',
-    parent_name varchar(255) COMMENT '父级单位',
-    parent_ids  varchar(255) COMMENT '所有父级id,格式：,id1,id2,',
-    create_by   varchar(64) COMMENT '创建人',
-    create_date timestamp  DEFAULT current_timestamp COMMENT '创建时间',
-    update_by   varchar(64) COMMENT '更新人',
-    update_date timestamp  DEFAULT current_timestamp COMMENT '更新时间',
-    del_flag    varchar(4) default '0' COMMENT '删除标记',
-    PRIMARY KEY (id) USING BTREE,
-    INDEX sys_dept_1 (parent_id) USING BTREE,
-    INDEX sys_dept_2 (type) USING BTREE,
-    INDEX sys_dept_3 (status) USING BTREE,
-    INDEX sys_dept_4 (code) USING BTREE
-) ENGINE = InnoDB
-  CHARACTER SET = utf8
-  COLLATE = utf8_general_ci COMMENT = '组织机构表'
-  ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of sys_dept
--- ----------------------------
-
-INSERT INTO sys_dept (id, name, code, type, status, order_num, grade, parent_id, parent_name, parent_ids, create_by,
-                      create_date, update_by, update_date, del_flag)
-VALUES ('d018f06a3a194ac68a3d0f5677e4cfbe', '湖北', 'hb001', 0, 0, 0, 1, null, null, null, null, '2020-06-25 07:45:59',
-        null, '2020-06-25 07:45:59', '0');
-INSERT INTO sys_dept (id, name, code, type, status, order_num, grade, parent_id, parent_name, parent_ids, create_by,
-                      create_date, update_by, update_date, del_flag)
-VALUES ('90e56a2a4e6a4add9a5b9a26fc212db2', '湖南', 'cs1', 0, 0, 3, 1, null, null, null, null, '2020-06-25 07:45:59',
-        null, '2020-06-25 07:45:59', '0');
-INSERT INTO sys_dept (id, name, code, type, status, order_num, grade, parent_id, parent_name, parent_ids, create_by,
-                      create_date, update_by, update_date, del_flag)
-VALUES ('ca06d9feadf143a7adb7977923e4e3cc', '湖北武汉', 'hb001001', 0, 0, 1, 2, 'd018f06a3a194ac68a3d0f5677e4cfbe', '湖北',
-        ',d018f06a3a194ac68a3d0f5677e4cfbe,', null, '2020-06-25 07:45:59', null, '2020-06-25 07:45:59', '0');
-INSERT INTO sys_dept (id, name, code, type, status, order_num, grade, parent_id, parent_name, parent_ids, create_by,
-                      create_date, update_by, update_date, del_flag)
-VALUES ('4c963d38ae25416ea3c1f141656b8f78', '湖北荆州', 'hb001002', 0, 0, 2, 2, 'd018f06a3a194ac68a3d0f5677e4cfbe', '湖北',
-        ',d018f06a3a194ac68a3d0f5677e4cfbe,', null, '2020-06-25 07:45:59', null, '2020-06-25 07:45:59', '0');
-INSERT INTO sys_dept (id, name, code, type, status, order_num, grade, parent_id, parent_name, parent_ids, create_by,
-                      create_date, update_by, update_date, del_flag)
-VALUES ('b18e58a251d6415cb05dd77c2a0fb198', '长沙', 'cs2', 0, 0, 2, 2, '90e56a2a4e6a4add9a5b9a26fc212db2', '湖南',
-        ',90e56a2a4e6a4add9a5b9a26fc212db2,', null, '2020-06-25 07:45:59', null, '2020-06-25 07:45:59', '0');
-INSERT INTO sys_dept (id, name, code, type, status, order_num, grade, parent_id, parent_name, parent_ids, create_by,
-                      create_date, update_by, update_date, del_flag)
-VALUES ('21173617daf14ae68bfd3b5550ff7264', '长沙1', 'cs3', 0, 0, 8, 3, 'b18e58a251d6415cb05dd77c2a0fb198', '长沙',
-        ',90e56a2a4e6a4add9a5b9a26fc212db2,b18e58a251d6415cb05dd77c2a0fb198,', null, '2020-06-25 07:45:59', null,
-        '2020-06-25 07:45:59', '0');
-
+  INDEX sys_role_dept_1(dept_id) USING BTREE,
+  INDEX sys_role_dept_2(role_id) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '角色和组织机构关联表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for sys_dict
@@ -292,6 +251,28 @@ INSERT INTO sys_dict (id, code, name, type, parent_id, description, order_num, r
 INSERT INTO sys_dict (id, code, name, type, parent_id, description, order_num, remarks, create_by, create_date, update_by, update_date, del_flag) VALUES ('acac16f2a6854de489ee72eb839ef607', 'cs2', 'cs2', '1', 'a9087cc36b504136a9d5790f832eb1b5', 'av', 0, 'va', null, '2020-06-25 07:45:59', null, '2020-06-25 07:45:59', '1');
 INSERT INTO sys_dict (id, code, name, type, parent_id, description, order_num, remarks, create_by, create_date, update_by, update_date, del_flag) VALUES ('cebeca4d875b40e0a2f44c7e4843bc23', 'cs', '测试', 'cs', '0', 'cs', 3, 'cs', null, '2020-06-25 07:45:59', null, '2020-06-25 07:45:59', '1');
 INSERT INTO sys_dict (id, code, name, type, parent_id, description, order_num, remarks, create_by, create_date, update_by, update_date, del_flag) VALUES ('dfe403957ef14f6ea47b71c2e7c17fb8', 'cs21', 'cs21', 'cs1', '1f92faf87c6843b19938e156973a9f69', 'cs21', 2, 'cs21', null, '2020-06-25 07:45:59', null, '2020-06-25 07:45:59', '0');
+
+-- ----------------------------
+-- Table structure for sys_config
+-- ----------------------------
+DROP TABLE IF EXISTS sys_config;
+CREATE TABLE sys_config  (
+  id varchar(64) NOT NULL COMMENT '主键',
+  value varchar(255)  COMMENT '值',
+  label varchar(255)  COMMENT '名称',
+  type varchar(255)  COMMENT '类型',
+  description varchar(500)  COMMENT '描述',
+  order_num int(4)  COMMENT '排序',
+  remarks varchar(500)  COMMENT '备注',
+  create_by varchar(64)  COMMENT '创建人',
+  create_date timestamp DEFAULT current_timestamp  COMMENT '创建时间',
+  update_by varchar(64)  COMMENT '更新人',
+  update_date timestamp DEFAULT current_timestamp  COMMENT '更新时间',
+  del_flag varchar(4) default '0'  COMMENT '删除标记',
+  PRIMARY KEY (id) USING BTREE,
+  INDEX sys_config_1(type) USING BTREE,
+  INDEX sys_config_2(value) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '设置表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for sys_log

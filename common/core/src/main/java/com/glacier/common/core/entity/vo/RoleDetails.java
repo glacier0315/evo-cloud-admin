@@ -44,9 +44,9 @@ public class RoleDetails implements Serializable {
     @ApiModelProperty(value = "描述")
     private String description;
     /**
-     * 数据权限
+     * 数据权限 1 所有单位  2 所属一级单位及以下  3 所属二级单位及以下  4 所属单位部门及以下  5 自定义 6 自己
      */
-    @ApiModelProperty(value = "数据权限")
+    @ApiModelProperty(value = "数据权限 1 所有单位  2 所属一级单位及以下  3 所属二级单位及以下  4 所属单位部门及以下  5 自定义 6 自己")
     private String dataScope;
     /**
      * 组织机构集合

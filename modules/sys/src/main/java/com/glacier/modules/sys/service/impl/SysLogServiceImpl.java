@@ -52,14 +52,11 @@ public class SysLogServiceImpl implements SysLogService {
     @Transactional(rollbackFor = {})
     @Override
     public int insert(SysLog record) {
-        int update = 0;
         if (StringUtils.isNotEmpty(record.getId())) {
-            update = this.sysLogMapper.updateByPrimaryKey(record);
-        } else {
-            record.setId(IdGen.uuid());
-            update = this.sysLogMapper.insert(record);
+            return this.sysLogMapper.updateByPrimaryKey(record);
         }
-        return update;
+        record.setId(IdGen.uuid());
+        return this.sysLogMapper.insert(record);
     }
 
     /**

@@ -51,7 +51,8 @@ public class DictServiceImpl implements DictService {
     @Transactional(rollbackFor = {})
     @Override
     public int batchDelete(List<IdForm> idForms) {
-        if (idForms != null && !idForms.isEmpty()) {
+        if (idForms != null
+                && !idForms.isEmpty()) {
             List<String> list = idForms.stream()
                     .map(IdForm::getId)
                     .collect(Collectors.toList());

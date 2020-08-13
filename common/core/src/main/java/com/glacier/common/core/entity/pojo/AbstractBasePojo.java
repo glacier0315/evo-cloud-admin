@@ -23,13 +23,13 @@ public abstract class AbstractBasePojo implements Serializable {
     /**
      * 自定义SQL（SQL标识，SQL内容）
      */
-    protected Map<String, String> sqlMap;
+    private Map<String, String> sqlMap;
 
     /**
      * 是否是新记录（默认：false），调用setIsNewRecord()设置新记录，使用自定义ID。
      * 设置为true后强制执行插入语句，ID不会自动生成，需从手动传入。
      */
-    protected boolean isNewRecord = false;
+    private boolean isNewRecord = false;
 
     public static long getSerialVersionUID() {
         return serialVersionUID;

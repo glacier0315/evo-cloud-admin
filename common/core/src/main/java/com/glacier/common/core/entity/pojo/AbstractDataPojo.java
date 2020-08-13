@@ -2,6 +2,9 @@ package com.glacier.common.core.entity.pojo;
 
 import com.glacier.common.core.utils.AppContextHolder;
 import com.glacier.common.core.utils.IdGen;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -11,6 +14,9 @@ import java.util.Date;
  * @version 1.0
  * @date 2020-08-10 17:26
  */
+@EqualsAndHashCode(callSuper = true)
+@Data
+@ToString
 public abstract class AbstractDataPojo extends AbstractBasePojo {
     private static final long serialVersionUID = -6067130213584450184L;
     /**
@@ -34,50 +40,6 @@ public abstract class AbstractDataPojo extends AbstractBasePojo {
      */
     protected String delFlag = "0";
 
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
-    }
-
-    public String getCreateBy() {
-        return this.createBy;
-    }
-
-    public void setCreateBy(String createBy) {
-        this.createBy = createBy;
-    }
-
-    public Date getCreateDate() {
-        return this.createDate;
-    }
-
-    public void setCreateDate(Date createDate) {
-        this.createDate = createDate;
-    }
-
-    public String getUpdateBy() {
-        return this.updateBy;
-    }
-
-    public void setUpdateBy(String updateBy) {
-        this.updateBy = updateBy;
-    }
-
-    public Date getUpdateDate() {
-        return this.updateDate;
-    }
-
-    public void setUpdateDate(Date updateDate) {
-        this.updateDate = updateDate;
-    }
-
-    public String getDelFlag() {
-        return this.delFlag;
-    }
-
-    public void setDelFlag(String delFlag) {
-        this.delFlag = delFlag;
-    }
-
     @Override
     public void preInsert() {
         // 设置新的id
@@ -98,17 +60,5 @@ public abstract class AbstractDataPojo extends AbstractBasePojo {
         // 设置操作人
         this.setUpdateBy(AppContextHolder.getInstance()
                 .getUserId());
-    }
-
-    @Override
-    public String toString() {
-        return "AbstractDataPojo{" +
-                "createBy='" + this.createBy + '\'' +
-                ", createDate=" + this.createDate +
-                ", updateBy='" + this.updateBy + '\'' +
-                ", updateDate=" + this.updateDate +
-                ", delFlag='" + this.delFlag + '\'' +
-                ", id='" + this.id + '\'' +
-                '}';
     }
 }

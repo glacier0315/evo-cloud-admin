@@ -2,7 +2,7 @@ package com.glacier.authorization.server.consumer;
 
 import com.glacier.authorization.server.consumer.fallback.UserServiceFallbackImpl;
 import com.glacier.common.core.entity.vo.Result;
-import com.glacier.modules.sys.entity.vo.user.UserDetails;
+import com.glacier.common.core.entity.vo.UserDetails;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

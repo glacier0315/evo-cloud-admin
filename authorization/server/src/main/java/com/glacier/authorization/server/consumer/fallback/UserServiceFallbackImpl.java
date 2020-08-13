@@ -2,7 +2,7 @@ package com.glacier.authorization.server.consumer.fallback;
 
 import com.glacier.authorization.server.consumer.UserService;
 import com.glacier.common.core.entity.vo.Result;
-import com.glacier.modules.sys.entity.vo.user.UserDetails;
+import com.glacier.common.core.entity.vo.UserDetails;
 
 /**
  * @author glacier

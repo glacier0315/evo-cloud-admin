@@ -5,7 +5,7 @@ import com.glacier.authorization.server.consumer.UserService;
 import com.glacier.authorization.server.entity.vo.UserDetailsVo;
 import com.glacier.common.core.entity.vo.Result;
 import com.glacier.common.core.entity.vo.RoleDetails;
-import com.glacier.modules.sys.entity.vo.user.UserDetails;
+import com.glacier.common.core.entity.vo.UserDetails;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +13,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -52,7 +52,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             userDetailsVo.setPassword(details.getPassword());
             userDetailsVo.setRoles(
                     Optional.ofNullable(details.getRoleDetails())
-                            .orElse(Collections.emptyList())
+                            .orElseGet(ArrayList::new)
                             .stream()
                             .map(RoleDetails::getCode)
                             .collect(Collectors.toList())

@@ -2,6 +2,9 @@ package com.glacier.common.core.entity.form;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 /**
  * @author glacier
@@ -9,6 +12,9 @@ import io.swagger.annotations.ApiModelProperty;
  * @date 2020-08-11 21:25
  */
 @ApiModel(description = "树形模型")
+@EqualsAndHashCode(callSuper = true)
+@Data
+@ToString
 public class TreeForm extends IdForm {
     private static final long serialVersionUID = -1422718419166727130L;
     /**
@@ -36,60 +42,4 @@ public class TreeForm extends IdForm {
      */
     @ApiModelProperty(value = "层级")
     protected Integer grade;
-
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
-    }
-
-    public String getName() {
-        return this.name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getParentId() {
-        return this.parentId;
-    }
-
-    public void setParentId(String parentId) {
-        this.parentId = parentId;
-    }
-
-    public String getParentName() {
-        return this.parentName;
-    }
-
-    public void setParentName(String parentName) {
-        this.parentName = parentName;
-    }
-
-    public Integer getOrderNum() {
-        return this.orderNum;
-    }
-
-    public void setOrderNum(Integer orderNum) {
-        this.orderNum = orderNum;
-    }
-
-    public Integer getGrade() {
-        return this.grade;
-    }
-
-    public void setGrade(Integer grade) {
-        this.grade = grade;
-    }
-
-    @Override
-    public String toString() {
-        return "TreeForm{" +
-                "name='" + this.name + '\'' +
-                ", parentId='" + this.parentId + '\'' +
-                ", parentName='" + this.parentName + '\'' +
-                ", orderNum=" + this.orderNum +
-                ", grade=" + this.grade +
-                ", id='" + this.id + '\'' +
-                '}';
-    }
 }

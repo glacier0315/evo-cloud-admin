@@ -2,9 +2,7 @@ package com.glacier.common.core.entity.vo;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import java.io.Serializable;
@@ -17,8 +15,6 @@ import java.util.List;
  */
 @ApiModel(description = "角色详情模型")
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 @ToString
 public class RoleDetails implements Serializable {
     private static final long serialVersionUID = 2730122991817147481L;

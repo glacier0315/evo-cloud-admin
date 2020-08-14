@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration scan="true" scanPeriod="30 seconds">
     <property name="LOG_PATH" value="./logs"/>
+    <property name="LOG_FILE" value="modules/fdfs"/>
 
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
@@ -10,9 +11,9 @@
     </appender>
 
     <appender name="logFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${LOG_PATH}/modules/fdfs.log</file>
+        <file>${LOG_PATH}/${LOG_FILE}.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>${LOG_PATH}/modules/fdfs.%d{yyyy-MM-dd}.zip</fileNamePattern>
+            <fileNamePattern>${LOG_PATH}/${LOG_FILE}.%d{yyyy-MM-dd}.zip</fileNamePattern>
             <maxHistory>30</maxHistory>
         </rollingPolicy>
 

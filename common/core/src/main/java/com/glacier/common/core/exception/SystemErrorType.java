@@ -1,8 +1,5 @@
 package com.glacier.common.core.exception;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-
 /**
  * 系统错误代码
  *
@@ -10,8 +7,6 @@ import lombok.Getter;
  * @version 1.0
  * @date 2020-05-18 11:20
  */
-@Getter
-@AllArgsConstructor
 public enum SystemErrorType implements ErrorType {
     /**
      * 系统异常
@@ -62,6 +57,11 @@ public enum SystemErrorType implements ErrorType {
      * 错误类型描述信息
      */
     private final String msg;
+
+    SystemErrorType(String code, String msg) {
+        this.code = code;
+        this.msg = msg;
+    }
 
     @Override
     public String getCode() {

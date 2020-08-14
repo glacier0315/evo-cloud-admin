@@ -1,6 +1,8 @@
 package com.glacier.authorization.server.oauth2;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.glacier.common.core.constant.CommonConstant;
+import com.glacier.common.core.constant.MediaConstants;
 import com.glacier.common.core.entity.vo.Result;
 import com.glacier.common.core.exception.AuthErrorType;
 import lombok.extern.slf4j.Slf4j;
@@ -29,8 +31,8 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint 
                          AuthenticationException authException) throws IOException, ServletException {
         log.error("异常：", authException);
         response.setStatus(HttpStatus.OK.value());
-        response.setContentType("application/json;charset=utf-8");
-        response.setCharacterEncoding("UTF-8");
+        response.setContentType(MediaConstants.MEDIA_TYPE);
+        response.setCharacterEncoding(CommonConstant.CHARSET_UTF_8);
         ObjectMapper objectMapper = new ObjectMapper();
         if (authException instanceof BadCredentialsException) {
             objectMapper.writeValue(

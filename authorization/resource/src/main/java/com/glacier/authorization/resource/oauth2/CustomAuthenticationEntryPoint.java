@@ -1,10 +1,13 @@
 package com.glacier.authorization.resource.oauth2;
 
-import com.alibaba.fastjson.JSONWriter;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.glacier.common.core.constant.CommonConstant;
+import com.glacier.common.core.constant.MediaConstants;
 import com.glacier.common.core.entity.vo.Result;
+import com.glacier.common.core.exception.AuthErrorType;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 
@@ -22,14 +25,23 @@ import java.io.IOException;
  */
 @Slf4j
 public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint {
+
     @Override
-    public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
+    public void commence(HttpServletRequest request, HttpServletResponse response,
+                         AuthenticationException authException) throws IOException, ServletException {
+        log.error("异常：", authException);
         response.setStatus(HttpStatus.OK.value());
-        response.setContentType(CommonConstant.MEDIA_TYPE);
+        response.setContentType(MediaConstants.MEDIA_TYPE);
         response.setCharacterEncoding(CommonConstant.CHARSET_UTF_8);
-        JSONWriter jsonWriter = new JSONWriter(response.getWriter());
-        jsonWriter.writeObject(Result.<String>error(authException.getMessage()));
-        jsonWriter.flush();
-        jsonWriter.close();
+        ObjectMapper objectMapper = new ObjectMapper();
+        if (authException instanceof BadCredentialsException) {
+            objectMapper.writeValue(
+                    response.getOutputStream(),
+                    Result.error(AuthErrorType.INVALID_CLIENT));
+        } else {
+            objectMapper.writeValue(
+                    response.getOutputStream(),
+                    Result.error(authException.getMessage()));
+        }
     }
 }

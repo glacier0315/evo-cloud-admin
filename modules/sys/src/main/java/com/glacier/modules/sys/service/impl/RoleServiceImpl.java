@@ -2,7 +2,7 @@ package com.glacier.modules.sys.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.glacier.common.core.constant.CommonConstant;
+import com.glacier.common.core.constant.SysConstants;
 import com.glacier.common.core.entity.page.PageRequest;
 import com.glacier.common.core.entity.page.PageResponse;
 import com.glacier.common.core.utils.IdGen;
@@ -201,7 +201,7 @@ public class RoleServiceImpl implements RoleService {
             // 清空原角色和单位关系
             this.roleDeptMapper.deleteByRoleId(roleId);
             // 保存角单位单关系
-            if (CommonConstant.DATASCOPE_CUSTOMIZE_DEPT.equals(dataScope)
+            if (SysConstants.DATASCOPE_CUSTOMIZE_DEPT.equals(dataScope)
                     && deptIds != null
                     && !deptIds.isEmpty()) {
                 for (String deptId : deptIds) {

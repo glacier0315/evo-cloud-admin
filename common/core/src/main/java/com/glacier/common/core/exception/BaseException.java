@@ -1,41 +1,38 @@
 package com.glacier.common.core.exception;
 
+import lombok.*;
+
 /**
- * 异常
+ * 基本异常
  *
  * @author glacier
  * @version 1.0
  * @date 2020-05-18 11:19
  */
+@EqualsAndHashCode(callSuper = true)
+@Data
+@ToString
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class BaseException extends RuntimeException {
     private static final long serialVersionUID = -720171527461795332L;
     /**
-     * 异常对应的错误类型
+     * 错误模块
      */
-    private final ErrorType errorType;
+    private String module;
 
     /**
-     * 默认是系统异常
+     * 错误代码
      */
-    public BaseException() {
-        this.errorType = SystemErrorType.SYSTEM_ERROR;
-    }
+    private String code;
+    /**
+     * 错误信息
+     */
+    private String msg;
+    /**
+     * 错误码对应的参数
+     */
+    private Object[] args;
 
-    public BaseException(ErrorType errorType) {
-        this.errorType = errorType;
-    }
-
-    public BaseException(ErrorType errorType, String message) {
-        super(message);
-        this.errorType = errorType;
-    }
-
-    public BaseException(ErrorType errorType, String message, Throwable cause) {
-        super(message, cause);
-        this.errorType = errorType;
-    }
-
-    public ErrorType getErrorType() {
-        return this.errorType;
-    }
 }

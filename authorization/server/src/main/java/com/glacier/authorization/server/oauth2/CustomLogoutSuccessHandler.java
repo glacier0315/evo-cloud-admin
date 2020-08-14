@@ -1,6 +1,8 @@
 package com.glacier.authorization.server.oauth2;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.glacier.common.core.constant.CommonConstant;
+import com.glacier.common.core.constant.MediaConstants;
 import com.glacier.common.core.entity.vo.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -25,8 +27,8 @@ public class CustomLogoutSuccessHandler implements LogoutSuccessHandler {
     @Override
     public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         response.setStatus(HttpStatus.OK.value());
-        response.setContentType("application/json;charset=utf-8");
-        response.setCharacterEncoding("UTF-8");
+        response.setContentType(MediaConstants.MEDIA_TYPE);
+        response.setCharacterEncoding(CommonConstant.CHARSET_UTF_8);
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.writeValue(
                 response.getOutputStream(),

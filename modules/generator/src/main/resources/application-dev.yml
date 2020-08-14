@@ -1,5 +1,8 @@
 debug: true
 
+server:
+  port: ${random.int[8001,19000]}
+
 # datasource
 spring:
   datasource:

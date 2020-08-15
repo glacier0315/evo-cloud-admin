@@ -1,6 +1,6 @@
 package com.glacier.modules.fdfs.controller;
 
-import com.glacier.common.core.entity.vo.Result;
+import com.glacier.common.core.entity.Result;
 import com.glacier.modules.fdfs.config.DfsResConfig;
 import com.glacier.modules.fdfs.util.FileDfsUtil;
 import lombok.RequiredArgsConstructor;

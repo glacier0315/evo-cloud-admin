@@ -1,6 +1,6 @@
 package com.glacier.authorization.server.service;
 
-import com.glacier.authorization.server.entity.pojo.OauthClientDetails;
+import com.glacier.authorization.server.entity.OauthClientDetails;
 
 import java.util.List;
 

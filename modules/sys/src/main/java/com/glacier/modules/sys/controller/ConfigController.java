@@ -1,10 +1,10 @@
 package com.glacier.modules.sys.controller;
 
-import com.glacier.common.core.entity.form.IdForm;
+import com.glacier.common.core.entity.Result;
+import com.glacier.common.core.entity.dto.IdDto;
 import com.glacier.common.core.entity.page.PageRequest;
 import com.glacier.common.core.entity.page.PageResponse;
-import com.glacier.common.core.entity.vo.Result;
-import com.glacier.modules.sys.entity.pojo.Config;
+import com.glacier.modules.sys.entity.Config;
 import com.glacier.modules.sys.service.ConfigService;
 import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
@@ -60,12 +60,12 @@ public class ConfigController {
     /**
      * 删除指定用户
      *
-     * @param idForms
+     * @param idDtos
      * @return
      */
     @PostMapping("/delete")
-    public Result<Integer> delete(@RequestBody List<IdForm> idForms) {
+    public Result<Integer> delete(@RequestBody List<IdDto> idDtos) {
         return Result.ok(
-                this.configService.batchDelete(idForms));
+                this.configService.batchDelete(idDtos));
     }
 }

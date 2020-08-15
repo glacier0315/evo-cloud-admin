@@ -6,12 +6,12 @@ import com.glacier.common.core.constant.SysConstants;
 import com.glacier.common.core.entity.page.PageRequest;
 import com.glacier.common.core.entity.page.PageResponse;
 import com.glacier.common.core.utils.IdGen;
-import com.glacier.modules.sys.entity.form.role.RoleForm;
-import com.glacier.modules.sys.entity.form.role.RoleQueryForm;
-import com.glacier.modules.sys.entity.pojo.Role;
-import com.glacier.modules.sys.entity.pojo.RoleDept;
-import com.glacier.modules.sys.entity.pojo.RoleMenu;
-import com.glacier.modules.sys.entity.vo.RoleVo;
+import com.glacier.modules.sys.entity.Role;
+import com.glacier.modules.sys.entity.RoleDept;
+import com.glacier.modules.sys.entity.RoleMenu;
+import com.glacier.modules.sys.entity.dto.role.RoleForm;
+import com.glacier.modules.sys.entity.dto.role.RoleQueryForm;
+import com.glacier.modules.sys.entity.dto.role.RoleVo;
 import com.glacier.modules.sys.mapper.RoleDeptMapper;
 import com.glacier.modules.sys.mapper.RoleMapper;
 import com.glacier.modules.sys.mapper.RoleMenuMapper;
@@ -99,9 +99,7 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public PageResponse<RoleVo> findPage(PageRequest<RoleQueryForm> pageRequest) {
         PageHelper.startPage(pageRequest.getPageNum(), pageRequest.getPageSize());
-        List<Role> roleList = this.roleMapper.selectList(
-                this.modelMapper.map(
-                        pageRequest.getParams(), Role.class));
+        List<Role> roleList = this.roleMapper.selectList(pageRequest.getParams());
         PageInfo<Role> pageInfo = PageInfo.of(roleList);
         return new PageResponse<>(
                 pageInfo.getPageNum(),

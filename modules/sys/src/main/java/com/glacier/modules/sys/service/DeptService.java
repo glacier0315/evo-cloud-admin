@@ -1,8 +1,8 @@
 package com.glacier.modules.sys.service;
 
-import com.glacier.common.core.entity.form.IdForm;
-import com.glacier.modules.sys.entity.form.dept.DeptForm;
-import com.glacier.modules.sys.entity.vo.DeptVo;
+import com.glacier.common.core.entity.dto.IdDto;
+import com.glacier.modules.sys.entity.dto.dept.DeptForm;
+import com.glacier.modules.sys.entity.dto.dept.DeptVo;
 
 import java.util.List;
 
@@ -47,10 +47,10 @@ public interface DeptService {
     /**
      * 根据Id批量删除
      *
-     * @param idForms
+     * @param idDtos
      * @return
      */
-    int batchDelete(List<IdForm> idForms);
+    int batchDelete(List<IdDto> idDtos);
 
     /**
      * 根据角色id 查询所具有的单位

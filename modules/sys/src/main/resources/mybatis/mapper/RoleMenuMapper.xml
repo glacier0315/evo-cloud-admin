@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.glacier.modules.sys.mapper.RoleMenuMapper">
-    <resultMap id="BaseResultMap" type="com.glacier.modules.sys.entity.pojo.RoleMenu">
+    <resultMap id="BaseResultMap" type="com.glacier.modules.sys.entity.RoleMenu">
         <id column="id" jdbcType="VARCHAR" property="id"/>
         <result column="role_id" jdbcType="VARCHAR" property="roleId"/>
         <result column="menu_id" jdbcType="VARCHAR" property="menuId"/>
@@ -29,7 +29,7 @@
         where role_id = #{roleId}
     </delete>
 
-    <insert id="insert" parameterType="com.glacier.modules.sys.entity.pojo.RoleMenu">
+    <insert id="insert" parameterType="com.glacier.modules.sys.entity.RoleMenu">
         insert into sys_role_menu (id, role_id, menu_id)
         values (#{id}, #{roleId}, #{menuId})
     </insert>

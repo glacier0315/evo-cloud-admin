@@ -1,6 +1,6 @@
 package com.glacier.modules.sys.mapper;
 
-import com.glacier.modules.sys.entity.pojo.RoleMenu;
+import com.glacier.modules.sys.entity.RoleMenu;
 
 /**
  * 角色菜单关联关系 数据层

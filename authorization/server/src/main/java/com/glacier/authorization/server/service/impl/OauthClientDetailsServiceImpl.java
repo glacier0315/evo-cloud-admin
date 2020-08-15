@@ -1,6 +1,6 @@
 package com.glacier.authorization.server.service.impl;
 
-import com.glacier.authorization.server.entity.pojo.OauthClientDetails;
+import com.glacier.authorization.server.entity.OauthClientDetails;
 import com.glacier.authorization.server.mapper.OauthClientDetailsMapper;
 import com.glacier.authorization.server.service.OauthClientDetailsService;
 import lombok.RequiredArgsConstructor;

@@ -1,7 +1,7 @@
 package com.glacier.authorization.resource.service;
 
-import com.glacier.authorization.resource.entity.vo.UserInfo;
-import com.glacier.common.core.entity.vo.Result;
+import com.glacier.authorization.resource.entity.dto.UserInfo;
+import com.glacier.common.core.entity.Result;
 
 /**
  * 用户业务层

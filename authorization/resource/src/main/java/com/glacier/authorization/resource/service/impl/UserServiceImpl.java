@@ -1,11 +1,11 @@
 package com.glacier.authorization.resource.service.impl;
 
-import com.glacier.authorization.resource.entity.pojo.User;
-import com.glacier.authorization.resource.entity.vo.UserInfo;
+import com.glacier.authorization.resource.entity.User;
+import com.glacier.authorization.resource.entity.dto.UserInfo;
 import com.glacier.authorization.resource.mapper.RoleMapper;
 import com.glacier.authorization.resource.mapper.UserMapper;
 import com.glacier.authorization.resource.service.UserService;
-import com.glacier.common.core.entity.vo.Result;
+import com.glacier.common.core.entity.Result;
 import com.glacier.common.core.exception.AuthErrorType;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

@@ -1,8 +1,8 @@
 package com.glacier.authorization.server.controller;
 
-import com.glacier.authorization.server.entity.pojo.OauthClientDetails;
+import com.glacier.authorization.server.entity.OauthClientDetails;
 import com.glacier.authorization.server.service.OauthClientDetailsService;
-import com.glacier.common.core.entity.vo.Result;
+import com.glacier.common.core.entity.Result;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

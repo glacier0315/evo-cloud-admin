@@ -1,7 +1,7 @@
 package com.glacier.modules.sys.config;
 
 import com.alibaba.fastjson.JSONWriter;
-import com.glacier.common.core.entity.vo.Result;
+import com.glacier.common.core.entity.Result;
 import com.glacier.common.core.exception.AuthErrorType;
 import com.glacier.modules.sys.config.settings.SecuritySettings;
 import lombok.RequiredArgsConstructor;

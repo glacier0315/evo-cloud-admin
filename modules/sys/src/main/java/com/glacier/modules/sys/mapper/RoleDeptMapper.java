@@ -1,6 +1,7 @@
 package com.glacier.modules.sys.mapper;
 
-import com.glacier.modules.sys.entity.pojo.RoleDept;
+import com.glacier.common.core.entity.dto.IdDto;
+import com.glacier.modules.sys.entity.RoleDept;
 
 import java.util.List;
 
@@ -26,7 +27,7 @@ public interface RoleDeptMapper {
      * @param list 待删除deptId集合
      * @return 删除记录数
      */
-    int deleteByDeptIds(List<String> list);
+    int deleteByDeptIds(List<IdDto> list);
 
     /**
      * 删除 角色单位关联关系

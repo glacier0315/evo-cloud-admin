@@ -2,9 +2,9 @@ package com.glacier.modules.sys.service.impl;
 
 import com.glacier.common.core.utils.TreeBuildFactory;
 import com.glacier.modules.sys.common.Constant;
-import com.glacier.modules.sys.entity.form.menu.MenuForm;
-import com.glacier.modules.sys.entity.pojo.Menu;
-import com.glacier.modules.sys.entity.vo.menu.MenuVo;
+import com.glacier.modules.sys.entity.Menu;
+import com.glacier.modules.sys.entity.dto.menu.MenuForm;
+import com.glacier.modules.sys.entity.dto.menu.MenuVo;
 import com.glacier.modules.sys.mapper.MenuMapper;
 import com.glacier.modules.sys.service.MenuService;
 import lombok.RequiredArgsConstructor;

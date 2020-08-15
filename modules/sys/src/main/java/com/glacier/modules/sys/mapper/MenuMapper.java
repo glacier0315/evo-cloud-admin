@@ -1,7 +1,7 @@
 package com.glacier.modules.sys.mapper;
 
 import com.glacier.common.core.mapper.BaseMapper;
-import com.glacier.modules.sys.entity.pojo.Menu;
+import com.glacier.modules.sys.entity.Menu;
 
 import java.util.List;
 import java.util.Set;

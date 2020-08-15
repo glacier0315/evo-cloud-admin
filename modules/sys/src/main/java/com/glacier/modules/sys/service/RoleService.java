@@ -2,9 +2,9 @@ package com.glacier.modules.sys.service;
 
 import com.glacier.common.core.entity.page.PageRequest;
 import com.glacier.common.core.entity.page.PageResponse;
-import com.glacier.modules.sys.entity.form.role.RoleForm;
-import com.glacier.modules.sys.entity.form.role.RoleQueryForm;
-import com.glacier.modules.sys.entity.vo.RoleVo;
+import com.glacier.modules.sys.entity.dto.role.RoleForm;
+import com.glacier.modules.sys.entity.dto.role.RoleQueryForm;
+import com.glacier.modules.sys.entity.dto.role.RoleVo;
 
 import java.util.List;
 

@@ -1,9 +1,9 @@
 package com.glacier.modules.sys.service.impl;
 
-import com.glacier.common.core.entity.form.IdForm;
+import com.glacier.common.core.entity.dto.IdDto;
 import com.glacier.common.core.utils.TreeBuildFactory;
-import com.glacier.modules.sys.entity.pojo.Dict;
-import com.glacier.modules.sys.entity.vo.DictVo;
+import com.glacier.modules.sys.entity.Dict;
+import com.glacier.modules.sys.entity.dto.dict.DictVo;
 import com.glacier.modules.sys.mapper.DictMapper;
 import com.glacier.modules.sys.service.DictService;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * 字典业务类
@@ -45,18 +44,15 @@ public class DictServiceImpl implements DictService {
     /**
      * 根据id批量删除
      *
-     * @param idForms
+     * @param idDtos
      * @return
      */
     @Transactional(rollbackFor = {})
     @Override
-    public int batchDelete(List<IdForm> idForms) {
-        if (idForms != null
-                && !idForms.isEmpty()) {
-            List<String> list = idForms.stream()
-                    .map(IdForm::getId)
-                    .collect(Collectors.toList());
-            return this.dictMapper.deleteBatchIds(list);
+    public int batchDelete(List<IdDto> idDtos) {
+        if (idDtos != null
+                && !idDtos.isEmpty()) {
+            return this.dictMapper.deleteBatchIds(idDtos);
         }
         return 0;
     }

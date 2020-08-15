@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.glacier.modules.sys.mapper.DictMapper">
-    <resultMap id="BaseResultMap" type="com.glacier.modules.sys.entity.pojo.Dict">
+    <resultMap id="BaseResultMap" type="com.glacier.modules.sys.entity.Dict">
         <id column="id" jdbcType="VARCHAR" property="id"/>
         <result column="code" jdbcType="VARCHAR" property="code"/>
         <result column="name" jdbcType="VARCHAR" property="name"/>
@@ -42,7 +42,7 @@
                 <when test="list != null and list.size() > 0">
                     and id in
                     <foreach collection="list" item="item" separator="," open="(" close=")">
-                        #{item}
+                        #{item.id}
                     </foreach>
                 </when>
                 <otherwise>
@@ -52,7 +52,7 @@
         </where>
     </update>
 
-    <insert id="insert" parameterType="com.glacier.modules.sys.entity.pojo.Dict">
+    <insert id="insert" parameterType="com.glacier.modules.sys.entity.Dict">
         insert into sys_dict (id, code, name,
                               type, parent_id, description,
                               order_num, remarks, create_by,
@@ -65,7 +65,7 @@
                 #{delFlag})
     </insert>
 
-    <update id="updateByPrimaryKey" parameterType="com.glacier.modules.sys.entity.pojo.Dict">
+    <update id="updateByPrimaryKey" parameterType="com.glacier.modules.sys.entity.Dict">
         update sys_dict
         set code        = #{code},
             name        = #{name},

@@ -1,7 +1,8 @@
 package com.glacier.modules.sys.mapper;
 
+import com.glacier.common.core.entity.dto.IdDto;
 import com.glacier.common.core.mapper.BaseMapper;
-import com.glacier.modules.sys.entity.pojo.Dept;
+import com.glacier.modules.sys.entity.Dept;
 
 import java.util.List;
 
@@ -36,5 +37,5 @@ public interface DeptMapper extends BaseMapper<Dept, String> {
      * @param list 待删除id集合
      * @return 删除记录数
      */
-    int deleteBatchIds(List<String> list);
+    int deleteBatchIds(List<IdDto> list);
 }

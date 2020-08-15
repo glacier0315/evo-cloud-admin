@@ -1,7 +1,7 @@
 package com.glacier.modules.sys.mapper;
 
 import com.glacier.common.core.mapper.BaseMapper;
-import com.glacier.modules.sys.entity.pojo.SysLog;
+import com.glacier.modules.sys.entity.SysLog;
 
 /**
  * 日志数据层

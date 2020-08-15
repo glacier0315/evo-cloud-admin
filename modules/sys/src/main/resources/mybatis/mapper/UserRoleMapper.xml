@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.glacier.modules.sys.mapper.UserRoleMapper">
-    <resultMap id="BaseResultMap" type="com.glacier.modules.sys.entity.pojo.UserRole">
+    <resultMap id="BaseResultMap" type="com.glacier.modules.sys.entity.UserRole">
         <id column="id" jdbcType="VARCHAR" property="id"/>
         <result column="user_id" jdbcType="VARCHAR" property="userId"/>
         <result column="role_id" jdbcType="VARCHAR" property="roleId"/>
@@ -28,7 +28,7 @@
         where role_id = #{roleId}
     </delete>
 
-    <insert id="insert" parameterType="com.glacier.modules.sys.entity.pojo.UserRole">
+    <insert id="insert" parameterType="com.glacier.modules.sys.entity.UserRole">
         insert into sys_user_role (id, user_id, role_id)
         values (#{id}, #{userId}, #{roleId})
     </insert>

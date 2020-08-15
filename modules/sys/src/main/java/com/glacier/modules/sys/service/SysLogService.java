@@ -2,7 +2,7 @@ package com.glacier.modules.sys.service;
 
 import com.glacier.common.core.entity.page.PageRequest;
 import com.glacier.common.core.entity.page.PageResponse;
-import com.glacier.modules.sys.entity.pojo.SysLog;
+import com.glacier.modules.sys.entity.SysLog;
 
 /**
  * @author glacier

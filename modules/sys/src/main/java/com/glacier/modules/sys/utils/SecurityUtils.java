@@ -1,6 +1,6 @@
 package com.glacier.modules.sys.utils;
 
-import com.glacier.modules.sys.entity.pojo.User;
+import com.glacier.modules.sys.entity.User;
 import com.glacier.modules.sys.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;

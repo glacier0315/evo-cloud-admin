@@ -1,7 +1,7 @@
 package com.glacier.modules.sys.mapper;
 
 import com.glacier.common.core.mapper.BaseMapper;
-import com.glacier.modules.sys.entity.pojo.Role;
+import com.glacier.modules.sys.entity.Role;
 
 import java.util.List;
 

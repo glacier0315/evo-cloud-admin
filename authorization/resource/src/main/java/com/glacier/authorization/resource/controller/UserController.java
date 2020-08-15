@@ -1,8 +1,8 @@
 package com.glacier.authorization.resource.controller;
 
-import com.glacier.authorization.resource.entity.vo.UserInfo;
+import com.glacier.authorization.resource.entity.dto.UserInfo;
 import com.glacier.authorization.resource.service.UserService;
-import com.glacier.common.core.entity.vo.Result;
+import com.glacier.common.core.entity.Result;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

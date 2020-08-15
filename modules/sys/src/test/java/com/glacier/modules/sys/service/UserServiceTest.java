@@ -1,13 +1,13 @@
 package com.glacier.modules.sys.service;
 
+import com.glacier.common.core.entity.dto.vo.UserDetailsDto;
 import com.glacier.common.core.entity.page.PageRequest;
 import com.glacier.common.core.entity.page.PageResponse;
-import com.glacier.modules.sys.entity.form.user.UserQueryForm;
-import com.glacier.modules.sys.entity.pojo.User;
-import com.glacier.modules.sys.entity.vo.user.UserDetails;
-import com.glacier.modules.sys.entity.vo.user.UserInfo;
-import com.glacier.modules.sys.entity.vo.user.UserProfile;
-import com.glacier.modules.sys.entity.vo.user.UserVo;
+import com.glacier.modules.sys.entity.User;
+import com.glacier.modules.sys.entity.dto.user.UserDto;
+import com.glacier.modules.sys.entity.dto.user.UserInfo;
+import com.glacier.modules.sys.entity.dto.user.UserProfile;
+import com.glacier.modules.sys.entity.dto.user.UserQueryForm;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -58,9 +58,9 @@ public class UserServiceTest {
     @Test
     public void loadUserByUsername() {
         String username = "admin";
-        UserDetails user = this.userService.loadUserByUsername(username);
+        UserDetailsDto user = this.userService.loadUserByUsername(username);
         assertEquals(Optional.ofNullable(user)
-                        .orElse(new UserDetails())
+                        .orElse(new UserDetailsDto())
                         .getUsername(),
                 username);
     }
@@ -70,7 +70,7 @@ public class UserServiceTest {
         String username = "admin";
         UserQueryForm userQueryForm = new UserQueryForm();
         userQueryForm.setUsername(username);
-        PageResponse<UserVo> page = this.userService.findPage(new PageRequest<>(1, 10, userQueryForm));
+        PageResponse<UserDto> page = this.userService.findPage(new PageRequest<>(1, 10, userQueryForm));
         System.out.println(page);
         assertNotNull(page);
         assertTrue(page.getList() != null

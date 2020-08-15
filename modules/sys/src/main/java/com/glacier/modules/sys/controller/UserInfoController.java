@@ -1,7 +1,7 @@
 package com.glacier.modules.sys.controller;
 
-import com.glacier.common.core.entity.vo.Result;
-import com.glacier.modules.sys.entity.vo.user.UserInfo;
+import com.glacier.common.core.entity.Result;
+import com.glacier.modules.sys.entity.dto.user.UserInfo;
 import com.glacier.modules.sys.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

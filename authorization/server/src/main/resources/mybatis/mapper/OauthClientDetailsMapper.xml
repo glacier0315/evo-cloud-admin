@@ -13,7 +13,7 @@
     <sql id="joins">
     </sql>
 
-    <select id="findAll" resultType="com.glacier.authorization.server.entity.pojo.OauthClientDetails">
+    <select id="findAll" resultType="com.glacier.authorization.server.entity.OauthClientDetails">
         select
         <include refid="base_columns"/>
         <include refid="joins_columns"/>

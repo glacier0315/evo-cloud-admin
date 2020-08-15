@@ -1,13 +1,11 @@
 package com.glacier.modules.sys.controller;
 
+import com.glacier.common.core.entity.Result;
+import com.glacier.common.core.entity.dto.vo.UserDetailsDto;
 import com.glacier.common.core.entity.page.PageRequest;
 import com.glacier.common.core.entity.page.PageResponse;
-import com.glacier.common.core.entity.vo.Result;
-import com.glacier.common.core.entity.vo.UserDetails;
 import com.glacier.modules.sys.common.Constant;
-import com.glacier.modules.sys.entity.form.user.*;
-import com.glacier.modules.sys.entity.vo.user.UserProfile;
-import com.glacier.modules.sys.entity.vo.user.UserVo;
+import com.glacier.modules.sys.entity.dto.user.*;
 import com.glacier.modules.sys.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -41,7 +39,7 @@ public class UserController {
      */
     @ApiOperation("根据用户名查询用户")
     @GetMapping(value = "/{username}")
-    public Result<UserDetails> findByUsername(
+    public Result<UserDetailsDto> findByUsername(
             @PathVariable("username") String username) {
         return Result.ok(
                 this.userService.loadUserByUsername(username));
@@ -55,7 +53,7 @@ public class UserController {
      */
     @ApiOperation("分页查询用户")
     @PostMapping("/pageList")
-    public Result<PageResponse<UserVo>> findPage(
+    public Result<PageResponse<UserDto>> findPage(
             @RequestBody PageRequest<UserQueryForm> pageRequest) {
         return Result.ok(
                 this.userService.findPage(pageRequest));
@@ -78,15 +76,15 @@ public class UserController {
     /**
      * 更新用户
      *
-     * @param userUpdateForm
-     * @return
+     * @param userDto 用户更新实体
+     * @return 更新结果
      */
     @ApiOperation("更新用户")
     @PutMapping("/update")
     public Result<Integer> update(
-            @RequestBody UserUpdateForm userUpdateForm) {
+            @RequestBody UserDto userDto) {
         return Result.ok(
-                this.userService.save(userUpdateForm));
+                this.userService.save(userDto));
     }
 
     /**

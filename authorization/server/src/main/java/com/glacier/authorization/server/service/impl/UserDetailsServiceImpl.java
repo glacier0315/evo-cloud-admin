@@ -2,10 +2,9 @@ package com.glacier.authorization.server.service.impl;
 
 
 import com.glacier.authorization.server.consumer.UserService;
-import com.glacier.authorization.server.entity.vo.UserDetailsVo;
-import com.glacier.common.core.entity.vo.Result;
-import com.glacier.common.core.entity.vo.RoleDetails;
-import com.glacier.common.core.entity.vo.UserDetails;
+import com.glacier.authorization.server.entity.dto.UserDetailsDto;
+import com.glacier.common.core.entity.Result;
+import com.glacier.common.core.entity.dto.vo.RoleDetailsDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,30 +37,30 @@ public class UserDetailsServiceImpl implements UserDetailsService {
      * @throws UsernameNotFoundException
      */
     @Override
-    public UserDetailsVo loadUserByUsername(String username) throws UsernameNotFoundException {
+    public UserDetailsDto loadUserByUsername(String username) throws UsernameNotFoundException {
         log.info("load user by username :{}", username);
-        Result<UserDetails> result = this.userService.findByUsername(username);
-        UserDetails details = result.getData();
+        Result<com.glacier.common.core.entity.dto.vo.UserDetailsDto> result = this.userService.findByUsername(username);
+        com.glacier.common.core.entity.dto.vo.UserDetailsDto details = result.getData();
         if (Result.SUCCUSS.equals(result.getCode())
                 && details != null
                 && details.getId() != null
                 && !details.getId().isEmpty()) {
-            UserDetailsVo userDetailsVo = new UserDetailsVo();
-            userDetailsVo.setUserId(details.getId());
-            userDetailsVo.setUsername(details.getUsername());
-            userDetailsVo.setPassword(details.getPassword());
-            userDetailsVo.setRoles(
-                    Optional.ofNullable(details.getRoleDetails())
+            UserDetailsDto userDetailsDto = new UserDetailsDto();
+            userDetailsDto.setUserId(details.getId());
+            userDetailsDto.setUsername(details.getUsername());
+            userDetailsDto.setPassword(details.getPassword());
+            userDetailsDto.setRoles(
+                    Optional.ofNullable(details.getRoleDetailDtos())
                             .orElseGet(ArrayList::new)
                             .stream()
-                            .map(RoleDetails::getCode)
+                            .map(RoleDetailsDto::getCode)
                             .collect(Collectors.toList())
             );
-            userDetailsVo.setEnabled(true);
-            userDetailsVo.setAccountNonExpired(true);
-            userDetailsVo.setAccountNonLocked(true);
-            userDetailsVo.setCredentialsNonExpired(true);
-            return userDetailsVo;
+            userDetailsDto.setEnabled(true);
+            userDetailsDto.setAccountNonExpired(true);
+            userDetailsDto.setAccountNonLocked(true);
+            userDetailsDto.setCredentialsNonExpired(true);
+            return userDetailsDto;
         } else {
             throw new UsernameNotFoundException("用户名或者密码不正确！");
         }

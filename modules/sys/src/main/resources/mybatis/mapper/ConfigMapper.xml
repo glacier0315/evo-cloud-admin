@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.glacier.modules.sys.mapper.ConfigMapper">
-    <resultMap id="BaseResultMap" type="com.glacier.modules.sys.entity.pojo.Config">
+    <resultMap id="BaseResultMap" type="com.glacier.modules.sys.entity.Config">
         <id column="id" jdbcType="VARCHAR" property="id"/>
         <result column="value" jdbcType="VARCHAR" property="value"/>
         <result column="label" jdbcType="VARCHAR" property="label"/>
@@ -41,7 +41,7 @@
                 <when test="list != null and list.size() > 0">
                     and id in
                     <foreach collection="list" item="item" separator="," open="(" close=")">
-                        #{item}
+                        #{item.id}
                     </foreach>
                 </when>
                 <otherwise>
@@ -51,7 +51,7 @@
         </where>
     </update>
 
-    <insert id="insert" parameterType="com.glacier.modules.sys.entity.pojo.Config">
+    <insert id="insert" parameterType="com.glacier.modules.sys.entity.Config">
         insert into sys_config (id, value, label,
                                 type, description, order_num,
                                 remarks, create_by, create_date,
@@ -62,7 +62,7 @@
                 #{updateBy}, #{updateDate}, #{delFlag})
     </insert>
 
-    <update id="updateByPrimaryKey" parameterType="com.glacier.modules.sys.entity.pojo.Config">
+    <update id="updateByPrimaryKey" parameterType="com.glacier.modules.sys.entity.Config">
         update sys_config
         set value       = #{value},
             label       = #{label},

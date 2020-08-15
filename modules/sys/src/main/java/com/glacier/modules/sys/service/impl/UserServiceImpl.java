@@ -2,24 +2,18 @@ package com.glacier.modules.sys.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.glacier.common.core.entity.Result;
+import com.glacier.common.core.entity.dto.vo.RoleDetailsDto;
+import com.glacier.common.core.entity.dto.vo.UserDetailsDto;
 import com.glacier.common.core.entity.page.PageRequest;
 import com.glacier.common.core.entity.page.PageResponse;
-import com.glacier.common.core.entity.vo.Result;
-import com.glacier.common.core.entity.vo.RoleDetails;
-import com.glacier.common.core.entity.vo.UserDetails;
 import com.glacier.common.core.exception.SystemErrorType;
 import com.glacier.common.core.utils.IdGen;
 import com.glacier.modules.sys.common.Constant;
-import com.glacier.modules.sys.entity.form.user.UserAvatarForm;
-import com.glacier.modules.sys.entity.form.user.UserPasswordForm;
-import com.glacier.modules.sys.entity.form.user.UserProfileForm;
-import com.glacier.modules.sys.entity.form.user.UserQueryForm;
-import com.glacier.modules.sys.entity.pojo.Role;
-import com.glacier.modules.sys.entity.pojo.User;
-import com.glacier.modules.sys.entity.pojo.UserRole;
-import com.glacier.modules.sys.entity.vo.user.UserInfo;
-import com.glacier.modules.sys.entity.vo.user.UserProfile;
-import com.glacier.modules.sys.entity.vo.user.UserVo;
+import com.glacier.modules.sys.entity.Role;
+import com.glacier.modules.sys.entity.User;
+import com.glacier.modules.sys.entity.UserRole;
+import com.glacier.modules.sys.entity.dto.user.*;
 import com.glacier.modules.sys.mapper.RoleMapper;
 import com.glacier.modules.sys.mapper.UserMapper;
 import com.glacier.modules.sys.mapper.UserRoleMapper;
@@ -95,15 +89,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username) {
+    public UserDetailsDto loadUserByUsername(String username) {
         User user = this.findUserByUsername(username);
-        UserDetails userDetails = this.modelMapper.map(user, UserDetails.class);
-        userDetails.setRoleDetails(
+        UserDetailsDto userDetailsDto = this.modelMapper.map(user, UserDetailsDto.class);
+        userDetailsDto.setRoleDetailDtos(
                 this.modelMapper.map(
                         this.roleMapper.findByUserId(user.getId()),
-                        new TypeToken<List<RoleDetails>>() {
+                        new TypeToken<List<RoleDetailsDto>>() {
                         }.getType()));
-        return userDetails;
+        return userDetailsDto;
     }
 
     /**
@@ -113,10 +107,9 @@ public class UserServiceImpl implements UserService {
      * @return
      */
     @Override
-    public PageResponse<UserVo> findPage(PageRequest<UserQueryForm> pageRequest) {
+    public PageResponse<UserDto> findPage(PageRequest<UserQueryForm> pageRequest) {
         PageHelper.startPage(pageRequest.getPageNum(), pageRequest.getPageSize());
-        List<User> userList = this.userMapper.selectList(this.modelMapper.map(
-                pageRequest.getParams(), User.class));
+        List<User> userList = this.userMapper.selectList(pageRequest.getParams());
         PageInfo<User> pageInfo = PageInfo.of(userList);
         return new PageResponse<>(
                 pageInfo.getPageNum(),
@@ -124,7 +117,7 @@ public class UserServiceImpl implements UserService {
                 pageInfo.getTotal(),
                 this.modelMapper.map(
                         pageInfo.getList(),
-                        new TypeToken<List<UserVo>>() {
+                        new TypeToken<List<UserDto>>() {
                         }.getType()));
     }
 

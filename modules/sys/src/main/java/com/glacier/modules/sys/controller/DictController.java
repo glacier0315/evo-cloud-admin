@@ -1,9 +1,9 @@
 package com.glacier.modules.sys.controller;
 
-import com.glacier.common.core.entity.form.IdForm;
-import com.glacier.common.core.entity.vo.Result;
-import com.glacier.modules.sys.entity.pojo.Dict;
-import com.glacier.modules.sys.entity.vo.DictVo;
+import com.glacier.common.core.entity.Result;
+import com.glacier.common.core.entity.dto.IdDto;
+import com.glacier.modules.sys.entity.Dict;
+import com.glacier.modules.sys.entity.dto.dict.DictVo;
 import com.glacier.modules.sys.service.DictService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -57,13 +57,13 @@ public class DictController {
     /**
      * 删除指定字典
      *
-     * @param idForms
+     * @param idDtos
      * @return
      */
     @ApiOperation("删除指定字典")
     @PostMapping("/delete")
-    public Result<Integer> delete(@RequestBody List<IdForm> idForms) {
+    public Result<Integer> delete(@RequestBody List<IdDto> idDtos) {
         return Result.ok(
-                this.dictService.batchDelete(idForms));
+                this.dictService.batchDelete(idDtos));
     }
 }

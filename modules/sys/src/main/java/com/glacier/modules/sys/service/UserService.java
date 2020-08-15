@@ -1,17 +1,11 @@
 package com.glacier.modules.sys.service;
 
+import com.glacier.common.core.entity.Result;
+import com.glacier.common.core.entity.dto.vo.UserDetailsDto;
 import com.glacier.common.core.entity.page.PageRequest;
 import com.glacier.common.core.entity.page.PageResponse;
-import com.glacier.common.core.entity.vo.Result;
-import com.glacier.common.core.entity.vo.UserDetails;
-import com.glacier.modules.sys.entity.form.user.UserAvatarForm;
-import com.glacier.modules.sys.entity.form.user.UserPasswordForm;
-import com.glacier.modules.sys.entity.form.user.UserProfileForm;
-import com.glacier.modules.sys.entity.form.user.UserQueryForm;
-import com.glacier.modules.sys.entity.pojo.User;
-import com.glacier.modules.sys.entity.vo.user.UserInfo;
-import com.glacier.modules.sys.entity.vo.user.UserProfile;
-import com.glacier.modules.sys.entity.vo.user.UserVo;
+import com.glacier.modules.sys.entity.User;
+import com.glacier.modules.sys.entity.dto.user.*;
 
 /**
  * 用户业务层
@@ -60,7 +54,7 @@ public interface UserService {
      * @param username
      * @return
      */
-    UserDetails loadUserByUsername(String username);
+    UserDetailsDto loadUserByUsername(String username);
 
     /**
      * 分页查询
@@ -68,7 +62,7 @@ public interface UserService {
      * @param pageRequest
      * @return
      */
-    PageResponse<UserVo> findPage(PageRequest<UserQueryForm> pageRequest);
+    PageResponse<UserDto> findPage(PageRequest<UserQueryForm> pageRequest);
 
     /**
      * 保存用户

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.glacier.authorization.resource.mapper.UserMapper">
-    <resultMap id="BaseResultMap" type="com.glacier.authorization.resource.entity.pojo.User">
+    <resultMap id="BaseResultMap" type="com.glacier.authorization.resource.entity.User">
         <id column="id" jdbcType="VARCHAR" property="id"/>
         <result column="username" jdbcType="VARCHAR" property="username"/>
         <result column="password" jdbcType="VARCHAR" property="password"/>
@@ -31,7 +31,7 @@
         set a.del_flag='1'
         where id = #{id,jdbcType=VARCHAR}
     </delete>
-    <insert id="insert" parameterType="com.glacier.authorization.resource.entity.pojo.User">
+    <insert id="insert" parameterType="com.glacier.authorization.resource.entity.User">
         insert into sys_user (id, username, password,
                               nickname, id_card, birthday,
                               sex, email, mobile,
@@ -46,7 +46,7 @@
                 #{updateDate,jdbcType=TIMESTAMP}, #{delFlag,jdbcType=VARCHAR})
     </insert>
 
-    <update id="updateByPrimaryKey" parameterType="com.glacier.authorization.resource.entity.pojo.User">
+    <update id="updateByPrimaryKey" parameterType="com.glacier.authorization.resource.entity.User">
         update sys_user
         set nickname    = #{nickname,jdbcType=VARCHAR},
             id_card     = #{idCard,jdbcType=VARCHAR},

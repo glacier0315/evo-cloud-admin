@@ -5,7 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.glacier.common.core.entity.page.PageRequest;
 import com.glacier.common.core.entity.page.PageResponse;
 import com.glacier.common.core.utils.IdGen;
-import com.glacier.modules.sys.entity.pojo.SysLog;
+import com.glacier.modules.sys.entity.SysLog;
 import com.glacier.modules.sys.mapper.SysLogMapper;
 import com.glacier.modules.sys.service.SysLogService;
 import lombok.RequiredArgsConstructor;

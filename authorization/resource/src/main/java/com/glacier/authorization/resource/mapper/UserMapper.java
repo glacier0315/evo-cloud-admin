@@ -1,6 +1,6 @@
 package com.glacier.authorization.resource.mapper;
 
-import com.glacier.authorization.resource.entity.pojo.User;
+import com.glacier.authorization.resource.entity.User;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

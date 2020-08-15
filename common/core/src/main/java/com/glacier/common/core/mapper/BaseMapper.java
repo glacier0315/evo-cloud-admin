@@ -58,5 +58,5 @@ public interface BaseMapper<T, ID extends Serializable> {
      * @param params
      * @return
      */
-    List<T> selectList(T params);
+    <M extends Serializable> List<T> selectList(M params);
 }

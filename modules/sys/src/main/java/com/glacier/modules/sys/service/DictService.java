@@ -1,8 +1,8 @@
 package com.glacier.modules.sys.service;
 
-import com.glacier.common.core.entity.form.IdForm;
-import com.glacier.modules.sys.entity.pojo.Dict;
-import com.glacier.modules.sys.entity.vo.DictVo;
+import com.glacier.common.core.entity.dto.IdDto;
+import com.glacier.modules.sys.entity.Dict;
+import com.glacier.modules.sys.entity.dto.dict.DictVo;
 
 import java.util.List;
 
@@ -31,8 +31,8 @@ public interface DictService {
     /**
      * 根据Id批量删除
      *
-     * @param idForms
+     * @param idDtos
      * @return
      */
-    int batchDelete(List<IdForm> idForms);
+    int batchDelete(List<IdDto> idDtos);
 }

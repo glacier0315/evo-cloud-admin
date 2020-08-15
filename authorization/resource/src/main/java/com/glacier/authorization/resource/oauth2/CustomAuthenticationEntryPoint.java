@@ -3,7 +3,7 @@ package com.glacier.authorization.resource.oauth2;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.glacier.common.core.constant.CommonConstant;
 import com.glacier.common.core.constant.MediaConstants;
-import com.glacier.common.core.entity.vo.Result;
+import com.glacier.common.core.entity.Result;
 import com.glacier.common.core.exception.AuthErrorType;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;

@@ -1,6 +1,6 @@
 package com.glacier.modules.sys.mapper;
 
-import com.glacier.modules.sys.entity.pojo.UserRole;
+import com.glacier.modules.sys.entity.UserRole;
 
 /**
  * 用户角色关联关系 数据层

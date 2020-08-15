@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.glacier.modules.sys.mapper.RoleDeptMapper">
-    <resultMap id="BaseResultMap" type="com.glacier.modules.sys.entity.pojo.RoleDept">
+    <resultMap id="BaseResultMap" type="com.glacier.modules.sys.entity.RoleDept">
         <id column="id" jdbcType="VARCHAR" property="id"/>
         <result column="role_id" jdbcType="VARCHAR" property="roleId"/>
         <result column="dept_id" jdbcType="VARCHAR" property="deptId"/>
@@ -34,7 +34,7 @@
                 <when test="list != null and list.size() > 0">
                     and a.dept_id in
                     <foreach collection="list" item="item" separator="," open="(" close=")">
-                        #{item}
+                        #{item.id}
                     </foreach>
                 </when>
                 <otherwise>
@@ -44,7 +44,7 @@
         </where>
     </delete>
 
-    <insert id="insert" parameterType="com.glacier.modules.sys.entity.pojo.RoleDept">
+    <insert id="insert" parameterType="com.glacier.modules.sys.entity.RoleDept">
         insert into sys_role_dept (id, role_id, dept_id)
         values (#{id}, #{roleId}, #{deptId})
     </insert>

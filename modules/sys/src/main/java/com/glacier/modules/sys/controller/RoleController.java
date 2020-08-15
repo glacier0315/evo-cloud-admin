@@ -1,11 +1,11 @@
 package com.glacier.modules.sys.controller;
 
+import com.glacier.common.core.entity.Result;
 import com.glacier.common.core.entity.page.PageRequest;
 import com.glacier.common.core.entity.page.PageResponse;
-import com.glacier.common.core.entity.vo.Result;
-import com.glacier.modules.sys.entity.form.role.RoleForm;
-import com.glacier.modules.sys.entity.form.role.RoleQueryForm;
-import com.glacier.modules.sys.entity.vo.RoleVo;
+import com.glacier.modules.sys.entity.dto.role.RoleForm;
+import com.glacier.modules.sys.entity.dto.role.RoleQueryForm;
+import com.glacier.modules.sys.entity.dto.role.RoleVo;
 import com.glacier.modules.sys.service.RoleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

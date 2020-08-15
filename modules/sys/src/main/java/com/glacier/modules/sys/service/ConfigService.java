@@ -1,9 +1,9 @@
 package com.glacier.modules.sys.service;
 
-import com.glacier.common.core.entity.form.IdForm;
+import com.glacier.common.core.entity.dto.IdDto;
 import com.glacier.common.core.entity.page.PageRequest;
 import com.glacier.common.core.entity.page.PageResponse;
-import com.glacier.modules.sys.entity.pojo.Config;
+import com.glacier.modules.sys.entity.Config;
 
 import java.util.List;
 
@@ -34,8 +34,8 @@ public interface ConfigService {
     /**
      * 根据Id批量删除
      *
-     * @param idForms
+     * @param idDtos
      * @return
      */
-    int batchDelete(List<IdForm> idForms);
+    int batchDelete(List<IdDto> idDtos);
 }

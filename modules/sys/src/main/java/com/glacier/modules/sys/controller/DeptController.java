@@ -1,9 +1,9 @@
 package com.glacier.modules.sys.controller;
 
-import com.glacier.common.core.entity.form.IdForm;
-import com.glacier.common.core.entity.vo.Result;
-import com.glacier.modules.sys.entity.form.dept.DeptForm;
-import com.glacier.modules.sys.entity.vo.DeptVo;
+import com.glacier.common.core.entity.Result;
+import com.glacier.common.core.entity.dto.IdDto;
+import com.glacier.modules.sys.entity.dto.dept.DeptForm;
+import com.glacier.modules.sys.entity.dto.dept.DeptVo;
 import com.glacier.modules.sys.service.DeptService;
 import com.glacier.modules.sys.utils.SecurityUtils;
 import io.swagger.annotations.Api;
@@ -59,14 +59,14 @@ public class DeptController {
     /**
      * 删除指定组织机构
      *
-     * @param idForms
+     * @param idDtos
      * @return
      */
     @ApiOperation("删除指定组织机构")
     @PostMapping("/delete")
-    public Result<Integer> delete(@RequestBody List<IdForm> idForms) {
+    public Result<Integer> delete(@RequestBody List<IdDto> idDtos) {
         return Result.ok(
-                this.deptService.batchDelete(idForms));
+                this.deptService.batchDelete(idDtos));
     }
 
     /**

@@ -1,6 +1,6 @@
 package com.glacier.modules.sys.service;
 
-import com.glacier.modules.sys.entity.vo.menu.MenuVo;
+import com.glacier.modules.sys.entity.dto.menu.MenuVo;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 

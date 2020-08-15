@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.glacier.modules.sys.mapper.DeptMapper">
 
-    <resultMap id="BaseResultMap" type="com.glacier.modules.sys.entity.pojo.Dept">
+    <resultMap id="BaseResultMap" type="com.glacier.modules.sys.entity.Dept">
         <id column="id" jdbcType="VARCHAR" property="id"/>
         <result column="name" jdbcType="VARCHAR" property="name"/>
         <result column="code" jdbcType="VARCHAR" property="code"/>
@@ -45,7 +45,7 @@
                 <when test="list != null and list.size() > 0">
                     and id in
                     <foreach collection="list" item="item" separator="," open="(" close=")">
-                        #{item}
+                        #{item.id}
                     </foreach>
                 </when>
                 <otherwise>
@@ -55,7 +55,7 @@
         </where>
     </update>
 
-    <insert id="insert" parameterType="com.glacier.modules.sys.entity.pojo.Dept">
+    <insert id="insert" parameterType="com.glacier.modules.sys.entity.Dept">
         insert into sys_dept (id, name, code, type, status, order_num, grade, parent_id, parent_name, parent_ids,
                               create_by, create_date, update_by, update_date, del_flag)
         values (#{id}, #{name}, #{code}, #{type}, #{status}, #{orderNum}, #{grade}, #{parentId}, #{parentName},
@@ -63,7 +63,7 @@
                 #{createBy}, #{createDate}, #{updateBy}, #{updateDate}, #{delFlag})
     </insert>
 
-    <update id="updateByPrimaryKey" parameterType="com.glacier.modules.sys.entity.pojo.Dept">
+    <update id="updateByPrimaryKey" parameterType="com.glacier.modules.sys.entity.Dept">
         update sys_dept
         set name        = #{name},
             code        = #{code},
@@ -104,7 +104,7 @@
         </where>
     </select>
 
-    <select id="findByRoleId" resultType="com.glacier.modules.sys.entity.pojo.Dept">
+    <select id="findByRoleId" resultType="com.glacier.modules.sys.entity.Dept">
         select
         <include refid="base_columns"/>
         from sys_dept a
@@ -115,7 +115,7 @@
         </where>
     </select>
 
-    <select id="findByUserId" resultType="com.glacier.modules.sys.entity.pojo.Dept">
+    <select id="findByUserId" resultType="com.glacier.modules.sys.entity.Dept">
         select
         <include refid="base_columns"/>
         from sys_dept a

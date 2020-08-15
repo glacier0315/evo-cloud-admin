@@ -1,7 +1,7 @@
 package com.glacier.modules.sys.mapper;
 
 import com.glacier.common.core.mapper.BaseMapper;
-import com.glacier.modules.sys.entity.pojo.User;
+import com.glacier.modules.sys.entity.User;
 
 import java.util.Optional;
 

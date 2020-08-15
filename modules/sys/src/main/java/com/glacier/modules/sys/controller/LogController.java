@@ -1,9 +1,9 @@
 package com.glacier.modules.sys.controller;
 
+import com.glacier.common.core.entity.Result;
 import com.glacier.common.core.entity.page.PageRequest;
 import com.glacier.common.core.entity.page.PageResponse;
-import com.glacier.common.core.entity.vo.Result;
-import com.glacier.modules.sys.entity.pojo.SysLog;
+import com.glacier.modules.sys.entity.SysLog;
 import com.glacier.modules.sys.service.SysLogService;
 import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;

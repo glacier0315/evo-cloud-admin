@@ -1,12 +1,12 @@
 package com.glacier.modules.sys.service.impl;
 
-import com.glacier.common.core.entity.form.IdForm;
+import com.glacier.common.core.entity.dto.IdDto;
 import com.glacier.common.core.utils.TreeBuildFactory;
 import com.glacier.modules.sys.common.Constant;
-import com.glacier.modules.sys.entity.form.dept.DeptForm;
-import com.glacier.modules.sys.entity.pojo.Dept;
-import com.glacier.modules.sys.entity.pojo.User;
-import com.glacier.modules.sys.entity.vo.DeptVo;
+import com.glacier.modules.sys.entity.Dept;
+import com.glacier.modules.sys.entity.User;
+import com.glacier.modules.sys.entity.dto.dept.DeptForm;
+import com.glacier.modules.sys.entity.dto.dept.DeptVo;
 import com.glacier.modules.sys.mapper.DeptMapper;
 import com.glacier.modules.sys.mapper.RoleDeptMapper;
 import com.glacier.modules.sys.mapper.UserMapper;
@@ -24,7 +24,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.Collectors;
 
 /**
  * @author hebin
@@ -105,19 +104,16 @@ public class DeptServiceImpl implements DeptService {
     /**
      * 根据id批量删除
      *
-     * @param idForms
+     * @param idDtos
      * @return
      */
     @Transactional(rollbackFor = {})
     @Override
-    public int batchDelete(List<IdForm> idForms) {
-        if (idForms != null
-                && !idForms.isEmpty()) {
-            List<String> list = idForms.stream()
-                    .map(IdForm::getId)
-                    .collect(Collectors.toList());
-            int deleteBatchIds = this.deptMapper.deleteBatchIds(list);
-            this.roleDeptMapper.deleteByDeptIds(list);
+    public int batchDelete(List<IdDto> idDtos) {
+        if (idDtos != null
+                && !idDtos.isEmpty()) {
+            int deleteBatchIds = this.deptMapper.deleteBatchIds(idDtos);
+            this.roleDeptMapper.deleteByDeptIds(idDtos);
             return deleteBatchIds;
         }
         return 0;

@@ -1,7 +1,7 @@
 package com.glacier.modules.sys.utils;
 
 import com.glacier.common.core.utils.TreeBuildFactory;
-import com.glacier.modules.sys.entity.pojo.Menu;
+import com.glacier.modules.sys.entity.dto.menu.MenuVo;
 import com.glacier.modules.sys.service.MenuService;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -23,7 +23,7 @@ public class TreeBuildFactoryTest {
 
     @Test
     public void buildMenuTree() {
-        List<Menu> allList = this.menuService.findAllList();
+        List<MenuVo> allList = this.menuService.findAllList();
         Optional.ofNullable(allList)
                 .map(TreeBuildFactory::buildMenuTree)
                 .ifPresent(System.out::println);

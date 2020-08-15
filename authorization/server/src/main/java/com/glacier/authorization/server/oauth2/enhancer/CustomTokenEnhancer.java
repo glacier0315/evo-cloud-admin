@@ -1,6 +1,6 @@
 package com.glacier.authorization.server.oauth2.enhancer;
 
-import com.glacier.common.core.entity.vo.Result;
+import com.glacier.common.core.entity.Result;
 import com.google.common.collect.Maps;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

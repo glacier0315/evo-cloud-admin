@@ -1,6 +1,5 @@
 package com.glacier.modules.sys.service;
 
-import com.glacier.common.core.entity.dto.IdDto;
 import com.glacier.modules.sys.entity.dto.dept.DeptForm;
 import com.glacier.modules.sys.entity.dto.dept.DeptVo;
 
@@ -31,32 +30,32 @@ public interface DeptService {
     /**
      * 根据用户id 查找单位树
      *
-     * @param userId
-     * @return
+     * @param userId 用户id
+     * @return 单位树
      */
     List<DeptVo> findTree(String userId);
 
     /**
      * 保存操作
      *
-     * @param deptForm
-     * @return
+     * @param deptForm 保存实体类
+     * @return 插入或者更新记录数
      */
     int save(DeptForm deptForm);
 
     /**
-     * 根据Id批量删除
+     * 根据Id删除
      *
-     * @param idDtos
-     * @return
+     * @param id 待删除id
+     * @return 删除记录数
      */
-    int batchDelete(List<IdDto> idDtos);
+    int delete(String id);
 
     /**
      * 根据角色id 查询所具有的单位
      *
-     * @param roleId
-     * @return
+     * @param roleId 角色id
+     * @return 角色具有的单位id集合
      */
     List<String> findByRole(String roleId);
 }

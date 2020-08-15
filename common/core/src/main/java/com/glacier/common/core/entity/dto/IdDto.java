@@ -2,7 +2,9 @@ package com.glacier.common.core.entity.dto;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import java.io.Serializable;
@@ -13,6 +15,8 @@ import java.io.Serializable;
  * @date 2020-05-23 21:53
  */
 @ApiModel(description = "ID请求模型")
+@NoArgsConstructor
+@AllArgsConstructor
 @Data
 @ToString
 public class IdDto implements Serializable {

@@ -59,14 +59,14 @@ public class DeptController {
     /**
      * 删除指定组织机构
      *
-     * @param idDtos
+     * @param idDto
      * @return
      */
     @ApiOperation("删除指定组织机构")
     @PostMapping("/delete")
-    public Result<Integer> delete(@RequestBody List<IdDto> idDtos) {
+    public Result<Integer> delete(@RequestBody IdDto idDto) {
         return Result.ok(
-                this.deptService.batchDelete(idDtos));
+                this.deptService.delete(idDto.getId()));
     }
 
     /**

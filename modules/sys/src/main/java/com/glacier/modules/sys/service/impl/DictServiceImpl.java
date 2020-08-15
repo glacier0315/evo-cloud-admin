@@ -1,6 +1,5 @@
 package com.glacier.modules.sys.service.impl;
 
-import com.glacier.common.core.entity.dto.IdDto;
 import com.glacier.common.core.utils.TreeBuildFactory;
 import com.glacier.modules.sys.entity.Dict;
 import com.glacier.modules.sys.entity.dto.dict.DictVo;
@@ -8,6 +7,7 @@ import com.glacier.modules.sys.mapper.DictMapper;
 import com.glacier.modules.sys.service.DictService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,17 +42,16 @@ public class DictServiceImpl implements DictService {
     }
 
     /**
-     * 根据id批量删除
+     * 根据id删除
      *
-     * @param idDtos
+     * @param id
      * @return
      */
     @Transactional(rollbackFor = {})
     @Override
-    public int batchDelete(List<IdDto> idDtos) {
-        if (idDtos != null
-                && !idDtos.isEmpty()) {
-            return this.dictMapper.deleteBatchIds(idDtos);
+    public int delete(String id) {
+        if (StringUtils.isNotEmpty(id)) {
+            return this.dictMapper.deleteByPrimaryKey(id);
         }
         return 0;
     }

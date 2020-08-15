@@ -1,6 +1,5 @@
 package com.glacier.modules.sys.service.impl;
 
-import com.glacier.common.core.entity.dto.IdDto;
 import com.glacier.common.core.utils.TreeBuildFactory;
 import com.glacier.modules.sys.common.Constant;
 import com.glacier.modules.sys.entity.Dept;
@@ -102,19 +101,17 @@ public class DeptServiceImpl implements DeptService {
     }
 
     /**
-     * 根据id批量删除
+     * 根据id删除
      *
-     * @param idDtos
+     * @param id
      * @return
      */
     @Transactional(rollbackFor = {})
     @Override
-    public int batchDelete(List<IdDto> idDtos) {
-        if (idDtos != null
-                && !idDtos.isEmpty()) {
-            int deleteBatchIds = this.deptMapper.deleteBatchIds(idDtos);
-            this.roleDeptMapper.deleteByDeptIds(idDtos);
-            return deleteBatchIds;
+    public int delete(String id) {
+        if (StringUtils.isNotEmpty(id)) {
+            this.roleDeptMapper.deleteByDeptId(id);
+            return this.deptMapper.deleteByPrimaryKey(id);
         }
         return 0;
     }

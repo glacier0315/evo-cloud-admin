@@ -1,6 +1,7 @@
 package com.glacier.modules.sys.controller;
 
 import com.glacier.common.core.entity.Result;
+import com.glacier.common.core.entity.dto.IdDto;
 import com.glacier.common.core.entity.dto.vo.UserDetailsDto;
 import com.glacier.common.core.entity.page.PageRequest;
 import com.glacier.common.core.entity.page.PageResponse;
@@ -80,7 +81,7 @@ public class UserController {
      * @return 更新结果
      */
     @ApiOperation("更新用户")
-    @PutMapping("/update")
+    @PostMapping("/update")
     public Result<Integer> update(
             @RequestBody UserDto userDto) {
         return Result.ok(
@@ -90,14 +91,14 @@ public class UserController {
     /**
      * 删除指定用户
      *
-     * @param id
+     * @param idDto
      * @return
      */
     @ApiOperation("删除指定用户")
-    @DeleteMapping("/delete")
-    public Result<Integer> delete(String id) {
+    @PostMapping("/delete")
+    public Result<Integer> delete(@RequestBody IdDto idDto) {
         return Result.ok(
-                this.userService.delete(id));
+                this.userService.delete(idDto.getId()));
     }
 
     /**
@@ -125,7 +126,7 @@ public class UserController {
      * @return
      */
     @ApiOperation("更新当前用户信息")
-    @PutMapping(value = "/profile")
+    @PostMapping(value = "/profile")
     public Result<Integer> updateProfile(
             @RequestBody UserProfileForm userProfileForm) {
         return this.userService.updateProfile(userProfileForm);
@@ -166,7 +167,7 @@ public class UserController {
      * @return
      */
     @ApiOperation("修改用户密码")
-    @PutMapping("/updatePwd")
+    @PostMapping("/updatePwd")
     public Result<Integer> updatePwd(
             @RequestBody UserPasswordForm userPasswordForm) {
         return this.userService.updatePassword(userPasswordForm);

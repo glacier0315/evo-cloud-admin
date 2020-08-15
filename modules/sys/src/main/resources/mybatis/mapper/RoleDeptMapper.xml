@@ -18,27 +18,30 @@
     </sql>
 
     <delete id="deleteByRoleId" parameterType="java.lang.String">
-        delete from sys_role_dept a
-        where a.role_id = #{roleId}
+        delete
+        from sys_role_dept
+        where role_id = #{roleId}
     </delete>
 
     <delete id="deleteByDeptId" parameterType="java.lang.String">
-        delete from sys_role_dept a
-        where a.dept_id = #{deptId}
+        delete
+        from sys_role_dept
+        where dept_id = #{deptId}
     </delete>
 
     <delete id="deleteByDeptIds">
-        delete from sys_role_dept a
+        delete
+        from sys_role_dept
         <where>
             <choose>
                 <when test="list != null and list.size() > 0">
-                    and a.dept_id in
+                    and dept_id in
                     <foreach collection="list" item="item" separator="," open="(" close=")">
                         #{item.id}
                     </foreach>
                 </when>
                 <otherwise>
-                    0=1
+                    and 0=1
                 </otherwise>
             </choose>
         </where>

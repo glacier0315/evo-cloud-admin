@@ -3,8 +3,9 @@
 
 * 采用前后端分离的模式，后端采用微服务。
 * 后端采用Spring Boot、Spring Cloud & Alibaba。
-* 注册中心、配置中心选型Nacos，为权限认证使用OAuth2。
-* 注册中心、配置中心选型Nacos，为权限认证使用OAuth2。
+* 注册中心、配置中心选型Nacos。
+* 认证中心使用OAuth2。
+* 资源服务器和客户端使用spring security。
 
 ## 系统模块
 

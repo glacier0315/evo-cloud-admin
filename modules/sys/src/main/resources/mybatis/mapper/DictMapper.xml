@@ -34,24 +34,6 @@
         where a.id = #{id}
     </update>
 
-    <update id="deleteBatchIds">
-        update sys_dict a
-        set a.del_flag='1'
-        <where>
-            <choose>
-                <when test="list != null and list.size() > 0">
-                    and id in
-                    <foreach collection="list" item="item" separator="," open="(" close=")">
-                        #{item.id}
-                    </foreach>
-                </when>
-                <otherwise>
-                    0=1
-                </otherwise>
-            </choose>
-        </where>
-    </update>
-
     <insert id="insert" parameterType="com.glacier.modules.sys.entity.Dict">
         insert into sys_dict (id, code, name,
                               type, parent_id, description,

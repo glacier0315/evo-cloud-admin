@@ -1,6 +1,5 @@
 package com.glacier.modules.sys.service;
 
-import com.glacier.common.core.entity.dto.IdDto;
 import com.glacier.modules.sys.entity.Dict;
 import com.glacier.modules.sys.entity.dto.dict.DictVo;
 
@@ -29,10 +28,10 @@ public interface DictService {
     int save(Dict record);
 
     /**
-     * 根据Id批量删除
+     * 根据Id删除
      *
-     * @param idDtos
-     * @return
+     * @param id 待删除id
+     * @return 删除记录数
      */
-    int batchDelete(List<IdDto> idDtos);
+    int delete(String id);
 }

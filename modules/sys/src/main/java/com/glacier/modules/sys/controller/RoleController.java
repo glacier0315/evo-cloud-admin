@@ -1,6 +1,7 @@
 package com.glacier.modules.sys.controller;
 
 import com.glacier.common.core.entity.Result;
+import com.glacier.common.core.entity.dto.IdDto;
 import com.glacier.common.core.entity.page.PageRequest;
 import com.glacier.common.core.entity.page.PageResponse;
 import com.glacier.modules.sys.entity.dto.role.RoleForm;
@@ -73,14 +74,14 @@ public class RoleController {
     /**
      * 删除指定角色
      *
-     * @param id
+     * @param idDto
      * @return
      */
     @ApiOperation("删除指定角色")
-    @DeleteMapping("/delete")
-    public Result<Integer> delete(String id) {
+    @PostMapping("/delete")
+    public Result<Integer> delete(@RequestBody IdDto idDto) {
         return Result.ok(
-                this.roleService.delete(id));
+                this.roleService.delete(idDto.getId()));
     }
 
     /**

@@ -15,8 +15,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-
 /**
  * 配置管理
  *
@@ -60,12 +58,12 @@ public class ConfigController {
     /**
      * 删除指定用户
      *
-     * @param idDtos
+     * @param idDto
      * @return
      */
     @PostMapping("/delete")
-    public Result<Integer> delete(@RequestBody List<IdDto> idDtos) {
+    public Result<Integer> delete(@RequestBody IdDto idDto) {
         return Result.ok(
-                this.configService.batchDelete(idDtos));
+                this.configService.delete(idDto.getId()));
     }
 }

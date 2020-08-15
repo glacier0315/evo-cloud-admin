@@ -2,7 +2,6 @@ package com.glacier.modules.sys.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.glacier.common.core.entity.dto.IdDto;
 import com.glacier.common.core.entity.page.PageRequest;
 import com.glacier.common.core.entity.page.PageResponse;
 import com.glacier.modules.sys.entity.Config;
@@ -10,6 +9,7 @@ import com.glacier.modules.sys.mapper.ConfigMapper;
 import com.glacier.modules.sys.service.ConfigService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -47,16 +47,16 @@ public class ConfigServiceImpl implements ConfigService {
     }
 
     /**
-     * 根据id批量删除
+     * 根据id删除
      *
-     * @param idDtos
+     * @param id
      * @return
      */
     @Transactional(rollbackFor = {})
     @Override
-    public int batchDelete(List<IdDto> idDtos) {
-        if (idDtos != null && !idDtos.isEmpty()) {
-            return this.configMapper.deleteBatchIds(idDtos);
+    public int delete(String id) {
+        if (StringUtils.isNotEmpty(id)) {
+            return this.configMapper.deleteByPrimaryKey(id);
         }
         return 0;
     }

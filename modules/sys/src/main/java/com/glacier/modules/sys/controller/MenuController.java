@@ -1,6 +1,7 @@
 package com.glacier.modules.sys.controller;
 
 import com.glacier.common.core.entity.Result;
+import com.glacier.common.core.entity.dto.IdDto;
 import com.glacier.modules.sys.entity.dto.menu.MenuForm;
 import com.glacier.modules.sys.entity.dto.menu.MenuVo;
 import com.glacier.modules.sys.entity.dto.menu.Router;
@@ -62,14 +63,14 @@ public class MenuController {
     /**
      * 删除指定菜单
      *
-     * @param id
+     * @param idDto
      * @return
      */
     @ApiOperation("删除指定菜单")
-    @DeleteMapping("/delete")
-    public Result<Integer> delete(String id) {
+    @PostMapping("/delete")
+    public Result<Integer> delete(@RequestBody IdDto idDto) {
         return Result.ok(
-                this.menuService.delete(id));
+                this.menuService.delete(idDto.getId()));
     }
 
     /**

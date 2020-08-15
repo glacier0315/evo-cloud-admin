@@ -1,9 +1,6 @@
 package com.glacier.modules.sys.mapper;
 
-import com.glacier.common.core.entity.dto.IdDto;
 import com.glacier.modules.sys.entity.RoleDept;
-
-import java.util.List;
 
 /**
  * 角色单位关联关系 数据层
@@ -20,14 +17,6 @@ public interface RoleDeptMapper {
      * @return
      */
     int deleteByDeptId(String deptId);
-
-    /**
-     * 批量删除
-     *
-     * @param list 待删除deptId集合
-     * @return 删除记录数
-     */
-    int deleteByDeptIds(List<IdDto> list);
 
     /**
      * 删除 角色单位关联关系

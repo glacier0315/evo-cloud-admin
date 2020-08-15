@@ -211,10 +211,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public int delete(String id) {
         if (StringUtils.isNotEmpty(id)) {
-            int update = this.userMapper.deleteByPrimaryKey(id);
             // 删除用户角色关系
             this.userRoleMapper.deleteByUserId(id);
-            return update;
+            return this.userMapper.deleteByPrimaryKey(id);
         }
         return 0;
     }

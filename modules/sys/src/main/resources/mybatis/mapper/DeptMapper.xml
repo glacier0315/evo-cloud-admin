@@ -31,27 +31,12 @@
     <sql id="joins">
     </sql>
 
-    <update id="deleteByPrimaryKey" parameterType="java.lang.String">
-        update sys_dept a
-        set a.del_flag='1'
-        where id = #{id}
-    </update>
-
-    <update id="deleteBatchIds">
+    <update id="deleteByPrimaryKey">
         update sys_dept a
         set a.del_flag='1'
         <where>
-            <choose>
-                <when test="list != null and list.size() > 0">
-                    and id in
-                    <foreach collection="list" item="item" separator="," open="(" close=")">
-                        #{item.id}
-                    </foreach>
-                </when>
-                <otherwise>
-                    0=1
-                </otherwise>
-            </choose>
+            a.del_flag='0'
+            and (a.id =#{id} or a.parent_ids like concat('%,',#{id},',%') )
         </where>
     </update>
 

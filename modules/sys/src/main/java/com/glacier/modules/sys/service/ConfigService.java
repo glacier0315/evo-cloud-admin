@@ -1,11 +1,8 @@
 package com.glacier.modules.sys.service;
 
-import com.glacier.common.core.entity.dto.IdDto;
 import com.glacier.common.core.entity.page.PageRequest;
 import com.glacier.common.core.entity.page.PageResponse;
 import com.glacier.modules.sys.entity.Config;
-
-import java.util.List;
 
 /**
  * @author glacier
@@ -32,10 +29,10 @@ public interface ConfigService {
     int save(Config record);
 
     /**
-     * 根据Id批量删除
+     * 根据Id删除
      *
-     * @param idDtos
-     * @return
+     * @param id 待删除id
+     * @return 删除记录数
      */
-    int batchDelete(List<IdDto> idDtos);
+    int delete(String id);
 }

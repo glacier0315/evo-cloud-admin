@@ -57,13 +57,13 @@ public class DictController {
     /**
      * 删除指定字典
      *
-     * @param idDtos
+     * @param idDto
      * @return
      */
     @ApiOperation("删除指定字典")
     @PostMapping("/delete")
-    public Result<Integer> delete(@RequestBody List<IdDto> idDtos) {
+    public Result<Integer> delete(@RequestBody IdDto idDto) {
         return Result.ok(
-                this.dictService.batchDelete(idDtos));
+                this.dictService.delete(idDto.getId()));
     }
 }

@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class UserDetailsDto implements UserDetails, CredentialsContainer {
+public class UserDetailsVo implements UserDetails, CredentialsContainer {
 
     private static final long serialVersionUID = 7919080375772006733L;
     private String userId;
@@ -48,7 +48,7 @@ public class UserDetailsDto implements UserDetails, CredentialsContainer {
         if (o == null || this.getClass() != o.getClass()) {
             return false;
         }
-        UserDetailsDto that = (UserDetailsDto) o;
+        UserDetailsVo that = (UserDetailsVo) o;
         return this.userId.equals(that.userId) &&
                 this.username.equals(that.username);
     }

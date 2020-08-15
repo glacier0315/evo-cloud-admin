@@ -74,7 +74,7 @@ public class CunstomWebResponseExceptionTranslator implements WebResponseExcepti
             headers.set("WWW-Authenticate", String.format("%s %s", "Bearer", e.getSummary()));
         }
         CustomOAuth2Exception exception = new CustomOAuth2Exception(e.getMessage(), e);
-        return new ResponseEntity<>(exception, headers, HttpStatus.valueOf(status));
+        return new ResponseEntity<>(exception, headers, HttpStatus.OK);
     }
 
 

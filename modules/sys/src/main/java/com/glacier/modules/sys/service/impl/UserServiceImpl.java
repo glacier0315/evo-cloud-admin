@@ -7,6 +7,7 @@ import com.glacier.common.core.entity.dto.vo.RoleDetailsDto;
 import com.glacier.common.core.entity.dto.vo.UserDetailsDto;
 import com.glacier.common.core.entity.page.PageRequest;
 import com.glacier.common.core.entity.page.PageResponse;
+import com.glacier.common.core.exception.BaseException;
 import com.glacier.common.core.exception.SystemErrorType;
 import com.glacier.common.core.utils.IdGen;
 import com.glacier.modules.sys.common.Constant;
@@ -52,15 +53,15 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public User findById(String id) {
+    public User findById(final String id) {
         return this.userMapper.selectByPrimaryKey(id)
-                .orElseThrow(() -> new IllegalArgumentException("该用户不存在!"));
+                .orElseThrow(() -> new BaseException("sys", "500", "该用户不存在!", new String[]{id}));
     }
 
     @Override
-    public User findUserByUsername(String username) {
+    public User findUserByUsername(final String username) {
         return this.userMapper.selectOneByUsername(username)
-                .orElseThrow(() -> new IllegalArgumentException("该用户不存在!"));
+                .orElseThrow(() -> new BaseException("sys", "500", "该用户不存在!", new String[]{username}));
     }
 
     @Override
@@ -142,10 +143,11 @@ public class UserServiceImpl implements UserService {
                 user.getPassword())) {
             return Result.error("原始密码不正确！");
         }
+        user.preUpdate();
         // 加密密码
         user.setPassword(
                 this.passwordEncoder.encode(userPasswordForm.getNewPassword()));
-        update = this.userMapper.updateByPrimaryKey(user);
+        update = this.userMapper.updatePasswordByPrimaryKey(user);
         return Result.ok("修改成功！", update);
     }
 
@@ -156,9 +158,10 @@ public class UserServiceImpl implements UserService {
                 || StringUtils.isEmpty(userProfileForm.getId())) {
             return Result.error(SystemErrorType.ARGUMENT_NOT_VALID);
         }
+        User user = this.modelMapper.map(userProfileForm, User.class);
+        user.preUpdate();
         return Result.ok("修改成功！",
-                this.userMapper.updateProfileByPrimaryKey(
-                        this.modelMapper.map(userProfileForm, User.class)));
+                this.userMapper.updateProfileByPrimaryKey(user));
     }
 
     @Transactional(rollbackFor = {})
@@ -168,9 +171,10 @@ public class UserServiceImpl implements UserService {
                 || StringUtils.isEmpty(userAvatarForm.getId())) {
             return Result.error(SystemErrorType.ARGUMENT_NOT_VALID);
         }
+        User user = this.modelMapper.map(userAvatarForm, User.class);
+        user.preUpdate();
         return Result.ok("修改成功！",
-                this.userMapper.updateAvatarByPrimaryKey(
-                        this.modelMapper.map(userAvatarForm, User.class)));
+                this.userMapper.updateAvatarByPrimaryKey(user));
     }
 
     /**

@@ -96,6 +96,14 @@
         where id = #{id}
     </update>
 
+    <update id="updatePasswordByPrimaryKey">
+        update sys_user
+        set password    = #{password},
+            update_by   = #{updateBy},
+            update_date = #{updateDate}
+        where id = #{id}
+    </update>
+
     <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
         select
         <include refid="base_columns"/>

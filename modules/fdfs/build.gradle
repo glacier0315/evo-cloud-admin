@@ -1,21 +1,11 @@
-apply plugin: 'org.springframework.boot'
-apply plugin: 'io.spring.dependency-management'
-
-dependencyManagement {
-    // 导入依赖管理
-    imports {
-        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
-        mavenBom "com.alibaba.cloud:spring-cloud-alibaba-dependencies:${springCloudAlibabaVersion}"
-    }
-}
-
 bootJar {
     baseName("eboot-fdfs")
 }
 
 dependencies {
-    implementation project(':common:core')
-
+    // 本地依赖
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    
     implementation("com.github.tobato:fastdfs-client:1.27.2") {
         exclude group: 'commons-io', module: 'commons-io'
     }

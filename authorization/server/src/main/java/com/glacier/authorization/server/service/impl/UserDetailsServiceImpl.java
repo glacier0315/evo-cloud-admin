@@ -2,9 +2,10 @@ package com.glacier.authorization.server.service.impl;
 
 
 import com.glacier.authorization.server.consumer.UserService;
-import com.glacier.authorization.server.entity.dto.UserDetailsDto;
+import com.glacier.authorization.server.entity.dto.UserDetailsVo;
 import com.glacier.common.core.entity.Result;
 import com.glacier.common.core.entity.dto.vo.RoleDetailsDto;
+import com.glacier.common.core.entity.dto.vo.UserDetailsDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,15 +38,15 @@ public class UserDetailsServiceImpl implements UserDetailsService {
      * @throws UsernameNotFoundException
      */
     @Override
-    public UserDetailsDto loadUserByUsername(String username) throws UsernameNotFoundException {
+    public UserDetailsVo loadUserByUsername(String username) throws UsernameNotFoundException {
         log.info("load user by username :{}", username);
-        Result<com.glacier.common.core.entity.dto.vo.UserDetailsDto> result = this.userService.findByUsername(username);
-        com.glacier.common.core.entity.dto.vo.UserDetailsDto details = result.getData();
+        Result<UserDetailsDto> result = this.userService.findByUsername(username);
+        UserDetailsDto details = result.getData();
         if (Result.SUCCUSS.equals(result.getCode())
                 && details != null
                 && details.getId() != null
                 && !details.getId().isEmpty()) {
-            UserDetailsDto userDetailsDto = new UserDetailsDto();
+            UserDetailsVo userDetailsDto = new UserDetailsVo();
             userDetailsDto.setUserId(details.getId());
             userDetailsDto.setUsername(details.getUsername());
             userDetailsDto.setPassword(details.getPassword());

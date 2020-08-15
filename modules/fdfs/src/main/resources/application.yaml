@@ -6,6 +6,11 @@ spring:
       enabled: true
       max-file-size: 100MB
       max-request-size: 200MB
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          public-key-location: classpath:pubkey.pub
 
 
 # 分布式文件系统FDFS配置
@@ -39,3 +44,20 @@ management:
   endpoint:
     health:
       show-details: always
+
+
+
+## 自定义
+settings:
+  security:
+    permit-all:
+      - /login/**
+      - /logout
+      - /favicon.ico
+      - /static/**
+      - /webjars/**
+      - /actuator/**
+      - /druid/**
+      - /swagger-ui.html
+      - /swagger-resources/**
+      - /v2/api-docs

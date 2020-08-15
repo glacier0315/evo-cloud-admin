@@ -45,4 +45,13 @@ public interface UserMapper extends BaseMapper<User, String> {
      * @return
      */
     int updateAvatarByPrimaryKey(User record);
+
+
+    /**
+     * 更新密码
+     *
+     * @param record
+     * @return
+     */
+    int updatePasswordByPrimaryKey(User record);
 }

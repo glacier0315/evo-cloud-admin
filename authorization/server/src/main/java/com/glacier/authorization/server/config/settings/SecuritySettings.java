@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author glacier
@@ -28,10 +29,8 @@ public class SecuritySettings implements Serializable {
      * @return
      */
     public String[] permitAll2Array() {
-        String[] strings = new String[0];
-        if (this.permitAll != null && !this.permitAll.isEmpty()) {
-            strings = this.permitAll.toArray(strings);
-        }
-        return strings;
+        return Optional.ofNullable(this.permitAll)
+                .map(list -> list.toArray(new String[0]))
+                .orElseGet(() -> new String[0]);
     }
 }

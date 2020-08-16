@@ -60,12 +60,10 @@ public class UserDetailsVo implements UserDetails, CredentialsContainer {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        Set<SimpleGrantedAuthority> authorities = new HashSet<>(1);
-        if (this.roles != null && !this.roles.isEmpty()) {
-            authorities = this.roles.stream()
-                    .map(SimpleGrantedAuthority::new)
-                    .collect(Collectors.toSet());
-        }
-        return authorities;
+        return Optional.ofNullable(this.roles)
+                .orElseGet(ArrayList::new)
+                .stream()
+                .map(SimpleGrantedAuthority::new)
+                .collect(Collectors.toSet());
     }
 }

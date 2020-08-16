@@ -55,8 +55,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                             .orElseGet(ArrayList::new)
                             .stream()
                             .map(RoleDetailsDto::getCode)
-                            .collect(Collectors.toList())
-            );
+                            .collect(Collectors.toList()));
             userDetailsDto.setEnabled(true);
             userDetailsDto.setAccountNonExpired(true);
             userDetailsDto.setAccountNonLocked(true);

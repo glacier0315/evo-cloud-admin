@@ -18,6 +18,7 @@ rootProject.name = 'eboot-platform'
 
 // 引入 common
 include 'common:core'
+include 'common:security'
 
 
 // 引入 auth

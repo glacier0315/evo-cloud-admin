@@ -17,7 +17,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @EnableFeignClients("com.glacier.**.consumer")
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
-public class FeignConfig {
+public class CustomFeignConfig {
 
     /**
      * 修改Feign日志输出级别

@@ -2,7 +2,7 @@ package com.glacier.common.security.utils;
 
 import com.glacier.common.core.entity.Result;
 import com.glacier.common.core.utils.StringUtils;
-import com.glacier.common.security.consumer.UserService;
+import com.glacier.common.security.consumer.UserConsumerService;
 import com.glacier.common.security.entity.dto.UserDetailsDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
@@ -46,7 +46,7 @@ public class SecurityUtils {
         Result<UserDetailsDto> result = null;
         String username = getUsername();
         if (StringUtils.isEmpty(username)) {
-            UserService userService = SpringContextHolder.getBean(UserService.class);
+            UserConsumerService userService = SpringContextHolder.getBean(UserConsumerService.class);
             result = userService.findByUsername(username);
             return result.getData();
         }

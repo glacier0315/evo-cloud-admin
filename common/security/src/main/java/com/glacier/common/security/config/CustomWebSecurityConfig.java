@@ -6,16 +6,14 @@ import com.glacier.common.security.handler.CustomAuthenticationEntryPoint;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.BeanIds;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -43,13 +41,9 @@ import org.springframework.web.client.RestTemplate;
  * @date 2019-08-04 10:03
  */
 @Configuration
-@EnableWebSecurity
-@EnableConfigurationProperties(SecuritySettings.class)
-@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
-public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+public class CustomWebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final SecuritySettings securitySettings;
     private final JwtDecoder jwtDecoder;
 
     /**
@@ -70,7 +64,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeRequests(authorize -> {
                     authorize
-                            .antMatchers(this.securitySettings.permitAll2Array())
+                            .antMatchers(this.securitySettings().permitAll2Array())
                             .permitAll()
                             .anyRequest()
                             .authenticated();
@@ -102,6 +96,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
+    }
+
+
+    /**
+     * @return
+     */
+    @Bean
+    @ConfigurationProperties(prefix = "settings.security")
+    public SecuritySettings securitySettings() {
+        return new SecuritySettings();
     }
 
     /**
@@ -166,6 +170,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     /**
      * 实例化 RestTemplate
+     *
      * @return
      */
     @Bean

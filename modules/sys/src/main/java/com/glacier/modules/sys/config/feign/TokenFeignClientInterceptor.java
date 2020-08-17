@@ -39,7 +39,7 @@ public class TokenFeignClientInterceptor implements RequestInterceptor {
     /**
      * 认证服务器客户端reg id
      */
-    private final String feignClientId = "uas";
+    private final String feignClientId = "uas_client";
     /**
      * 消息头 令牌前缀
      */

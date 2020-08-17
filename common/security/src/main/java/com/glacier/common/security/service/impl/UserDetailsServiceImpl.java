@@ -2,7 +2,7 @@ package com.glacier.common.security.service.impl;
 
 
 import com.glacier.common.core.entity.Result;
-import com.glacier.common.security.consumer.UserService;
+import com.glacier.common.security.consumer.UserConsumerService;
 import com.glacier.common.security.entity.dto.RoleDetailsDto;
 import com.glacier.common.security.entity.dto.UserDetailsDto;
 import com.glacier.common.security.entity.dto.UserDetailsVo;
@@ -28,7 +28,7 @@ import java.util.stream.Collectors;
 @Service("userDetailsService")
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class UserDetailsServiceImpl implements UserDetailsService {
-    private final UserService userService;
+    private final UserConsumerService userService;
 
     /**
      * 根据用户名查用户

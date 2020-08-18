@@ -76,7 +76,6 @@ public class TokenFeignClientInterceptor implements RequestInterceptor {
         template.header(HttpHeaders.AUTHORIZATION, token);
     }
 
-
     /**
      * 获取token
      *
@@ -85,16 +84,11 @@ public class TokenFeignClientInterceptor implements RequestInterceptor {
      */
     public OAuth2AccessToken acquireAccessToken(final String clientId) {
         final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        OAuth2AuthorizedClient oAuth2AuthorizedClient =
-                this.authorizedClientService.loadAuthorizedClient(
-                        clientId,
-                        Optional.ofNullable(authentication)
-                                .map(Authentication::getName)
-                                .orElse("")
-                );
-        log.debug("获取客户端是: {}", oAuth2AuthorizedClient);
-        OAuth2AccessToken accessToken = Optional.ofNullable(oAuth2AuthorizedClient)
-                .map(OAuth2AuthorizedClient::getAccessToken)
+        OAuth2AccessToken accessToken = Optional.ofNullable(authentication)
+                .map(e ->
+                        this.authorizedClientService.loadAuthorizedClient(clientId, e.getName())
+                                .getAccessToken()
+                )
                 .orElseGet(() -> {
                     final ServletRequestAttributes servletRequestAttributes =
                             (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();

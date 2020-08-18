@@ -3,17 +3,19 @@ package com.glacier.common.security.config;
 import com.glacier.common.security.config.settings.SecuritySettings;
 import com.glacier.common.security.handler.CustomAccessDeniedHandler;
 import com.glacier.common.security.handler.CustomAuthenticationEntryPoint;
+import com.glacier.common.security.handler.CustomLogoutSuccessHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.BeanIds;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -41,6 +43,8 @@ import org.springframework.web.client.RestTemplate;
  * @date 2019-08-04 10:03
  */
 @Configuration
+@EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class CustomWebSecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -103,7 +107,7 @@ public class CustomWebSecurityConfig extends WebSecurityConfigurerAdapter {
      * @return
      */
     @Bean
-    @ConfigurationProperties(prefix = "settings.security")
+    @ConditionalOnMissingBean
     public SecuritySettings securitySettings() {
         return new SecuritySettings();
     }
@@ -166,6 +170,17 @@ public class CustomWebSecurityConfig extends WebSecurityConfigurerAdapter {
     @ConditionalOnMissingBean
     public AuthenticationEntryPoint authenticationEntryPoint() {
         return new CustomAuthenticationEntryPoint();
+    }
+
+    /**
+     * 自定义退出处理类
+     *
+     * @return
+     */
+    @Bean
+    @ConditionalOnMissingBean
+    public CustomLogoutSuccessHandler logoutSuccessHandler() {
+        return new CustomLogoutSuccessHandler();
     }
 
     /**

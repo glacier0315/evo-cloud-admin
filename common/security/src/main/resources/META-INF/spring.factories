@@ -1,5 +1,4 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  com.glacier.common.security.config.feign.TokenFeignClientInterceptor,\
   com.glacier.common.security.service.impl.UserDetailsServiceImpl,\
   com.glacier.common.security.handler.CustomAccessDeniedHandler,\
   com.glacier.common.security.handler.CustomAuthenticationEntryPoint,\

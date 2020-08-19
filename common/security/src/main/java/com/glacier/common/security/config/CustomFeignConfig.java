@@ -1,10 +1,6 @@
 package com.glacier.common.security.config;
 
-import feign.Logger;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.openfeign.EnableFeignClients;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
@@ -16,18 +12,6 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 @EnableFeignClients("com.glacier.**.consumer")
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class CustomFeignConfig {
-
-    /**
-     * 修改Feign日志输出级别
-     *
-     * @return
-     */
-    @Bean
-    Logger.Level feignLevel() {
-        return Logger.Level.FULL;
-    }
-
 
 }

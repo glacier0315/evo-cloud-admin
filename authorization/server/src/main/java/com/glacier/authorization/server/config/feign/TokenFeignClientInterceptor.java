@@ -52,28 +52,22 @@ public class TokenFeignClientInterceptor implements RequestInterceptor {
      */
     @Override
     public void apply(RequestTemplate template) {
-        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-        String token = Optional.ofNullable(attributes)
-                .map(servletRequestAttributes -> {
-                    String header = servletRequestAttributes.getRequest()
-                            .getHeader(HttpHeaders.AUTHORIZATION);
-                    log.info("从请求头获取令牌： {}", header);
-                    return header;
-                })
-                .orElseGet(() -> {
-                    OAuth2AccessToken accessToken = this.acquireAccessToken(this.feignClientId);
-                    String token1 = Optional.ofNullable(accessToken)
-                            .map(oAuth2AccessToken ->
-                                    String.format("%s %s", BEARER, accessToken.getTokenValue()))
-                            .orElse("");
-                    log.info("从认证服务器获取令牌： {}", token1);
-                    return token1;
-                });
+        String token = Optional.ofNullable((ServletRequestAttributes) RequestContextHolder.getRequestAttributes())
+                .map(attributes ->
+                        attributes.getRequest().getHeader(HttpHeaders.AUTHORIZATION))
+                .orElse("");
+        // 请求中没有令牌，重新获取客户端令牌
+        if (!token.contains(BEARER)) {
+            token = Optional.ofNullable(this.acquireAccessToken(feignClientId))
+                    .map(accessToken ->
+                            String.format("%s %s", BEARER,
+                                    accessToken.getTokenValue()))
+                    .orElse("");
+        }
 
         //添加token
         template.header(HttpHeaders.AUTHORIZATION, token);
     }
-
 
     /**
      * 获取token
@@ -82,37 +76,35 @@ public class TokenFeignClientInterceptor implements RequestInterceptor {
      * @return
      */
     public OAuth2AccessToken acquireAccessToken(final String clientId) {
+        OAuth2AccessToken oAuth2AccessToken = null;
         final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        OAuth2AuthorizedClient oAuth2AuthorizedClient =
-                this.authorizedClientService.loadAuthorizedClient(
-                        clientId,
-                        Optional.ofNullable(authentication)
-                                .map(Authentication::getName)
-                                .orElse("")
-                );
-        log.debug("获取客户端是: {}", oAuth2AuthorizedClient);
-        OAuth2AccessToken accessToken = Optional.ofNullable(oAuth2AuthorizedClient)
-                .map(OAuth2AuthorizedClient::getAccessToken)
-                .orElseGet(() -> {
-                    final ServletRequestAttributes servletRequestAttributes =
-                            (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-                    assert servletRequestAttributes != null;
-                    OAuth2AuthorizedClient authorizedClient = this.oAuth2AuthorizedClientManager.authorize(
-                            OAuth2AuthorizeRequest
-                                    .withClientRegistrationId(clientId)
-                                    .principal(authentication)
-                                    .attributes(attrs -> {
-                                        attrs.put(HttpServletRequest.class.getName(),
-                                                servletRequestAttributes.getRequest());
-                                        attrs.put(HttpServletResponse.class.getName(),
-                                                servletRequestAttributes.getResponse());
-                                    })
-                                    .build()
-                    );
-                    assert authorizedClient != null;
-                    return authorizedClient.getAccessToken();
-                });
-        log.debug("获取客户端令牌是: {}", accessToken);
-        return accessToken;
+        if (authentication != null) {
+            OAuth2AuthorizedClient oAuth2AuthorizedClient =
+                    this.authorizedClientService.loadAuthorizedClient(clientId, authentication.getName());
+            if (oAuth2AuthorizedClient != null) {
+                oAuth2AccessToken = oAuth2AuthorizedClient.getAccessToken();
+            }
+            log.info("从本地获取令牌: {}", oAuth2AccessToken);
+
+            if (oAuth2AccessToken == null || oAuth2AccessToken.getTokenValue().isEmpty()) {
+                final ServletRequestAttributes servletRequestAttributes =
+                        (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+                assert servletRequestAttributes != null;
+                OAuth2AuthorizeRequest authorizeRequest =
+                        OAuth2AuthorizeRequest
+                                .withClientRegistrationId(clientId)
+                                .principal(authentication)
+                                .attributes(attrs -> {
+                                    attrs.put(HttpServletRequest.class.getName(), servletRequestAttributes.getRequest());
+                                    attrs.put(HttpServletResponse.class.getName(), servletRequestAttributes.getResponse());
+                                })
+                                .build();
+                OAuth2AuthorizedClient authorizedClient = this.oAuth2AuthorizedClientManager.authorize(authorizeRequest);
+                assert authorizedClient != null;
+                oAuth2AccessToken = authorizedClient.getAccessToken();
+                log.debug("获取客户端令牌是: {}", oAuth2AccessToken);
+            }
+        }
+        return oAuth2AccessToken;
     }
 }

@@ -2,8 +2,8 @@ package com.glacier.common.security.consumer;
 
 import com.glacier.common.core.constant.ServiceNameConstants;
 import com.glacier.common.core.entity.Result;
-import com.glacier.common.core.entity.dto.vo.UserDetailsDto;
 import com.glacier.common.security.consumer.fallback.UserConsumerServiceFallbackImpl;
+import com.glacier.common.security.entity.dto.UserDetailsDto;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,5 +25,5 @@ public interface UserConsumerService {
      * @return
      */
     @GetMapping(value = "/user")
-    Result<UserDetailsDto> findByUsername(@RequestParam String username);
+    Result<UserDetailsDto> findByUsername(@RequestParam("username") String username);
 }

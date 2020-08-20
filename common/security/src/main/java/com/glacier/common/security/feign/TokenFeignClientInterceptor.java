@@ -1,4 +1,4 @@
-package com.glacier.common.security.config.feign;
+package com.glacier.common.security.feign;
 
 import feign.RequestInterceptor;
 import feign.RequestTemplate;
@@ -14,6 +14,7 @@ import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClientManager;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
 import org.springframework.security.oauth2.core.OAuth2AccessToken;
+import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -29,6 +30,7 @@ import java.util.Optional;
  * @date 2020-07-28 21:40
  */
 @Slf4j
+@Component
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class TokenFeignClientInterceptor implements RequestInterceptor {
 

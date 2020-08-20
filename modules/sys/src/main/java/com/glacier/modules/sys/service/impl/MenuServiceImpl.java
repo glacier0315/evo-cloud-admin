@@ -1,7 +1,7 @@
 package com.glacier.modules.sys.service.impl;
 
+import com.glacier.common.core.constant.SysConstants;
 import com.glacier.common.core.utils.TreeBuildFactory;
-import com.glacier.modules.sys.common.Constant;
 import com.glacier.modules.sys.entity.Menu;
 import com.glacier.modules.sys.entity.dto.menu.MenuForm;
 import com.glacier.modules.sys.entity.dto.menu.MenuVo;
@@ -99,7 +99,7 @@ public class MenuServiceImpl implements MenuService {
         if (userId == null || userId.isEmpty()) {
             return menuList;
         }
-        if (Constant.ADMIN_ID.equals(userId)) {
+        if (SysConstants.SYS_USER_ID.equals(userId)) {
             menuList = this.findAllList();
         } else {
             menuList = this.modelMapper.map(
@@ -122,7 +122,7 @@ public class MenuServiceImpl implements MenuService {
             return new HashSet<>(1);
         }
         Set<String> permissions = null;
-        if (Constant.ADMIN_ID.equals(userId)) {
+        if (SysConstants.SYS_USER_ID.equals(userId)) {
             permissions = this.menuMapper.findAllPermissions();
         } else {
             permissions = this.menuMapper.findPermissionsByUserId(userId);

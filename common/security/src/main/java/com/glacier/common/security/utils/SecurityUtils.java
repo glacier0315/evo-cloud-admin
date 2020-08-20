@@ -1,16 +1,13 @@
 package com.glacier.common.security.utils;
 
-import com.glacier.common.core.entity.Result;
-import com.glacier.common.core.utils.StringUtils;
-import com.glacier.common.security.consumer.UserConsumerService;
-import com.glacier.common.security.entity.dto.UserDetailsDto;
+import com.glacier.common.core.constant.CommonConstant;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.jwt.Jwt;
 
+import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -29,57 +26,39 @@ public class SecurityUtils {
     /**
      * 获取当前用户ID
      *
-     * @return
+     * @return 当前用户ID
      */
     public static String geUserId() {
-        return Optional.ofNullable(geUser())
-                .map(UserDetailsDto::getId)
-                .orElseGet(null);
-    }
-
-    /**
-     * 获取当前用户
-     *
-     * @return
-     */
-    public static UserDetailsDto geUser() {
-        Result<UserDetailsDto> result = null;
-        String username = getUsername();
-        if (StringUtils.isEmpty(username)) {
-            UserConsumerService userService = SpringContextHolder.getBean(UserConsumerService.class);
-            result = userService.findByUsername(username);
-            return result.getData();
-        }
-        return null;
+        return (String) getClaims().get(CommonConstant.OAUTH_USER_ID);
     }
 
     /**
      * 获取当前用户名
      *
-     * @return
+     * @return 当前用户名
      */
     public static String getUsername() {
-        return (String) getClaims().get("user_name");
+        return (String) getClaims().get(CommonConstant.OAUTH_USERNAME);
     }
 
     /**
-     * 获取当前用户名
+     * 获取令牌中的属性 键值对
      *
-     * @return
+     * @return 令牌中的属性 键值对
      */
     public static Map<String, Object> getClaims() {
-        return  ((Jwt) Objects.requireNonNull(getAuthentication()).getPrincipal()).getClaims();
-    }
-
-    /**
-     * 获取当前登录信息
-     *
-     * @return
-     */
-    public static Authentication getAuthentication() {
-        Authentication authentication = SecurityContextHolder.getContext()
-                .getAuthentication();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         log.info("authentication: {}", authentication);
-        return authentication;
+        return Optional.ofNullable(authentication)
+                .flatMap(auth -> {
+                    Jwt jwt = null;
+                    if (auth.getPrincipal() instanceof Jwt) {
+                        jwt = (Jwt) auth.getPrincipal();
+                    }
+                    log.info("jwt: {}", jwt);
+                    return Optional.ofNullable(jwt)
+                            .map(Jwt::getClaims);
+                })
+                .orElseGet(HashMap::new);
     }
 }

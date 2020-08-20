@@ -2,6 +2,7 @@ package com.glacier.modules.sys.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.glacier.common.core.constant.SysConstants;
 import com.glacier.common.core.entity.Result;
 import com.glacier.common.core.entity.dto.vo.RoleDetailsDto;
 import com.glacier.common.core.entity.dto.vo.UserDetailsDto;
@@ -10,7 +11,6 @@ import com.glacier.common.core.entity.page.PageResponse;
 import com.glacier.common.core.exception.BaseException;
 import com.glacier.common.core.exception.SystemErrorType;
 import com.glacier.common.core.utils.IdGen;
-import com.glacier.modules.sys.common.Constant;
 import com.glacier.modules.sys.entity.Role;
 import com.glacier.modules.sys.entity.User;
 import com.glacier.modules.sys.entity.UserRole;
@@ -206,7 +206,7 @@ public class UserServiceImpl implements UserService {
                 this.passwordEncoder.encode(
                         Optional.of(user)
                                 .map(User::getPassword)
-                                .orElse(Constant.DEFAULT_PASSWD)));
+                                .orElse(SysConstants.DEFAULT_PASSWD)));
         user.preInsert();
         return this.userMapper.insert(user);
     }

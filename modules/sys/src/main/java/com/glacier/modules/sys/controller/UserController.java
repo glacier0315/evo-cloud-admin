@@ -1,10 +1,10 @@
 package com.glacier.modules.sys.controller;
 
+import com.glacier.common.core.constant.SysConstants;
 import com.glacier.common.core.entity.Result;
 import com.glacier.common.core.entity.dto.IdDto;
 import com.glacier.common.core.entity.page.PageRequest;
 import com.glacier.common.core.entity.page.PageResponse;
-import com.glacier.modules.sys.common.Constant;
 import com.glacier.modules.sys.entity.dto.user.*;
 import com.glacier.modules.sys.service.UserService;
 import com.glacier.modules.sys.utils.SecurityUtils;
@@ -134,7 +134,7 @@ public class UserController {
     public Result<Integer> resetPwd(
             @RequestBody UserPasswordForm userPasswordForm) {
         // 设置重置密码
-        userPasswordForm.setNewPassword(Constant.DEFAULT_PASSWD);
+        userPasswordForm.setNewPassword(SysConstants.DEFAULT_PASSWD);
         return this.userService.updatePassword(userPasswordForm);
     }
 

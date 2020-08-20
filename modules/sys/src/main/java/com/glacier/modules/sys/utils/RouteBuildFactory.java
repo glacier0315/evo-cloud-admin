@@ -1,6 +1,6 @@
 package com.glacier.modules.sys.utils;
 
-import com.glacier.modules.sys.common.Constant;
+import com.glacier.common.core.constant.SysConstants;
 import com.glacier.modules.sys.entity.dto.menu.MenuVo;
 import com.glacier.modules.sys.entity.dto.menu.Meta;
 import com.glacier.modules.sys.entity.dto.menu.Router;
@@ -33,14 +33,14 @@ public class RouteBuildFactory {
                 .map(menuVos -> menuVos.stream()
                         .filter(menu ->
                                 !(menu.getType() != null
-                                        && menu.getType() == Constant.MENU_PERMISSION))
+                                        && menu.getType() == SysConstants.TYPE_BUTTON))
                         .map(menu -> {
                             Router router = new Router();
                             router.setName(menu.getName());
                             router.setPath(menu.getPath());
                             router.setComponent(
                                     Optional.ofNullable(menu.getComponent())
-                                            .orElseGet(() -> "Layout"));
+                                            .orElseGet(() -> SysConstants.LAYOUT));
                             router.setMeta(
                                     Meta.builder()
                                             .icon(menu.getIcon())
@@ -51,7 +51,7 @@ public class RouteBuildFactory {
                             if (menu.getChildren() != null
                                     && !menu.getChildren().isEmpty()) {
                                 router.setAlwaysShow(true);
-                                router.setRedirect("noRedirect");
+                                router.setRedirect(SysConstants.NO_REDIRECT);
                                 router.setChildren(buildRouters(menu.getChildren()));
                             }
                             return router;

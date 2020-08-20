@@ -13,6 +13,12 @@ public interface SysConstants {
      * 平台内系统用户的唯一标志
      */
     String SYS_USER = "admin";
+    String SYS_USER_ID = "1";
+
+    /**
+     * 默认密码
+     */
+    String DEFAULT_PASSWD = "12345678";
 
     /* 性别 start */
     /**
@@ -52,17 +58,21 @@ public interface SysConstants {
      */
     String LAYOUT = "Layout";
     /**
+     * 无跳转
+     */
+    String NO_REDIRECT = "noRedirect";
+    /**
      * 菜单类型（目录）
      */
-    String TYPE_DIR = "1";
+    int TYPE_DIR = 1;
     /**
      * 菜单类型（菜单）
      */
-    String TYPE_MENU = "2";
+    int TYPE_MENU = 2;
     /**
      * 菜单类型（权限）
      */
-    String TYPE_BUTTON = "3";
+    int TYPE_BUTTON = 3;
     /* 菜单 end */
 
 

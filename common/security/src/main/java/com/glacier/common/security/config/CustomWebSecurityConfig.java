@@ -108,7 +108,7 @@ public class CustomWebSecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Bean
     @ConditionalOnMissingBean
-    public SecuritySettings securitySettings() {
+    SecuritySettings securitySettings() {
         return new SecuritySettings();
     }
 
@@ -121,12 +121,14 @@ public class CustomWebSecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Bean
     @ConditionalOnMissingBean
-    public OAuth2AuthorizedClientManager authorizedClientManager(
+    OAuth2AuthorizedClientManager authorizedClientManager(
             ClientRegistrationRepository clientRegistrationRepository,
             OAuth2AuthorizedClientRepository authorizedClientRepository) {
 
         OAuth2AuthorizedClientProvider authorizedClientProvider =
                 OAuth2AuthorizedClientProviderBuilder.builder()
+                        .clientCredentials()
+                        .authorizationCode()
                         .password()
                         .refreshToken()
                         .build();
@@ -146,7 +148,7 @@ public class CustomWebSecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Bean
     @ConditionalOnMissingBean
-    public PasswordEncoder passwordEncoder() {
+    PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
@@ -157,7 +159,7 @@ public class CustomWebSecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Bean
     @ConditionalOnMissingBean
-    public AccessDeniedHandler accessDeniedHandler() {
+    AccessDeniedHandler accessDeniedHandler() {
         return new CustomAccessDeniedHandler();
     }
 
@@ -168,7 +170,7 @@ public class CustomWebSecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Bean
     @ConditionalOnMissingBean
-    public AuthenticationEntryPoint authenticationEntryPoint() {
+    AuthenticationEntryPoint authenticationEntryPoint() {
         return new CustomAuthenticationEntryPoint();
     }
 
@@ -179,7 +181,7 @@ public class CustomWebSecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Bean
     @ConditionalOnMissingBean
-    public CustomLogoutSuccessHandler logoutSuccessHandler() {
+    CustomLogoutSuccessHandler logoutSuccessHandler() {
         return new CustomLogoutSuccessHandler();
     }
 
@@ -191,7 +193,7 @@ public class CustomWebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     @LoadBalanced
     @ConditionalOnMissingBean
-    public RestTemplate restTemplate() {
+    RestTemplate restTemplate() {
         RestTemplate restTemplate = new RestTemplate();
         restTemplate.getInterceptors()
                 .add((request, body, execution) -> {

@@ -1,7 +1,7 @@
 package com.glacier.modules.sys.service.impl;
 
+import com.glacier.common.core.constant.SysConstants;
 import com.glacier.common.core.utils.TreeBuildFactory;
-import com.glacier.modules.sys.common.Constant;
 import com.glacier.modules.sys.entity.Dept;
 import com.glacier.modules.sys.entity.User;
 import com.glacier.modules.sys.entity.dto.dept.DeptForm;
@@ -63,7 +63,7 @@ public class DeptServiceImpl implements DeptService {
         if (userId == null || userId.isEmpty()) {
             return new ArrayList<>(1);
         }
-        if (Constant.ADMIN_ID.equals(userId)) {
+        if (SysConstants.SYS_USER_ID.equals(userId)) {
             return this.findAllList();
         }
         return this.modelMapper.map(

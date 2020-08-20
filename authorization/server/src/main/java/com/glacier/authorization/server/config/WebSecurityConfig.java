@@ -1,9 +1,9 @@
 package com.glacier.authorization.server.config;
 
-import com.glacier.authorization.server.config.settings.SecuritySettings;
-import com.glacier.authorization.server.oauth2.CustomAccessDeniedHandler;
-import com.glacier.authorization.server.oauth2.CustomAuthenticationEntryPoint;
-import com.glacier.authorization.server.oauth2.CustomLogoutSuccessHandler;
+import com.glacier.common.security.config.settings.SecuritySettings;
+import com.glacier.common.security.handler.CustomAccessDeniedHandler;
+import com.glacier.common.security.handler.CustomAuthenticationEntryPoint;
+import com.glacier.common.security.handler.CustomLogoutSuccessHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;

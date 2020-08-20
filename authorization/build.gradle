@@ -3,17 +3,17 @@ subprojects {
 
     dependencies {
         implementation project(':common:core')
+        implementation project(':common:security')
         // spring boot
-        implementation "com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-discovery"
-        implementation "org.springframework.cloud:spring-cloud-starter-oauth2"
-        implementation "org.springframework.boot:spring-boot-starter-web"
+        implementation("com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-discovery")
+        implementation("org.springframework.boot:spring-boot-starter-web")
 
-        implementation "com.alibaba:druid-spring-boot-starter:${druidVersion}"
+        implementation("com.alibaba:druid-spring-boot-starter:${druidVersion}")
 
         // swagger
 
-        implementation 'org.springframework.boot:spring-boot-starter-actuator'
-        runtimeOnly "org.springframework.boot:spring-boot-devtools"
-        testImplementation "org.springframework.boot:spring-boot-starter-test"
+        implementation('org.springframework.boot:spring-boot-starter-actuator')
+        runtimeOnly("org.springframework.boot:spring-boot-devtools")
+        testImplementation("org.springframework.boot:spring-boot-starter-test")
     }
 }

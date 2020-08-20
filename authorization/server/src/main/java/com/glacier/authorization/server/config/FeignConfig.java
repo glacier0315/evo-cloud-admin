@@ -1,9 +1,10 @@
 package com.glacier.authorization.server.config;
 
+import com.glacier.common.security.config.CustomFeignConfig;
 import feign.Logger;
-import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 
 /**
  * Feign配置
@@ -13,7 +14,7 @@ import org.springframework.context.annotation.Configuration;
  * @date 2020-02-10 19:33
  */
 @Configuration
-@EnableFeignClients("com.glacier.authorization.server.consumer")
+@Import(value = {CustomFeignConfig.class})
 public class FeignConfig {
 
     /**

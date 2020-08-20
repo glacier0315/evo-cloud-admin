@@ -2,9 +2,9 @@ package com.glacier.common.security.service.impl;
 
 
 import com.glacier.common.core.entity.Result;
+import com.glacier.common.core.entity.dto.vo.RoleDetailsDto;
+import com.glacier.common.core.entity.dto.vo.UserDetailsDto;
 import com.glacier.common.security.consumer.UserConsumerService;
-import com.glacier.common.security.entity.dto.RoleDetailsDto;
-import com.glacier.common.security.entity.dto.UserDetailsDto;
 import com.glacier.common.security.entity.dto.UserDetailsVo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

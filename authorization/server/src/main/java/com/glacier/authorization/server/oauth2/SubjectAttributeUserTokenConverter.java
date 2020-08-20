@@ -1,7 +1,7 @@
 package com.glacier.authorization.server.oauth2;
 
-import com.glacier.authorization.server.entity.dto.UserDetailsVo;
 import com.glacier.common.core.constant.CommonConstant;
+import com.glacier.common.security.entity.dto.UserDetailsVo;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.oauth2.provider.token.DefaultUserAuthenticationConverter;

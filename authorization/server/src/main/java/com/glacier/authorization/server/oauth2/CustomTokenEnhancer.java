@@ -1,4 +1,4 @@
-package com.glacier.authorization.server.oauth2.enhancer;
+package com.glacier.authorization.server.oauth2;
 
 import com.glacier.common.core.entity.Result;
 import com.google.common.collect.Maps;

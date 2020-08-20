@@ -54,7 +54,7 @@ public interface UserService {
      * @param username
      * @return
      */
-    UserDetailsDto loadUserByUsername(String username);
+    Result<UserDetailsDto> loadUserByUsername(String username);
 
     /**
      * 分页查询

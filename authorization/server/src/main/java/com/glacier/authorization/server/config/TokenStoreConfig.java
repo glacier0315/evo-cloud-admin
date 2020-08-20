@@ -1,6 +1,7 @@
 package com.glacier.authorization.server.config;
 
-import com.glacier.authorization.server.oauth2.enhancer.CustomTokenEnhancer;
+import com.glacier.authorization.server.oauth2.CustomTokenEnhancer;
+import com.glacier.authorization.server.oauth2.SubjectAttributeUserTokenConverter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.oauth2.authserver.AuthorizationServerProperties;
@@ -10,6 +11,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
+import org.springframework.security.oauth2.provider.token.DefaultAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
@@ -63,10 +65,14 @@ public class TokenStoreConfig {
      */
     @Bean
     public JwtAccessTokenConverter jwtAccessTokenConverter() {
-        JwtAccessTokenConverter accessTokenConverter = new JwtAccessTokenConverter();
+        JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
         // 使用非对称加密
-        accessTokenConverter.setKeyPair(this.keyPair());
-        return accessTokenConverter;
+        converter.setKeyPair(this.keyPair());
+
+        DefaultAccessTokenConverter accessTokenConverter = new DefaultAccessTokenConverter();
+        accessTokenConverter.setUserTokenConverter(new SubjectAttributeUserTokenConverter());
+        converter.setAccessTokenConverter(accessTokenConverter);
+        return converter;
     }
 
     /**

@@ -2,19 +2,17 @@ package com.glacier.modules.sys.controller;
 
 import com.glacier.common.core.entity.Result;
 import com.glacier.common.core.entity.dto.IdDto;
-import com.glacier.common.core.entity.dto.vo.UserDetailsDto;
 import com.glacier.common.core.entity.page.PageRequest;
 import com.glacier.common.core.entity.page.PageResponse;
 import com.glacier.modules.sys.common.Constant;
 import com.glacier.modules.sys.entity.dto.user.*;
 import com.glacier.modules.sys.service.UserService;
+import com.glacier.modules.sys.utils.SecurityUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -31,20 +29,6 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class UserController {
     private final UserService userService;
-
-    /**
-     * 根据用户名获取用户信息
-     *
-     * @param username
-     * @return
-     */
-    @ApiOperation("根据用户名查询用户")
-    @GetMapping(value = "/{username}")
-    public Result<UserDetailsDto> findByUsername(
-            @PathVariable("username") String username) {
-        return Result.ok(
-                this.userService.loadUserByUsername(username));
-    }
 
     /**
      * 分页查询用户
@@ -104,19 +88,13 @@ public class UserController {
     /**
      * 获取当前用户信息
      *
-     * @param authentication
      * @return
      */
     @ApiOperation("获取当前用户信息")
     @GetMapping(value = "/profile")
-    public Result<UserProfile> getProfile(Authentication authentication) {
-        log.info(">>>>>>>>>>>>>>>>>>>>>>>>");
-        log.info("当前登录用户为: {}", authentication);
-        log.info(">>>>>>>>>>>>>>>>>>>>>>>>");
-        String username = ((Jwt) authentication.getPrincipal())
-                .getClaim("user_name");
+    public Result<UserProfile> getProfile() {
         return Result.ok(
-                this.userService.findUserProfileByUsername(username));
+                this.userService.findUserProfileByUsername(SecurityUtils.getUsername()));
     }
 
     /**

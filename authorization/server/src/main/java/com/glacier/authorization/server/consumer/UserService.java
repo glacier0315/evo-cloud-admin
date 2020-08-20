@@ -6,7 +6,7 @@ import com.glacier.common.core.entity.Result;
 import com.glacier.common.core.entity.dto.vo.UserDetailsDto;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * 用户业务层
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
  * @version 1.0
  * @date 2019-08-04 21:50
  */
-@FeignClient(value = ServiceNameConstants.SYS_SERVICE, path = "/user", fallback = UserServiceFallbackImpl.class)
+@FeignClient(value = ServiceNameConstants.SYS_SERVICE, path = "/oauth", fallback = UserServiceFallbackImpl.class)
 public interface UserService {
 
     /**
@@ -24,6 +24,6 @@ public interface UserService {
      * @param username
      * @return
      */
-    @GetMapping(value = "/{username}")
-    Result<UserDetailsDto> findByUsername(@PathVariable("username") String username);
+    @GetMapping(value = "/user")
+    Result<UserDetailsDto> findByUsername(@RequestParam String username);
 }

@@ -1,5 +1,6 @@
 package com.glacier.modules.sys.service;
 
+import com.glacier.common.core.entity.Result;
 import com.glacier.common.core.entity.dto.vo.UserDetailsDto;
 import com.glacier.common.core.entity.page.PageRequest;
 import com.glacier.common.core.entity.page.PageResponse;
@@ -58,11 +59,8 @@ public class UserServiceTest {
     @Test
     public void loadUserByUsername() {
         String username = "admin";
-        UserDetailsDto user = this.userService.loadUserByUsername(username);
-        assertEquals(Optional.ofNullable(user)
-                        .orElse(new UserDetailsDto())
-                        .getUsername(),
-                username);
+        Result<UserDetailsDto> result = this.userService.loadUserByUsername(username);
+        System.out.println(result);
     }
 
     @Test

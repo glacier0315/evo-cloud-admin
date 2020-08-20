@@ -9,6 +9,16 @@ package com.glacier.common.core.constant;
  */
 public interface CommonConstant {
     /**
+     * 从令牌中获取属性
+     * 用户名
+     */
+    String OAUTH_USERNAME = "user_name";
+    /**
+     * 从令牌中获取属性
+     * 用户ID
+     */
+    String OAUTH_USER_ID = "user_id";
+    /**
      * 编码
      */
     String CHARSET_UTF_8 = "UTF-8";

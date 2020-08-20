@@ -1,14 +1,14 @@
 package com.glacier.modules.sys.utils;
 
-import com.glacier.modules.sys.entity.User;
-import com.glacier.modules.sys.service.UserService;
+import com.glacier.common.core.constant.CommonConstant;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.jwt.Jwt;
 
+import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
+import java.util.Optional;
 
 /**
  * security 工具类
@@ -26,58 +26,39 @@ public class SecurityUtils {
     /**
      * 获取当前用户ID
      *
-     * @return
+     * @return 当前用户ID
      */
     public static String geUserId() {
-        String userId = null;
-        User user = geUser();
-        if (user != null) {
-            userId = user.getId();
-        }
-        return userId;
-    }
-
-    /**
-     * 获取当前用户
-     *
-     * @return
-     */
-    public static User geUser() {
-        User user = null;
-        String username = getUsername();
-        if (username != null) {
-            UserService userService = SpringContextUtil.getBean(UserService.class);
-            user = userService.findUserByUsername(username);
-        }
-        return user;
+        return (String) getClaims().get(CommonConstant.OAUTH_USER_ID);
     }
 
     /**
      * 获取当前用户名
      *
-     * @return
+     * @return 当前用户名
      */
     public static String getUsername() {
-        return (String) getClaims().get("user_name");
+        return (String) getClaims().get(CommonConstant.OAUTH_USERNAME);
     }
 
     /**
-     * 获取当前用户名
+     * 获取令牌中的属性 键值对
      *
-     * @return
+     * @return 令牌中的属性 键值对
      */
     public static Map<String, Object> getClaims() {
-        return  ((Jwt) Objects.requireNonNull(getAuthentication()).getPrincipal()).getClaims();
-    }
-
-    /**
-     * 获取当前登录信息
-     *
-     * @return
-     */
-    public static Authentication getAuthentication() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         log.info("authentication: {}", authentication);
-        return authentication;
+        return Optional.ofNullable(authentication)
+                .flatMap(auth -> {
+                    Jwt jwt = null;
+                    if (auth.getPrincipal() instanceof Jwt) {
+                        jwt = (Jwt) auth.getPrincipal();
+                    }
+                    log.info("jwt: {}", jwt);
+                    return Optional.ofNullable(jwt)
+                            .map(Jwt::getClaims);
+                })
+                .orElseGet(HashMap::new);
     }
 }

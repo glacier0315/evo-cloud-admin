@@ -90,15 +90,21 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDetailsDto loadUserByUsername(String username) {
+    public Result<UserDetailsDto> loadUserByUsername(String username) {
+        if (StringUtils.isEmpty(username)) {
+            return Result.error("用户名为空！");
+        }
         User user = this.findUserByUsername(username);
+        if (user == null || StringUtils.isEmpty(user.getId())) {
+            return Result.error("用户不存在！");
+        }
         UserDetailsDto userDetailsDto = this.modelMapper.map(user, UserDetailsDto.class);
         userDetailsDto.setRoleDetailDtos(
                 this.modelMapper.map(
                         this.roleMapper.findByUserId(user.getId()),
                         new TypeToken<List<RoleDetailsDto>>() {
                         }.getType()));
-        return userDetailsDto;
+        return Result.ok(userDetailsDto);
     }
 
     /**

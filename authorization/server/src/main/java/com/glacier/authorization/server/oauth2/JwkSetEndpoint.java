@@ -1,4 +1,4 @@
-package com.glacier.authorization.server.oauth2.endpoint;
+package com.glacier.authorization.server.oauth2;
 
 import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;
@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.security.KeyPair;
-import java.security.Principal;
 import java.security.interfaces.RSAPublicKey;
 import java.util.Map;
 
@@ -25,7 +24,7 @@ public class JwkSetEndpoint {
 
     @GetMapping("/well-known/jwks")
     @ResponseBody
-    public Map<String, Object> getKey(Principal principal) {
+    public Map<String, Object> getKey() {
         RSAPublicKey publicKey = (RSAPublicKey) this.keyPair.getPublic();
         RSAKey key = new RSAKey.Builder(publicKey).build();
         return new JWKSet(key).toJSONObject();

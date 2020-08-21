@@ -14,7 +14,6 @@ import lombok.*;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class BaseException extends RuntimeException {
     private static final long serialVersionUID = -720171527461795332L;
     /**

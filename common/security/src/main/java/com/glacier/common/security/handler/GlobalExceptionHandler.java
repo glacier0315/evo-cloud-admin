@@ -1,4 +1,4 @@
-package com.glacier.modules.sys.handler;
+package com.glacier.common.security.handler;
 
 import com.glacier.common.core.entity.Result;
 import com.glacier.common.core.exception.BaseException;

@@ -42,10 +42,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         log.info("load user by username :{}", username);
         Result<UserDetailsDto> result = this.userService.findByUsername(username);
         UserDetailsDto details = result.getData();
-        if (Result.SUCCUSS.equals(result.getCode())
-                && details != null
-                && details.getId() != null
-                && !details.getId().isEmpty()) {
+        if (Result.SUCCUSS.equals(result.getCode())) {
             UserDetailsVo userDetailsDto = new UserDetailsVo();
             userDetailsDto.setUserId(details.getId());
             userDetailsDto.setUsername(details.getUsername());
@@ -61,8 +58,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             userDetailsDto.setAccountNonLocked(true);
             userDetailsDto.setCredentialsNonExpired(true);
             return userDetailsDto;
-        } else {
-            throw new UsernameNotFoundException("用户名或者密码不正确！");
         }
+        throw new UsernameNotFoundException(result.getMsg());
     }
 }

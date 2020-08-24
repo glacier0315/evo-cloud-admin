@@ -20,12 +20,12 @@ public class GlobalExceptionHandler {
     /**
      * 处理 认证异常
      *
-     * @param exception 异常
+     * @param baseException 异常
      * @return 异常响应
      */
     @ExceptionHandler(value = BaseException.class)
-    public Result<String> exceptionHandler(BaseException exception) {
-        log.error("异常：", exception);
-        return Result.error(exception.getCode(), exception.getMsg());
+    public Result<String> handler(BaseException baseException) {
+        log.error("异常：", baseException);
+        return Result.error(baseException.getCode(), baseException.getMsg());
     }
 }

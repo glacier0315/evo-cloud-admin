@@ -2,14 +2,12 @@ package com.glacier.modules.sys.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.glacier.common.core.constant.ServiceNameConstants;
 import com.glacier.common.core.constant.SysConstants;
 import com.glacier.common.core.entity.Result;
 import com.glacier.common.core.entity.dto.vo.RoleDetailsDto;
 import com.glacier.common.core.entity.dto.vo.UserDetailsDto;
 import com.glacier.common.core.entity.page.PageRequest;
 import com.glacier.common.core.entity.page.PageResponse;
-import com.glacier.common.core.exception.BaseException;
 import com.glacier.common.core.exception.SystemErrorType;
 import com.glacier.common.core.utils.IdGen;
 import com.glacier.modules.sys.entity.Role;
@@ -55,16 +53,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findById(final String id) {
-        return this.userMapper.selectByPrimaryKey(id)
-                .orElseThrow(() ->
-                        new BaseException(ServiceNameConstants.SYS_SERVICE, "500", "该用户不存在!", new String[]{id}));
+        return this.userMapper.selectByPrimaryKey(id);
     }
 
     @Override
     public User findUserByUsername(final String username) {
-        return this.userMapper.selectOneByUsername(username)
-                .orElseThrow(() ->
-                        new BaseException(ServiceNameConstants.SYS_SERVICE, "500", "该用户不存在!", new String[]{username}));
+        return this.userMapper.selectOneByUsername(username);
     }
 
     @Override

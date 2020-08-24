@@ -2,7 +2,6 @@ package com.glacier.common.core.mapper;
 
 import java.io.Serializable;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * 通用mapper
@@ -35,7 +34,7 @@ public interface BaseMapper<T, ID extends Serializable> {
      * @param id
      * @return
      */
-    Optional<T> selectByPrimaryKey(ID id);
+    T selectByPrimaryKey(ID id);
 
     /**
      * 查询所有

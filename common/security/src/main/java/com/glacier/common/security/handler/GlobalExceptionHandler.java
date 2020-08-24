@@ -3,6 +3,7 @@ package com.glacier.common.security.handler;
 import com.glacier.common.core.entity.Result;
 import com.glacier.common.core.exception.BaseException;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -20,12 +21,24 @@ public class GlobalExceptionHandler {
     /**
      * 处理 认证异常
      *
-     * @param exception 异常
+     * @param baseException 异常
      * @return 异常响应
      */
     @ExceptionHandler(value = BaseException.class)
-    public Result<String> exceptionHandler(BaseException exception) {
-        log.error("异常：", exception);
-        return Result.error(exception.getCode(), exception.getMsg());
+    public Result<String> handler(BaseException baseException) {
+        log.error("异常：", baseException);
+        return Result.error(baseException.getCode(), baseException.getMsg());
+    }
+
+    /**
+     * 处理 异常
+     *
+     * @param usernameNotFoundException 异常
+     * @return 异常响应
+     */
+    @ExceptionHandler(value = UsernameNotFoundException.class)
+    public Result<String> handler(UsernameNotFoundException usernameNotFoundException) {
+        log.error("异常：", usernameNotFoundException);
+        return Result.error(usernameNotFoundException.getMessage());
     }
 }

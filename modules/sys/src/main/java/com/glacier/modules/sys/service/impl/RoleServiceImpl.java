@@ -49,8 +49,7 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public RoleVo findById(String id) {
         return this.modelMapper.map(
-                this.roleMapper.selectByPrimaryKey(id)
-                        .orElseThrow(() -> new IllegalArgumentException("角色不存在!")), RoleVo.class);
+                this.roleMapper.selectByPrimaryKey(id), RoleVo.class);
     }
 
     /**

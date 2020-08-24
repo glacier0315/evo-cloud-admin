@@ -89,6 +89,8 @@ management:
 
 ## 自定义
 settings:
+  feign:
+    clientId: uas_client
   security:
     permit-all:
       - /login/**

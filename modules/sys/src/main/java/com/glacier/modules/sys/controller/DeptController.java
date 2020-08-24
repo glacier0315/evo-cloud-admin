@@ -2,10 +2,10 @@ package com.glacier.modules.sys.controller;
 
 import com.glacier.common.core.entity.Result;
 import com.glacier.common.core.entity.dto.IdDto;
+import com.glacier.common.security.utils.SecurityUtils;
 import com.glacier.modules.sys.entity.dto.dept.DeptForm;
 import com.glacier.modules.sys.entity.dto.dept.DeptVo;
 import com.glacier.modules.sys.service.DeptService;
-import com.glacier.modules.sys.utils.SecurityUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;

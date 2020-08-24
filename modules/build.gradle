@@ -3,6 +3,7 @@ subprojects {
 
     dependencies {
         implementation project(':common:core')
+        implementation project(':common:security')
         // spring boot
         implementation "com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-discovery"
         implementation "org.springframework.boot:spring-boot-starter-web"

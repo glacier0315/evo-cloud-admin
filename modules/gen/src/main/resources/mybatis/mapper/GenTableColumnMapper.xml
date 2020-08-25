@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.glacier.modules.gen.mapper.GenTableColumnMapper">
+    <resultMap id="BaseResultMap" type="com.glacier.modules.gen.entity.GenTableColumn">
+        <id column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="table_id" jdbcType="VARCHAR" property="tableId"/>
+        <result column="column_name" jdbcType="VARCHAR" property="columnName"/>
+        <result column="column_comment" jdbcType="VARCHAR" property="columnComment"/>
+        <result column="column_type" jdbcType="VARCHAR" property="columnType"/>
+        <result column="java_type" jdbcType="VARCHAR" property="javaType"/>
+        <result column="java_field" jdbcType="VARCHAR" property="javaField"/>
+        <result column="is_pk" jdbcType="CHAR" property="isPk"/>
+        <result column="is_required" jdbcType="CHAR" property="isRequired"/>
+        <result column="is_insert" jdbcType="CHAR" property="isInsert"/>
+        <result column="is_edit" jdbcType="CHAR" property="isEdit"/>
+        <result column="is_list" jdbcType="CHAR" property="isList"/>
+        <result column="is_query" jdbcType="CHAR" property="isQuery"/>
+        <result column="query_type" jdbcType="VARCHAR" property="queryType"/>
+        <result column="html_type" jdbcType="VARCHAR" property="htmlType"/>
+        <result column="dict_type" jdbcType="VARCHAR" property="dictType"/>
+        <result column="sort" jdbcType="INTEGER" property="sort"/>
+        <result column="create_by" jdbcType="VARCHAR" property="createBy"/>
+        <result column="create_date" jdbcType="TIMESTAMP" property="createDate"/>
+        <result column="update_by" jdbcType="VARCHAR" property="updateBy"/>
+        <result column="update_date" jdbcType="TIMESTAMP" property="updateDate"/>
+    </resultMap>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        delete
+        from gen_table_column
+        where id = #{id}
+    </delete>
+
+    <insert id="insert" parameterType="com.glacier.modules.gen.entity.GenTableColumn">
+        insert into gen_table_column (id, table_id, column_name,
+                                      column_comment, column_type, java_type,
+                                      java_field, is_pk, is_required,
+                                      is_insert, is_edit, is_list, is_query,
+                                      query_type, html_type, dict_type,
+                                      sort, create_by, create_date,
+                                      update_by, update_date)
+        values (#{id}, #{tableId}, #{columnName},
+                #{columnComment}, #{columnType}, #{javaType},
+                #{javaField}, #{isPk}, #{isRequired},
+                #{isInsert}, #{isEdit}, #{isList}, #{isQuery},
+                #{queryType}, #{htmlType}, #{dictType},
+                #{sort}, #{createBy}, #{createDate},
+                #{updateBy}, #{updateDate})
+    </insert>
+
+    <update id="updateByPrimaryKey" parameterType="com.glacier.modules.gen.entity.GenTableColumn">
+        update gen_table_column
+        set table_id       = #{tableId},
+            column_name    = #{columnName},
+            column_comment = #{columnComment},
+            column_type    = #{columnType},
+            java_type      = #{javaType},
+            java_field     = #{javaField},
+            is_pk          = #{isPk},
+            is_required    = #{isRequired},
+            is_insert      = #{isInsert},
+            is_edit        = #{isEdit},
+            is_list        = #{isList},
+            is_query       = #{isQuery},
+            query_type     = #{queryType},
+            html_type      = #{htmlType},
+            dict_type      = #{dictType},
+            sort           = #{sort},
+            create_by      = #{createBy},
+            create_date    = #{createDate},
+            update_by      = #{updateBy},
+            update_date    = #{updateDate}
+        where id = #{id}
+    </update>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select id,
+               table_id,
+               column_name,
+               column_comment,
+               column_type,
+               java_type,
+               java_field,
+               is_pk,
+               is_required,
+               is_insert,
+               is_edit,
+               is_list,
+               is_query,
+               query_type,
+               html_type,
+               dict_type,
+               sort,
+               create_by,
+               create_date,
+               update_by,
+               update_date
+        from gen_table_column
+        where id = #{id}
+    </select>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        select id,
+               table_id,
+               column_name,
+               column_comment,
+               column_type,
+               java_type,
+               java_field,
+               is_pk,
+               is_required,
+               is_insert,
+               is_edit,
+               is_list,
+               is_query,
+               query_type,
+               html_type,
+               dict_type,
+               sort,
+               create_by,
+               create_date,
+               update_by,
+               update_date
+        from gen_table_column
+    </select>
+</mapper>

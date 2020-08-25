@@ -1,4 +1,4 @@
-package com.glacier.modules.generator.config;
+package com.glacier.modules.gen.config;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Configuration;
@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  */
 @Configuration
 @EnableTransactionManagement
-@MapperScan("com.glacier.modules.generator.mapper")
+@MapperScan("com.glacier.modules.gen.mapper")
 public class MybatisConfig {
 
 }

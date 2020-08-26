@@ -62,7 +62,7 @@ mybatis:
   # 映射文件位置
   mapper-locations: classpath*:mybatis/mapper/**/*.xml
   #config-location:  classpath:mybatis/mybatis-config.xml
-  type-aliases-package: com.glacier.modules.sys.entity.pojo
+  type-aliases-package: com.glacier.modules.sys.entity
   configuration:
     lazy-loading-enabled: true
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

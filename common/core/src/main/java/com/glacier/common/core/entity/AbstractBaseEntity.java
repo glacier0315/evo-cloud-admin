@@ -1,11 +1,13 @@
 package com.glacier.common.core.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.glacier.common.core.utils.StringUtils;
 
+import javax.xml.bind.annotation.XmlTransient;
 import java.io.Serializable;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * 基类
@@ -23,12 +25,16 @@ public abstract class AbstractBaseEntity implements Serializable {
     /**
      * 自定义SQL（SQL标识，SQL内容）
      */
+    @JsonIgnore
+    @XmlTransient
     private Map<String, String> sqlMap;
 
     /**
      * 是否是新记录（默认：false），调用setIsNewRecord()设置新记录，使用自定义ID。
      * 设置为true后强制执行插入语句，ID不会自动生成，需从手动传入。
      */
+    @JsonIgnore
+    @XmlTransient
     private boolean isNewRecord = false;
 
     public static long getSerialVersionUID() {
@@ -43,13 +49,14 @@ public abstract class AbstractBaseEntity implements Serializable {
         this.id = id;
     }
 
+    /**
+     * 获取sqlMap
+     *
+     * @return 返回sqlMap
+     */
     public Map<String, String> getSqlMap() {
         return Optional.ofNullable(this.sqlMap)
-                .orElseGet(HashMap::new);
-    }
-
-    public void setSqlMap(Map<String, String> sqlMap) {
-        this.sqlMap = sqlMap;
+                .orElseGet(ConcurrentHashMap::new);
     }
 
     /**
@@ -65,6 +72,7 @@ public abstract class AbstractBaseEntity implements Serializable {
     /**
      * 是否是新记录（默认：false），setNewRecord()设置新记录，使用自定义ID。
      * 设置为true后强制执行插入语句，ID不会自动生成，需从手动传入。
+     * @param newRecord 设置为true后强制执行插入语句，ID不会自动生成，需从手动传入。
      */
     public void setNewRecord(boolean newRecord) {
         this.isNewRecord = newRecord;

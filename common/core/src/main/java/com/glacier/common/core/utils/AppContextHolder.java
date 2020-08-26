@@ -1,5 +1,7 @@
 package com.glacier.common.core.utils;
 
+import com.glacier.common.core.constant.CommonConstant;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -15,7 +17,7 @@ public class AppContextHolder {
     /**
      * 线程上下文
      */
-    private final ThreadLocal<Map<String, String>> threadLocal;
+    private final ThreadLocal<Map<String, Object>> threadLocal;
 
     private AppContextHolder() {
         this.threadLocal = new ThreadLocal<>();
@@ -43,11 +45,9 @@ public class AppContextHolder {
      *
      * @param map
      */
-    public void setContext(final Map<String, String> map) {
-        Optional.of(this.threadLocal)
-                .ifPresent(mapThreadLocal -> {
-                    mapThreadLocal.set(map);
-                });
+    public void setContext(final Map<String, Object> map) {
+        Optional.ofNullable(map)
+                .ifPresent(this.threadLocal::set);
     }
 
     /**
@@ -55,7 +55,7 @@ public class AppContextHolder {
      *
      * @return
      */
-    public Map<String, String> getContext() {
+    public Map<String, Object> getContext() {
         return Optional.ofNullable(this.threadLocal.get())
                 .orElseGet(HashMap::new);
     }
@@ -66,7 +66,7 @@ public class AppContextHolder {
      * @return
      */
     public String getUsername() {
-        return this.getContext().get("username");
+        return String.valueOf(this.getContext().get(CommonConstant.OAUTH_USERNAME));
     }
 
     /**
@@ -75,7 +75,7 @@ public class AppContextHolder {
      * @return
      */
     public String getUserId() {
-        return this.getContext().get("userId");
+        return String.valueOf(this.getContext().get(CommonConstant.OAUTH_USER_ID));
     }
 
     /**

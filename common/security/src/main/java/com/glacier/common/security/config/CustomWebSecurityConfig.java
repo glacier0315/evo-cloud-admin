@@ -1,6 +1,7 @@
 package com.glacier.common.security.config;
 
 import com.glacier.common.security.config.settings.SecuritySettings;
+import com.glacier.common.security.filter.CustomContextFilter;
 import com.glacier.common.security.handler.CustomAccessDeniedHandler;
 import com.glacier.common.security.handler.CustomAuthenticationEntryPoint;
 import com.glacier.common.security.handler.CustomLogoutSuccessHandler;
@@ -33,6 +34,7 @@ import org.springframework.security.oauth2.core.AbstractOAuth2Token;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.security.web.session.SessionManagementFilter;
 import org.springframework.web.client.RestTemplate;
 
 /**
@@ -87,6 +89,8 @@ public class CustomWebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .oauth2Client(oAuth2Client -> {
 
                 });
+        // 添加自定义过滤器
+        http.addFilterAfter(new CustomContextFilter(), SessionManagementFilter.class);
     }
 
     /**

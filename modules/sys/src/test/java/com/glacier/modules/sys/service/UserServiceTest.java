@@ -5,12 +5,10 @@ import com.glacier.common.core.entity.dto.vo.UserDetailsDto;
 import com.glacier.common.core.entity.page.PageRequest;
 import com.glacier.common.core.entity.page.PageResponse;
 import com.glacier.modules.sys.entity.User;
-import com.glacier.modules.sys.entity.dto.user.UserDto;
-import com.glacier.modules.sys.entity.dto.user.UserInfo;
-import com.glacier.modules.sys.entity.dto.user.UserProfile;
-import com.glacier.modules.sys.entity.dto.user.UserQueryForm;
+import com.glacier.modules.sys.entity.dto.user.*;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
 
 import javax.annotation.Resource;
 import java.util.Optional;
@@ -79,7 +77,12 @@ public class UserServiceTest {
     }
 
     @Test
+    @Rollback(value = false)
     public void save() {
+        UserAddForm userAddForm = new UserAddForm();
+        userAddForm.setUsername("ceshi141");
+        userAddForm.setPassword("ceshi141");
+        this.userService.save(userAddForm);
     }
 
     @Test

@@ -1,12 +1,11 @@
 package com.glacier.modules.sys.entity.dto.user;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.ToString;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 
 /**
  * @author glacier
@@ -36,8 +35,7 @@ public abstract class AbstractUserDto implements Serializable {
      * 出生日期
      */
     @ApiModelProperty(value = "出生日期，格式yyyy-MM-dd")
-    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
-    private Date birthday;
+    private LocalDate birthday;
     /**
      * 性别 1=男 2=女 3 其他=保密
      */

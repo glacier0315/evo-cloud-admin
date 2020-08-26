@@ -1,10 +1,9 @@
 package com.glacier.authorization.server.entity;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.glacier.common.core.entity.AbstractDataEntity;
 import lombok.*;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 /**
  * 用户
@@ -40,8 +39,7 @@ public class User extends AbstractDataEntity {
     /**
      * 出生日期
      */
-    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
-    private Date birthday;
+    private LocalDate birthday;
     /**
      * 性别 1=男 2=女 其他=保密
      */

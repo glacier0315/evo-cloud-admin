@@ -3,6 +3,8 @@ package com.glacier.modules.gen.mapper;
 import com.glacier.common.core.mapper.BaseMapper;
 import com.glacier.modules.gen.entity.GenTableColumn;
 
+import java.util.List;
+
 /**
  * 代码生成表字段 数据层
  *
@@ -12,4 +14,11 @@ import com.glacier.modules.gen.entity.GenTableColumn;
  */
 public interface GenTableColumnMapper extends BaseMapper<GenTableColumn, String> {
 
+    /**
+     * 根据表id 查询
+     *
+     * @param tableId 表id
+     * @return 生成表字段集合
+     */
+    List<GenTableColumn> selectListByTableId(String tableId);
 }

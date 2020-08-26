@@ -5,9 +5,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
-import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
-import java.util.List;
 
 /**
  * 代码生成表 模型层
@@ -65,15 +63,6 @@ public class GenTable extends AbstractDataEntity {
      */
     @NotBlank(message = "作者不能为空")
     private String functionAuthor;
-    /**
-     * 主键信息
-     */
-    private GenTableColumn pkColumn;
-    /**
-     * 表列信息
-     */
-    @Valid
-    private List<GenTableColumn> columns;
     /**
      * 其它生成选项
      */

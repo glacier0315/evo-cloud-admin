@@ -20,9 +20,20 @@
         <result column="remark" jdbcType="VARCHAR" property="remark"/>
     </resultMap>
 
+    <sql id="base_columns">
+        a.id, a.table_name, a.table_comment, a.class_name, a.tpl_category, a.package_name, a.module_name, a.business_name,
+        a.function_name, a.function_author, a.options, a.create_by, a.create_date, a.update_by, a.update_date, a.remark
+    </sql>
+
+    <sql id="join_columns">
+    </sql>
+
+    <sql id="joins">
+    </sql>
+
     <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-        delete
-        from gen_table
+        update gen_table a
+        set a.del_flag='1'
         where id = #{id}
     </delete>
 
@@ -53,8 +64,6 @@
             function_name   = #{functionName},
             function_author = #{functionAuthor},
             options         = #{options},
-            create_by       = #{createBy},
-            create_date     = #{createDate},
             update_by       = #{updateBy},
             update_date     = #{updateDate},
             remark          = #{remark}
@@ -62,43 +71,27 @@
     </update>
 
     <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
-        select id,
-               table_name,
-               table_comment,
-               class_name,
-               tpl_category,
-               package_name,
-               module_name,
-               business_name,
-               function_name,
-               function_author,
-               options,
-               create_by,
-               create_date,
-               update_by,
-               update_date,
-               remark
-        from gen_table
-        where id = #{id}
+        select
+        <include refid="base_columns"/>
+        from gen_table a
+        where a.id = #{id}
     </select>
 
     <select id="selectAll" resultMap="BaseResultMap">
-        select id,
-               table_name,
-               table_comment,
-               class_name,
-               tpl_category,
-               package_name,
-               module_name,
-               business_name,
-               function_name,
-               function_author,
-               options,
-               create_by,
-               create_date,
-               update_by,
-               update_date,
-               remark
-        from gen_table
+        select
+        <include refid="base_columns"/>
+        from gen_table a
+        <where>
+            a.del_flag='0'
+        </where>
+    </select>
+
+    <select id="selectList" resultMap="BaseResultMap">
+        select
+        <include refid="base_columns"/>
+        from gen_table a
+        <where>
+            a.del_flag='0'
+        </where>
     </select>
 </mapper>

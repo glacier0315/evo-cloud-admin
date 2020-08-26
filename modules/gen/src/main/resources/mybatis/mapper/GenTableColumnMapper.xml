@@ -25,9 +25,21 @@
         <result column="update_date" jdbcType="TIMESTAMP" property="updateDate"/>
     </resultMap>
 
+    <sql id="base_columns">
+       a.id, a.table_id, a.column_name, a.column_comment, a.column_type, a.java_type, a.java_field, a.is_pk,
+       a.is_required, a.is_insert, a.is_edit, a.is_list, a.is_query, a.query_type, a.html_type, a.dict_type,
+       a.sort, a.create_by, a.create_date, a.update_by, a.update_date
+    </sql>
+
+    <sql id="join_columns">
+    </sql>
+
+    <sql id="joins">
+    </sql>
+
     <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-        delete
-        from gen_table_column
+        update gen_table_column a
+        set a.del_flag='1'
         where id = #{id}
     </delete>
 
@@ -50,8 +62,7 @@
 
     <update id="updateByPrimaryKey" parameterType="com.glacier.modules.gen.entity.GenTableColumn">
         update gen_table_column
-        set table_id       = #{tableId},
-            column_name    = #{columnName},
+        set column_name    = #{columnName},
             column_comment = #{columnComment},
             column_type    = #{columnType},
             java_type      = #{javaType},
@@ -66,61 +77,46 @@
             html_type      = #{htmlType},
             dict_type      = #{dictType},
             sort           = #{sort},
-            create_by      = #{createBy},
-            create_date    = #{createDate},
             update_by      = #{updateBy},
             update_date    = #{updateDate}
         where id = #{id}
     </update>
 
     <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
-        select id,
-               table_id,
-               column_name,
-               column_comment,
-               column_type,
-               java_type,
-               java_field,
-               is_pk,
-               is_required,
-               is_insert,
-               is_edit,
-               is_list,
-               is_query,
-               query_type,
-               html_type,
-               dict_type,
-               sort,
-               create_by,
-               create_date,
-               update_by,
-               update_date
-        from gen_table_column
-        where id = #{id}
+        select
+        <include refid="base_columns"/>
+        from gen_table_column a
+        where a.id = #{id}
     </select>
 
     <select id="selectAll" resultMap="BaseResultMap">
-        select id,
-               table_id,
-               column_name,
-               column_comment,
-               column_type,
-               java_type,
-               java_field,
-               is_pk,
-               is_required,
-               is_insert,
-               is_edit,
-               is_list,
-               is_query,
-               query_type,
-               html_type,
-               dict_type,
-               sort,
-               create_by,
-               create_date,
-               update_by,
-               update_date
-        from gen_table_column
+        select
+        <include refid="base_columns"/>
+        from gen_table_column a
+        <where>
+            a.del_flag='0'
+        </where>
+    </select>
+
+    <select id="selectList" resultMap="BaseResultMap">
+        select
+        <include refid="base_columns"/>
+        from gen_table_column a
+        <where>
+            a.del_flag='0'
+            <if test="tableId != null and tableId != '' ">
+                and a.table_id=#{tableId}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectListByTableId" resultMap="BaseResultMap">
+        select
+        <include refid="base_columns"/>
+        from gen_table_column a
+        <where>
+            a.del_flag='0'
+            and a.table_id=#{tableId}
+        </where>
     </select>
 </mapper>

@@ -33,9 +33,71 @@ spring:
         stat:
           log-slow-sql: true
           slow-sql-millis: 2000
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          public-key-location: classpath:pubkey.pub
+      client:
+        registration:
+          uas_client:
+            provider: uas
+            client-id: eboot-sys
+            client-secret: eboot-sys
+            authorization-grant-type: client_credentials
+            scope: all
+        provider:
+          uas:
+            authorization-uri: ${AUTHORIZATION-SERVER:http://localhost:8000/authorization-server}/oauth/authorize
+            token-uri: ${AUTHORIZATION-SERVER:http://localhost:8000/authorization-server}/oauth/token
+            user-info-uri: ${USER-INFO-SERVER:http://localhost:8000/sys}/oauth/userInfo
+            user-name-attribute: username
+
 
 mybatis:
   # 映射文件位置
-  mapper-locations: classpath*:mybatis/mapper/*.xml
-  config-location:  classpath:mybatis/mybatis-config.xml
+  mapper-locations: classpath*:mybatis/mapper/**/*.xml
+  #config-location:  classpath:mybatis/mybatis-config.xml
+  type-aliases-package: com.glacier.modules.gen.entity
+  configuration:
+    lazy-loading-enabled: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true
+    aggressive-lazy-loading: false
+    auto-mapping-unknown-column-behavior: warning
+
+# pagehelper
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
+
+
+## 自定义
+settings:
+  feign:
+    clientId: uas_client
+  security:
+    permit-all:
+      - /login/**
+      - /logout
+      - /favicon.ico
+      - /static/**
+      - /webjars/**
+      - /actuator/**
+      - /druid/**
+      - /oauth/user
+      - /swagger-ui.html
+      - /swagger-resources/**
+      - /v2/api-docs
 

@@ -1,7 +1,13 @@
 CREATE DATABASE eboot_gen CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
-use eboot_gen;
+CREATE USER 'eboot_gen'@'%'  IDENTIFIED BY 'eboot_gen';
 
+grant all privileges on eboot_gen.* to 'eboot_gen'@'%';
+
+flush privileges;
+
+
+use eboot_gen;
 
 drop table if exists gen_table;
 create table gen_table

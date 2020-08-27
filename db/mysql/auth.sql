@@ -1,5 +1,11 @@
 CREATE DATABASE eboot_auth CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
+CREATE USER 'eboot_auth'@'%'  IDENTIFIED BY 'eboot_auth';
+
+grant all privileges on eboot_auth.* to 'eboot_auth'@'%';
+
+flush privileges;
+
 use eboot_auth;
 
 -- ----------------------------

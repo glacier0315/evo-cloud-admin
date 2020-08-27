@@ -82,6 +82,14 @@ public interface UserService {
     int delete(String id);
 
     /**
+     * 重置密码
+     *
+     * @param passwordResetForm 用户id
+     * @return
+     */
+    Result<Integer> resetPassword(UserPasswordResetForm passwordResetForm);
+
+    /**
      * 修改密码
      *
      * @param userPasswordForm

@@ -125,6 +125,25 @@ public class UserServiceImpl implements UserService {
                         }.getType()));
     }
 
+    @Override
+    public Result<Integer> resetPassword(UserPasswordResetForm passwordResetForm) {
+        int update = 0;
+        if (passwordResetForm == null
+                || StringUtils.isEmpty(passwordResetForm.getId())
+                || StringUtils.isEmpty(passwordResetForm.getNewPassword())) {
+            return Result.error(SystemErrorType.ARGUMENT_NOT_VALID);
+        }
+        User user = new User();
+        user.setId(passwordResetForm.getId());
+        // 加密密码
+        user.setPassword(
+                this.passwordEncoder.encode(passwordResetForm.getNewPassword()));
+
+        user.preUpdate();
+        update = this.userMapper.updatePasswordByPrimaryKey(user);
+        return Result.ok("修改成功！", update);
+    }
+
     /**
      * 修改密码
      *
@@ -136,7 +155,9 @@ public class UserServiceImpl implements UserService {
     public Result<Integer> updatePassword(UserPasswordForm userPasswordForm) {
         int update = 0;
         if (userPasswordForm == null
-                || StringUtils.isEmpty(userPasswordForm.getId())) {
+                || StringUtils.isEmpty(userPasswordForm.getId())
+                || StringUtils.isEmpty(userPasswordForm.getOldPassword())
+                || StringUtils.isEmpty(userPasswordForm.getNewPassword())) {
             return Result.error(SystemErrorType.ARGUMENT_NOT_VALID);
         }
         // 判断原始密码是否一致

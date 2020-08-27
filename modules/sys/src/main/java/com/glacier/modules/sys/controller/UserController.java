@@ -1,6 +1,5 @@
 package com.glacier.modules.sys.controller;
 
-import com.glacier.common.core.constant.SysConstants;
 import com.glacier.common.core.entity.Result;
 import com.glacier.common.core.entity.dto.IdDto;
 import com.glacier.common.core.entity.page.PageRequest;
@@ -126,16 +125,15 @@ public class UserController {
     /**
      * 重置用户密码
      *
-     * @param userPasswordForm
+     * @param passwordResetForm
      * @return
      */
     @ApiOperation("重置用户密码")
     @PostMapping("/resetPwd")
     public Result<Integer> resetPwd(
-            @RequestBody UserPasswordForm userPasswordForm) {
+            @RequestBody UserPasswordResetForm passwordResetForm) {
         // 设置重置密码
-        userPasswordForm.setNewPassword(SysConstants.DEFAULT_PASSWD);
-        return this.userService.updatePassword(userPasswordForm);
+        return this.userService.resetPassword(passwordResetForm);
     }
 
     /**

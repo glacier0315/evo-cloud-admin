@@ -56,7 +56,8 @@ CREATE TABLE sys_menu  (
    component   varchar(255) COMMENT '组件',
    icon        varchar(255) COMMENT '图标',
    type        int(4)               DEFAULT 1 COMMENT '类型',
-   visible     int(4)               DEFAULT 1 COMMENT '1 显示  2 隐藏',
+   status      int(4)               DEFAULT 1 COMMENT '状态 1 正常  2 禁用',
+   visible     int(4)               DEFAULT 1 COMMENT '可行性 1 显示  2 隐藏',
    is_frame    int(4)               DEFAULT 2 COMMENT '是否外链 1 是  2 否',
    permission  varchar(255) COMMENT '权限',
    parent_id   varchar(255) COMMENT '父级id',
@@ -75,19 +76,20 @@ CREATE TABLE sys_menu  (
 -- ----------------------------
 -- Records of sys_menu
 -- ----------------------------
-INSERT INTO sys_menu (id, name, path, component, icon, type, visible, is_frame, permission, parent_id, order_num, create_by, create_date, update_by, update_date, del_flag) VALUES ('1', 'permission', '/permission', 'Layout', 'lock', 1, 1, 2, null, null, 1, null, '2020-06-25 07:45:59', null, '2020-06-25 07:45:59', '0');
-INSERT INTO sys_menu (id, name, path, component, icon, type, visible, is_frame, permission, parent_id, order_num, create_by, create_date, update_by, update_date, del_flag) VALUES ('2', 'PagePermission', '/permission/page', 'permission/page', null, 2, 1, 2, null, '1', 2, null, '2020-06-25 07:45:59', null, '2020-06-25 07:45:59', '0');
-INSERT INTO sys_menu (id, name, path, component, icon, type, visible, is_frame, permission, parent_id, order_num, create_by, create_date, update_by, update_date, del_flag) VALUES ('3', 'directive', '/permission/directive', 'permission/directive', null, 2, 1, 2, null, '1', 3, null, '2020-06-25 07:45:59', null, '2020-06-25 07:45:59', '0');
-INSERT INTO sys_menu (id, name, path, component, icon, type, visible, is_frame, permission, parent_id, order_num, create_by, create_date, update_by, update_date, del_flag) VALUES ('4', 'role', '/permission/role', 'permission/role', null, 2, 1, 2, null, '1', 4, null, '2020-06-25 07:45:59', null, '2020-06-25 07:45:59', '0');
-INSERT INTO sys_menu (id, name, path, component, icon, type, visible, is_frame, permission, parent_id, order_num, create_by, create_date, update_by, update_date, del_flag) VALUES ('5', '系统设置', '/sys', '', 'el-icon-setting', 1, 1, 2, null, null, 5, null, '2020-06-27 03:29:29', null, '2020-06-27 03:29:29', '0');
-INSERT INTO sys_menu (id, name, path, component, icon, type, visible, is_frame, permission, parent_id, order_num, create_by, create_date, update_by, update_date, del_flag) VALUES ('6', '用户列表', '/sys/user', 'sys/user', 'user', 2, 1, 2, null, '5', 6, null, '2020-06-27 03:31:00', null, '2020-07-04 03:39:23', '0');
-INSERT INTO sys_menu (id, name, path, component, icon, type, visible, is_frame, permission, parent_id, order_num, create_by, create_date, update_by, update_date, del_flag) VALUES ('7', '角色列表', '/sys/role', 'sys/role', 'people', 2, 1, 2, null, '5', 7, null, '2020-06-27 03:31:33', null, '2020-06-27 03:31:33', '0');
-INSERT INTO sys_menu (id, name, path, component, icon, type, visible, is_frame, permission, parent_id, order_num, create_by, create_date, update_by, update_date, del_flag) VALUES ('8', '菜单列表', '/sys/menu', 'sys/menu', 'tree', 2, 1, 2, null, '5', 8, null, '2020-06-27 03:32:20', null, '2020-06-27 03:32:20', '0');
-INSERT INTO sys_menu (id, name, path, component, icon, type, visible, is_frame, permission, parent_id, order_num, create_by, create_date, update_by, update_date, del_flag) VALUES ('9', '组织机构', '/sys/dept', 'sys/dept', 'tree', 2, 1, 2, null, '5', 10, null, '2020-06-27 03:32:54', null, '2020-07-04 02:36:30', '0');
-INSERT INTO sys_menu (id, name, path, component, icon, type, visible, is_frame, permission, parent_id, order_num, create_by, create_date, update_by, update_date, del_flag) VALUES ('0b2c28fb18bc213a2ea7143cbf724702', 'icon', '/icon', 'Layout', null, 1, 1, 2, null, null, 11, null, '2020-07-04 02:37:46', null, '2020-07-04 02:37:46', '0');
-INSERT INTO sys_menu (id, name, path, component, icon, type, visible, is_frame, permission, parent_id, order_num, create_by, create_date, update_by, update_date, del_flag) VALUES ('a38df56dd7f59f030a0bc449fcc97d57', 'icons', '/icon/index', 'icons', 'icon', 2, 1, 2, null, '0b2c28fb18bc213a2ea7143cbf724702', 12, null, '2020-07-04 02:38:52', null, '2020-07-04 02:38:52', '0');
-INSERT INTO sys_menu (id, name, path, component, icon, type, visible, is_frame, permission, parent_id, order_num, create_by, create_date, update_by, update_date, del_flag) VALUES ('be14507626f7f301fbfc21ddbd8e6380', 'pdf', '/pdf', null, null, 1, 1, 2, null, null, 13, null, '2020-07-04 03:04:29', null, '2020-07-04 03:04:29', '0');
-INSERT INTO sys_menu (id, name, path, component, icon, type, visible, is_frame, permission, parent_id, order_num, create_by, create_date, update_by, update_date, del_flag) VALUES ('54f41ef8740a67b56a122453d0323ded', 'pdf', '/pdf/index', 'pdf/index', 'pdf', 2, 1, 2, null, 'be14507626f7f301fbfc21ddbd8e6380', 14, null, '2020-07-04 03:05:13', null, '2020-07-04 03:05:13', '0');
+
+INSERT INTO sys_menu (id, name, path, component, icon, type, status, visible, is_frame, permission, parent_id, grade, order_num, create_by, create_date, update_by, update_date, del_flag) VALUES ('1', 'permission', '/permission', 'Layout', 'lock', 1, 1, 1, 2, null, null, null, 1, null, '2020-06-25 07:45:59', null, '2020-06-25 07:45:59', '0');
+INSERT INTO sys_menu (id, name, path, component, icon, type, status, visible, is_frame, permission, parent_id, grade, order_num, create_by, create_date, update_by, update_date, del_flag) VALUES ('2', 'PagePermission', '/permission/page', 'permission/page', null, 2, 1, 1, 2, null, '1', null, 2, null, '2020-06-25 07:45:59', null, '2020-06-25 07:45:59', '0');
+INSERT INTO sys_menu (id, name, path, component, icon, type, status, visible, is_frame, permission, parent_id, grade, order_num, create_by, create_date, update_by, update_date, del_flag) VALUES ('3', 'directive', '/permission/directive', 'permission/directive', null, 2, 1, 1, 2, null, '1', null, 3, null, '2020-06-25 07:45:59', null, '2020-06-25 07:45:59', '0');
+INSERT INTO sys_menu (id, name, path, component, icon, type, status, visible, is_frame, permission, parent_id, grade, order_num, create_by, create_date, update_by, update_date, del_flag) VALUES ('4', 'role', '/permission/role', 'permission/role', null, 2, 1, 1, 2, null, '1', null, 4, null, '2020-06-25 07:45:59', null, '2020-06-25 07:45:59', '0');
+INSERT INTO sys_menu (id, name, path, component, icon, type, status, visible, is_frame, permission, parent_id, grade, order_num, create_by, create_date, update_by, update_date, del_flag) VALUES ('5', '系统设置', '/sys', '', 'el-icon-setting', 1, 1, 1, 2, null, null, null, 5, null, '2020-06-27 03:29:29', null, '2020-06-27 03:29:29', '0');
+INSERT INTO sys_menu (id, name, path, component, icon, type, status, visible, is_frame, permission, parent_id, grade, order_num, create_by, create_date, update_by, update_date, del_flag) VALUES ('6', '用户列表', '/sys/user', 'sys/user', 'user', 2, 1, 1, 2, null, '5', null, 6, null, '2020-06-27 03:31:00', null, '2020-07-04 03:39:23', '0');
+INSERT INTO sys_menu (id, name, path, component, icon, type, status, visible, is_frame, permission, parent_id, grade, order_num, create_by, create_date, update_by, update_date, del_flag) VALUES ('7', '角色列表', '/sys/role', 'sys/role', 'people', 2, 1, 1, 2, null, '5', null, 7, null, '2020-06-27 03:31:33', null, '2020-06-27 03:31:33', '0');
+INSERT INTO sys_menu (id, name, path, component, icon, type, status, visible, is_frame, permission, parent_id, grade, order_num, create_by, create_date, update_by, update_date, del_flag) VALUES ('8', '菜单列表', '/sys/menu', 'sys/menu', 'tree', 2, 1, 1, 2, null, '5', null, 8, null, '2020-06-27 03:32:20', null, '2020-06-27 03:32:20', '0');
+INSERT INTO sys_menu (id, name, path, component, icon, type, status, visible, is_frame, permission, parent_id, grade, order_num, create_by, create_date, update_by, update_date, del_flag) VALUES ('9', '组织机构', '/sys/dept', 'sys/dept', 'tree', 2, 1, 1, 2, null, '5', null, 10, null, '2020-06-27 03:32:54', null, '2020-07-04 02:36:30', '0');
+INSERT INTO sys_menu (id, name, path, component, icon, type, status, visible, is_frame, permission, parent_id, grade, order_num, create_by, create_date, update_by, update_date, del_flag) VALUES ('0b2c28fb18bc213a2ea7143cbf724702', 'icon', '/icon', 'Layout', null, 1, 1, 1, 2, null, null, null, 11, null, '2020-07-04 02:37:46', null, '2020-07-04 02:37:46', '0');
+INSERT INTO sys_menu (id, name, path, component, icon, type, status, visible, is_frame, permission, parent_id, grade, order_num, create_by, create_date, update_by, update_date, del_flag) VALUES ('a38df56dd7f59f030a0bc449fcc97d57', 'icons', '/icon/index', 'icons', 'icon', 2, 1, 1, 2, null, '0b2c28fb18bc213a2ea7143cbf724702', null, 12, null, '2020-07-04 02:38:52', null, '2020-07-04 02:38:52', '0');
+INSERT INTO sys_menu (id, name, path, component, icon, type, status, visible, is_frame, permission, parent_id, grade, order_num, create_by, create_date, update_by, update_date, del_flag) VALUES ('be14507626f7f301fbfc21ddbd8e6380', 'pdf', '/pdf', null, null, 1, 1, 1, 2, null, null, null, 13, null, '2020-07-04 03:04:29', null, '2020-07-04 03:04:29', '0');
+INSERT INTO sys_menu (id, name, path, component, icon, type, status, visible, is_frame, permission, parent_id, grade, order_num, create_by, create_date, update_by, update_date, del_flag) VALUES ('54f41ef8740a67b56a122453d0323ded', 'pdf', '/pdf/index', 'pdf/index', 'pdf', 2, 1, 1, 2, null, 'be14507626f7f301fbfc21ddbd8e6380', null, 14, null, '2020-07-04 03:05:13', null, '2020-07-04 03:05:13', '0');
 
 -- ----------------------------
 -- Table structure for sys_role
@@ -191,10 +193,9 @@ INSERT INTO sys_role_menu (id, role_id, menu_id) VALUES ('ebbf70df4d99d6cca88449
 -- ----------------------------
 DROP TABLE IF EXISTS sys_user_role;
 CREATE TABLE sys_user_role  (
-  id varchar(64) NOT NULL COMMENT '主键',
   user_id varchar(64)  COMMENT '用户主键',
   role_id varchar(64)  COMMENT '角色主键',
-  PRIMARY KEY (id) USING BTREE,
+  PRIMARY KEY (user_id, role_id) USING BTREE,
   INDEX sys_user_role_1(user_id) USING BTREE,
   INDEX sys_user_role_2(role_id) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用户角色关联表' ROW_FORMAT = Dynamic;
@@ -202,8 +203,8 @@ CREATE TABLE sys_user_role  (
 -- ----------------------------
 -- Records of sys_user_role
 -- ----------------------------
-INSERT INTO sys_user_role (id, user_id, role_id) VALUES ('1', '1', '1');
-INSERT INTO sys_user_role (id, user_id, role_id) VALUES ('2', 'c35d5b94aca547799fbe56ddd90bcfc4', 'd1ece8903278fe25e8be2804fd755025');
+INSERT INTO sys_user_role (user_id, role_id) VALUES ('1', '1');
+INSERT INTO sys_user_role (user_id, role_id) VALUES ('c35d5b94aca547799fbe56ddd90bcfc4', 'd1ece8903278fe25e8be2804fd755025');
 
 
 -- ----------------------------

@@ -9,10 +9,8 @@ import com.glacier.common.core.entity.dto.vo.UserDetailsDto;
 import com.glacier.common.core.entity.page.PageRequest;
 import com.glacier.common.core.entity.page.PageResponse;
 import com.glacier.common.core.exception.SystemErrorType;
-import com.glacier.common.core.utils.IdGen;
 import com.glacier.modules.sys.entity.Role;
 import com.glacier.modules.sys.entity.User;
-import com.glacier.modules.sys.entity.UserRole;
 import com.glacier.modules.sys.entity.dto.user.*;
 import com.glacier.modules.sys.mapper.RoleMapper;
 import com.glacier.modules.sys.mapper.UserMapper;
@@ -210,7 +208,7 @@ public class UserServiceImpl implements UserService {
      */
     @Transactional(rollbackFor = {})
     @Override
-    public <T> int save(T form) {
+    public <T extends AbstractUserDto> int save(T form) {
         if (form == null) {
             return 0;
         }
@@ -226,6 +224,8 @@ public class UserServiceImpl implements UserService {
                                 .map(User::getPassword)
                                 .orElse(SysConstants.DEFAULT_PASSWD)));
         user.preInsert();
+        // 处理用户角色
+        this.saveUserRole(user.getId(), form.getRoleIds());
         return this.userMapper.insert(user);
     }
 
@@ -256,14 +256,13 @@ public class UserServiceImpl implements UserService {
     @Transactional(rollbackFor = {})
     public int saveUserRole(final String userId, List<String> roleIds) {
         int update = 0;
+        // 清空用户角色关系
+        this.userRoleMapper.deleteByUserId(userId);
         if (StringUtils.isNotEmpty(userId)
                 && roleIds != null
                 && !roleIds.isEmpty()) {
             // 保存用户角色关系
-            for (String roleId : roleIds) {
-                update += this.userRoleMapper.insert(
-                        new UserRole(IdGen.uuid(), userId, roleId));
-            }
+            return this.userRoleMapper.insertBatchRole(userId, roleIds);
         }
         return update;
     }

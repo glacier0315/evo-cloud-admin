@@ -18,10 +18,6 @@ public class UserRole implements Serializable {
 
     private static final long serialVersionUID = -7193974752669679122L;
     /**
-     * 主键
-     */
-    private String id;
-    /**
      * 用户id
      */
     private String userId;
@@ -33,8 +29,7 @@ public class UserRole implements Serializable {
     public UserRole() {
     }
 
-    public UserRole(String id, String userId, String roleId) {
-        this.id = id;
+    public UserRole(String userId, String roleId) {
         this.userId = userId;
         this.roleId = roleId;
     }

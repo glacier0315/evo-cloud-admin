@@ -7,7 +7,9 @@ import com.glacier.common.core.entity.page.PageResponse;
 import com.glacier.modules.sys.entity.dto.role.RoleForm;
 import com.glacier.modules.sys.entity.dto.role.RoleQueryForm;
 import com.glacier.modules.sys.entity.dto.role.RoleVo;
+import com.glacier.modules.sys.entity.dto.role.UserRoleForm;
 import com.glacier.modules.sys.service.RoleService;
+import com.glacier.modules.sys.service.UserRoleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -30,6 +32,7 @@ import java.util.List;
 public class RoleController {
 
     private final RoleService roleService;
+    private final UserRoleService userRoleService;
 
     /**
      * 查找所有角色
@@ -110,5 +113,33 @@ public class RoleController {
     public Result<List<RoleVo>> findByUserId(String userId) {
         return Result.ok(
                 this.roleService.findByUserId(userId));
+    }
+
+    /**
+     * 移除用户角色关系
+     *
+     * @param userRoleForm
+     * @return
+     */
+    @ApiOperation("移除用户角色关系")
+    @PostMapping("/user/delete")
+    public Result<Integer> delUserRole(
+            @RequestBody UserRoleForm userRoleForm) {
+        return Result.ok(
+                this.userRoleService.delete(userRoleForm));
+    }
+
+    /**
+     * 保存用户角色关系
+     *
+     * @param userRoleForm
+     * @return
+     */
+    @ApiOperation("保存用户角色关系")
+    @PostMapping("/user/add")
+    public Result<Integer> addUserRole(
+            @RequestBody UserRoleForm userRoleForm) {
+        return Result.ok(
+                this.userRoleService.save(userRoleForm));
     }
 }

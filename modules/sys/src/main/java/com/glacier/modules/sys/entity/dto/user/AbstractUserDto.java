@@ -6,6 +6,7 @@ import lombok.ToString;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.List;
 
 /**
  * @author glacier
@@ -66,4 +67,9 @@ public abstract class AbstractUserDto implements Serializable {
      */
     @ApiModelProperty(value = "简介")
     private String introduction;
+    /**
+     * 角色
+     */
+    @ApiModelProperty(value = "简介")
+    private List<String> roleIds;
 }

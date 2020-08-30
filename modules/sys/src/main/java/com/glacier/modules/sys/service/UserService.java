@@ -65,13 +65,13 @@ public interface UserService {
     PageResponse<UserDto> findPage(PageRequest<UserQueryForm> pageRequest);
 
     /**
-     * 保存用户
+     * 保存用户，同时处理用户角色关系
      *
      * @param form 用户封装实体
      * @param <T>  用户封装类型
      * @return
      */
-    <T> int save(T form);
+    <T extends AbstractUserDto> int save(T form);
 
     /**
      * 根据Id删除

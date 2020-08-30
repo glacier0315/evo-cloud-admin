@@ -46,7 +46,7 @@ public class RouteBuildFactory {
                                             .icon(menu.getIcon())
                                             .title(menu.getName())
                                             .build());
-
+                            router.setHidden(menu.getVisible() != null && menu.getVisible()== 2);
                             // 处理子菜单
                             if (menu.getChildren() != null
                                     && !menu.getChildren().isEmpty()) {

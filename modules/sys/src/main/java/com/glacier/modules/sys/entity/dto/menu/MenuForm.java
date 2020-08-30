@@ -45,6 +45,11 @@ public class MenuForm extends TreeDto {
     @ApiModelProperty(value = "类型 1 目录  2 端点  3 权限标识")
     private Integer type;
     /**
+     * 状态 1 正常  2 禁用
+     */
+    @ApiModelProperty(value = "状态 1 正常  2 禁用")
+    private Integer status;
+    /**
      * 是否显示 1 显示  2 隐藏
      */
     @ApiModelProperty(value = "是否显示 1 显示  2 隐藏")

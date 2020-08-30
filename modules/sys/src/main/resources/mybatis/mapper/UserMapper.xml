@@ -132,14 +132,14 @@
             <if test="email != null and email != '' ">
                 and a.email=#{email}
             </if>
-            <if test="status != null and status != '' ">
-                and a.status=#{status}
-            </if>
             <if test="sex != null and sex != '' ">
                 and a.sex=#{sex}
             </if>
             <if test="birthday != null and birthday != '' ">
                 and a.birthday=#{birthday}
+            </if>
+            <if test="roleId != null and roleId != '' ">
+                and exists (select 1 from sys_user_role b where b.role_id=#{roleId} and a.id=b.user_id )
             </if>
             <if test="deptId != null and deptId != '' ">
                 and a.dept_id=#{deptId}
@@ -149,6 +149,9 @@
             </if>
             <if test="mobile != null and mobile != '' ">
                 and a.mobile=#{mobile}
+            </if>
+            <if test="status != null and status != '' ">
+                and a.status=#{status}
             </if>
             <if test="username != null and username != '' ">
                 and a.username=#{username}

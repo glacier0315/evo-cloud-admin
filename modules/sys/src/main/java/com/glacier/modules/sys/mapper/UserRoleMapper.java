@@ -1,9 +1,8 @@
 package com.glacier.modules.sys.mapper;
 
 import com.glacier.modules.sys.entity.UserRole;
-import org.apache.ibatis.annotations.Param;
-
-import java.util.List;
+import com.glacier.modules.sys.entity.dto.role.RoleUserDto;
+import com.glacier.modules.sys.entity.dto.user.UserRoleDto;
 
 /**
  * 用户角色关联关系 数据层
@@ -15,12 +14,37 @@ import java.util.List;
 public interface UserRoleMapper {
 
     /**
-     * 删除 用户角色关联关系
+     * 保存角色用户关系
      *
-     * @param userRole 用户角色
+     * @param roleUserDto 角色用户关系
      * @return
      */
-    int delete(UserRole userRole);
+    int insertBatchUser(RoleUserDto roleUserDto);
+
+    /**
+     * 移除角色用户关系
+     *
+     * @param roleUserDto 角色用户关系
+     * @return
+     */
+    int deleteBatchUser(RoleUserDto roleUserDto);
+
+
+    /**
+     * 保存用户角色关系
+     *
+     * @param userRoleDto 用户角色关系
+     * @return
+     */
+    int insertBatchRole(UserRoleDto userRoleDto);
+
+    /**
+     * 移除用户角色关系
+     *
+     * @param userRoleDto 用户角色关系
+     * @return
+     */
+    int deleteBatchRole(UserRoleDto userRoleDto);
 
     /**
      * 删除 用户角色关联关系
@@ -46,21 +70,4 @@ public interface UserRoleMapper {
      */
     int insert(UserRole record);
 
-    /**
-     * 保存用户角色关系
-     *
-     * @param roleId
-     * @param userIds
-     * @return
-     */
-    int insertBatchUser(@Param("roleId") String roleId, @Param("userIds") List<String> userIds);
-
-    /**
-     * 保存用户角色关系
-     *
-     * @param userId
-     * @param roleIds
-     * @return
-     */
-    int insertBatchRole(@Param("userId") String userId, @Param("roleIds") List<String> roleIds);
 }

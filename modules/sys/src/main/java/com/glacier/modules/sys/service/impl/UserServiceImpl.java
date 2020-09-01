@@ -262,7 +262,7 @@ public class UserServiceImpl implements UserService {
                 && roleIds != null
                 && !roleIds.isEmpty()) {
             // 保存用户角色关系
-            return this.userRoleMapper.insertBatchRole(userId, roleIds);
+            return this.userRoleMapper.insertBatchRole(new UserRoleDto(userId, roleIds));
         }
         return update;
     }

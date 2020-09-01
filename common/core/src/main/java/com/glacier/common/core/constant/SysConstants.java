@@ -44,11 +44,11 @@ public interface SysConstants {
     /**
      * 状态 正常
      */
-    String STATUS_ENABLED = "1";
+    int STATUS_ENABLED = 1;
     /**
      * 状态 禁用
      */
-    String STATUS_DISABLED = "2";
+    int STATUS_DISABLED = 2;
     /* 状态 end */
 
 

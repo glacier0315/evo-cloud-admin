@@ -1,6 +1,7 @@
 package com.glacier.modules.sys.service;
 
-import com.glacier.modules.sys.entity.dto.role.UserRoleForm;
+import com.glacier.modules.sys.entity.dto.role.RoleUserDto;
+import com.glacier.modules.sys.entity.dto.user.UserRoleDto;
 
 /**
  * @author glacier
@@ -9,18 +10,35 @@ import com.glacier.modules.sys.entity.dto.role.UserRoleForm;
  */
 public interface UserRoleService {
     /**
-     * 保存操作
+     * 保存角色用户关系
      *
-     * @param userRoleForm 用户角色关系
+     * @param roleUserDto 角色用户关系
      * @return
      */
-    int save(UserRoleForm userRoleForm);
+    int addUser(RoleUserDto roleUserDto);
 
     /**
-     * 根据删除
+     * 移除角色用户关系
      *
-     * @param userRoleForm 用户角色关系
+     * @param roleUserDto 角色用户关系
      * @return
      */
-    int delete(UserRoleForm userRoleForm);
+    int deleteUser(RoleUserDto roleUserDto);
+
+
+    /**
+     * 保存用户角色关系
+     *
+     * @param userRoleDto 用户角色关系
+     * @return
+     */
+    int addRole(UserRoleDto userRoleDto);
+
+    /**
+     * 移除用户角色关系
+     *
+     * @param userRoleDto 用户角色关系
+     * @return
+     */
+    int deleteRole(UserRoleDto userRoleDto);
 }

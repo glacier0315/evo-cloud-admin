@@ -139,7 +139,10 @@
                 and a.birthday=#{birthday}
             </if>
             <if test="roleId != null and roleId != '' ">
-                and exists (select 1 from sys_user_role b where b.role_id=#{roleId} and a.id=b.user_id )
+                and exists (select 1 from sys_user_role b where a.id=b.user_id and b.role_id=#{roleId})
+            </if>
+            <if test="notEqRoleId != null and notEqRoleId != '' ">
+                and not exists (select 1 from sys_user_role b where a.id=b.user_id and b.role_id=#{notEqRoleId})
             </if>
             <if test="deptId != null and deptId != '' ">
                 and a.dept_id=#{deptId}

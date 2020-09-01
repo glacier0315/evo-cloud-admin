@@ -68,8 +68,13 @@ public class UserQueryForm implements Serializable {
     @ApiModelProperty(value = "单位id")
     private String deptId;
     /**
-     * 角色id
+     * 角色id， 用于查询具有该角色的用户
      */
-    @ApiModelProperty(value = "角色id")
+    @ApiModelProperty(value = "角色id， 用于查询具有该角色的用户")
     private String roleId;
+    /**
+     * 角色id， 用于查询不具有该角色的用户
+     */
+    @ApiModelProperty(value = "角色id， 用于查询不具有该角色的用户")
+    private String notEqRoleId;
 }

@@ -32,4 +32,14 @@ public class RoleQueryForm implements Serializable {
      */
     @ApiModelProperty(value = "状态 1 正常  2 禁用")
     private String status;
+    /**
+     * 用户id， 用于查询用户具有角色
+     */
+    @ApiModelProperty(value = "用户id， 用于查询用户具有角色")
+    private String userId;
+    /**
+     * 用户id， 用于查询用户不具有角色
+     */
+    @ApiModelProperty(value = "用户id， 用于查询用户不具有角色")
+    private String notEqUserId;
 }

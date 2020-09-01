@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * 菜单业务层
@@ -100,7 +101,18 @@ public class MenuServiceImpl implements MenuService {
             return menuList;
         }
         if (SysConstants.SYS_USER_ID.equals(userId)) {
-            menuList = this.findAllList();
+            // 处理
+            menuList = Optional.ofNullable(this.findAllList())
+                    .orElseGet(ArrayList::new)
+                    .stream()
+                    .filter(menu ->
+                            // 正常 且 非权限标识
+                            menu.getStatus() != null
+                                    && menu.getStatus() == SysConstants.STATUS_ENABLED
+                                    && menu.getType() != null
+                                    && menu.getType() != SysConstants.TYPE_BUTTON
+                    )
+                    .collect(Collectors.toList());
         } else {
             menuList = this.modelMapper.map(
                     this.menuMapper.findByUserId(userId),

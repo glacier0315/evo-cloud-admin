@@ -78,6 +78,12 @@
             <if test="name != null and name != '' ">
                 and a.name like concat('%',#{name},'%')
             </if>
+            <if test="userId != null and userId != '' ">
+                and exists (select 1 from sys_user_role u where u.role_id=a.id and u.user_id=#{userId} )
+            </if>
+            <if test="notEqUserId != null and notEqUserId != '' ">
+                and not exists (select 1 from sys_user_role u where u.role_id=a.id and u.user_id=#{notEqUserId} )
+            </if>
             <if test="status != null and status != '' ">
                 and a.status=#{status}
             </if>

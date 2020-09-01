@@ -8,6 +8,7 @@ import lombok.ToString;
 import java.io.Serializable;
 
 /**
+ * 角色查询条件模型
  * @author glacier
  * @version 1.0
  * @date 2020-07-03 21:51

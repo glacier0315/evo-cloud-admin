@@ -96,70 +96,37 @@
             a.del_flag='0'
             <if test="userId != null and userId !='' ">
                 and exists (
-                    select 1 from sys_role_menu b
-                    inner join sys_user_role c on b.role_id=c.role_id
-                    where b.mene_id=a.id
-                    and exists (
-                        select 1 from sys_role r
-                        where r.del_flag='0'
-                        and r.id=b.role_id
-                        and r.status = '1'
-                    )
-                    and c.user_id=#{userId}
+                select 1 from sys_role_menu b
+                inner join sys_user_role c on b.role_id=c.role_id
+                where b.menu_id=a.id
+                and exists (
+                select 1 from sys_role r
+                where r.del_flag='0'
+                and r.id=b.role_id
+                and r.status = '1'
+                )
+                and c.user_id=#{userId}
+                )
+            </if>
+            <if test="roleId != null and roleId !='' ">
+                and exists (
+                select 1 from sys_role_menu b
+                inner join sys_role r on b.role_id=r.id
+                where b.menu_id=a.id
+                and r.del_flag='0'
+                and r.status = '1'
+                and b.role_id=#{roleId}
                 )
             </if>
             <if test="typeList != null and typeList.size > 0">
                 and a.type in
-                <foreach collection="typeList" item="type" separator=",">
+                <foreach collection="typeList" item="type" open="(" separator="," close=")">
                     #{type}
                 </foreach>
             </if>
             <if test="status != null">
                 and a.status = #{status}
             </if>
-        </where>
-    </select>
-
-    <select id="findByUserId" resultMap="BaseResultMap">
-        select
-        <include refid="base_columns"/>
-        from sys_menu a
-        inner join sys_role_menu b on a.id=b.menu_id
-        inner join sys_user_role c on c.role_id=b.role_id
-        <where>
-            a.del_flag='0'
-            and a.status = 1
-            and exists (
-            select 1 from sys_role r where r.del_flag='0' and r.id=b.role_id and r.status = '1'
-            )
-            and a.type in (1, 2)
-            and c.user_id = #{userId}
-        </where>
-    </select>
-
-    <select id="findPermissionsByUserId" resultType="String">
-        select a.permission
-        from sys_menu a
-        inner join sys_role_menu b on a.id=b.menu_id
-        inner join sys_user_role c on c.role_id=b.role_id
-        <where>
-            a.del_flag='0'
-            and a.status = 1
-            and exists (
-            select 1 from sys_role r where r.del_flag='0' and r.id=b.role_id and r.status = '1'
-            )
-            and a.type = 3
-            and c.user_id = #{userId}
-        </where>
-    </select>
-
-    <select id="findAllPermissions" resultType="String">
-        select a.permission
-        from sys_menu a
-        <where>
-            a.del_flag='0'
-            and a.status = 1
-            and a.type = 3
         </where>
     </select>
 

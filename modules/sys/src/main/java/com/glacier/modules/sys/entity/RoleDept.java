@@ -17,10 +17,6 @@ import java.io.Serializable;
 public class RoleDept implements Serializable {
     private static final long serialVersionUID = 6012509805874207086L;
     /**
-     * 主键
-     */
-    private String id;
-    /**
      * 角色id
      */
     private String roleId;
@@ -32,8 +28,7 @@ public class RoleDept implements Serializable {
     public RoleDept() {
     }
 
-    public RoleDept(String id, String roleId, String deptId) {
-        this.id = id;
+    public RoleDept(String roleId, String deptId) {
         this.roleId = roleId;
         this.deptId = deptId;
     }

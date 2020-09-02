@@ -23,7 +23,7 @@ public class TreeBuildFactoryTest {
 
     @Test
     public void buildMenuTree() {
-        List<MenuVo> allList = this.menuService.findAllList();
+        List<MenuVo> allList = this.menuService.findList(null);
         Optional.ofNullable(allList)
                 .map(TreeBuildFactory::buildMenuTree)
                 .ifPresent(System.out::println);

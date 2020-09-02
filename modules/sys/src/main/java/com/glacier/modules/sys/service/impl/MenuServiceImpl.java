@@ -4,9 +4,11 @@ import com.glacier.common.core.constant.SysConstants;
 import com.glacier.common.core.utils.TreeBuildFactory;
 import com.glacier.modules.sys.entity.Menu;
 import com.glacier.modules.sys.entity.dto.menu.MenuForm;
+import com.glacier.modules.sys.entity.dto.menu.MenuQuery;
 import com.glacier.modules.sys.entity.dto.menu.MenuVo;
 import com.glacier.modules.sys.mapper.MenuMapper;
 import com.glacier.modules.sys.service.MenuService;
+import com.google.common.collect.Lists;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -53,7 +55,6 @@ public class MenuServiceImpl implements MenuService {
         return this.menuMapper.updateByPrimaryKey(menu);
     }
 
-
     /**
      * 根据id删除
      *
@@ -75,17 +76,14 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
-    public List<MenuVo> findAllList() {
+    public List<MenuVo> findList(MenuQuery menuQuery) {
+        if (menuQuery == null) {
+            return new ArrayList<>(1);
+        }
         return this.modelMapper.map(
-                this.menuMapper.selectAll(),
+                this.menuMapper.selectList(menuQuery),
                 new TypeToken<List<MenuVo>>() {
                 }.getType());
-    }
-
-    @Override
-    public List<MenuVo> findMenuTree() {
-        return TreeBuildFactory.buildMenuTree(
-                this.findAllList());
     }
 
     /**
@@ -100,24 +98,24 @@ public class MenuServiceImpl implements MenuService {
         if (userId == null || userId.isEmpty()) {
             return menuList;
         }
+        List<Integer> typeList = Lists.newArrayList(SysConstants.TYPE_DIR, SysConstants.TYPE_MENU);
+        List<MenuVo> allMenuVolist = this.findList(
+                MenuQuery.builder()
+                        .status(SysConstants.STATUS_ENABLED)
+                        .typeList(typeList)
+                        .build());
         if (SysConstants.SYS_USER_ID.equals(userId)) {
-            // 处理
-            menuList = Optional.ofNullable(this.findAllList())
-                    .orElseGet(ArrayList::new)
-                    .stream()
-                    .filter(menu ->
-                            // 正常 且 非权限标识
-                            menu.getStatus() != null
-                                    && menu.getStatus() == SysConstants.STATUS_ENABLED
-                                    && menu.getType() != null
-                                    && menu.getType() != SysConstants.TYPE_BUTTON
-                    )
-                    .collect(Collectors.toList());
+            menuList.addAll(allMenuVolist);
         } else {
-            menuList = this.modelMapper.map(
-                    this.menuMapper.findByUserId(userId),
-                    new TypeToken<List<MenuVo>>() {
-                    }.getType());
+            List<MenuVo> menus = this.findList(
+                    MenuQuery.builder()
+                            .status(SysConstants.STATUS_ENABLED)
+                            .typeList(typeList)
+                            .userId(userId)
+                            .build());
+            // 处理,得到需要的菜单集合
+            menuList.addAll(
+                    this.findAllMenus(menus, allMenuVolist));
         }
         return TreeBuildFactory.buildMenuTree(menuList);
     }
@@ -133,13 +131,91 @@ public class MenuServiceImpl implements MenuService {
         if (userId == null || userId.isEmpty()) {
             return new HashSet<>(1);
         }
-        Set<String> permissions = null;
+        List<MenuVo> menuList = null;
         if (SysConstants.SYS_USER_ID.equals(userId)) {
-            permissions = this.menuMapper.findAllPermissions();
+            menuList = this.findList(
+                    MenuQuery.builder()
+                            .status(SysConstants.STATUS_ENABLED)
+                            .build());
         } else {
-            permissions = this.menuMapper.findPermissionsByUserId(userId);
+            menuList = this.findList(
+                    MenuQuery.builder()
+                            .status(SysConstants.STATUS_ENABLED)
+                            .userId(userId)
+                            .build());
         }
-        return Optional.ofNullable(permissions)
-                .orElseGet(HashSet::new);
+        return Optional.ofNullable(menuList)
+                .orElseGet(ArrayList::new)
+                .stream()
+                .map(MenuVo::getPermission)
+                .collect(Collectors.toSet());
+    }
+
+    /**
+     * 查询所有菜单的父节点
+     *
+     * @param menuVos    待查询，最后一个元素是带查询元素
+     * @param allMenuVos 查询范围菜单集合
+     * @return 查询所有节点(自身和其父节点)
+     */
+    private List<MenuVo> findAllMenus(final List<MenuVo> menuVos, final List<MenuVo> allMenuVos) {
+        if (menuVos == null
+                || menuVos.isEmpty()
+                || allMenuVos == null
+                || allMenuVos.isEmpty()) {
+            return menuVos;
+        }
+        // 记录
+        List<MenuVo> menuVoList = new ArrayList<>(1);
+        // 迭代查出父级，并添加到集合中
+        for (MenuVo menuVo : menuVos) {
+            List<MenuVo> list = new ArrayList<>(1);
+            list.add(menuVo);
+            menuVoList.addAll(
+                    this.findParent(list, allMenuVos));
+        }
+        // 去除重复菜单
+        return menuVoList.stream()
+                .collect(
+                        Collectors.collectingAndThen(
+                                Collectors.toCollection(() ->
+                                        new TreeSet<>(Comparator.comparing(MenuVo::getId))
+                                ),
+                                ArrayList::new
+                        )
+                );
+    }
+
+
+    /**
+     * 查询所有菜单的父节点
+     *
+     * @param menuVos    最后一个元素需要查父级
+     * @param allMenuVos 查询范围菜单集合
+     * @return 查出的父级添加到menuVos最后面
+     */
+    private List<MenuVo> findParent(final List<MenuVo> menuVos, final List<MenuVo> allMenuVos) {
+        if (menuVos == null
+                || menuVos.isEmpty()
+                || allMenuVos == null
+                || allMenuVos.isEmpty()) {
+            return menuVos;
+        }
+        // 取出待查询父级元素
+        MenuVo lastMenuVos = menuVos.get(menuVos.size() - 1);
+        // 父级为空，直接返回
+        if (lastMenuVos == null
+                || StringUtils.isBlank(lastMenuVos.getParentId())) {
+            return menuVos;
+        }
+        Optional<MenuVo> menuVoOptional = allMenuVos.stream()
+                .filter(menuVo ->
+                        StringUtils.equals(lastMenuVos.getParentId(), menuVo.getId()))
+                .findFirst();
+        if (menuVoOptional.isPresent()) {
+            menuVos.add(menuVoOptional.get());
+            return this.findParent(menuVos, allMenuVos);
+        }
+        return menuVos;
     }
 }

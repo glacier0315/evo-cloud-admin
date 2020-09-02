@@ -1,6 +1,7 @@
 package com.glacier.modules.sys.service;
 
 import com.glacier.modules.sys.entity.dto.menu.MenuForm;
+import com.glacier.modules.sys.entity.dto.menu.MenuQuery;
 import com.glacier.modules.sys.entity.dto.menu.MenuVo;
 
 import java.util.List;
@@ -14,19 +15,12 @@ import java.util.Set;
 public interface MenuService {
 
     /**
-     * 查询所有菜单树
+     * 根据查询条件查询菜单
      *
+     * @param menuQuery 菜单查询条件封装类
      * @return
      */
-    List<MenuVo> findAllList();
-
-
-    /**
-     * 查找菜单树
-     *
-     * @return
-     */
-    List<MenuVo> findMenuTree();
+    List<MenuVo> findList(MenuQuery menuQuery);
 
     /**
      * 根据用户ID查找菜单树

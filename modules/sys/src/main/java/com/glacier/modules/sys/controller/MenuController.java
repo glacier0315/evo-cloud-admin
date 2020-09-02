@@ -4,6 +4,7 @@ import com.glacier.common.core.entity.Result;
 import com.glacier.common.core.entity.dto.IdDto;
 import com.glacier.common.security.utils.SecurityUtils;
 import com.glacier.modules.sys.entity.dto.menu.MenuForm;
+import com.glacier.modules.sys.entity.dto.menu.MenuQuery;
 import com.glacier.modules.sys.entity.dto.menu.MenuVo;
 import com.glacier.modules.sys.entity.dto.menu.Router;
 import com.glacier.modules.sys.service.MenuService;
@@ -43,7 +44,7 @@ public class MenuController {
     @GetMapping("/list")
     public Result<List<MenuVo>> list() {
         return Result.ok(
-                this.menuService.findAllList());
+                this.menuService.findList(new MenuQuery()));
     }
 
     /**

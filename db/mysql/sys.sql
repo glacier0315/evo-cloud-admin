@@ -165,28 +165,23 @@ INSERT INTO sys_dept (id, name, code, type, status, order_num, grade, parent_id,
 -- ----------------------------
 DROP TABLE IF EXISTS sys_role_menu;
 CREATE TABLE sys_role_menu  (
-  id varchar(64) NOT NULL COMMENT '主键',
   role_id varchar(64)  COMMENT '角色主键',
   menu_id varchar(64)  COMMENT '菜单主键',
-  PRIMARY KEY (id) USING BTREE,
+  PRIMARY KEY (role_id, menu_id) USING BTREE,
   INDEX sys_role_menu_1(menu_id) USING BTREE,
   INDEX sys_role_menu_2(role_id) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '角色菜单关联表' ROW_FORMAT = Dynamic;
-
 -- ----------------------------
 -- Records of sys_role_menu
 -- ----------------------------
-INSERT INTO sys_role_menu (id, role_id, menu_id) VALUES ('04617accfdf6bdd41f05a773d0b25603', '1', '2');
-INSERT INTO sys_role_menu (id, role_id, menu_id) VALUES ('22c6eb304c58b0fd02a37e0762687284', '1', '9');
-INSERT INTO sys_role_menu (id, role_id, menu_id) VALUES ('4b5f896e41cc7d873e706b4b98ba31ab', '1', '7');
-INSERT INTO sys_role_menu (id, role_id, menu_id) VALUES ('61e07b1e50bc91014700976febe9becb', '1', '5');
-INSERT INTO sys_role_menu (id, role_id, menu_id) VALUES ('85c60245ad524a9cc1a003f361bac03a', '1', '6');
-INSERT INTO sys_role_menu (id, role_id, menu_id) VALUES ('b2682444e18c7dc7675da8c0c70bc9ac', '1', '4');
-INSERT INTO sys_role_menu (id, role_id, menu_id) VALUES ('beb7fe8b7012b00459fa8c3e949382d1', '1', '8');
-INSERT INTO sys_role_menu (id, role_id, menu_id) VALUES ('e2ecf86253fb7c665d82c7742efc1c82', '1', '3');
-INSERT INTO sys_role_menu (id, role_id, menu_id) VALUES ('e8ca22cf7f7a17ede9dcfd17b10cc32a', '1', '1');
-INSERT INTO sys_role_menu (id, role_id, menu_id) VALUES ('eaac030189c43012f6a82db1b301790e', 'd1ece8903278fe25e8be2804fd755025', '8');
-INSERT INTO sys_role_menu (id, role_id, menu_id) VALUES ('ebbf70df4d99d6cca88449facc0cdc5b', 'd1ece8903278fe25e8be2804fd755025', '3');
+INSERT INTO sys_role_menu (role_id, menu_id) VALUES ('ae153d7756e54234bde561ae1367f08f', '0b2c28fb18bc213a2ea7143cbf724702');
+INSERT INTO sys_role_menu (role_id, menu_id) VALUES ('ae153d7756e54234bde561ae1367f08f', '2f0640f9f1fa452abe25643e14d8b3f4');
+INSERT INTO sys_role_menu (role_id, menu_id) VALUES ('ae153d7756e54234bde561ae1367f08f', '3');
+INSERT INTO sys_role_menu (role_id, menu_id) VALUES ('ae153d7756e54234bde561ae1367f08f', '6');
+INSERT INTO sys_role_menu (role_id, menu_id) VALUES ('ae153d7756e54234bde561ae1367f08f', '8');
+INSERT INTO sys_role_menu (role_id, menu_id) VALUES ('ae153d7756e54234bde561ae1367f08f', '9');
+INSERT INTO sys_role_menu (role_id, menu_id) VALUES ('ae153d7756e54234bde561ae1367f08f', 'a38df56dd7f59f030a0bc449fcc97d57');
+
 
 -- ----------------------------
 -- Table structure for sys_user_role
@@ -204,7 +199,6 @@ CREATE TABLE sys_user_role  (
 -- Records of sys_user_role
 -- ----------------------------
 INSERT INTO sys_user_role (user_id, role_id) VALUES ('1', '1');
-INSERT INTO sys_user_role (user_id, role_id) VALUES ('c35d5b94aca547799fbe56ddd90bcfc4', 'd1ece8903278fe25e8be2804fd755025');
 
 
 -- ----------------------------
@@ -212,10 +206,9 @@ INSERT INTO sys_user_role (user_id, role_id) VALUES ('c35d5b94aca547799fbe56ddd9
 -- ----------------------------
 DROP TABLE IF EXISTS sys_role_dept;
 CREATE TABLE sys_role_dept  (
-  id varchar(64) NOT NULL COMMENT '主键',
   role_id varchar(64)  COMMENT '角色主键',
   dept_id varchar(64)  COMMENT '组织机构主键',
-  PRIMARY KEY (id) USING BTREE,
+  PRIMARY KEY (role_id, dept_id) USING BTREE,
   INDEX sys_role_dept_1(dept_id) USING BTREE,
   INDEX sys_role_dept_2(role_id) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '角色和组织机构关联表' ROW_FORMAT = Dynamic;

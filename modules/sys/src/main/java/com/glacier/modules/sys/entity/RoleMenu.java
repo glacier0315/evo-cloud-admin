@@ -18,10 +18,6 @@ public class RoleMenu implements Serializable {
 
     private static final long serialVersionUID = -234428421997899712L;
     /**
-     * 主键
-     */
-    private String id;
-    /**
      * 角色id
      */
     private String roleId;
@@ -33,8 +29,7 @@ public class RoleMenu implements Serializable {
     public RoleMenu() {
     }
 
-    public RoleMenu(String id, String roleId, String menuId) {
-        this.id = id;
+    public RoleMenu(String roleId, String menuId) {
         this.roleId = roleId;
         this.menuId = menuId;
     }

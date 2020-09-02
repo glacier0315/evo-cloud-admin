@@ -29,26 +29,8 @@
         where dept_id = #{deptId}
     </delete>
 
-    <delete id="deleteByDeptIds">
-        delete
-        from sys_role_dept
-        <where>
-            <choose>
-                <when test="list != null and list.size() > 0">
-                    and dept_id in
-                    <foreach collection="list" item="item" separator="," open="(" close=")">
-                        #{item.id}
-                    </foreach>
-                </when>
-                <otherwise>
-                    and 0=1
-                </otherwise>
-            </choose>
-        </where>
-    </delete>
-
     <insert id="insert" parameterType="com.glacier.modules.sys.entity.RoleDept">
-        insert into sys_role_dept (id, role_id, dept_id)
-        values (#{id}, #{roleId}, #{deptId})
+        insert into sys_role_dept (role_id, dept_id)
+        values (#{roleId}, #{deptId})
     </insert>
 </mapper>

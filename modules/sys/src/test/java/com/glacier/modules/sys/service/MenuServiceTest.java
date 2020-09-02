@@ -1,6 +1,8 @@
 package com.glacier.modules.sys.service;
 
+import com.glacier.modules.sys.entity.dto.menu.MenuQuery;
 import com.glacier.modules.sys.entity.dto.menu.MenuVo;
+import com.google.common.collect.Lists;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -19,22 +21,21 @@ public class MenuServiceTest {
     private MenuService menuService;
 
     @Test
-    public void findAllList() {
-        List<MenuVo> allList = this.menuService.findAllList();
-        Optional.ofNullable(allList)
-                .ifPresent(System.out::println);
-    }
-
-    @Test
-    public void findMenuTree() {
-        List<MenuVo> menuTree = this.menuService.findMenuTree();
-        Optional.ofNullable(menuTree)
+    public void findList() {
+        MenuQuery menuQuery = MenuQuery.builder()
+                .status(1)
+                .typeList(Lists.newArrayList(1, 2))
+                .roleId("1")
+                .userId("1")
+                .build();
+        List<MenuVo> menuVos = this.menuService.findList(menuQuery);
+        Optional.ofNullable(menuVos)
                 .ifPresent(System.out::println);
     }
 
     @Test
     public void findMenuTreeByUserId() {
-        String userId = "1";
+        String userId = "c35d5b94aca547799fbe56ddd90bcfc4";
         List<MenuVo> menuTree = this.menuService.findMenuTreeByUserId(userId);
         Optional.ofNullable(menuTree)
                 .ifPresent(System.out::println);
@@ -58,5 +59,9 @@ public class MenuServiceTest {
 
     @Test
     public void findByRole() {
+        String roleId = "1";
+        List<String> list = this.menuService.findByRole(roleId);
+        Optional.ofNullable(list)
+                .ifPresent(System.out::println);
     }
 }

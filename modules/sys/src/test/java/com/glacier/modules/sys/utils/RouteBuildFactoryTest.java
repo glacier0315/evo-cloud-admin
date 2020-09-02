@@ -1,5 +1,6 @@
 package com.glacier.modules.sys.utils;
 
+import com.glacier.common.core.constant.SysConstants;
 import com.glacier.modules.sys.entity.dto.menu.MenuVo;
 import com.glacier.modules.sys.service.MenuService;
 import org.junit.jupiter.api.Test;
@@ -23,7 +24,7 @@ public class RouteBuildFactoryTest {
 
     @Test
     public void buildRouters() {
-        List<MenuVo> allList = this.menuService.findMenuTree();
+        List<MenuVo> allList = this.menuService.findMenuTreeByUserId(SysConstants.SYS_USER_ID);
         Optional.ofNullable(allList)
                 .map(RouteBuildFactory::buildRouters)
                 .ifPresent(System.out::println);

@@ -5,7 +5,6 @@ import com.github.pagehelper.PageInfo;
 import com.glacier.common.core.constant.SysConstants;
 import com.glacier.common.core.entity.page.PageRequest;
 import com.glacier.common.core.entity.page.PageResponse;
-import com.glacier.common.core.utils.IdGen;
 import com.glacier.modules.sys.entity.Role;
 import com.glacier.modules.sys.entity.RoleDept;
 import com.glacier.modules.sys.entity.RoleMenu;
@@ -175,7 +174,7 @@ public class RoleServiceImpl implements RoleService {
             if (menuIds != null
                     && !menuIds.isEmpty()) {
                 for (String menuId : menuIds) {
-                    update += this.roleMenuMapper.insert(new RoleMenu(IdGen.uuid(), roleId, menuId));
+                    update += this.roleMenuMapper.insert(new RoleMenu(roleId, menuId));
                 }
             }
         }
@@ -202,7 +201,7 @@ public class RoleServiceImpl implements RoleService {
                     && deptIds != null
                     && !deptIds.isEmpty()) {
                 for (String deptId : deptIds) {
-                    update += this.roleDeptMapper.insert(new RoleDept(IdGen.uuid(), roleId, deptId));
+                    update += this.roleDeptMapper.insert(new RoleDept(roleId, deptId));
                 }
             }
         }

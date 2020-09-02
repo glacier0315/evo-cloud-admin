@@ -32,6 +32,11 @@ public class MenuQuery implements Serializable {
     @ApiModelProperty(value = "用户id")
     private String userId;
     /**
+     * 角色id
+     */
+    @ApiModelProperty(value = "角色id")
+    private String roleId;
+    /**
      * 资源类型
      */
     @ApiModelProperty(value = "资源类型")

@@ -322,10 +322,13 @@ CREATE TABLE sys_log  (
 DROP TABLE IF EXISTS sys_login_log;
 CREATE TABLE sys_login_log  (
   id varchar(64) NOT NULL COMMENT '主键',
-  user_id varchar(64)  COMMENT '登录id',
-  ip varchar(255)  COMMENT '登录ip',
+  user_name varchar(64)  COMMENT '登录用户名',
+  ip_addr varchar(255) COMMENT '登录ip',
+  status int(4) COMMENT '登录状态 1 登录成功 2 登陆失败',
   user_agent varchar(255)  COMMENT '登录客户端',
+  browser varchar(255)  COMMENT '浏览器',
+  os varchar(255)  COMMENT '操作系统',
+  login_time timestamp DEFAULT current_timestamp  COMMENT '登陆时间',
   PRIMARY KEY (id) USING BTREE,
-  INDEX sys_login_log_1(user_id) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '登录日志表' ROW_FORMAT = Dynamic;
-
+  INDEX sys_login_log_1(user_name) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '系统访问记录表' ROW_FORMAT = Dynamic;

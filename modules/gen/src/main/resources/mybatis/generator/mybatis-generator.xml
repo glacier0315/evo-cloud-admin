@@ -26,7 +26,7 @@
 
         <!--数据库基本信息-->
         <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
-                        connectionURL="jdbc:mysql://192.168.10.130:3306/eboot_gen"
+                        connectionURL="jdbc:mysql://192.168.10.130:3306/eboot_sys"
                         userId="root"
                         password="root">
             <!--MySQL 8.x 需要指定服务器的时区-->
@@ -58,7 +58,7 @@
             targetPackage：生成的类要放的包，真实的包受enableSubPackages属性控制；
             targetProject：目标项目，指定一个存在的目录下，生成的内容会放到指定目录中，如果目录不存在，MBG不会自动建目录
          -->
-        <javaModelGenerator targetPackage="com.glacier.modules.gen.entity" targetProject="src/main/java">
+        <javaModelGenerator targetPackage="com.glacier.modules.sys.entity" targetProject="src/main/java">
             <!-- 是否允许子包，即targetPackage.schemaName.tableName -->
             <property name="enableSubPackages" value="false"/>
             <!-- 是否对model添加 构造函数 -->
@@ -89,7 +89,7 @@
                 3，XMLMAPPER：会生成Mapper接口，接口完全依赖XML；
             注意，如果context是MyBatis3Simple：只支持ANNOTATEDMAPPER和XMLMAPPER
         -->
-        <javaClientGenerator targetPackage="com.glacier.modules.gen.mapper" type="XMLMAPPER"
+        <javaClientGenerator targetPackage="com.glacier.modules.sys.mapper" type="XMLMAPPER"
                              targetProject="src/main/java">
             <!-- 在targetPackage的基础上，根据数据库的schema再生成一层package，最终生成的类放在这个package下，默认为false -->
             <property name="enableSubPackages" value="false"/>
@@ -107,8 +107,9 @@
             &lt;!&ndash;<columnOverride column="username" property="userName" />&ndash;&gt;
             &lt;!&ndash;<domainObjectRenamingRule searchString="^Sys" replaceString=""/>&ndash;&gt;
         </table>-->
-        <table tableName="gen_table" domainObjectName="GenTable"/>
-        <table tableName="gen_table_column" domainObjectName="GenTableColumn"/>
+        <!--<table tableName="gen_table" domainObjectName="GenTable"/>
+        <table tableName="gen_table_column" domainObjectName="GenTableColumn"/>-->
+        <table tableName="sys_login_log" domainObjectName="LoginLog"/>
 
     </context>
 </generatorConfiguration>

@@ -3,6 +3,8 @@ package com.glacier.modules.sys.mapper;
 import com.glacier.common.core.mapper.BaseMapper;
 import com.glacier.modules.sys.entity.SysLog;
 
+import java.util.List;
+
 /**
  * 日志数据层
  *
@@ -12,4 +14,10 @@ import com.glacier.modules.sys.entity.SysLog;
  */
 public interface SysLogMapper extends BaseMapper<SysLog, String> {
 
+    /**
+     * 根据条件查询
+     * @param params
+     * @return
+     */
+    List<SysLog> selectList(SysLog params);
 }

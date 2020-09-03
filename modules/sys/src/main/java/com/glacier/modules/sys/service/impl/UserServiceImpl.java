@@ -109,7 +109,7 @@ public class UserServiceImpl implements UserService {
      * @return
      */
     @Override
-    public PageResponse<UserDto> findPage(PageRequest<UserQueryForm> pageRequest) {
+    public PageResponse<UserDto> findPage(PageRequest<UserQuery> pageRequest) {
         PageHelper.startPage(pageRequest.getPageNum(), pageRequest.getPageSize());
         List<User> userList = this.userMapper.selectList(pageRequest.getParams());
         PageInfo<User> pageInfo = PageInfo.of(userList);

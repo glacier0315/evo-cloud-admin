@@ -3,7 +3,7 @@ package com.glacier.modules.gen.service;
 import com.glacier.common.core.entity.page.PageRequest;
 import com.glacier.common.core.entity.page.PageResponse;
 import com.glacier.modules.gen.entity.dto.GenTableDto;
-import com.glacier.modules.gen.entity.dto.GenTableQueryForm;
+import com.glacier.modules.gen.entity.dto.GenTableQuery;
 
 /**
  * 生成表  业务层
@@ -28,7 +28,7 @@ public interface GenTableService {
      * @param pageRequest
      * @return
      */
-    PageResponse<GenTableDto> findPage(PageRequest<GenTableQueryForm> pageRequest);
+    PageResponse<GenTableDto> findPage(PageRequest<GenTableQuery> pageRequest);
 
     /**
      * 保存用户

@@ -64,9 +64,9 @@ public class UserServiceTest {
     @Test
     public void findPage() {
         String username = "admin";
-        UserQueryForm userQueryForm = new UserQueryForm();
-        userQueryForm.setUsername(username);
-        PageResponse<UserDto> page = this.userService.findPage(new PageRequest<>(1, 10, userQueryForm));
+        UserQuery userQuery = new UserQuery();
+        userQuery.setUsername(username);
+        PageResponse<UserDto> page = this.userService.findPage(new PageRequest<>(1, 10, userQuery));
         System.out.println(page);
         assertNotNull(page);
         assertTrue(page.getList() != null

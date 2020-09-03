@@ -5,7 +5,7 @@ import com.glacier.common.core.entity.dto.IdDto;
 import com.glacier.common.core.entity.page.PageRequest;
 import com.glacier.common.core.entity.page.PageResponse;
 import com.glacier.modules.sys.entity.dto.role.RoleForm;
-import com.glacier.modules.sys.entity.dto.role.RoleQueryForm;
+import com.glacier.modules.sys.entity.dto.role.RoleQuery;
 import com.glacier.modules.sys.entity.dto.role.RoleVo;
 import com.glacier.modules.sys.service.RoleService;
 import io.swagger.annotations.Api;
@@ -52,7 +52,7 @@ public class RoleController {
     @ApiOperation("分页查询角色")
     @PostMapping("/pageList")
     public Result<PageResponse<RoleVo>> findPage(
-            @RequestBody PageRequest<RoleQueryForm> pageRequest) {
+            @RequestBody PageRequest<RoleQuery> pageRequest) {
         return Result.ok(
                 this.roleService.findPage(pageRequest));
     }

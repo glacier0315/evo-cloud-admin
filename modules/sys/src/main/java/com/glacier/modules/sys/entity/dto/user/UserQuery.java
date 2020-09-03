@@ -19,7 +19,7 @@ import java.time.LocalDate;
 @ApiModel(description = "用户查询条件模型")
 @Data
 @ToString
-public class UserQueryForm implements Serializable {
+public class UserQuery implements Serializable {
     private static final long serialVersionUID = 7302567686429075050L;
     /**
      * 用户名

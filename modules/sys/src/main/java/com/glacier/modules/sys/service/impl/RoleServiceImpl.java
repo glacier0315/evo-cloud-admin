@@ -9,7 +9,7 @@ import com.glacier.modules.sys.entity.Role;
 import com.glacier.modules.sys.entity.RoleDept;
 import com.glacier.modules.sys.entity.RoleMenu;
 import com.glacier.modules.sys.entity.dto.role.RoleForm;
-import com.glacier.modules.sys.entity.dto.role.RoleQueryForm;
+import com.glacier.modules.sys.entity.dto.role.RoleQuery;
 import com.glacier.modules.sys.entity.dto.role.RoleVo;
 import com.glacier.modules.sys.mapper.RoleDeptMapper;
 import com.glacier.modules.sys.mapper.RoleMapper;
@@ -95,7 +95,7 @@ public class RoleServiceImpl implements RoleService {
      * @return
      */
     @Override
-    public PageResponse<RoleVo> findPage(PageRequest<RoleQueryForm> pageRequest) {
+    public PageResponse<RoleVo> findPage(PageRequest<RoleQuery> pageRequest) {
         PageHelper.startPage(pageRequest.getPageNum(), pageRequest.getPageSize());
         List<Role> roleList = this.roleMapper.selectList(pageRequest.getParams());
         PageInfo<Role> pageInfo = PageInfo.of(roleList);

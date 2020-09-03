@@ -40,8 +40,8 @@ CREATE TABLE sys_user  (
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
-INSERT INTO sys_user (id, username, password, nickname, id_card, birthday, sex, email, mobile, dept_id, dept_name, status, avatar, create_by, create_date, update_by, update_date, del_flag) VALUES ('1', 'admin', '$2a$10$RCvUyaqalDebEuYPVSOqCOlpRBO9hfslhp4SEN1dK/kJcc0FYY0aW', '超级管理员', '421121198604137015', '1990-03-04', 1, '14151@126.com', '15926081406', '4c963d38ae25416ea3c1f141656b8f78', '湖北荆州', '1', null, null, '2019-11-07 17:01:42', '1', '2020-08-27 10:25:34', '0');
-INSERT INTO sys_user (id, username, password, nickname, id_card, birthday, sex, email, mobile, dept_id, dept_name, status, avatar, create_by, create_date, update_by, update_date, del_flag) VALUES ('3d908373717c4539ba02011e2bfc2398', 'ceshi2', '$2a$10$68/saBjPxR8aLuhTI7reR.OFj0pnIhx/CG/bopFsbCbEIp17I5Pe2', '测试22', '421121198604137016', '1990-06-01', 1, '321@126.com', '15970121345', 'ca06d9feadf143a7adb7977923e4e3cc', '湖北武汉', '1', null, null, '2020-08-08 05:26:38', '1', '2020-08-27 10:22:10', '0');
+INSERT INTO sys_user (id, username, password, nickname, id_card, birthday, sex, email, mobile, dept_id, dept_name, status, avatar, create_by, create_date, update_by, update_date, del_flag) VALUES ('1', 'admin', '$2a$10$RCvUyaqalDebEuYPVSOqCOlpRBO9hfslhp4SEN1dK/kJcc0FYY0aW', '超级管理员', '421121198604137015', '1990-03-04', 1, '14151@126.com', '15926081406', '4c963d38ae25416ea3c1f141656b8f78', '湖北荆州', '1', null, null, '2019-11-07 17:01:42', '1', '2020-09-03 20:36:24', '0');
+INSERT INTO sys_user (id, username, password, nickname, id_card, birthday, sex, email, mobile, dept_id, dept_name, status, avatar, create_by, create_date, update_by, update_date, del_flag) VALUES ('3d908373717c4539ba02011e2bfc2398', 'ceshi2', '$2a$10$68/saBjPxR8aLuhTI7reR.OFj0pnIhx/CG/bopFsbCbEIp17I5Pe2', '测试22', '421121198604137016', '1990-06-02', 1, '321@126.com', '15970121345', 'ca06d9feadf143a7adb7977923e4e3cc', '湖北武汉', '1', null, null, '2020-08-08 05:26:38', '1', '2020-09-03 20:36:34', '0');
 INSERT INTO sys_user (id, username, password, nickname, id_card, birthday, sex, email, mobile, dept_id, dept_name, status, avatar, create_by, create_date, update_by, update_date, del_flag) VALUES ('651c74980f0f40729b28d6bd9fe32c80', 'ceshi1', '$2a$10$aJ/mxyNZZe3AfYpykFA8G.ubIDfHboYMtJH/ejgkk3h4bUDs3Dvsy', '测试11', '421121198604137017', '1988-07-08', 1, '123@126.com', '15927021502', '4c963d38ae25416ea3c1f141656b8f78', '湖北荆州', '1', null, null, '2020-08-08 05:22:02', '1', '2020-08-27 10:26:04', '0');
 INSERT INTO sys_user (id, username, password, nickname, id_card, birthday, sex, email, mobile, dept_id, dept_name, status, avatar, create_by, create_date, update_by, update_date, del_flag) VALUES ('c35d5b94aca547799fbe56ddd90bcfc4', 'ceshi', '$2a$10$RP6MGP8lFqKhh0.2/SroKepKV25y8u2XSjvD8dzRXBzwAZGZYSYl.', '普通用户', '421121198604137018', '1992-08-06', 2, '14151@126.com', '15926081406', '4c963d38ae25416ea3c1f141656b8f78', '湖北荆州', '1', null, null, '2020-06-25 07:45:59', '1', '2020-08-27 10:27:20', '0');
 
@@ -76,20 +76,21 @@ CREATE TABLE sys_menu  (
 -- ----------------------------
 -- Records of sys_menu
 -- ----------------------------
-
 INSERT INTO sys_menu (id, name, path, component, icon, type, status, visible, is_frame, permission, parent_id, grade, order_num, create_by, create_date, update_by, update_date, del_flag) VALUES ('1', 'permission', '/permission', 'Layout', 'lock', 1, 1, 1, 2, null, null, null, 1, null, '2020-06-25 07:45:59', null, '2020-06-25 07:45:59', '0');
+INSERT INTO sys_menu (id, name, path, component, icon, type, status, visible, is_frame, permission, parent_id, grade, order_num, create_by, create_date, update_by, update_date, del_flag) VALUES ('5', '系统设置', '/sys', '', 'el-icon-setting', 1, 1, 1, 2, null, null, null, 5, null, '2020-06-27 03:29:29', null, '2020-06-27 03:29:29', '0');
+INSERT INTO sys_menu (id, name, path, component, icon, type, status, visible, is_frame, permission, parent_id, grade, order_num, create_by, create_date, update_by, update_date, del_flag) VALUES ('0b2c28fb18bc213a2ea7143cbf724702', 'icon', '/icon', 'Layout', null, 1, 1, 1, 2, null, null, null, 11, null, '2020-07-04 02:37:46', null, '2020-07-04 02:37:46', '0');
+INSERT INTO sys_menu (id, name, path, component, icon, type, status, visible, is_frame, permission, parent_id, grade, order_num, create_by, create_date, update_by, update_date, del_flag) VALUES ('be14507626f7f301fbfc21ddbd8e6380', 'pdf', '/pdf', null, null, 1, 1, 1, 2, null, null, null, 13, null, '2020-07-04 03:04:29', null, '2020-07-04 03:04:29', '0');
+INSERT INTO sys_menu (id, name, path, component, icon, type, status, visible, is_frame, permission, parent_id, grade, order_num, create_by, create_date, update_by, update_date, del_flag) VALUES ('a38df56dd7f59f030a0bc449fcc97d57', 'icons', '/icon/index', 'icons', 'icon', 2, 1, 1, 2, null, '0b2c28fb18bc213a2ea7143cbf724702', null, 12, null, '2020-07-04 02:38:52', null, '2020-07-04 02:38:52', '0');
 INSERT INTO sys_menu (id, name, path, component, icon, type, status, visible, is_frame, permission, parent_id, grade, order_num, create_by, create_date, update_by, update_date, del_flag) VALUES ('2', 'PagePermission', '/permission/page', 'permission/page', null, 2, 1, 1, 2, null, '1', null, 2, null, '2020-06-25 07:45:59', null, '2020-06-25 07:45:59', '0');
 INSERT INTO sys_menu (id, name, path, component, icon, type, status, visible, is_frame, permission, parent_id, grade, order_num, create_by, create_date, update_by, update_date, del_flag) VALUES ('3', 'directive', '/permission/directive', 'permission/directive', null, 2, 1, 1, 2, null, '1', null, 3, null, '2020-06-25 07:45:59', null, '2020-06-25 07:45:59', '0');
-INSERT INTO sys_menu (id, name, path, component, icon, type, status, visible, is_frame, permission, parent_id, grade, order_num, create_by, create_date, update_by, update_date, del_flag) VALUES ('4', 'role', '/permission/role', 'permission/role', null, 2, 1, 1, 2, null, '1', null, 4, null, '2020-06-25 07:45:59', null, '2020-06-25 07:45:59', '0');
-INSERT INTO sys_menu (id, name, path, component, icon, type, status, visible, is_frame, permission, parent_id, grade, order_num, create_by, create_date, update_by, update_date, del_flag) VALUES ('5', '系统设置', '/sys', '', 'el-icon-setting', 1, 1, 1, 2, null, null, null, 5, null, '2020-06-27 03:29:29', null, '2020-06-27 03:29:29', '0');
-INSERT INTO sys_menu (id, name, path, component, icon, type, status, visible, is_frame, permission, parent_id, grade, order_num, create_by, create_date, update_by, update_date, del_flag) VALUES ('6', '用户列表', '/sys/user', 'sys/user', 'user', 2, 1, 1, 2, null, '5', null, 6, null, '2020-06-27 03:31:00', null, '2020-07-04 03:39:23', '0');
-INSERT INTO sys_menu (id, name, path, component, icon, type, status, visible, is_frame, permission, parent_id, grade, order_num, create_by, create_date, update_by, update_date, del_flag) VALUES ('7', '角色列表', '/sys/role', 'sys/role', 'people', 2, 1, 1, 2, null, '5', null, 7, null, '2020-06-27 03:31:33', null, '2020-06-27 03:31:33', '0');
+INSERT INTO sys_menu (id, name, path, component, icon, type, status, visible, is_frame, permission, parent_id, grade, order_num, create_by, create_date, update_by, update_date, del_flag) VALUES ('4', 'role', '/permission/role', 'permission/role', null, 2, 1, 1, 2, null, '1', null, 4, null, '2020-06-25 07:45:59', 'c35d5b94aca547799fbe56ddd90bcfc4', '2020-09-03 20:46:19', '0');
+INSERT INTO sys_menu (id, name, path, component, icon, type, status, visible, is_frame, permission, parent_id, grade, order_num, create_by, create_date, update_by, update_date, del_flag) VALUES ('6', '用户列表', '/sys/user', 'sys/user', 'user', 2, 1, 1, 2, null, '5', null, 1, null, '2020-06-27 03:31:00', '1', '2020-09-03 20:37:11', '0');
+INSERT INTO sys_menu (id, name, path, component, icon, type, status, visible, is_frame, permission, parent_id, grade, order_num, create_by, create_date, update_by, update_date, del_flag) VALUES ('4e70a707c3d24b29aefe737d6a61b5c9', '用户授权', '/sys/user/role', 'sys/user/role', null, 2, 1, 2, 2, null, '5', null, 2, '1', '2020-09-03 20:38:07', null, null, '0');
+INSERT INTO sys_menu (id, name, path, component, icon, type, status, visible, is_frame, permission, parent_id, grade, order_num, create_by, create_date, update_by, update_date, del_flag) VALUES ('7', '角色列表', '/sys/role', 'sys/role', 'people', 2, 1, 1, 2, null, '5', null, 3, null, '2020-06-27 03:31:33', '1', '2020-09-03 20:38:16', '0');
+INSERT INTO sys_menu (id, name, path, component, icon, type, status, visible, is_frame, permission, parent_id, grade, order_num, create_by, create_date, update_by, update_date, del_flag) VALUES ('d553d5090905465eb23cc5285c5f41ad', '角色授权', '/sys/role/user', 'sys/role/user', null, 2, 1, 2, 2, null, '5', null, 4, '1', '2020-09-03 20:39:03', null, null, '0');
 INSERT INTO sys_menu (id, name, path, component, icon, type, status, visible, is_frame, permission, parent_id, grade, order_num, create_by, create_date, update_by, update_date, del_flag) VALUES ('8', '菜单列表', '/sys/menu', 'sys/menu', 'tree', 2, 1, 1, 2, null, '5', null, 8, null, '2020-06-27 03:32:20', null, '2020-06-27 03:32:20', '0');
 INSERT INTO sys_menu (id, name, path, component, icon, type, status, visible, is_frame, permission, parent_id, grade, order_num, create_by, create_date, update_by, update_date, del_flag) VALUES ('9', '组织机构', '/sys/dept', 'sys/dept', 'tree', 2, 1, 1, 2, null, '5', null, 10, null, '2020-06-27 03:32:54', null, '2020-07-04 02:36:30', '0');
-INSERT INTO sys_menu (id, name, path, component, icon, type, status, visible, is_frame, permission, parent_id, grade, order_num, create_by, create_date, update_by, update_date, del_flag) VALUES ('0b2c28fb18bc213a2ea7143cbf724702', 'icon', '/icon', 'Layout', null, 1, 1, 1, 2, null, null, null, 11, null, '2020-07-04 02:37:46', null, '2020-07-04 02:37:46', '0');
-INSERT INTO sys_menu (id, name, path, component, icon, type, status, visible, is_frame, permission, parent_id, grade, order_num, create_by, create_date, update_by, update_date, del_flag) VALUES ('a38df56dd7f59f030a0bc449fcc97d57', 'icons', '/icon/index', 'icons', 'icon', 2, 1, 1, 2, null, '0b2c28fb18bc213a2ea7143cbf724702', null, 12, null, '2020-07-04 02:38:52', null, '2020-07-04 02:38:52', '0');
-INSERT INTO sys_menu (id, name, path, component, icon, type, status, visible, is_frame, permission, parent_id, grade, order_num, create_by, create_date, update_by, update_date, del_flag) VALUES ('be14507626f7f301fbfc21ddbd8e6380', 'pdf', '/pdf', null, null, 1, 1, 1, 2, null, null, null, 13, null, '2020-07-04 03:04:29', null, '2020-07-04 03:04:29', '0');
-INSERT INTO sys_menu (id, name, path, component, icon, type, status, visible, is_frame, permission, parent_id, grade, order_num, create_by, create_date, update_by, update_date, del_flag) VALUES ('54f41ef8740a67b56a122453d0323ded', 'pdf', '/pdf/index', 'pdf/index', 'pdf', 2, 1, 1, 2, null, 'be14507626f7f301fbfc21ddbd8e6380', null, 14, null, '2020-07-04 03:05:13', null, '2020-07-04 03:05:13', '0');
+INSERT INTO sys_menu (id, name, path, component, icon, type, status, visible, is_frame, permission, parent_id, grade, order_num, create_by, create_date, update_by, update_date, del_flag) VALUES ('54f41ef8740a67b56a122453d0323ded', 'pdf', '/pdf/index', 'pdf/index', 'pdf', 2, 1, 1, 2, null, 'be14507626f7f301fbfc21ddbd8e6380', null, 14, null, '2020-07-04 03:05:13', 'c35d5b94aca547799fbe56ddd90bcfc4', '2020-09-03 20:46:24', '0');
 
 -- ----------------------------
 -- Table structure for sys_role
@@ -115,8 +116,8 @@ CREATE TABLE sys_role  (
 -- ----------------------------
 -- Records of sys_role
 -- ----------------------------
-INSERT INTO sys_role (id, name, code, status, description, create_by, create_date, update_by, update_date, del_flag) VALUES ('1', '超级管理员', 'admin', '1', null, null, '2020-06-25 07:45:59', null, '2020-07-04 03:39:09', '0');
-INSERT INTO sys_role (id, name, code, status, description, create_by, create_date, update_by, update_date, del_flag) VALUES ('d1ece8903278fe25e8be2804fd755025', '普通用户', 'user', '1', '普通用户', null, '2020-07-04 01:49:03', null, '2020-07-04 03:39:13', '0');
+INSERT INTO sys_role (id, name, code, status, data_scope, description, create_by, create_date, update_by, update_date, del_flag) VALUES ('1', '超级管理员', 'admin', '1', '1', null, null, '2020-06-25 07:45:59', '1', '2020-09-03 20:40:19', '0');
+INSERT INTO sys_role (id, name, code, status, data_scope, description, create_by, create_date, update_by, update_date, del_flag) VALUES ('d1ece8903278fe25e8be2804fd755025', '普通用户', 'user', '1', '2', null, null, '2020-07-04 01:49:03', '1', '2020-09-03 20:40:55', '0');
 
 -- ----------------------------
 -- Table structure for sys_dept
@@ -133,7 +134,7 @@ CREATE TABLE sys_dept
     grade       int(4) COMMENT '层级',
     parent_id   varchar(255) COMMENT '父级id',
     parent_name varchar(255) COMMENT '父级单位',
-    parent_ids  varchar(255) COMMENT '所有父级id,格式：,id1,id2,',
+    parent_ids  varchar(2000) COMMENT '所有父级id,格式：,id1,id2,',
     create_by   varchar(64) COMMENT '创建人',
     create_date timestamp  DEFAULT current_timestamp COMMENT '创建时间',
     update_by   varchar(64) COMMENT '更新人',
@@ -152,13 +153,12 @@ CREATE TABLE sys_dept
 -- ----------------------------
 -- Records of sys_dept
 -- ----------------------------
-
-INSERT INTO sys_dept (id, name, code, type, status, order_num, grade, parent_id, parent_name, parent_ids, create_by, create_date, update_by, update_date, del_flag) VALUES ('d018f06a3a194ac68a3d0f5677e4cfbe', '湖北', 'hb001', 0, 0, 0, 1, null, null, null, null, '2020-06-25 07:45:59', null, '2020-06-25 07:45:59', '0');
-INSERT INTO sys_dept (id, name, code, type, status, order_num, grade, parent_id, parent_name, parent_ids, create_by, create_date, update_by, update_date, del_flag) VALUES ('90e56a2a4e6a4add9a5b9a26fc212db2', '湖南', 'cs1', 0, 0, 3, 1, null, null, null, null, '2020-06-25 07:45:59', null, '2020-06-25 07:45:59', '0');
-INSERT INTO sys_dept (id, name, code, type, status, order_num, grade, parent_id, parent_name, parent_ids, create_by, create_date, update_by, update_date, del_flag) VALUES ('ca06d9feadf143a7adb7977923e4e3cc', '湖北武汉', 'hb001001', 0, 0, 1, 2, 'd018f06a3a194ac68a3d0f5677e4cfbe', '湖北', ',d018f06a3a194ac68a3d0f5677e4cfbe,', null, '2020-06-25 07:45:59', null, '2020-06-25 07:45:59', '0');
-INSERT INTO sys_dept (id, name, code, type, status, order_num, grade, parent_id, parent_name, parent_ids, create_by, create_date, update_by, update_date, del_flag) VALUES ('4c963d38ae25416ea3c1f141656b8f78', '湖北荆州', 'hb001002', 0, 0, 2, 2, 'd018f06a3a194ac68a3d0f5677e4cfbe', '湖北', ',d018f06a3a194ac68a3d0f5677e4cfbe,', null, '2020-06-25 07:45:59', null, '2020-06-25 07:45:59', '0');
-INSERT INTO sys_dept (id, name, code, type, status, order_num, grade, parent_id, parent_name, parent_ids, create_by, create_date, update_by, update_date, del_flag) VALUES ('b18e58a251d6415cb05dd77c2a0fb198', '长沙', 'cs2', 0, 0, 2, 2, '90e56a2a4e6a4add9a5b9a26fc212db2', '湖南', ',90e56a2a4e6a4add9a5b9a26fc212db2,', null, '2020-06-25 07:45:59', null, '2020-06-25 07:45:59', '0');
-INSERT INTO sys_dept (id, name, code, type, status, order_num, grade, parent_id, parent_name, parent_ids, create_by, create_date, update_by, update_date, del_flag) VALUES ('21173617daf14ae68bfd3b5550ff7264', '长沙1', 'cs3', 0, 0, 8, 3, 'b18e58a251d6415cb05dd77c2a0fb198', '长沙', ',90e56a2a4e6a4add9a5b9a26fc212db2,b18e58a251d6415cb05dd77c2a0fb198,', null, '2020-06-25 07:45:59', null, '2020-06-25 07:45:59', '0');
+INSERT INTO sys_dept (id, name, code, type, status, order_num, grade, parent_id, parent_name, parent_ids, create_by, create_date, update_by, update_date, del_flag) VALUES ('21173617daf14ae68bfd3b5550ff7264', '长沙1', 'cs3', 3, 1, 8, 3, 'b18e58a251d6415cb05dd77c2a0fb198', '长沙', null, null, '2020-06-25 07:45:59', 'c35d5b94aca547799fbe56ddd90bcfc4', '2020-09-03 20:45:52', '0');
+INSERT INTO sys_dept (id, name, code, type, status, order_num, grade, parent_id, parent_name, parent_ids, create_by, create_date, update_by, update_date, del_flag) VALUES ('4c963d38ae25416ea3c1f141656b8f78', '湖北荆州', 'hb001002', 2, 1, 2, 2, 'd018f06a3a194ac68a3d0f5677e4cfbe', '湖北', null, null, '2020-06-25 07:45:59', 'c35d5b94aca547799fbe56ddd90bcfc4', '2020-09-03 20:45:37', '0');
+INSERT INTO sys_dept (id, name, code, type, status, order_num, grade, parent_id, parent_name, parent_ids, create_by, create_date, update_by, update_date, del_flag) VALUES ('90e56a2a4e6a4add9a5b9a26fc212db2', '湖南', 'cs1', 1, 1, 3, 1, null, null, null, null, '2020-06-25 07:45:59', 'c35d5b94aca547799fbe56ddd90bcfc4', '2020-09-03 20:45:43', '0');
+INSERT INTO sys_dept (id, name, code, type, status, order_num, grade, parent_id, parent_name, parent_ids, create_by, create_date, update_by, update_date, del_flag) VALUES ('b18e58a251d6415cb05dd77c2a0fb198', '长沙', 'cs2', 2, 1, 2, 2, '90e56a2a4e6a4add9a5b9a26fc212db2', '湖南', null, null, '2020-06-25 07:45:59', 'c35d5b94aca547799fbe56ddd90bcfc4', '2020-09-03 20:45:48', '0');
+INSERT INTO sys_dept (id, name, code, type, status, order_num, grade, parent_id, parent_name, parent_ids, create_by, create_date, update_by, update_date, del_flag) VALUES ('ca06d9feadf143a7adb7977923e4e3cc', '湖北武汉', 'hb001001', 2, 1, 1, 2, 'd018f06a3a194ac68a3d0f5677e4cfbe', '湖北', null, null, '2020-06-25 07:45:59', 'c35d5b94aca547799fbe56ddd90bcfc4', '2020-09-03 20:45:27', '0');
+INSERT INTO sys_dept (id, name, code, type, status, order_num, grade, parent_id, parent_name, parent_ids, create_by, create_date, update_by, update_date, del_flag) VALUES ('d018f06a3a194ac68a3d0f5677e4cfbe', '湖北', 'hb001', 1, 1, 1, 1, null, null, null, null, '2020-06-25 07:45:59', 'c35d5b94aca547799fbe56ddd90bcfc4', '2020-09-03 20:45:32', '0');
 
 -- ----------------------------
 -- Table structure for sys_role_menu
@@ -174,13 +174,34 @@ CREATE TABLE sys_role_menu  (
 -- ----------------------------
 -- Records of sys_role_menu
 -- ----------------------------
+
+INSERT INTO sys_role_menu (role_id, menu_id) VALUES ('1', '0b2c28fb18bc213a2ea7143cbf724702');
 INSERT INTO sys_role_menu (role_id, menu_id) VALUES ('ae153d7756e54234bde561ae1367f08f', '0b2c28fb18bc213a2ea7143cbf724702');
+INSERT INTO sys_role_menu (role_id, menu_id) VALUES ('d1ece8903278fe25e8be2804fd755025', '0b2c28fb18bc213a2ea7143cbf724702');
+INSERT INTO sys_role_menu (role_id, menu_id) VALUES ('1', '1');
+INSERT INTO sys_role_menu (role_id, menu_id) VALUES ('1', '2');
 INSERT INTO sys_role_menu (role_id, menu_id) VALUES ('ae153d7756e54234bde561ae1367f08f', '2f0640f9f1fa452abe25643e14d8b3f4');
+INSERT INTO sys_role_menu (role_id, menu_id) VALUES ('1', '3');
 INSERT INTO sys_role_menu (role_id, menu_id) VALUES ('ae153d7756e54234bde561ae1367f08f', '3');
+INSERT INTO sys_role_menu (role_id, menu_id) VALUES ('1', '4');
+INSERT INTO sys_role_menu (role_id, menu_id) VALUES ('d1ece8903278fe25e8be2804fd755025', '4');
+INSERT INTO sys_role_menu (role_id, menu_id) VALUES ('1', '4e70a707c3d24b29aefe737d6a61b5c9');
+INSERT INTO sys_role_menu (role_id, menu_id) VALUES ('1', '5');
+INSERT INTO sys_role_menu (role_id, menu_id) VALUES ('1', '54f41ef8740a67b56a122453d0323ded');
+INSERT INTO sys_role_menu (role_id, menu_id) VALUES ('1', '6');
 INSERT INTO sys_role_menu (role_id, menu_id) VALUES ('ae153d7756e54234bde561ae1367f08f', '6');
+INSERT INTO sys_role_menu (role_id, menu_id) VALUES ('1', '7');
+INSERT INTO sys_role_menu (role_id, menu_id) VALUES ('1', '8');
 INSERT INTO sys_role_menu (role_id, menu_id) VALUES ('ae153d7756e54234bde561ae1367f08f', '8');
+INSERT INTO sys_role_menu (role_id, menu_id) VALUES ('d1ece8903278fe25e8be2804fd755025', '8');
+INSERT INTO sys_role_menu (role_id, menu_id) VALUES ('1', '9');
 INSERT INTO sys_role_menu (role_id, menu_id) VALUES ('ae153d7756e54234bde561ae1367f08f', '9');
+INSERT INTO sys_role_menu (role_id, menu_id) VALUES ('d1ece8903278fe25e8be2804fd755025', '9');
+INSERT INTO sys_role_menu (role_id, menu_id) VALUES ('1', 'a38df56dd7f59f030a0bc449fcc97d57');
 INSERT INTO sys_role_menu (role_id, menu_id) VALUES ('ae153d7756e54234bde561ae1367f08f', 'a38df56dd7f59f030a0bc449fcc97d57');
+INSERT INTO sys_role_menu (role_id, menu_id) VALUES ('d1ece8903278fe25e8be2804fd755025', 'a38df56dd7f59f030a0bc449fcc97d57');
+INSERT INTO sys_role_menu (role_id, menu_id) VALUES ('1', 'be14507626f7f301fbfc21ddbd8e6380');
+INSERT INTO sys_role_menu (role_id, menu_id) VALUES ('1', 'd553d5090905465eb23cc5285c5f41ad');
 
 
 -- ----------------------------
@@ -199,6 +220,7 @@ CREATE TABLE sys_user_role  (
 -- Records of sys_user_role
 -- ----------------------------
 INSERT INTO sys_user_role (user_id, role_id) VALUES ('1', '1');
+INSERT INTO sys_user_role (user_id, role_id) VALUES ('c35d5b94aca547799fbe56ddd90bcfc4', 'd1ece8903278fe25e8be2804fd755025');
 
 
 -- ----------------------------

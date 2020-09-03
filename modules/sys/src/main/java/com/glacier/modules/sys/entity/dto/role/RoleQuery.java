@@ -16,7 +16,7 @@ import java.io.Serializable;
 @ApiModel(description = "角色查询条件模型")
 @Data
 @ToString
-public class RoleQueryForm implements Serializable {
+public class RoleQuery implements Serializable {
     private static final long serialVersionUID = 4596028730042166514L;
     /**
      * 角色名称

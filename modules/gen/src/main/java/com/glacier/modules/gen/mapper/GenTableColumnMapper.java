@@ -15,6 +15,13 @@ import java.util.List;
 public interface GenTableColumnMapper extends BaseMapper<GenTableColumn, String> {
 
     /**
+     * 根据条件查询
+     * @param params
+     * @return
+     */
+    List<GenTableColumn> selectList(GenTableColumn params);
+
+    /**
      * 根据表id 查询
      *
      * @param tableId 表id

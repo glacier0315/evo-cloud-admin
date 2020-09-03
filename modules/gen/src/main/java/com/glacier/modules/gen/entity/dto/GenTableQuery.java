@@ -15,7 +15,7 @@ import java.io.Serializable;
 @ApiModel(description = "生成表查询模型")
 @Data
 @ToString
-public class GenTableQueryForm implements Serializable {
+public class GenTableQuery implements Serializable {
     private static final long serialVersionUID = 8039085389833762809L;
     /**
      * 表名称

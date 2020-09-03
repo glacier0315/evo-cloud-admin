@@ -2,6 +2,7 @@ package com.glacier.modules.sys.mapper;
 
 import com.glacier.common.core.mapper.BaseMapper;
 import com.glacier.modules.sys.entity.Role;
+import com.glacier.modules.sys.entity.dto.role.RoleQuery;
 
 import java.util.List;
 
@@ -32,4 +33,10 @@ public interface RoleMapper extends BaseMapper<Role, String> {
      */
     int selectCount(Role role);
 
+    /**
+     * 根据条件查询
+     * @param params
+     * @return
+     */
+    List<Role> selectList(RoleQuery params);
 }

@@ -9,6 +9,8 @@ import java.util.List;
  * @author glacier
  * @version 1.0
  * @date 2020-08-07 16:25
+ * @param <T> 实体类型
+ * @param <ID> 主键类型
  */
 public interface BaseMapper<T, ID extends Serializable> {
 
@@ -50,12 +52,4 @@ public interface BaseMapper<T, ID extends Serializable> {
      * @return
      */
     int updateByPrimaryKey(T record);
-
-    /**
-     * 根据条件查询
-     *
-     * @param params
-     * @return
-     */
-    <M extends Serializable> List<T> selectList(M params);
 }

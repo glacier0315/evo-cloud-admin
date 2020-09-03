@@ -29,4 +29,11 @@ public interface DeptMapper extends BaseMapper<Dept, String> {
      * @return 组织机构
      */
     List<Dept> findByRoleId(String roleId);
+
+    /**
+     * 根据条件查询
+     * @param params
+     * @return
+     */
+    List<Dept> selectList(Dept params);
 }

@@ -2,6 +2,9 @@ package com.glacier.modules.gen.mapper;
 
 import com.glacier.common.core.mapper.BaseMapper;
 import com.glacier.modules.gen.entity.GenTable;
+import com.glacier.modules.gen.entity.dto.GenTableQuery;
+
+import java.util.List;
 
 
 /**
@@ -13,4 +16,10 @@ import com.glacier.modules.gen.entity.GenTable;
  */
 public interface GenTableMapper extends BaseMapper<GenTable, String> {
 
+    /**
+     * 根据条件查询
+     * @param params
+     * @return
+     */
+    List<GenTable> selectList(GenTableQuery params);
 }

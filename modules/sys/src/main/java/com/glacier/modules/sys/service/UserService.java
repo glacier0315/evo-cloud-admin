@@ -62,7 +62,7 @@ public interface UserService {
      * @param pageRequest
      * @return
      */
-    PageResponse<UserDto> findPage(PageRequest<UserQueryForm> pageRequest);
+    PageResponse<UserDto> findPage(PageRequest<UserQuery> pageRequest);
 
     /**
      * 保存用户，同时处理用户角色关系

@@ -2,6 +2,9 @@ package com.glacier.modules.sys.mapper;
 
 import com.glacier.common.core.mapper.BaseMapper;
 import com.glacier.modules.sys.entity.User;
+import com.glacier.modules.sys.entity.dto.user.UserQuery;
+
+import java.util.List;
 
 /**
  * 用户数据层
@@ -11,6 +14,13 @@ import com.glacier.modules.sys.entity.User;
  * @date 2019-08-04 21:53
  */
 public interface UserMapper extends BaseMapper<User, String> {
+
+    /**
+     * 根据条件查询
+     * @param params
+     * @return
+     */
+    List<User> selectList(UserQuery params);
 
     /**
      * 根据组织机构id 更新组织机构名称
@@ -43,7 +53,6 @@ public interface UserMapper extends BaseMapper<User, String> {
      * @return
      */
     int updateAvatarByPrimaryKey(User record);
-
 
     /**
      * 更新密码

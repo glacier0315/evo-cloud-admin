@@ -4,7 +4,7 @@ import com.glacier.common.core.entity.Result;
 import com.glacier.common.core.entity.page.PageRequest;
 import com.glacier.common.core.entity.page.PageResponse;
 import com.glacier.modules.gen.entity.dto.GenTableDto;
-import com.glacier.modules.gen.entity.dto.GenTableQueryForm;
+import com.glacier.modules.gen.entity.dto.GenTableQuery;
 import com.glacier.modules.gen.service.GenTableService;
 import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
@@ -35,7 +35,7 @@ public class GenController {
      * @return
      */
     @PostMapping("/findPage")
-    public Result<PageResponse<GenTableDto>> findPage(@RequestBody PageRequest<GenTableQueryForm> pageRequest) {
+    public Result<PageResponse<GenTableDto>> findPage(@RequestBody PageRequest<GenTableQuery> pageRequest) {
         return Result.ok(
                 this.genTableService.findPage(pageRequest));
     }

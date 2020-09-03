@@ -6,7 +6,7 @@ import com.glacier.common.core.entity.page.PageRequest;
 import com.glacier.common.core.entity.page.PageResponse;
 import com.glacier.modules.gen.entity.GenTable;
 import com.glacier.modules.gen.entity.dto.GenTableDto;
-import com.glacier.modules.gen.entity.dto.GenTableQueryForm;
+import com.glacier.modules.gen.entity.dto.GenTableQuery;
 import com.glacier.modules.gen.mapper.GenTableMapper;
 import com.glacier.modules.gen.service.GenTableService;
 import lombok.RequiredArgsConstructor;
@@ -41,7 +41,7 @@ public class GenTableServiceImpl implements GenTableService {
     }
 
     @Override
-    public PageResponse<GenTableDto> findPage(PageRequest<GenTableQueryForm> pageRequest) {
+    public PageResponse<GenTableDto> findPage(PageRequest<GenTableQuery> pageRequest) {
         PageHelper.startPage(pageRequest.getPageNum(), pageRequest.getPageSize());
         List<GenTable> userList = this.genTableMapper.selectList(pageRequest.getParams());
         PageInfo<GenTable> pageInfo = PageInfo.of(userList);

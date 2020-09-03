@@ -7,7 +7,7 @@ import lombok.Data;
 import lombok.ToString;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 
 /**
  * 用户查询封装类
@@ -41,7 +41,7 @@ public class UserQueryForm implements Serializable {
      */
     @ApiModelProperty(value = "出生日期")
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
-    private Date birthday;
+    private LocalDate birthday;
     /**
      * 性别 1=男 2=女 3 其他=保密
      */

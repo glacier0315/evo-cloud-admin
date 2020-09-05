@@ -18,7 +18,7 @@ import com.glacier.modules.sys.mapper.UserRoleMapper;
 import com.glacier.modules.sys.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -197,6 +197,24 @@ public class UserServiceImpl implements UserService {
         user.preUpdate();
         return Result.ok("修改成功！",
                 this.userMapper.updateAvatarByPrimaryKey(user));
+    }
+
+    @Override
+    public boolean checkUsername(UserDto userDto) {
+        if (userDto != null
+                && StringUtils.isNotEmpty(userDto.getUsername())) {
+            return this.userMapper.checkUsernameExist(userDto) > 0;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean checkIdCard(UserDto userDto) {
+        if (userDto != null
+                && StringUtils.isNotEmpty(userDto.getIdCard())) {
+            return this.userMapper.checkIdCardExist(userDto) > 0;
+        }
+        return false;
     }
 
     /**

@@ -2,6 +2,7 @@ package com.glacier.modules.sys.mapper;
 
 import com.glacier.common.core.mapper.BaseMapper;
 import com.glacier.modules.sys.entity.User;
+import com.glacier.modules.sys.entity.dto.user.UserDto;
 import com.glacier.modules.sys.entity.dto.user.UserQuery;
 
 import java.util.List;
@@ -61,4 +62,22 @@ public interface UserMapper extends BaseMapper<User, String> {
      * @return
      */
     int updatePasswordByPrimaryKey(User record);
+
+    /**
+     * 查询用户名是否已使用
+     * id 不为空时 排除该id的角色
+     *
+     * @param userDto 角色
+     * @return 编码数量（排除指定id）
+     */
+    int checkUsernameExist(UserDto userDto);
+
+    /**
+     * 查询用户身份证号是否已使用
+     * id 不为空时 排除该id的角色
+     *
+     * @param userDto 角色
+     * @return 编码数量（排除指定id）
+     */
+    int checkIdCardExist(UserDto userDto);
 }

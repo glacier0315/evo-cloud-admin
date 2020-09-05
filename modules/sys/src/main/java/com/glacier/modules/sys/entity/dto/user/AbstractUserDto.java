@@ -53,6 +53,11 @@ public abstract class AbstractUserDto implements Serializable {
     @ApiModelProperty(value = "手机号")
     private String mobile;
     /**
+     * 岗位id
+     */
+    @ApiModelProperty(value = "岗位id")
+    private String postId;
+    /**
      * 单位id
      */
     @ApiModelProperty(value = "单位id")

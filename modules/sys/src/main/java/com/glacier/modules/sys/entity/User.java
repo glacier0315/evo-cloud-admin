@@ -60,6 +60,10 @@ public class User extends AbstractDataEntity {
      */
     private String avatar;
     /**
+     * 岗位id
+     */
+    private String postId;
+    /**
      * 单位id
      */
     private String deptId;

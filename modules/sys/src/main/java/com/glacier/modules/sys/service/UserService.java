@@ -112,4 +112,18 @@ public interface UserService {
      * @return
      */
     Result<Integer> updateAvatar(UserAvatarForm userAvatarForm);
+
+    /**
+     * 检验用户名
+     * @param userDto
+     * @return
+     */
+    boolean checkUsername(UserDto userDto);
+
+    /**
+     * 检验身份证号
+     * @param userDto
+     * @return
+     */
+    boolean checkIdCard(UserDto userDto);
 }

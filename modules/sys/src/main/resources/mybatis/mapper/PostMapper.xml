@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.glacier.modules.sys.mapper.PostMapper">
+    <resultMap id="BaseResultMap" type="com.glacier.modules.sys.entity.Post">
+        <id column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="code" jdbcType="VARCHAR" property="code"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
+        <result column="order_num" jdbcType="INTEGER" property="orderNum"/>
+        <result column="description" jdbcType="VARCHAR" property="description"/>
+        <result column="remarks" jdbcType="VARCHAR" property="remarks"/>
+        <result column="create_by" jdbcType="VARCHAR" property="createBy"/>
+        <result column="create_date" jdbcType="TIMESTAMP" property="createDate"/>
+        <result column="update_by" jdbcType="VARCHAR" property="updateBy"/>
+        <result column="update_date" jdbcType="TIMESTAMP" property="updateDate"/>
+        <result column="del_flag" jdbcType="VARCHAR" property="delFlag"/>
+    </resultMap>
+
+    <sql id="base_columns">
+        a.id, a.name, a.code, a.status, a.order_num, a.description, a.remarks,
+        a.create_by, a.create_date, a.update_by, a.update_date
+    </sql>
+
+    <sql id="join_columns">
+    </sql>
+
+    <sql id="joins">
+    </sql>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        delete from sys_post
+        where id = #{id}
+    </delete>
+
+    <insert id="insert" parameterType="com.glacier.modules.sys.entity.Post">
+        insert into sys_post (id, name, code,
+          status, order_num, description, remarks,
+          create_by, create_date, del_flag)
+        values (#{id}, #{name}, #{code},
+          #{status}, #{orderNum}, #{description}, #{remarks},
+          #{createBy}, #{createDate}, #{delFlag})
+    </insert>
+
+    <update id="updateByPrimaryKey" parameterType="com.glacier.modules.sys.entity.Post">
+        update sys_post
+        set name = #{name},
+          code = #{code},
+          status = #{status},
+          order_num = #{orderNum},
+          description = #{description},
+          remarks = #{remarks},
+          update_by = #{updateBy},
+          update_date = #{updateDate}
+        where id = #{id}
+    </update>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="base_columns"/>
+        from sys_post
+        where id = #{id}
+    </select>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        select
+        <include refid="base_columns"/>
+        from sys_post a
+        order by a.order_num
+    </select>
+
+    <select id="selectList" resultMap="BaseResultMap">
+        select
+        <include refid="base_columns"/>
+        from sys_post a
+        <where>
+            a.del_flag='0'
+            <if test="name != null and name != '' ">
+                and a.name like concat('%',#{name},'%')
+            </if>
+            <if test="status != null">
+                and a.status=#{status}
+            </if>
+            <if test="code != null and code != '' ">
+                and a.code=#{code}
+            </if>
+        </where>
+        order by a.order_num
+    </select>
+
+    <select id="checkCodeExist" resultType="java.lang.Integer">
+        select count(1)
+        from sys_post a
+        <where>
+            a.del_flag='0'
+            <if test="id != null and id != ''">
+                and a.id != #{id}
+            </if>
+            and a.code=#{code}
+        </where>
+    </select>
+</mapper>

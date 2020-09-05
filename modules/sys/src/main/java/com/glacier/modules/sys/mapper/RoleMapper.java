@@ -31,7 +31,7 @@ public interface RoleMapper extends BaseMapper<Role, String> {
      * @param role 角色
      * @return 编码数量（排除指定id）
      */
-    int selectCount(Role role);
+    int checkCodeExist(Role role);
 
     /**
      * 根据条件查询

@@ -11,6 +11,7 @@
         <result column="sex" jdbcType="INTEGER" property="sex"/>
         <result column="email" jdbcType="VARCHAR" property="email"/>
         <result column="mobile" jdbcType="VARCHAR" property="mobile"/>
+        <result column="post_id" jdbcType="VARCHAR" property="postId"/>
         <result column="dept_id" jdbcType="VARCHAR" property="deptId"/>
         <result column="dept_name" jdbcType="VARCHAR" property="deptName"/>
         <result column="status" jdbcType="VARCHAR" property="status"/>
@@ -23,7 +24,7 @@
     </resultMap>
 
     <sql id="base_columns">
-        a.id, a.username, a.password, a.nickname, a.id_card, a.birthday, a.sex, a.email, a.mobile, a.dept_id, a.dept_name,
+        a.id, a.username, a.password, a.nickname, a.id_card, a.birthday, a.sex, a.email, a.mobile, a.post_id, a.dept_id, a.dept_name,
         a.status, a.avatar, a.create_by, a.create_date, a.update_by, a.update_date, a.del_flag
     </sql>
 
@@ -42,13 +43,13 @@
     <insert id="insert" parameterType="com.glacier.modules.sys.entity.User">
         insert into sys_user (id, username, password,
                               nickname, id_card, birthday,
-                              sex, email, mobile,
+                              sex, email, mobile, post_id,
                               dept_id, dept_name, status, avatar,
                               create_by, create_date, update_by,
                               update_date, del_flag)
         values (#{id}, #{username}, #{password},
                 #{nickname}, #{idCard}, #{birthday},
-                #{sex}, #{email}, #{mobile},
+                #{sex}, #{email}, #{mobile}, #{postId},
                 #{deptId}, #{deptName}, #{status}, #{avatar},
                 #{createBy}, #{createDate}, #{updateBy},
                 #{updateDate}, #{delFlag})
@@ -62,6 +63,7 @@
             sex         = #{sex},
             email       = #{email},
             mobile      = #{mobile},
+            post_id     = #{postId},
             dept_id     = #{deptId},
             dept_name   = #{deptName},
             status      = #{status},
@@ -144,6 +146,9 @@
             <if test="notEqRoleId != null and notEqRoleId != '' ">
                 and not exists (select 1 from sys_user_role b where a.id=b.user_id and b.role_id=#{notEqRoleId})
             </if>
+            <if test="postId != null and postId != '' ">
+                and a.post_id=#{postId}
+            </if>
             <if test="deptId != null and deptId != '' ">
                 and a.dept_id=#{deptId}
             </if>
@@ -169,4 +174,27 @@
         where a.del_flag='0'
     </select>
 
+    <select id="checkUsernameExist" resultType="java.lang.Integer">
+        select count(1)
+        from sys_user a
+        <where>
+            a.del_flag='0'
+            <if test="id != null and id != ''">
+                and a.id != #{id}
+            </if>
+            and a.username=#{username}
+        </where>
+    </select>
+
+    <select id="checkIdCardExist" resultType="java.lang.Integer">
+        select count(1)
+        from sys_user a
+        <where>
+            a.del_flag='0'
+            <if test="id != null and id != ''">
+                and a.id != #{id}
+            </if>
+            and a.id_card=#{idCard}
+        </where>
+    </select>
 </mapper>

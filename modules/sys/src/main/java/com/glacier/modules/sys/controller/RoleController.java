@@ -92,11 +92,9 @@ public class RoleController {
      */
     @ApiOperation("检验角色编码")
     @PostMapping("/checkCode")
-    public Result<String> checkCode(
+    public Result<Boolean> checkCode(
             @RequestBody RoleForm roleForm) {
-        return Result.ok(
-                String.valueOf(
-                        this.roleService.checkCode(roleForm)));
+        return Result.ok(this.roleService.checkCode(roleForm));
     }
 
     /**

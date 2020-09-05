@@ -12,6 +12,16 @@
         <result column="login_time" jdbcType="TIMESTAMP" property="loginTime"/>
     </resultMap>
 
+    <sql id="base_columns">
+        a.id, a.user_name, a.ip_addr, a.status, a.user_agent, a.browser, a.os, a.login_time
+    </sql>
+
+    <sql id="join_columns">
+    </sql>
+
+    <sql id="joins">
+    </sql>
+
     <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
         delete from sys_login_log
         where id = #{id}
@@ -19,11 +29,9 @@
 
     <insert id="insert" parameterType="com.glacier.modules.sys.entity.LoginLog">
         insert into sys_login_log (id, user_name, ip_addr,
-          status, user_agent, browser,
-          os, login_time)
+          status, user_agent, browser, os, login_time)
         values (#{id}, #{userName}, #{ipAddr},
-          #{status}, #{userAgent}, #{browser},
-          #{os}, #{loginTime})
+          #{status}, #{userAgent}, #{browser}, #{os}, #{loginTime})
     </insert>
 
     <update id="updateByPrimaryKey" parameterType="com.glacier.modules.sys.entity.LoginLog">
@@ -39,13 +47,21 @@
     </update>
 
     <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
-        select id, user_name, ip_addr, status, user_agent, browser, os, login_time
-        from sys_login_log
-        where id = #{id}
+        select
+            <include refid="base_columns"/>
+        from sys_login_log a
+        where a.id = #{id}
     </select>
 
     <select id="selectAll" resultMap="BaseResultMap">
-        select id, user_name, ip_addr, status, user_agent, browser, os, login_time
-        from sys_login_log
+        select
+            <include refid="base_columns"/>
+        from sys_login_log a
+    </select>
+
+    <select id="selectList" resultMap="BaseResultMap">
+        select
+            <include refid="base_columns"/>
+        from sys_login_log a
     </select>
 </mapper>

@@ -22,6 +22,7 @@ CREATE TABLE sys_user  (
   sex int(4) COMMENT '性别',
   email varchar(100)  COMMENT '邮箱',
   mobile varchar(20)  COMMENT '手机号',
+  post_id varchar(64)  COMMENT '岗位',
   dept_id varchar(64)  COMMENT '单位',
   dept_name varchar(64)  COMMENT '单位',
   status varchar(4)  COMMENT '状态',
@@ -84,12 +85,13 @@ INSERT INTO sys_menu (id, name, path, component, icon, type, status, visible, is
 INSERT INTO sys_menu (id, name, path, component, icon, type, status, visible, is_frame, permission, parent_id, grade, order_num, create_by, create_date, update_by, update_date, del_flag) VALUES ('2', 'PagePermission', '/permission/page', 'permission/page', null, 2, 1, 1, 2, null, '1', null, 2, null, '2020-06-25 07:45:59', null, '2020-06-25 07:45:59', '0');
 INSERT INTO sys_menu (id, name, path, component, icon, type, status, visible, is_frame, permission, parent_id, grade, order_num, create_by, create_date, update_by, update_date, del_flag) VALUES ('3', 'directive', '/permission/directive', 'permission/directive', null, 2, 1, 1, 2, null, '1', null, 3, null, '2020-06-25 07:45:59', null, '2020-06-25 07:45:59', '0');
 INSERT INTO sys_menu (id, name, path, component, icon, type, status, visible, is_frame, permission, parent_id, grade, order_num, create_by, create_date, update_by, update_date, del_flag) VALUES ('4', 'role', '/permission/role', 'permission/role', null, 2, 1, 1, 2, null, '1', null, 4, null, '2020-06-25 07:45:59', 'c35d5b94aca547799fbe56ddd90bcfc4', '2020-09-03 20:46:19', '0');
-INSERT INTO sys_menu (id, name, path, component, icon, type, status, visible, is_frame, permission, parent_id, grade, order_num, create_by, create_date, update_by, update_date, del_flag) VALUES ('6', '用户列表', '/sys/user', 'sys/user', 'user', 2, 1, 1, 2, null, '5', null, 1, null, '2020-06-27 03:31:00', '1', '2020-09-03 20:37:11', '0');
+INSERT INTO sys_menu (id, name, path, component, icon, type, status, visible, is_frame, permission, parent_id, grade, order_num, create_by, create_date, update_by, update_date, del_flag) VALUES ('6', '用户管理', '/sys/user', 'sys/user', 'user', 2, 1, 1, 2, null, '5', null, 1, null, '2020-06-27 03:31:00', '1', '2020-09-06 09:36:50', '0');
 INSERT INTO sys_menu (id, name, path, component, icon, type, status, visible, is_frame, permission, parent_id, grade, order_num, create_by, create_date, update_by, update_date, del_flag) VALUES ('4e70a707c3d24b29aefe737d6a61b5c9', '用户授权', '/sys/user/role', 'sys/user/role', null, 2, 1, 2, 2, null, '5', null, 2, '1', '2020-09-03 20:38:07', null, null, '0');
-INSERT INTO sys_menu (id, name, path, component, icon, type, status, visible, is_frame, permission, parent_id, grade, order_num, create_by, create_date, update_by, update_date, del_flag) VALUES ('7', '角色列表', '/sys/role', 'sys/role', 'people', 2, 1, 1, 2, null, '5', null, 3, null, '2020-06-27 03:31:33', '1', '2020-09-03 20:38:16', '0');
+INSERT INTO sys_menu (id, name, path, component, icon, type, status, visible, is_frame, permission, parent_id, grade, order_num, create_by, create_date, update_by, update_date, del_flag) VALUES ('7', '角色管理', '/sys/role', 'sys/role', 'people', 2, 1, 1, 2, null, '5', null, 3, null, '2020-06-27 03:31:33', '1', '2020-09-06 09:36:57', '0');
 INSERT INTO sys_menu (id, name, path, component, icon, type, status, visible, is_frame, permission, parent_id, grade, order_num, create_by, create_date, update_by, update_date, del_flag) VALUES ('d553d5090905465eb23cc5285c5f41ad', '角色授权', '/sys/role/user', 'sys/role/user', null, 2, 1, 2, 2, null, '5', null, 4, '1', '2020-09-03 20:39:03', null, null, '0');
-INSERT INTO sys_menu (id, name, path, component, icon, type, status, visible, is_frame, permission, parent_id, grade, order_num, create_by, create_date, update_by, update_date, del_flag) VALUES ('8', '菜单列表', '/sys/menu', 'sys/menu', 'tree', 2, 1, 1, 2, null, '5', null, 8, null, '2020-06-27 03:32:20', null, '2020-06-27 03:32:20', '0');
+INSERT INTO sys_menu (id, name, path, component, icon, type, status, visible, is_frame, permission, parent_id, grade, order_num, create_by, create_date, update_by, update_date, del_flag) VALUES ('8', '菜单管理', '/sys/menu', 'sys/menu', 'list', 2, 1, 1, 2, null, '5', null, 8, null, '2020-06-27 03:32:20', '1', '2020-09-06 09:47:19', '0');
 INSERT INTO sys_menu (id, name, path, component, icon, type, status, visible, is_frame, permission, parent_id, grade, order_num, create_by, create_date, update_by, update_date, del_flag) VALUES ('9', '组织机构', '/sys/dept', 'sys/dept', 'tree', 2, 1, 1, 2, null, '5', null, 10, null, '2020-06-27 03:32:54', null, '2020-07-04 02:36:30', '0');
+INSERT INTO sys_menu (id, name, path, component, icon, type, status, visible, is_frame, permission, parent_id, grade, order_num, create_by, create_date, update_by, update_date, del_flag) VALUES ('9ffee089c8c24638b5b7f646da498cb3', '岗位管理', '/sys/post', 'sys/post', 'user', 2, 1, 1, 2, null, '5', null, 11, '1', '2020-09-06 09:36:34', '1', '2020-09-06 09:39:20', '0');
 INSERT INTO sys_menu (id, name, path, component, icon, type, status, visible, is_frame, permission, parent_id, grade, order_num, create_by, create_date, update_by, update_date, del_flag) VALUES ('54f41ef8740a67b56a122453d0323ded', 'pdf', '/pdf/index', 'pdf/index', 'pdf', 2, 1, 1, 2, null, 'be14507626f7f301fbfc21ddbd8e6380', null, 14, null, '2020-07-04 03:05:13', 'c35d5b94aca547799fbe56ddd90bcfc4', '2020-09-03 20:46:24', '0');
 
 -- ----------------------------
@@ -332,3 +334,32 @@ CREATE TABLE sys_login_log  (
   PRIMARY KEY (id) USING BTREE,
   INDEX sys_login_log_1(user_name) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '系统访问记录表' ROW_FORMAT = Dynamic;
+
+
+-- ----------------------------
+-- Table structure for sys_login_log
+-- ----------------------------
+DROP TABLE IF EXISTS sys_post;
+CREATE TABLE sys_post  (
+  id varchar(64) NOT NULL COMMENT '主键',
+  name varchar(64)  COMMENT '名称',
+  code varchar(255) COMMENT '编码',
+  status int(4) COMMENT '状态 1 正常 2 禁用',
+  order_num   int(4) COMMENT '排序号',
+  description varchar(500)  COMMENT '描述',
+  remarks varchar(500)  COMMENT '备注',
+  create_by varchar(64)  COMMENT '创建人',
+  create_date timestamp DEFAULT current_timestamp  COMMENT '创建时间',
+  update_by varchar(64)  COMMENT '更新人',
+  update_date timestamp DEFAULT current_timestamp  COMMENT '更新时间',
+  del_flag varchar(4) default '0'  COMMENT '删除标记',
+  PRIMARY KEY (id) USING BTREE,
+  INDEX sys_post_1(code) USING BTREE,
+  INDEX sys_post_2(status) USING BTREE,
+  INDEX sys_post_3(del_flag) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '岗位表' ROW_FORMAT = Dynamic;
+
+
+INSERT INTO sys_post (id, name, code, status, order_num, description, remarks, create_by, create_date, update_by, update_date, del_flag) VALUES ('1840f94177a74b3d908bff34c06c8433', '部门经理', '0002', 1, 2, null, null, '1', '2020-09-06 09:55:02', '1', '2020-09-06 10:05:15', '0');
+INSERT INTO sys_post (id, name, code, status, order_num, description, remarks, create_by, create_date, update_by, update_date, del_flag) VALUES ('ffa64f88ef7e43b79d26fb69eacc9e16', '总经理', '0001', 1, 1, null, null, '1', '2020-09-06 09:54:38', '1', '2020-09-06 10:09:22', '0');
+

@@ -148,4 +148,30 @@ public class UserController {
             @RequestBody UserPasswordForm userPasswordForm) {
         return this.userService.updatePassword(userPasswordForm);
     }
+
+    /**
+     * 检验用户名
+     *
+     * @param userDto 用户封装实体类
+     * @return
+     */
+    @ApiOperation("检验用户名")
+    @PostMapping("/checkUsername")
+    public Result<Boolean> checkUsername(
+            @RequestBody UserDto userDto) {
+        return Result.ok(this.userService.checkUsername(userDto));
+    }
+
+    /**
+     * 检验用户身份证号
+     *
+     * @param userDto 用户封装实体类
+     * @return
+     */
+    @ApiOperation("检验用户身份证号")
+    @PostMapping("/checkIdCard")
+    public Result<Boolean> checkIdCard(
+            @RequestBody UserDto userDto) {
+        return Result.ok(this.userService.checkIdCard(userDto));
+    }
 }

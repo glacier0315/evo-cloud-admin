@@ -85,7 +85,7 @@ public class RoleServiceImpl implements RoleService {
             Role role = new Role();
             role.setId(roleForm.getId());
             role.setCode(roleForm.getCode());
-            return this.roleMapper.selectCount(role) > 0;
+            return this.roleMapper.checkCodeExist(role) > 0;
         }
         return false;
     }

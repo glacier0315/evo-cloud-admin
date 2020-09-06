@@ -31,7 +31,7 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint 
                          AuthenticationException authException) throws IOException, ServletException {
         log.error("异常：", authException);
         response.setStatus(HttpStatus.OK.value());
-        response.setContentType(MediaConstants.MEDIA_TYPE);
+        response.setContentType(MediaConstants.APPLICATION_JSON_CHARSET_UTF_8);
         response.setCharacterEncoding(CommonConstant.CHARSET_UTF_8);
         ObjectMapper objectMapper = new ObjectMapper();
         if (authException instanceof BadCredentialsException) {

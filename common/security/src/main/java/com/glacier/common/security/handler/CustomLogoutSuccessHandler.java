@@ -27,7 +27,7 @@ public class CustomLogoutSuccessHandler implements LogoutSuccessHandler {
     @Override
     public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         response.setStatus(HttpStatus.OK.value());
-        response.setContentType(MediaConstants.MEDIA_TYPE);
+        response.setContentType(MediaConstants.APPLICATION_JSON_CHARSET_UTF_8);
         response.setCharacterEncoding(CommonConstant.CHARSET_UTF_8);
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.writeValue(

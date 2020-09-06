@@ -2,6 +2,10 @@ bootJar {
     baseName("eboot-sys")
 }
 
+ext {
+
+}
+
 dependencies {
     // 本地依赖
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -10,6 +14,8 @@ dependencies {
     // mybatis
     implementation "org.mybatis.spring.boot:mybatis-spring-boot-starter:${mybatisVersion}"
     implementation "com.github.pagehelper:pagehelper-spring-boot-starter:${pagehelperVersion}"
+
+    implementation "com.alibaba:easyexcel:${easyExcelVerision}"
 
     runtimeOnly "mysql:mysql-connector-java"
 }

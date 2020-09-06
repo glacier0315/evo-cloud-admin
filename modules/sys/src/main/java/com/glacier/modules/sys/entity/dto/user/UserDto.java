@@ -1,5 +1,6 @@
 package com.glacier.modules.sys.entity.dto.user;
 
+import com.alibaba.excel.annotation.ExcelProperty;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -25,6 +26,7 @@ public class UserDto extends AbstractUserDto {
     /**
      * 状态  1 正常  0 锁定
      */
+    @ExcelProperty(value = "状态", index = 8, order = 8)
     @ApiModelProperty(value = "状态  1 正常  0 锁定")
     private String status;
 }

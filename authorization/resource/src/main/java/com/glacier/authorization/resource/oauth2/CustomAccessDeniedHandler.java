@@ -27,7 +27,7 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler {
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException, ServletException {
         log.error("异常：", accessDeniedException);
         response.setStatus(HttpStatus.OK.value());
-        response.setContentType(MediaConstants.MEDIA_TYPE);
+        response.setContentType(MediaConstants.APPLICATION_JSON_CHARSET_UTF_8);
         response.setCharacterEncoding(CommonConstant.CHARSET_UTF_8);
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.writeValue(

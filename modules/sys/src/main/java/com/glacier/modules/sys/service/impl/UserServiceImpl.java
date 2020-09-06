@@ -124,6 +124,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<UserDto> findList(UserQuery userQuery) {
+        List<User> userList = this.userMapper.selectList(userQuery);
+        return this.modelMapper.map(
+                userList,
+                new TypeToken<List<UserDto>>() {
+                }.getType());
+    }
+
+    @Override
     public Result<Integer> resetPassword(UserPasswordResetForm passwordResetForm) {
         int update = 0;
         if (passwordResetForm == null

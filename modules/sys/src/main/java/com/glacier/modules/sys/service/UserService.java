@@ -7,6 +7,8 @@ import com.glacier.common.core.entity.page.PageResponse;
 import com.glacier.modules.sys.entity.User;
 import com.glacier.modules.sys.entity.dto.user.*;
 
+import java.util.List;
+
 /**
  * 用户业务层
  *
@@ -63,6 +65,14 @@ public interface UserService {
      * @return
      */
     PageResponse<UserDto> findPage(PageRequest<UserQuery> pageRequest);
+
+    /**
+     * 分页查询
+     *
+     * @param userQuery
+     * @return
+     */
+    List<UserDto> findList(UserQuery userQuery);
 
     /**
      * 保存用户，同时处理用户角色关系

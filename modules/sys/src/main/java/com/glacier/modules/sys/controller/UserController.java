@@ -1,5 +1,8 @@
 package com.glacier.modules.sys.controller;
 
+import com.alibaba.excel.EasyExcel;
+import com.glacier.common.core.constant.CommonConstant;
+import com.glacier.common.core.constant.MediaConstants;
 import com.glacier.common.core.entity.Result;
 import com.glacier.common.core.entity.dto.IdDto;
 import com.glacier.common.core.entity.page.PageRequest;
@@ -13,6 +16,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
+
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.net.URLEncoder;
 
 /**
  * 用户管理
@@ -173,5 +181,28 @@ public class UserController {
     public Result<Boolean> checkIdCard(
             @RequestBody UserDto userDto) {
         return Result.ok(this.userService.checkIdCard(userDto));
+    }
+
+    /**
+     * 导出用户
+     *
+     * @param userQuery
+     * @param response
+     * @return
+     */
+    @ApiOperation("导出用户")
+    @PostMapping("/export")
+    public void export(
+            @RequestBody UserQuery userQuery,
+            @ApiIgnore HttpServletResponse response) throws IOException {
+        // 这里注意 有同学反应使用swagger 会导致各种问题，请直接用浏览器或者用postman
+        response.setContentType(MediaConstants.APPLICATION_VND_MS_EXCEL);
+        response.setCharacterEncoding(CommonConstant.CHARSET_UTF_8);
+        // 这里URLEncoder.encode可以防止中文乱码
+        String fileName = URLEncoder.encode("用户", CommonConstant.CHARSET_UTF_8);
+        response.setHeader("Content-disposition", "attachment;filename=" + fileName + ".xlsx");
+        EasyExcel.write(response.getOutputStream(), UserDto.class)
+                .sheet("用户")
+                .doWrite(this.userService.findList(userQuery));
     }
 }

@@ -11,5 +11,9 @@ public interface MediaConstants {
     /**
      * http 响应类型
      */
-    String MEDIA_TYPE = "application/json;charset=utf-8";
+    String APPLICATION_JSON_CHARSET_UTF_8 = "application/json;charset=utf-8";
+
+    String APPLICATION_VND_MS_EXCEL = "application/vnd.ms-excel;charset=UTF-8";
+
+    String APPLICATION_OCTET_STREAM_CHARSET_UTF_8 = "application/octet-stream;charset=UTF-8";
 }

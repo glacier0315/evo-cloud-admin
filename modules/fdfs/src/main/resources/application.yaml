@@ -49,6 +49,8 @@ management:
 
 ## 自定义
 settings:
+  feign:
+    clientId: uas_client
   security:
     permit-all:
       - /login/**
@@ -58,6 +60,7 @@ settings:
       - /webjars/**
       - /actuator/**
       - /druid/**
-      - /swagger-ui.html
+      - /swagger-ui/**
       - /swagger-resources/**
-      - /v2/api-docs
+      - /v3/api-docs
+      - /oauth/**

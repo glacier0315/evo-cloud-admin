@@ -34,4 +34,5 @@ include 'gateway:common'
 // modules
 include 'modules:sys'
 include 'modules:fdfs'
+include 'modules:dfs'
 include 'modules:gen'

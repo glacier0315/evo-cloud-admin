@@ -10,12 +10,12 @@ dependencies {
     // 本地依赖
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation "org.springframework.cloud:spring-cloud-starter-openfeign"
+    implementation("org.springframework.cloud:spring-cloud-starter-openfeign")
     // mybatis
-    implementation "org.mybatis.spring.boot:mybatis-spring-boot-starter:${mybatisVersion}"
-    implementation "com.github.pagehelper:pagehelper-spring-boot-starter:${pagehelperVersion}"
+    implementation("org.mybatis.spring.boot:mybatis-spring-boot-starter:${mybatisVersion}")
+    implementation("com.github.pagehelper:pagehelper-spring-boot-starter:${pagehelperVersion}")
 
-    implementation "com.alibaba:easyexcel:${easyExcelVerision}"
+    implementation("com.alibaba:easyexcel:${easyExcelVerision}")
 
-    runtimeOnly "mysql:mysql-connector-java"
+    runtimeOnly("mysql:mysql-connector-java")
 }

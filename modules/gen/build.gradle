@@ -7,16 +7,16 @@ jar {
 }
 
 ext {
-    dynamicDatasourceVersion="3.1.1"
+    dynamicDatasourceVersion = "3.1.1"
 }
 
 
 dependencies {
     // mybatis
-    implementation "org.mybatis.spring.boot:mybatis-spring-boot-starter:${mybatisVersion}"
-    implementation "com.github.pagehelper:pagehelper-spring-boot-starter:${pagehelperVersion}"
+    implementation("org.mybatis.spring.boot:mybatis-spring-boot-starter:${mybatisVersion}")
+    implementation("com.github.pagehelper:pagehelper-spring-boot-starter:${pagehelperVersion}")
 
-    implementation "com.baomidou:dynamic-datasource-spring-boot-starter:${dynamicDatasourceVersion}"
+    implementation("com.baomidou:dynamic-datasource-spring-boot-starter:${dynamicDatasourceVersion}")
 
     implementation("mysql:mysql-connector-java")
 }

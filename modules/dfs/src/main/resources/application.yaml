@@ -1,0 +1,62 @@
+spring:
+  profiles:
+    active: dev
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 100MB
+      max-request-size: 200MB
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          public-key-location: classpath:pubkey.pub
+      client:
+        registration:
+          uas_client:
+            provider: uas
+            client-id: eboot-sys
+            client-secret: eboot-sys
+            authorization-grant-type: client_credentials
+            scope: all
+        provider:
+          uas:
+            authorization-uri: ${AUTHORIZATION-SERVER:http://localhost:8000/authorization-server}/oauth/authorize
+            token-uri: ${AUTHORIZATION-SERVER:http://localhost:8000/authorization-server}/oauth/token
+            user-info-uri: ${USER-INFO-SERVER:http://localhost:8000/sys}/oauth/userInfo
+            user-name-attribute: username
+
+# 分布式对象存储服务
+minio:
+  endpoint: http://192.168.10.132:9001
+  accesskey: minio
+  secretKey: minio123
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
+
+
+
+## 自定义
+settings:
+  feign:
+    clientId: uas_client
+  security:
+    permit-all:
+      - /login/**
+      - /logout
+      - /favicon.ico
+      - /static/**
+      - /webjars/**
+      - /actuator/**
+      - /druid/**
+      - /swagger-ui/**
+      - /swagger-resources/**
+      - /v3/api-docs
+      - /oauth/**

@@ -1,18 +1,16 @@
 package com.glacier.modules.dfs.service;
 
-import io.minio.BucketExistsArgs;
-import io.minio.MinioClient;
-import io.minio.errors.*;
+import io.minio.*;
+import lombok.SneakyThrows;
+import org.apache.commons.io.IOUtils;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.io.IOException;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
+import java.io.File;
+import java.io.FileInputStream;
 
 /**
  * @author glacier
@@ -33,35 +31,40 @@ public class FileServiceTest {
     void tearDown() {
     }
 
+    @SneakyThrows(Exception.class)
     @Test
-    void test() {
-        try {
-            boolean bucketExists = this.minioClient.bucketExists(
-                    BucketExistsArgs.builder()
-                            .bucket("files")
-                            .build());
-            System.out.println(bucketExists);
-            Assertions.assertTrue(bucketExists);
-        } catch (ErrorResponseException e) {
-            e.printStackTrace();
-        } catch (InsufficientDataException e) {
-            e.printStackTrace();
-        } catch (InternalException e) {
-            e.printStackTrace();
-        } catch (InvalidBucketNameException e) {
-            e.printStackTrace();
-        } catch (InvalidKeyException e) {
-            e.printStackTrace();
-        } catch (InvalidResponseException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        } catch (ServerException e) {
-            e.printStackTrace();
-        } catch (XmlParserException e) {
-            e.printStackTrace();
+    void testUpload() {
+        File file = new File("D:\\12.jpg");
+        String bucket = "files";
+        FileInputStream fileInputStream = null;
+        boolean bucketExists = this.minioClient.bucketExists(
+                BucketExistsArgs.builder()
+                        .bucket(bucket)
+                        .build());
+        System.out.println(bucketExists);
+        if (!bucketExists) {
+            this.minioClient.makeBucket(MakeBucketArgs.builder()
+                    .bucket(bucket)
+                    .build());
         }
+        fileInputStream = new FileInputStream(file);
+        this.minioClient.putObject(PutObjectArgs.builder()
+                .bucket(bucket)
+                .contentType("image/jpeg")
+                .object("2020/09/11/14.jpg")
+                .stream(fileInputStream, file.length(), -1)
+                .build());
+        IOUtils.closeQuietly(fileInputStream, e -> {
+        });
+    }
+
+    @SneakyThrows(Exception.class)
+    @Test
+    void testRemove() {
+        String bucket = "files";
+        this.minioClient.removeObject(RemoveObjectArgs.builder()
+                .bucket(bucket)
+                .object("2020/09/11/15.jpg")
+                .build());
     }
 }

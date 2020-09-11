@@ -26,7 +26,7 @@ public class MinioProperties {
      */
     private String secretKey;
     /**
-     * 默认文件夹
+     * 默认BucketName
      */
-    private String defaultFolder;
+    private String defaultBucketName;
 }

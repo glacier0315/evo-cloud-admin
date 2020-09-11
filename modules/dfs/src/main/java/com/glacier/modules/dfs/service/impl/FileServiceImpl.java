@@ -15,12 +15,14 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.MimeTypeUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.InputStream;
 import java.net.URLEncoder;
 import java.time.LocalDate;
+import java.util.Objects;
 
 /**
  * @author glacier
@@ -77,13 +79,16 @@ public class FileServiceImpl implements FileService {
     public Result<String> upload(MultipartFile file) {
         LocalDate now = LocalDate.now();
         String contentType = file.getContentType();
-        String ext = FilenameUtils.getExtension(file.getOriginalFilename());
+        String extension = FilenameUtils.getExtension(file.getOriginalFilename());
+        if (extension == null || extension.isEmpty()) {
+            extension = MimeTypeUtils.parseMimeType(Objects.requireNonNull(file.getContentType())).getSubtype();
+        }
         // 根据contentType 转换为 对应的bucketName
         String bucketName = this.minioProperties.getDefaultBucketName();
         String path = StringUtils.join(now.getYear(), FIlE_SEQ,
-                now.getMonth(), FIlE_SEQ,
+                now.getMonthValue(), FIlE_SEQ,
                 AppContextHolder.getInstance().getUserId(), FIlE_SEQ,
-                IdGen.uuid(), ".", ext);
+                IdGen.uuid(), ".", extension);
         boolean bucketExists = this.minioClient.bucketExists(BucketExistsArgs.builder()
                 .bucket(bucketName)
                 .build());

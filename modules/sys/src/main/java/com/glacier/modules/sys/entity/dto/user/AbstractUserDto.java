@@ -1,7 +1,7 @@
 package com.glacier.modules.sys.entity.dto.user;
 
 import com.alibaba.excel.annotation.ExcelProperty;
-import com.glacier.modules.sys.excel.converter.LocalDateConverter;
+import com.glacier.common.core.excel.LocalDateConverter;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.ToString;

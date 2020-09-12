@@ -11,6 +11,7 @@ subprojects {
         implementation("org.springframework.security:spring-security-oauth2-resource-server")
         implementation("org.springframework.security:spring-security-oauth2-client")
         implementation("org.springframework.security:spring-security-oauth2-jose")
+        implementation("org.springframework.cloud:spring-cloud-starter-openfeign")
 
         implementation("com.alibaba:druid-spring-boot-starter:${druidVersion}")
 

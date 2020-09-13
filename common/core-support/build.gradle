@@ -1,0 +1,10 @@
+jar {
+    baseName("eboot-common-core-support")
+}
+
+ext {
+
+}
+dependencies {
+    implementation("com.alibaba:easyexcel:${easyExcelVerision}")
+}

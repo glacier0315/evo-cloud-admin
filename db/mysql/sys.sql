@@ -363,3 +363,52 @@ CREATE TABLE sys_post  (
 INSERT INTO sys_post (id, name, code, status, order_num, description, remarks, create_by, create_date, update_by, update_date, del_flag) VALUES ('1840f94177a74b3d908bff34c06c8433', '部门经理', '0002', 1, 2, null, null, '1', '2020-09-06 09:55:02', '1', '2020-09-06 10:05:15', '0');
 INSERT INTO sys_post (id, name, code, status, order_num, description, remarks, create_by, create_date, update_by, update_date, del_flag) VALUES ('ffa64f88ef7e43b79d26fb69eacc9e16', '总经理', '0001', 1, 1, null, null, '1', '2020-09-06 09:54:38', '1', '2020-09-06 10:09:22', '0');
 
+
+-- ----------------------------
+-- 字典类型表
+-- ----------------------------
+drop table if exists sys_dict_type;
+create table sys_dict_type
+(
+    id          varchar(64) NOT NULL COMMENT '主键',
+    dict_name   varchar(100) comment '字典名称',
+    dict_type   varchar(100) comment '字典类型',
+    status      int(4)     default 1 comment '状态（1正常 2停用）',
+    remarks     varchar(500) COMMENT '备注',
+    create_by   varchar(64) COMMENT '创建人',
+    create_date timestamp  DEFAULT current_timestamp COMMENT '创建时间',
+    update_by   varchar(64) COMMENT '更新人',
+    update_date timestamp  DEFAULT current_timestamp COMMENT '更新时间',
+    del_flag    varchar(4) default '0' COMMENT '删除标记',
+    PRIMARY KEY (id) USING BTREE,
+    unique (dict_type),
+    INDEX sys_dict_type_1 (status) USING BTREE,
+    INDEX sys_dict_type_2 (dict_type) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '字典类型表' ROW_FORMAT = Dynamic;
+
+
+-- ----------------------------
+-- 字典数据表
+-- ----------------------------
+drop table if exists sys_dict_data;
+create table sys_dict_data
+(
+    id           varchar(64) NOT NULL COMMENT '主键',
+    label        varchar(100) comment '字典标签',
+    value        varchar(100) comment '字典键值',
+    type         varchar(100) comment '字典类型',
+    default_flag char(1)    default '2' comment '是否默认（1是 2否）',
+    dict_type    varchar(100) comment '字典类型',
+    status       int(4)     default 1 comment '状态（1正常 2停用）',
+    order_num    int(4) COMMENT '排序号',
+    remarks      varchar(500) COMMENT '备注',
+    create_by    varchar(64) COMMENT '创建人',
+    create_date  timestamp  DEFAULT current_timestamp COMMENT '创建时间',
+    update_by    varchar(64) COMMENT '更新人',
+    update_date  timestamp  DEFAULT current_timestamp COMMENT '更新时间',
+    del_flag     varchar(4) default '0' COMMENT '删除标记',
+    PRIMARY KEY (id) USING BTREE,
+    INDEX sys_dict_data_1 (status) USING BTREE,
+    INDEX sys_dict_data_2 (dict_type) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '字典数据表' ROW_FORMAT = Dynamic;
+

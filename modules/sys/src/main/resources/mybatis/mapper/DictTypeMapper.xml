@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.glacier.modules.sys.mapper.DictTypeMapper">
+    <resultMap id="BaseResultMap" type="com.glacier.modules.sys.entity.DictType">
+        <id column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="dict_name" jdbcType="VARCHAR" property="dictName"/>
+        <result column="dict_type" jdbcType="VARCHAR" property="dictType"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
+        <result column="remarks" jdbcType="VARCHAR" property="remarks"/>
+        <result column="create_by" jdbcType="VARCHAR" property="createBy"/>
+        <result column="create_date" jdbcType="TIMESTAMP" property="createDate"/>
+        <result column="update_by" jdbcType="VARCHAR" property="updateBy"/>
+        <result column="update_date" jdbcType="TIMESTAMP" property="updateDate"/>
+        <result column="del_flag" jdbcType="VARCHAR" property="delFlag"/>
+    </resultMap>
+
+    <sql id="base_columns">
+        a.id, a.dict_name, a.dict_type, a.status, a.remarks, a.create_by, a.create_date, a.update_by, a.update_date
+    </sql>
+
+    <sql id="join_columns">
+    </sql>
+
+    <sql id="joins">
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="base_columns"/>
+        from sys_dict_type a
+        where a.id = #{id}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        update sys_dict_type
+        set del_flag='1'
+        where id = #{id}
+    </delete>
+
+    <insert id="insert">
+        insert into sys_dict_type (dict_name, dict_type, status,
+          remarks, create_by, create_date,
+          update_by, update_date, del_flag)
+        values (#{dictName}, #{dictType}, #{status},
+          #{remarks}, #{createBy}, #{createDate},
+          #{updateBy}, #{updateDate}, #{delFlag})
+    </insert>
+
+    <update id="updateByPrimaryKey">
+        update sys_dict_type
+        set dict_name = #{dictName},
+          status = #{status},
+          remarks = #{remarks},
+          update_by = #{updateBy},
+          update_date = #{updateDate}
+        where id = #{id}
+    </update>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        select
+        <include refid="base_columns"/>
+        from sys_dict_type a
+        <where>
+            a.del_flag='0'
+        </where>
+    </select>
+
+    <select id="selectList" resultMap="BaseResultMap">
+        select
+        <include refid="base_columns"/>
+        from sys_dict_type a
+        <where>
+            a.del_flag='0'
+            <if test="status != null">
+                and a.status=#{status}
+            </if>
+            <if test="dictType != null and dictType != '' ">
+                and a.dict_type=#{dictType}
+            </if>
+        </where>
+    </select>
+</mapper>

@@ -30,5 +30,5 @@ public class OauthClientDetails implements Serializable {
     private Integer accessTokenValidity;
     private Integer refreshTokenValidity;
     private String additionalInformation;
-    private String autoapprove;
+    private String autoApprove;
 }

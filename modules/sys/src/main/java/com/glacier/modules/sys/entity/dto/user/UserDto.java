@@ -1,5 +1,6 @@
 package com.glacier.modules.sys.entity.dto.user;
 
+import com.alibaba.excel.annotation.ExcelIgnoreUnannotated;
 import com.alibaba.excel.annotation.ExcelProperty;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -16,6 +17,7 @@ import lombok.ToString;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @ToString
+@ExcelIgnoreUnannotated
 public class UserDto extends AbstractUserDto {
     private static final long serialVersionUID = 3725415789818769982L;
     /**

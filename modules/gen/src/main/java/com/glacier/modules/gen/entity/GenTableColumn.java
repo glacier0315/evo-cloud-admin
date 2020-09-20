@@ -45,27 +45,27 @@ public class GenTableColumn extends AbstractDataEntity {
     @NotBlank(message = "Java属性不能为空")
     private String javaField;
     /**
-     * 是否主键（1是）
+     * 是否主键（1是 2 否）
      */
     private String isPk;
     /**
-     * 是否必填（1是）
+     * 是否必填（1是 2 否）
      */
     private String isRequired;
     /**
-     * 是否为插入字段（1是）
+     * 是否为插入字段（1是 2 否）
      */
     private String isInsert;
     /**
-     * 是否编辑字段（1是）
+     * 是否编辑字段（1是 2 否）
      */
     private String isEdit;
     /**
-     * 是否列表字段（1是）
+     * 是否列表字段（1是 2 否）
      */
     private String isList;
     /**
-     * 是否查询字段（1是）
+     * 是否查询字段（1是 2 否）
      */
     private String isQuery;
     /**

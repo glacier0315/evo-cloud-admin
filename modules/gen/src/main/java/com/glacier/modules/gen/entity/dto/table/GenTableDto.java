@@ -1,11 +1,13 @@
-package com.glacier.modules.gen.entity.dto;
+package com.glacier.modules.gen.entity.dto.table;
 
+import com.glacier.common.core.entity.dto.IdDto;
+import com.glacier.modules.gen.entity.dto.GenTableColumnDto;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
-import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -15,14 +17,10 @@ import java.util.List;
  */
 @ApiModel(description = "生成表模型")
 @Data
+@EqualsAndHashCode(callSuper = true)
 @ToString
-public class GenTableDto implements Serializable {
+public class GenTableDto extends IdDto {
     private static final long serialVersionUID = -6637370863263789478L;
-    /**
-     * 主键
-     */
-    @ApiModelProperty(value = "主键")
-    private String id;
     /**
      * 表名称
      */

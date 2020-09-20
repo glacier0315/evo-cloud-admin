@@ -23,6 +23,7 @@
         <result column="create_date" jdbcType="TIMESTAMP" property="createDate"/>
         <result column="update_by" jdbcType="VARCHAR" property="updateBy"/>
         <result column="update_date" jdbcType="TIMESTAMP" property="updateDate"/>
+        <result column="del_flag" jdbcType="VARCHAR" property="delFlag"/>
     </resultMap>
 
     <sql id="base_columns">
@@ -50,14 +51,14 @@
                                       is_insert, is_edit, is_list, is_query,
                                       query_type, html_type, dict_type,
                                       sort, create_by, create_date,
-                                      update_by, update_date)
+                                      update_by, update_date, del_flag)
         values (#{id}, #{tableId}, #{columnName},
                 #{columnComment}, #{columnType}, #{javaType},
                 #{javaField}, #{isPk}, #{isRequired},
                 #{isInsert}, #{isEdit}, #{isList}, #{isQuery},
                 #{queryType}, #{htmlType}, #{dictType},
                 #{sort}, #{createBy}, #{createDate},
-                #{updateBy}, #{updateDate})
+                #{updateBy}, #{updateDate}, #{delFlag})
     </insert>
 
     <update id="updateByPrimaryKey" parameterType="com.glacier.modules.gen.entity.GenTableColumn">

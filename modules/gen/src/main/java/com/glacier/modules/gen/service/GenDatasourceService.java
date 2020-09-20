@@ -2,17 +2,16 @@ package com.glacier.modules.gen.service;
 
 import com.glacier.common.core.entity.page.PageRequest;
 import com.glacier.common.core.entity.page.PageResponse;
-import com.glacier.modules.gen.entity.dto.table.GenTableDto;
-import com.glacier.modules.gen.entity.dto.table.GenTableQuery;
+import com.glacier.modules.gen.entity.dto.datasource.GenDatasourceDto;
+import com.glacier.modules.gen.entity.dto.datasource.GenDatasourceForm;
+import com.glacier.modules.gen.entity.dto.datasource.GenDatasourceQuery;
 
 /**
- * 生成表  业务层
- *
  * @author glacier
  * @version 1.0
- * @date 2020-08-26 16:32
+ * @date 2020-09-20 16:13
  */
-public interface GenTableService {
+public interface GenDatasourceService {
 
     /**
      * 根据用户id 查询
@@ -20,7 +19,7 @@ public interface GenTableService {
      * @param id
      * @return
      */
-    GenTableDto findById(String id);
+    GenDatasourceDto findById(String id);
 
     /**
      * 分页查询
@@ -28,15 +27,15 @@ public interface GenTableService {
      * @param pageRequest
      * @return
      */
-    PageResponse<GenTableDto> findPage(PageRequest<GenTableQuery> pageRequest);
+    PageResponse<GenDatasourceDto> findPage(PageRequest<GenDatasourceQuery> pageRequest);
 
     /**
-     * 保存用户
+     * 保存
      *
      * @param form 用户封装实体
      * @return
      */
-    int save(GenTableDto form);
+    int save(GenDatasourceForm form);
 
     /**
      * 根据Id删除

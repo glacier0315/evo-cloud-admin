@@ -7,11 +7,12 @@ import com.glacier.common.core.entity.page.PageRequest;
 import com.glacier.common.core.entity.page.PageResponse;
 import com.glacier.common.core.utils.StringUtils;
 import com.glacier.modules.constant.DataSourceConstant;
-import com.glacier.modules.gen.entity.GenTable;
-import com.glacier.modules.gen.entity.dto.table.GenTableDto;
-import com.glacier.modules.gen.entity.dto.table.GenTableQuery;
-import com.glacier.modules.gen.mapper.GenTableMapper;
-import com.glacier.modules.gen.service.GenTableService;
+import com.glacier.modules.gen.entity.GenDatasource;
+import com.glacier.modules.gen.entity.dto.datasource.GenDatasourceDto;
+import com.glacier.modules.gen.entity.dto.datasource.GenDatasourceForm;
+import com.glacier.modules.gen.entity.dto.datasource.GenDatasourceQuery;
+import com.glacier.modules.gen.mapper.GenDatasourceMapper;
+import com.glacier.modules.gen.service.GenDatasourceService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -24,56 +25,57 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * 生成表  业务层
+ * 数据源表  业务层
  *
  * @author glacier
  * @version 1.0
- * @date 2020-08-26 16:35
+ * @date 2020-09-20 16:13
  */
 @Slf4j
 @Transactional(readOnly = true)
 @DS(DataSourceConstant.DATASOURCE_MASTER)
-@Service("genTableService")
+@Service("genDatasourceService")
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
-public class GenTableServiceImpl implements GenTableService {
-    private final GenTableMapper genTableMapper;
+public class GenDatasourceServiceImpl implements GenDatasourceService {
+
+    private final GenDatasourceMapper genDatasourceMapper;
     private final ModelMapper modelMapper;
 
     @Override
-    public GenTableDto findById(String id) {
-        return Optional.ofNullable(this.genTableMapper.selectByPrimaryKey(id))
-                .map(table ->
-                        this.modelMapper.map(table, GenTableDto.class)
+    public GenDatasourceDto findById(String id) {
+        return Optional.ofNullable(this.genDatasourceMapper.selectByPrimaryKey(id))
+                .map(genDatasource ->
+                        this.modelMapper.map(genDatasource, GenDatasourceDto.class)
                 ).orElse(null);
     }
 
     @Override
-    public PageResponse<GenTableDto> findPage(PageRequest<GenTableQuery> pageRequest) {
+    public PageResponse<GenDatasourceDto> findPage(PageRequest<GenDatasourceQuery> pageRequest) {
         PageHelper.startPage(pageRequest.getPageNum(), pageRequest.getPageSize());
-        List<GenTable> list = this.genTableMapper.selectList(pageRequest.getParams());
-        PageInfo<GenTable> pageInfo = PageInfo.of(list);
+        List<GenDatasource> list = this.genDatasourceMapper.selectList(pageRequest.getParams());
+        PageInfo<GenDatasource> pageInfo = PageInfo.of(list);
         return new PageResponse<>(
                 pageInfo.getPageNum(),
                 pageInfo.getPages(),
                 pageInfo.getTotal(),
                 this.modelMapper.map(
                         pageInfo.getList(),
-                        new TypeToken<List<GenTableDto>>() {
+                        new TypeToken<List<GenDatasourceDto>>() {
                         }.getType()));
     }
 
     @Override
-    public int save(GenTableDto form) {
+    public int save(GenDatasourceForm form) {
         if (form == null) {
             return 0;
         }
-        GenTable genTable = this.modelMapper.map(form, GenTable.class);
-        if (!genTable.isNewRecord()) {
-            genTable.preUpdate();
-            return this.genTableMapper.updateByPrimaryKey(genTable);
+        GenDatasource datasource = this.modelMapper.map(form, GenDatasource.class);
+        if (!datasource.isNewRecord()) {
+            datasource.preUpdate();
+            return this.genDatasourceMapper.updateByPrimaryKey(datasource);
         }
-        genTable.preInsert();
-        return this.genTableMapper.insert(genTable);
+        datasource.preInsert();
+        return this.genDatasourceMapper.insert(datasource);
     }
 
     @Override
@@ -81,6 +83,6 @@ public class GenTableServiceImpl implements GenTableService {
         if (StringUtils.isBlank(id)) {
             return 0;
         }
-        return this.genTableMapper.deleteByPrimaryKey(id);
+        return this.genDatasourceMapper.deleteByPrimaryKey(id);
     }
 }

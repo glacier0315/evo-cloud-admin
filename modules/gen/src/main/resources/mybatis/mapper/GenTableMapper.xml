@@ -3,10 +3,11 @@
 <mapper namespace="com.glacier.modules.gen.mapper.GenTableMapper">
     <resultMap id="BaseResultMap" type="com.glacier.modules.gen.entity.GenTable">
         <id column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="datasource_id" jdbcType="VARCHAR" property="datasourceId"/>
         <result column="table_name" jdbcType="VARCHAR" property="tableName"/>
         <result column="table_comment" jdbcType="VARCHAR" property="tableComment"/>
         <result column="class_name" jdbcType="VARCHAR" property="className"/>
-        <result column="tpl_category" jdbcType="VARCHAR" property="tplCategory"/>
+        <result column="template_category" jdbcType="VARCHAR" property="templateCategory"/>
         <result column="package_name" jdbcType="VARCHAR" property="packageName"/>
         <result column="module_name" jdbcType="VARCHAR" property="moduleName"/>
         <result column="business_name" jdbcType="VARCHAR" property="businessName"/>
@@ -17,12 +18,13 @@
         <result column="create_date" jdbcType="TIMESTAMP" property="createDate"/>
         <result column="update_by" jdbcType="VARCHAR" property="updateBy"/>
         <result column="update_date" jdbcType="TIMESTAMP" property="updateDate"/>
-        <result column="remark" jdbcType="VARCHAR" property="remark"/>
+        <result column="del_flag" jdbcType="VARCHAR" property="delFlag"/>
     </resultMap>
 
     <sql id="base_columns">
-        a.id, a.table_name, a.table_comment, a.class_name, a.tpl_category, a.package_name, a.module_name, a.business_name,
-        a.function_name, a.function_author, a.options, a.create_by, a.create_date, a.update_by, a.update_date, a.remark
+        a.id,a.datasource_id, a.table_name, a.table_comment, a.class_name, a.template_category, a.package_name,
+        a.module_name, a.business_name, a.function_name, a.function_author, a.options,
+        a.create_by, a.create_date, a.update_by, a.update_date
     </sql>
 
     <sql id="join_columns">
@@ -38,35 +40,31 @@
     </delete>
 
     <insert id="insert" parameterType="com.glacier.modules.gen.entity.GenTable">
-        insert into gen_table (id, table_name, table_comment,
-                               class_name, tpl_category, package_name,
-                               module_name, business_name, function_name,
-                               function_author, options, create_by,
-                               create_date, update_by, update_date,
-                               remark)
-        values (#{id}, #{tableName}, #{tableComment},
-                #{className}, #{tplCategory}, #{packageName},
-                #{moduleName}, #{businessName}, #{functionName},
-                #{functionAuthor}, #{options}, #{createBy},
-                #{createDate}, #{updateBy}, #{updateDate},
-                #{remark})
+        insert into gen_table (id, datasource_id, table_name, table_comment,
+                               class_name, template_category, package_name,
+                               module_name, business_name, function_name, function_author, options,
+                               create_by, create_date, update_by, update_date, del_flag)
+        values (#{id}, #{datasourceId}, #{tableName}, #{tableComment},
+                #{className}, #{templateCategory}, #{packageName},
+                #{moduleName}, #{businessName}, #{functionName}, #{functionAuthor}, #{options},
+                #{createBy}, #{createDate}, #{updateBy}, #{updateDate}, #{delFlag})
     </insert>
 
     <update id="updateByPrimaryKey" parameterType="com.glacier.modules.gen.entity.GenTable">
         update gen_table
-        set table_name      = #{tableName},
-            table_comment   = #{tableComment},
-            class_name      = #{className},
-            tpl_category    = #{tplCategory},
-            package_name    = #{packageName},
-            module_name     = #{moduleName},
-            business_name   = #{businessName},
-            function_name   = #{functionName},
-            function_author = #{functionAuthor},
-            options         = #{options},
-            update_by       = #{updateBy},
-            update_date     = #{updateDate},
-            remark          = #{remark}
+        set datasource_id       = #{datasourceId},
+            table_name          = #{tableName},
+            table_comment       = #{tableComment},
+            class_name          = #{className},
+            template_category   = #{templateCategory},
+            package_name        = #{packageName},
+            module_name         = #{moduleName},
+            business_name       = #{businessName},
+            function_name       = #{functionName},
+            function_author     = #{functionAuthor},
+            options             = #{options},
+            update_by           = #{updateBy},
+            update_date         = #{updateDate}
         where id = #{id}
     </update>
 
@@ -92,6 +90,9 @@
         from gen_table a
         <where>
             a.del_flag='0'
+            <if test="datasourceId != null and datasourceId != '' ">
+                and a.datasource_id=#{datasourceId}
+            </if>
         </where>
     </select>
 </mapper>

@@ -3,8 +3,8 @@ package com.glacier.modules.gen.controller;
 import com.glacier.common.core.entity.Result;
 import com.glacier.common.core.entity.page.PageRequest;
 import com.glacier.common.core.entity.page.PageResponse;
-import com.glacier.modules.gen.entity.dto.GenTableDto;
-import com.glacier.modules.gen.entity.dto.GenTableQuery;
+import com.glacier.modules.gen.entity.dto.table.GenTableDto;
+import com.glacier.modules.gen.entity.dto.table.GenTableQuery;
 import com.glacier.modules.gen.service.GenTableService;
 import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
@@ -23,9 +23,9 @@ import org.springframework.web.bind.annotation.RestController;
 @Api(tags = "代码生成管理")
 @Slf4j
 @RestController
-@RequestMapping(value = "/gen")
+@RequestMapping(value = "/genTable")
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
-public class GenController {
+public class GenTableController {
     private final GenTableService genTableService;
 
     /**

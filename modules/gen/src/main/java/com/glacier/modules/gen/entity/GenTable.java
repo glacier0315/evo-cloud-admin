@@ -20,6 +20,11 @@ import javax.validation.constraints.NotBlank;
 public class GenTable extends AbstractDataEntity {
     private static final long serialVersionUID = -1221312518526422323L;
     /**
+     * 数据源id
+     */
+    @NotBlank(message = "数据源id不能为空")
+    private String datasourceId;
+    /**
      * 表名称
      */
     @NotBlank(message = "表名称不能为空")
@@ -37,7 +42,7 @@ public class GenTable extends AbstractDataEntity {
     /**
      * 使用的模板（crud单表操作 tree树表操作）
      */
-    private String tplCategory;
+    private String templateCategory;
     /**
      * 生成包路径
      */

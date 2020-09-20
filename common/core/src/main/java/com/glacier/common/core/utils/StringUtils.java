@@ -5,7 +5,7 @@ package com.glacier.common.core.utils;
  * @version 1.0
  * @date 2020-02-13 11:00
  */
-public class StringUtils {
+public class StringUtils extends org.apache.commons.lang3.StringUtils {
 
     /**
      * 判断字符串为空或者空字符串

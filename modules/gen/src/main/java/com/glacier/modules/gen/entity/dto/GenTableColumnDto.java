@@ -8,11 +8,12 @@ import lombok.ToString;
 import java.io.Serializable;
 
 /**
+ * 表字段模型
  * @author glacier
  * @version 1.0
  * @date 2020-08-26 16:51
  */
-@ApiModel(description = "生成表字段模型")
+@ApiModel(description = "表字段模型")
 @Data
 @ToString
 public class GenTableColumnDto implements Serializable {

@@ -2,7 +2,7 @@ package com.glacier.modules.gen.mapper;
 
 import com.glacier.common.core.mapper.BaseMapper;
 import com.glacier.modules.gen.entity.GenTable;
-import com.glacier.modules.gen.entity.dto.GenTableQuery;
+import com.glacier.modules.gen.entity.dto.table.GenTableQuery;
 
 import java.util.List;
 

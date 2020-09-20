@@ -3,10 +3,15 @@ debug: true
 server:
   port: ${random.int[8001,19000]}
 
-# datasource
+## datasource
 spring:
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://192.168.10.130:3306/eboot_sys?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=UTF-8&useSSL=false&autoReconnect=true&failOverReadOnly=false
-    username: eboot_gen
-    password: eboot_gen
+    dynamic:
+      #设置默认的数据源或者数据源组,默认值即为master
+      primary: master
+      datasource:
+        master:
+          driver-class-name: com.mysql.cj.jdbc.Driver
+          url: jdbc:mysql://192.168.10.130:3306/eboot_gen?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=UTF-8&useSSL=false&autoReconnect=true&failOverReadOnly=false
+          username: eboot_gen
+          password: eboot_gen

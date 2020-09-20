@@ -38,6 +38,10 @@ public class PageRequest<T> implements Serializable {
     public PageRequest() {
     }
 
+    public PageRequest(T params) {
+        this.params = params;
+    }
+
     public PageRequest(int pageNum, int pageSize, T params) {
         this.pageNum = pageNum;
         this.pageSize = pageSize;

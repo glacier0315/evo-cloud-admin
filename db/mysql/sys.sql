@@ -79,6 +79,7 @@ CREATE TABLE sys_menu  (
 -- ----------------------------
 INSERT INTO sys_menu (id, name, path, component, icon, type, status, visible, is_frame, permission, parent_id, grade, order_num, create_by, create_date, update_by, update_date, del_flag) VALUES ('1', 'permission', '/permission', 'Layout', 'lock', 1, 1, 1, 2, null, null, null, 1, null, '2020-06-25 07:45:59', null, '2020-06-25 07:45:59', '0');
 INSERT INTO sys_menu (id, name, path, component, icon, type, status, visible, is_frame, permission, parent_id, grade, order_num, create_by, create_date, update_by, update_date, del_flag) VALUES ('5', '系统设置', '/sys', '', 'el-icon-setting', 1, 1, 1, 2, null, null, null, 5, null, '2020-06-27 03:29:29', null, '2020-06-27 03:29:29', '0');
+INSERT INTO sys_menu (id, name, path, component, icon, type, status, visible, is_frame, permission, parent_id, grade, order_num, create_by, create_date, update_by, update_date, del_flag) VALUES ('9aa94a46ef6f4ae9a48d501871ce4fbf', '代码生成', '/gen', null, 'component', 1, 1, 1, 2, null, null, null, 6, '1', '2020-09-20 17:44:11', '1', '2020-09-20 17:48:11', '0');
 INSERT INTO sys_menu (id, name, path, component, icon, type, status, visible, is_frame, permission, parent_id, grade, order_num, create_by, create_date, update_by, update_date, del_flag) VALUES ('0b2c28fb18bc213a2ea7143cbf724702', 'icon', '/icon', 'Layout', null, 1, 1, 1, 2, null, null, null, 11, null, '2020-07-04 02:37:46', null, '2020-07-04 02:37:46', '0');
 INSERT INTO sys_menu (id, name, path, component, icon, type, status, visible, is_frame, permission, parent_id, grade, order_num, create_by, create_date, update_by, update_date, del_flag) VALUES ('be14507626f7f301fbfc21ddbd8e6380', 'pdf', '/pdf', null, null, 1, 1, 1, 2, null, null, null, 13, null, '2020-07-04 03:04:29', null, '2020-07-04 03:04:29', '0');
 INSERT INTO sys_menu (id, name, path, component, icon, type, status, visible, is_frame, permission, parent_id, grade, order_num, create_by, create_date, update_by, update_date, del_flag) VALUES ('a38df56dd7f59f030a0bc449fcc97d57', 'icons', '/icon/index', 'icons', 'icon', 2, 1, 1, 2, null, '0b2c28fb18bc213a2ea7143cbf724702', null, 12, null, '2020-07-04 02:38:52', null, '2020-07-04 02:38:52', '0');
@@ -92,6 +93,8 @@ INSERT INTO sys_menu (id, name, path, component, icon, type, status, visible, is
 INSERT INTO sys_menu (id, name, path, component, icon, type, status, visible, is_frame, permission, parent_id, grade, order_num, create_by, create_date, update_by, update_date, del_flag) VALUES ('8', '菜单管理', '/sys/menu', 'sys/menu', 'list', 2, 1, 1, 2, null, '5', null, 8, null, '2020-06-27 03:32:20', '1', '2020-09-06 09:47:19', '0');
 INSERT INTO sys_menu (id, name, path, component, icon, type, status, visible, is_frame, permission, parent_id, grade, order_num, create_by, create_date, update_by, update_date, del_flag) VALUES ('9', '组织机构', '/sys/dept', 'sys/dept', 'tree', 2, 1, 1, 2, null, '5', null, 10, null, '2020-06-27 03:32:54', null, '2020-07-04 02:36:30', '0');
 INSERT INTO sys_menu (id, name, path, component, icon, type, status, visible, is_frame, permission, parent_id, grade, order_num, create_by, create_date, update_by, update_date, del_flag) VALUES ('9ffee089c8c24638b5b7f646da498cb3', '岗位管理', '/sys/post', 'sys/post', 'user', 2, 1, 1, 2, null, '5', null, 11, '1', '2020-09-06 09:36:34', '1', '2020-09-06 09:39:20', '0');
+INSERT INTO sys_menu (id, name, path, component, icon, type, status, visible, is_frame, permission, parent_id, grade, order_num, create_by, create_date, update_by, update_date, del_flag) VALUES ('6b12cf99f99f4860ab4f686e55bdc380', '数据源管理', '/gen/datasource', 'gen/datasource', 'list', 2, 1, 1, 2, null, '9aa94a46ef6f4ae9a48d501871ce4fbf', null, 1, '1', '2020-09-20 17:45:23', '1', '2020-09-20 17:48:18', '0');
+INSERT INTO sys_menu (id, name, path, component, icon, type, status, visible, is_frame, permission, parent_id, grade, order_num, create_by, create_date, update_by, update_date, del_flag) VALUES ('1bca38c0d77841f6b39fe523b1607196', '表管理', '/gen/table', 'gen/table', 'list', 2, 1, 1, 2, null, '9aa94a46ef6f4ae9a48d501871ce4fbf', null, 2, '1', '2020-09-20 17:46:30', '1', '2020-09-20 17:48:21', '0');
 INSERT INTO sys_menu (id, name, path, component, icon, type, status, visible, is_frame, permission, parent_id, grade, order_num, create_by, create_date, update_by, update_date, del_flag) VALUES ('54f41ef8740a67b56a122453d0323ded', 'pdf', '/pdf/index', 'pdf/index', 'pdf', 2, 1, 1, 2, null, 'be14507626f7f301fbfc21ddbd8e6380', null, 14, null, '2020-07-04 03:05:13', 'c35d5b94aca547799fbe56ddd90bcfc4', '2020-09-03 20:46:24', '0');
 
 -- ----------------------------
@@ -176,34 +179,37 @@ CREATE TABLE sys_role_menu  (
 -- ----------------------------
 -- Records of sys_role_menu
 -- ----------------------------
-
 INSERT INTO sys_role_menu (role_id, menu_id) VALUES ('1', '0b2c28fb18bc213a2ea7143cbf724702');
-INSERT INTO sys_role_menu (role_id, menu_id) VALUES ('ae153d7756e54234bde561ae1367f08f', '0b2c28fb18bc213a2ea7143cbf724702');
-INSERT INTO sys_role_menu (role_id, menu_id) VALUES ('d1ece8903278fe25e8be2804fd755025', '0b2c28fb18bc213a2ea7143cbf724702');
 INSERT INTO sys_role_menu (role_id, menu_id) VALUES ('1', '1');
+INSERT INTO sys_role_menu (role_id, menu_id) VALUES ('1', '1bca38c0d77841f6b39fe523b1607196');
 INSERT INTO sys_role_menu (role_id, menu_id) VALUES ('1', '2');
-INSERT INTO sys_role_menu (role_id, menu_id) VALUES ('ae153d7756e54234bde561ae1367f08f', '2f0640f9f1fa452abe25643e14d8b3f4');
 INSERT INTO sys_role_menu (role_id, menu_id) VALUES ('1', '3');
-INSERT INTO sys_role_menu (role_id, menu_id) VALUES ('ae153d7756e54234bde561ae1367f08f', '3');
 INSERT INTO sys_role_menu (role_id, menu_id) VALUES ('1', '4');
-INSERT INTO sys_role_menu (role_id, menu_id) VALUES ('d1ece8903278fe25e8be2804fd755025', '4');
 INSERT INTO sys_role_menu (role_id, menu_id) VALUES ('1', '4e70a707c3d24b29aefe737d6a61b5c9');
 INSERT INTO sys_role_menu (role_id, menu_id) VALUES ('1', '5');
 INSERT INTO sys_role_menu (role_id, menu_id) VALUES ('1', '54f41ef8740a67b56a122453d0323ded');
 INSERT INTO sys_role_menu (role_id, menu_id) VALUES ('1', '6');
-INSERT INTO sys_role_menu (role_id, menu_id) VALUES ('ae153d7756e54234bde561ae1367f08f', '6');
+INSERT INTO sys_role_menu (role_id, menu_id) VALUES ('1', '6b12cf99f99f4860ab4f686e55bdc380');
 INSERT INTO sys_role_menu (role_id, menu_id) VALUES ('1', '7');
 INSERT INTO sys_role_menu (role_id, menu_id) VALUES ('1', '8');
-INSERT INTO sys_role_menu (role_id, menu_id) VALUES ('ae153d7756e54234bde561ae1367f08f', '8');
-INSERT INTO sys_role_menu (role_id, menu_id) VALUES ('d1ece8903278fe25e8be2804fd755025', '8');
 INSERT INTO sys_role_menu (role_id, menu_id) VALUES ('1', '9');
-INSERT INTO sys_role_menu (role_id, menu_id) VALUES ('ae153d7756e54234bde561ae1367f08f', '9');
-INSERT INTO sys_role_menu (role_id, menu_id) VALUES ('d1ece8903278fe25e8be2804fd755025', '9');
+INSERT INTO sys_role_menu (role_id, menu_id) VALUES ('1', '9aa94a46ef6f4ae9a48d501871ce4fbf');
+INSERT INTO sys_role_menu (role_id, menu_id) VALUES ('1', '9ffee089c8c24638b5b7f646da498cb3');
 INSERT INTO sys_role_menu (role_id, menu_id) VALUES ('1', 'a38df56dd7f59f030a0bc449fcc97d57');
-INSERT INTO sys_role_menu (role_id, menu_id) VALUES ('ae153d7756e54234bde561ae1367f08f', 'a38df56dd7f59f030a0bc449fcc97d57');
-INSERT INTO sys_role_menu (role_id, menu_id) VALUES ('d1ece8903278fe25e8be2804fd755025', 'a38df56dd7f59f030a0bc449fcc97d57');
 INSERT INTO sys_role_menu (role_id, menu_id) VALUES ('1', 'be14507626f7f301fbfc21ddbd8e6380');
 INSERT INTO sys_role_menu (role_id, menu_id) VALUES ('1', 'd553d5090905465eb23cc5285c5f41ad');
+INSERT INTO sys_role_menu (role_id, menu_id) VALUES ('ae153d7756e54234bde561ae1367f08f', '0b2c28fb18bc213a2ea7143cbf724702');
+INSERT INTO sys_role_menu (role_id, menu_id) VALUES ('ae153d7756e54234bde561ae1367f08f', '2f0640f9f1fa452abe25643e14d8b3f4');
+INSERT INTO sys_role_menu (role_id, menu_id) VALUES ('ae153d7756e54234bde561ae1367f08f', '3');
+INSERT INTO sys_role_menu (role_id, menu_id) VALUES ('ae153d7756e54234bde561ae1367f08f', '6');
+INSERT INTO sys_role_menu (role_id, menu_id) VALUES ('ae153d7756e54234bde561ae1367f08f', '8');
+INSERT INTO sys_role_menu (role_id, menu_id) VALUES ('ae153d7756e54234bde561ae1367f08f', '9');
+INSERT INTO sys_role_menu (role_id, menu_id) VALUES ('ae153d7756e54234bde561ae1367f08f', 'a38df56dd7f59f030a0bc449fcc97d57');
+INSERT INTO sys_role_menu (role_id, menu_id) VALUES ('d1ece8903278fe25e8be2804fd755025', '0b2c28fb18bc213a2ea7143cbf724702');
+INSERT INTO sys_role_menu (role_id, menu_id) VALUES ('d1ece8903278fe25e8be2804fd755025', '4');
+INSERT INTO sys_role_menu (role_id, menu_id) VALUES ('d1ece8903278fe25e8be2804fd755025', '8');
+INSERT INTO sys_role_menu (role_id, menu_id) VALUES ('d1ece8903278fe25e8be2804fd755025', '9');
+INSERT INTO sys_role_menu (role_id, menu_id) VALUES ('d1ece8903278fe25e8be2804fd755025', 'a38df56dd7f59f030a0bc449fcc97d57');
 
 
 -- ----------------------------

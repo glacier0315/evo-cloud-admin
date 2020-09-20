@@ -44,7 +44,7 @@ public class UserController {
      * @return
      */
     @ApiOperation("分页查询用户")
-    @PostMapping("/pageList")
+    @PostMapping("/findPage")
     public Result<PageResponse<UserDto>> findPage(
             @RequestBody PageRequest<UserQuery> pageRequest) {
         return Result.ok(

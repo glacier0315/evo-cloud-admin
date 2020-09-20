@@ -5,6 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.glacier.common.core.constant.SysConstants;
 import com.glacier.common.core.entity.page.PageRequest;
 import com.glacier.common.core.entity.page.PageResponse;
+import com.glacier.common.core.utils.StringUtil;
 import com.glacier.modules.sys.entity.Role;
 import com.glacier.modules.sys.entity.RoleDept;
 import com.glacier.modules.sys.entity.RoleMenu;
@@ -18,7 +19,6 @@ import com.glacier.modules.sys.mapper.UserRoleMapper;
 import com.glacier.modules.sys.service.RoleService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,7 +81,7 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public boolean checkCode(final RoleForm roleForm) {
         if (roleForm != null
-                && StringUtils.isNotEmpty(roleForm.getCode())) {
+                && StringUtil.isNotEmpty(roleForm.getCode())) {
             Role role = new Role();
             role.setId(roleForm.getId());
             role.setCode(roleForm.getCode());
@@ -143,16 +143,16 @@ public class RoleServiceImpl implements RoleService {
     @Transactional(rollbackFor = {})
     @Override
     public int delete(String id) {
-        int unpdate = 0;
-        if (StringUtils.isNotEmpty(id)) {
-            unpdate = this.roleMapper.deleteByPrimaryKey(id);
-            // 删除用户角色关系
-            this.userRoleMapper.deleteByRoleId(id);
-            // 删除角色资源关系
-            this.roleMenuMapper.deleteByRoleId(id);
-            // 删除角色单位关系
-            this.roleDeptMapper.deleteByRoleId(id);
+        if (StringUtil.isBlank(id)) {
+            return 0;
         }
+        int unpdate = this.roleMapper.deleteByPrimaryKey(id);
+        // 删除用户角色关系
+        this.userRoleMapper.deleteByRoleId(id);
+        // 删除角色资源关系
+        this.roleMenuMapper.deleteByRoleId(id);
+        // 删除角色单位关系
+        this.roleDeptMapper.deleteByRoleId(id);
         return unpdate;
     }
 
@@ -167,7 +167,7 @@ public class RoleServiceImpl implements RoleService {
      */
     private int saveRoleMenu(String roleId, List<String> menuIds) {
         int update = 0;
-        if (StringUtils.isNotEmpty(roleId)) {
+        if (StringUtil.isNotEmpty(roleId)) {
             // 清空原角色和菜单关系
             this.roleMenuMapper.deleteByRoleId(roleId);
             // 保存角色菜单关系
@@ -193,7 +193,7 @@ public class RoleServiceImpl implements RoleService {
      */
     private int saveRoleDept(String roleId, String dataScope, List<String> deptIds) {
         int update = 0;
-        if (StringUtils.isNotEmpty(roleId)) {
+        if (StringUtil.isNotEmpty(roleId)) {
             // 清空原角色和单位关系
             this.roleDeptMapper.deleteByRoleId(roleId);
             // 保存角单位单关系

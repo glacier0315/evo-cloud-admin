@@ -1,6 +1,6 @@
 package com.glacier.modules.gen.service;
 
-import com.glacier.modules.gen.entity.dto.GenTableColumnDto;
+import com.glacier.modules.gen.entity.dto.column.GenTableColumnDto;
 
 import java.util.List;
 

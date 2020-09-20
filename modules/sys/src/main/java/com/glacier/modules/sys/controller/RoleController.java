@@ -50,7 +50,7 @@ public class RoleController {
      * @return
      */
     @ApiOperation("分页查询角色")
-    @PostMapping("/pageList")
+    @PostMapping("/findPage")
     public Result<PageResponse<RoleVo>> findPage(
             @RequestBody PageRequest<RoleQuery> pageRequest) {
         return Result.ok(

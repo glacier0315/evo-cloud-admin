@@ -9,6 +9,7 @@ import com.glacier.common.core.entity.dto.vo.UserDetailsDto;
 import com.glacier.common.core.entity.page.PageRequest;
 import com.glacier.common.core.entity.page.PageResponse;
 import com.glacier.common.core.exception.SystemErrorType;
+import com.glacier.common.core.utils.StringUtil;
 import com.glacier.modules.sys.entity.Role;
 import com.glacier.modules.sys.entity.User;
 import com.glacier.modules.sys.entity.dto.user.*;
@@ -18,7 +19,6 @@ import com.glacier.modules.sys.mapper.UserRoleMapper;
 import com.glacier.modules.sys.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -86,11 +86,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Result<UserDetailsDto> loadUserByUsername(String username) {
-        if (StringUtils.isEmpty(username)) {
+        if (StringUtil.isEmpty(username)) {
             return Result.error("用户名为空！");
         }
         User user = this.findUserByUsername(username);
-        if (user == null || StringUtils.isEmpty(user.getId())) {
+        if (user == null || StringUtil.isEmpty(user.getId())) {
             return Result.error("用户不存在！");
         }
         UserDetailsDto userDetailsDto = this.modelMapper.map(user, UserDetailsDto.class);
@@ -136,8 +136,8 @@ public class UserServiceImpl implements UserService {
     public Result<Integer> resetPassword(UserPasswordResetForm passwordResetForm) {
         int update = 0;
         if (passwordResetForm == null
-                || StringUtils.isEmpty(passwordResetForm.getId())
-                || StringUtils.isEmpty(passwordResetForm.getNewPassword())) {
+                || StringUtil.isEmpty(passwordResetForm.getId())
+                || StringUtil.isEmpty(passwordResetForm.getNewPassword())) {
             return Result.error(SystemErrorType.ARGUMENT_NOT_VALID);
         }
         User user = new User();
@@ -162,9 +162,9 @@ public class UserServiceImpl implements UserService {
     public Result<Integer> updatePassword(UserPasswordForm userPasswordForm) {
         int update = 0;
         if (userPasswordForm == null
-                || StringUtils.isEmpty(userPasswordForm.getId())
-                || StringUtils.isEmpty(userPasswordForm.getOldPassword())
-                || StringUtils.isEmpty(userPasswordForm.getNewPassword())) {
+                || StringUtil.isEmpty(userPasswordForm.getId())
+                || StringUtil.isEmpty(userPasswordForm.getOldPassword())
+                || StringUtil.isEmpty(userPasswordForm.getNewPassword())) {
             return Result.error(SystemErrorType.ARGUMENT_NOT_VALID);
         }
         // 判断原始密码是否一致
@@ -186,7 +186,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public Result<Integer> updateProfile(UserProfileForm userProfileForm) {
         if (userProfileForm == null
-                || StringUtils.isEmpty(userProfileForm.getId())) {
+                || StringUtil.isEmpty(userProfileForm.getId())) {
             return Result.error(SystemErrorType.ARGUMENT_NOT_VALID);
         }
         User user = this.modelMapper.map(userProfileForm, User.class);
@@ -199,7 +199,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public Result<Integer> updateAvatar(UserAvatarForm userAvatarForm) {
         if (userAvatarForm == null
-                || StringUtils.isEmpty(userAvatarForm.getId())) {
+                || StringUtil.isEmpty(userAvatarForm.getId())) {
             return Result.error(SystemErrorType.ARGUMENT_NOT_VALID);
         }
         User user = this.modelMapper.map(userAvatarForm, User.class);
@@ -211,7 +211,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean checkUsername(UserDto userDto) {
         if (userDto != null
-                && StringUtils.isNotEmpty(userDto.getUsername())) {
+                && StringUtil.isNotEmpty(userDto.getUsername())) {
             return this.userMapper.checkUsernameExist(userDto) > 0;
         }
         return false;
@@ -220,7 +220,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean checkIdCard(UserDto userDto) {
         if (userDto != null
-                && StringUtils.isNotEmpty(userDto.getIdCard())) {
+                && StringUtil.isNotEmpty(userDto.getIdCard())) {
             return this.userMapper.checkIdCardExist(userDto) > 0;
         }
         return false;
@@ -265,12 +265,12 @@ public class UserServiceImpl implements UserService {
     @Transactional(rollbackFor = {})
     @Override
     public int delete(String id) {
-        if (StringUtils.isNotEmpty(id)) {
-            // 删除用户角色关系
-            this.userRoleMapper.deleteByUserId(id);
-            return this.userMapper.deleteByPrimaryKey(id);
+        if (StringUtil.isBlank(id)) {
+            return 0;
         }
-        return 0;
+        // 删除用户角色关系
+        this.userRoleMapper.deleteByUserId(id);
+        return this.userMapper.deleteByPrimaryKey(id);
     }
 
     /**
@@ -285,7 +285,7 @@ public class UserServiceImpl implements UserService {
         int update = 0;
         // 清空用户角色关系
         this.userRoleMapper.deleteByUserId(userId);
-        if (StringUtils.isNotEmpty(userId)
+        if (StringUtil.isNotEmpty(userId)
                 && roleIds != null
                 && !roleIds.isEmpty()) {
             // 保存用户角色关系

@@ -5,7 +5,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.glacier.common.core.entity.page.PageRequest;
 import com.glacier.common.core.entity.page.PageResponse;
-import com.glacier.common.core.utils.StringUtils;
+import com.glacier.common.core.utils.StringUtil;
 import com.glacier.modules.constant.DataSourceConstant;
 import com.glacier.modules.gen.entity.GenTable;
 import com.glacier.modules.gen.entity.dto.table.GenTableDto;
@@ -62,6 +62,7 @@ public class GenTableServiceImpl implements GenTableService {
                         }.getType()));
     }
 
+    @Transactional(rollbackFor = {})
     @Override
     public int save(GenTableDto form) {
         if (form == null) {
@@ -76,9 +77,10 @@ public class GenTableServiceImpl implements GenTableService {
         return this.genTableMapper.insert(genTable);
     }
 
+    @Transactional(rollbackFor = {})
     @Override
     public int delete(String id) {
-        if (StringUtils.isBlank(id)) {
+        if (StringUtil.isBlank(id)) {
             return 0;
         }
         return this.genTableMapper.deleteByPrimaryKey(id);

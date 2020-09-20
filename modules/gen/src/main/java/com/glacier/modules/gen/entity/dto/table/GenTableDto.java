@@ -1,7 +1,7 @@
 package com.glacier.modules.gen.entity.dto.table;
 
 import com.glacier.common.core.entity.dto.IdDto;
-import com.glacier.modules.gen.entity.dto.GenTableColumnDto;
+import com.glacier.modules.gen.entity.dto.column.GenTableColumnDto;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

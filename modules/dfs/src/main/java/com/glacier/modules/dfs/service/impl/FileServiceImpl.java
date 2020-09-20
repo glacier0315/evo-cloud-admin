@@ -4,6 +4,7 @@ import com.glacier.common.core.constant.CommonConstant;
 import com.glacier.common.core.entity.Result;
 import com.glacier.common.core.utils.AppContextHolder;
 import com.glacier.common.core.utils.IdGen;
+import com.glacier.common.core.utils.StringUtil;
 import com.glacier.modules.dfs.config.properties.MinioProperties;
 import com.glacier.modules.dfs.service.FileService;
 import io.minio.*;
@@ -12,7 +13,6 @@ import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.MimeTypeUtils;
@@ -44,8 +44,8 @@ public class FileServiceImpl implements FileService {
     @SneakyThrows(Exception.class)
     @Override
     public void download(String filePath, HttpServletResponse response) {
-        if (StringUtils.isBlank(filePath)
-                || !StringUtils.contains(filePath, FIlE_SEQ)) {
+        if (StringUtil.isBlank(filePath)
+                || !StringUtil.contains(filePath, FIlE_SEQ)) {
             throw new IllegalAccessException("文件路径不正确！");
         }
         int index = filePath.indexOf(FIlE_SEQ);
@@ -62,7 +62,7 @@ public class FileServiceImpl implements FileService {
         response.setContentType(stat.contentType());
 
         response.setHeader("Content-Disposition",
-                StringUtils.join("attachment;filename=",
+                StringUtil.join("attachment;filename=",
                         URLEncoder.encode(fileName, CommonConstant.CHARSET_UTF_8)));
         in = this.minioClient.getObject(GetObjectArgs.builder()
                 .bucket(bucketName)
@@ -85,7 +85,7 @@ public class FileServiceImpl implements FileService {
         }
         // 根据contentType 转换为 对应的bucketName
         String bucketName = this.minioProperties.getDefaultBucketName();
-        String path = StringUtils.join(now.getYear(), FIlE_SEQ,
+        String path = StringUtil.join(now.getYear(), FIlE_SEQ,
                 now.getMonthValue(), FIlE_SEQ,
                 AppContextHolder.getInstance().getUserId(), FIlE_SEQ,
                 IdGen.uuid(), ".", extension);
@@ -104,14 +104,14 @@ public class FileServiceImpl implements FileService {
                 .object(path)
                 .stream(file.getInputStream(), file.getSize(), -1)
                 .build());
-        return Result.ok(StringUtils.join(bucketName, FIlE_SEQ, path));
+        return Result.ok(StringUtil.join(bucketName, FIlE_SEQ, path));
     }
 
     @SneakyThrows(Exception.class)
     @Override
     public Result<String> deleteFile(String filePath) {
-        if (StringUtils.isBlank(filePath)
-                || !StringUtils.contains(filePath, FIlE_SEQ)) {
+        if (StringUtil.isBlank(filePath)
+                || !StringUtil.contains(filePath, FIlE_SEQ)) {
             throw new IllegalAccessException("文件路径不正确！");
         }
         int index = filePath.indexOf(FIlE_SEQ);

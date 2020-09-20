@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Api(tags = "代码生成管理")
 @Slf4j
 @RestController
-@RequestMapping(value = "/genTable")
+@RequestMapping(value = "/table")
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class GenTableController {
     private final GenTableService genTableService;

@@ -1,6 +1,7 @@
 package com.glacier.modules.sys.service.impl;
 
 import com.glacier.common.core.constant.SysConstants;
+import com.glacier.common.core.utils.StringUtil;
 import com.glacier.common.core.utils.TreeBuildFactory;
 import com.glacier.modules.sys.entity.Menu;
 import com.glacier.modules.sys.entity.dto.menu.MenuForm;
@@ -11,7 +12,6 @@ import com.glacier.modules.sys.service.MenuService;
 import com.google.common.collect.Lists;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,10 +64,10 @@ public class MenuServiceImpl implements MenuService {
     @Transactional(rollbackFor = {})
     @Override
     public int delete(String id) {
-        if (StringUtils.isNotEmpty(id)) {
-            return this.menuMapper.deleteByPrimaryKey(id);
+        if (StringUtil.isBlank(id)) {
+            return 0;
         }
-        return 0;
+        return this.menuMapper.deleteByPrimaryKey(id);
     }
 
     @Override
@@ -205,12 +205,12 @@ public class MenuServiceImpl implements MenuService {
         MenuVo lastMenuVos = menuVos.get(menuVos.size() - 1);
         // 父级为空，直接返回
         if (lastMenuVos == null
-                || StringUtils.isBlank(lastMenuVos.getParentId())) {
+                || StringUtil.isBlank(lastMenuVos.getParentId())) {
             return menuVos;
         }
         Optional<MenuVo> menuVoOptional = allMenuVos.stream()
                 .filter(menuVo ->
-                        StringUtils.equals(lastMenuVos.getParentId(), menuVo.getId()))
+                        StringUtil.equals(lastMenuVos.getParentId(), menuVo.getId()))
                 .findFirst();
         if (menuVoOptional.isPresent()) {
             menuVos.add(menuVoOptional.get());

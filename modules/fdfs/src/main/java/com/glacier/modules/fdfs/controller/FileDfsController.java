@@ -1,11 +1,11 @@
 package com.glacier.modules.fdfs.controller;
 
 import com.glacier.common.core.entity.Result;
+import com.glacier.common.core.utils.StringUtil;
 import com.glacier.modules.fdfs.config.DfsResConfig;
 import com.glacier.modules.fdfs.util.FileDfsUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,8 +38,8 @@ public class FileDfsController {
     @PostMapping("/upload")
     public Result<String> upload(@RequestParam("file") MultipartFile file) {
         Result<String> result = this.fastDfsClientUtil.uploadFile(file);
-        if (StringUtils.equals(result.getCode(), Result.SUCCUSS)) {
-            String url = String.format("%s://%s:%s/%s" , "http" ,
+        if (StringUtil.equals(result.getCode(), Result.SUCCUSS)) {
+            String url = String.format("%s://%s:%s/%s", "http",
                     this.dfsResConfig.getResHost(),
                     this.dfsResConfig.getResPort(),
                     result.getData());

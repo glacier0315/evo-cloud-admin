@@ -1,7 +1,7 @@
 package com.glacier.common.core.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.glacier.common.core.utils.StringUtils;
+import com.glacier.common.core.utils.StringUtil;
 
 import javax.xml.bind.annotation.XmlTransient;
 import java.io.Serializable;
@@ -66,7 +66,7 @@ public abstract class AbstractBaseEntity implements Serializable {
      * @return true 新记录  false 旧记录
      */
     public boolean isNewRecord() {
-        return this.isNewRecord || StringUtils.isEmpty(this.getId());
+        return this.isNewRecord || StringUtil.isEmpty(this.getId());
     }
 
     /**

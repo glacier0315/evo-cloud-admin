@@ -1,11 +1,13 @@
 package com.glacier.common.core.utils;
 
+import org.apache.commons.lang3.StringUtils;
+
 /**
  * @author glacier
  * @version 1.0
  * @date 2020-02-13 11:00
  */
-public class StringUtils extends org.apache.commons.lang3.StringUtils {
+public class StringUtil extends StringUtils {
 
     /**
      * 判断字符串为空或者空字符串

@@ -14,7 +14,7 @@ import com.glacier.modules.gen.entity.dto.datasource.GenDatasourceQuery;
 public interface GenDatasourceService {
 
     /**
-     * 根据用户id 查询
+     * 根据id 查询
      *
      * @param id
      * @return
@@ -32,7 +32,7 @@ public interface GenDatasourceService {
     /**
      * 保存
      *
-     * @param form 用户封装实体
+     * @param form 封装实体
      * @return
      */
     int save(GenDatasourceForm form);

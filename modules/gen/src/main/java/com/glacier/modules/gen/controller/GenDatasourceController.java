@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Api(tags = "数据源管理")
 @Slf4j
 @RestController
-@RequestMapping(value = "/genDatasource")
+@RequestMapping(value = "/datasource")
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class GenDatasourceController {
     private final GenDatasourceService genDatasourceService;

@@ -47,7 +47,7 @@ public class PostController {
      * @return
      */
     @ApiOperation("分页查询岗位")
-    @PostMapping("/pageList")
+    @PostMapping("/findPage")
     public Result<PageResponse<PostDto>> findPage(
             @RequestBody PageRequest<PostQuery> pageRequest) {
         return Result.ok(

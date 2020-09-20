@@ -4,6 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.glacier.common.core.entity.page.PageRequest;
 import com.glacier.common.core.entity.page.PageResponse;
+import com.glacier.common.core.utils.StringUtil;
 import com.glacier.modules.sys.entity.Post;
 import com.glacier.modules.sys.entity.dto.post.PostDto;
 import com.glacier.modules.sys.entity.dto.post.PostQuery;
@@ -11,7 +12,6 @@ import com.glacier.modules.sys.mapper.PostMapper;
 import com.glacier.modules.sys.service.PostService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,7 +60,7 @@ public class PostServiceImpl implements PostService {
     @Override
     public boolean checkCode(PostDto postDto) {
         if (postDto != null
-                && StringUtils.isNotEmpty(postDto.getCode())) {
+                && StringUtil.isNotEmpty(postDto.getCode())) {
             return this.postMapper.checkCodeExist(postDto) > 0;
         }
         return false;
@@ -81,7 +81,7 @@ public class PostServiceImpl implements PostService {
     @Transactional(rollbackFor = {})
     @Override
     public int delete(String id) {
-        if (StringUtils.isBlank(id)) {
+        if (StringUtil.isBlank(id)) {
             return 0;
         }
         return this.postMapper.deleteByPrimaryKey(id);

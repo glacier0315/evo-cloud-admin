@@ -5,6 +5,7 @@ import com.github.tobato.fastdfs.domain.fdfs.StorePath;
 import com.github.tobato.fastdfs.exception.FdfsUnsupportStorePathException;
 import com.github.tobato.fastdfs.service.FastFileStorageClient;
 import com.glacier.common.core.entity.Result;
+import com.glacier.common.core.utils.StringUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FilenameUtils;
@@ -12,7 +13,6 @@ import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.MimeTypeUtils;
-import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.ByteArrayInputStream;
@@ -116,7 +116,7 @@ public class FileDfsUtil {
      */
     public Result<String> deleteFile(String fileUrl) {
 
-        if (StringUtils.isEmpty(fileUrl)) {
+        if (StringUtil.isEmpty(fileUrl)) {
             log.info("删除失败，路径为空！");
             return Result.error();
         }

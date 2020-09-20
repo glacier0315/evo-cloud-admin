@@ -1,28 +1,25 @@
-package com.glacier.modules.gen.entity.dto;
+package com.glacier.modules.gen.entity.dto.column;
 
+import com.glacier.common.core.entity.dto.IdDto;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.ToString;
-
-import java.io.Serializable;
 
 /**
  * 表字段模型
+ *
  * @author glacier
  * @version 1.0
  * @date 2020-08-26 16:51
  */
 @ApiModel(description = "表字段模型")
 @Data
+@EqualsAndHashCode(callSuper = true)
 @ToString
-public class GenTableColumnDto implements Serializable {
+public class GenTableColumnDto extends IdDto {
     private static final long serialVersionUID = -7669992486290023797L;
-    /**
-     * 主键
-     */
-    @ApiModelProperty(value = "主键")
-    private String id;
     /**
      * 表id
      */

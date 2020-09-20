@@ -2,7 +2,7 @@ package com.glacier.modules.gen.service.impl;
 
 import com.baomidou.dynamic.datasource.annotation.DS;
 import com.glacier.modules.constant.DataSourceConstant;
-import com.glacier.modules.gen.entity.dto.GenTableColumnDto;
+import com.glacier.modules.gen.entity.dto.column.GenTableColumnDto;
 import com.glacier.modules.gen.entity.dto.table.GenTableDto;
 import com.glacier.modules.gen.mapper.GenTableColumnMapper;
 import com.glacier.modules.gen.service.GenTableColumnService;

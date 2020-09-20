@@ -31,7 +31,7 @@ public class TreeBuildFactory {
         List<T> topList = Optional.ofNullable(list)
                 .orElseGet(ArrayList::new)
                 .stream()
-                .filter(t -> StringUtils.isEmpty(t.getParentId()))
+                .filter(t -> StringUtil.isEmpty(t.getParentId()))
                 .peek(t -> t.setGrade(1))
                 .sorted(Comparator.comparingInt(T::getOrderNum))
                 .collect(Collectors.toList());

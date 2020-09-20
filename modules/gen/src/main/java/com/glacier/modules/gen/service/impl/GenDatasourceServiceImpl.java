@@ -5,7 +5,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.glacier.common.core.entity.page.PageRequest;
 import com.glacier.common.core.entity.page.PageResponse;
-import com.glacier.common.core.utils.StringUtils;
+import com.glacier.common.core.utils.StringUtil;
 import com.glacier.modules.constant.DataSourceConstant;
 import com.glacier.modules.gen.entity.GenDatasource;
 import com.glacier.modules.gen.entity.dto.datasource.GenDatasourceDto;
@@ -64,6 +64,7 @@ public class GenDatasourceServiceImpl implements GenDatasourceService {
                         }.getType()));
     }
 
+    @Transactional(rollbackFor = {})
     @Override
     public int save(GenDatasourceForm form) {
         if (form == null) {
@@ -78,9 +79,10 @@ public class GenDatasourceServiceImpl implements GenDatasourceService {
         return this.genDatasourceMapper.insert(datasource);
     }
 
+    @Transactional(rollbackFor = {})
     @Override
     public int delete(String id) {
-        if (StringUtils.isBlank(id)) {
+        if (StringUtil.isBlank(id)) {
             return 0;
         }
         return this.genDatasourceMapper.deleteByPrimaryKey(id);

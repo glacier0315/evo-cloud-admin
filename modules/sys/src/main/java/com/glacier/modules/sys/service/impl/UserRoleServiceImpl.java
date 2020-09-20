@@ -1,12 +1,12 @@
 package com.glacier.modules.sys.service.impl;
 
+import com.glacier.common.core.utils.StringUtil;
 import com.glacier.modules.sys.entity.dto.role.RoleUserDto;
 import com.glacier.modules.sys.entity.dto.user.UserRoleDto;
 import com.glacier.modules.sys.mapper.UserRoleMapper;
 import com.glacier.modules.sys.service.UserRoleService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,7 +28,7 @@ public class UserRoleServiceImpl implements UserRoleService {
     @Override
     public int addUser(RoleUserDto roleUserDto) {
         if (roleUserDto != null
-                && StringUtils.isNotBlank(roleUserDto.getRoleId())
+                && StringUtil.isNotBlank(roleUserDto.getRoleId())
                 && roleUserDto.getUserIds() != null
                 && !roleUserDto.getUserIds().isEmpty()) {
             return this.userRoleMapper.insertBatchUser(roleUserDto);
@@ -39,7 +39,7 @@ public class UserRoleServiceImpl implements UserRoleService {
     @Override
     public int deleteUser(RoleUserDto roleUserDto) {
         if (roleUserDto != null
-                && StringUtils.isNotBlank(roleUserDto.getRoleId())
+                && StringUtil.isNotBlank(roleUserDto.getRoleId())
                 && roleUserDto.getUserIds() != null
                 && !roleUserDto.getUserIds().isEmpty()) {
             return this.userRoleMapper.deleteBatchUser(roleUserDto);
@@ -50,7 +50,7 @@ public class UserRoleServiceImpl implements UserRoleService {
     @Override
     public int addRole(UserRoleDto userRoleDto) {
         if (userRoleDto != null
-                && StringUtils.isNotBlank(userRoleDto.getUserId())
+                && StringUtil.isNotBlank(userRoleDto.getUserId())
                 && userRoleDto.getRoleIds() != null
                 && !userRoleDto.getRoleIds().isEmpty()) {
             return this.userRoleMapper.insertBatchRole(userRoleDto);
@@ -61,7 +61,7 @@ public class UserRoleServiceImpl implements UserRoleService {
     @Override
     public int deleteRole(UserRoleDto userRoleDto) {
         if (userRoleDto != null
-                && StringUtils.isNotBlank(userRoleDto.getUserId())
+                && StringUtil.isNotBlank(userRoleDto.getUserId())
                 && userRoleDto.getRoleIds() != null
                 && !userRoleDto.getRoleIds().isEmpty()) {
             return this.userRoleMapper.deleteBatchRole(userRoleDto);

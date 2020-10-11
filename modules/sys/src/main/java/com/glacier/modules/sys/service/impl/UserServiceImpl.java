@@ -132,6 +132,7 @@ public class UserServiceImpl implements UserService {
                 }.getType());
     }
 
+    @Transactional(rollbackFor = {})
     @Override
     public Result<Integer> resetPassword(UserPasswordResetForm passwordResetForm) {
         int update = 0;

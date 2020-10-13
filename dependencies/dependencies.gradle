@@ -1,0 +1,10 @@
+ext {
+    dragonwellVersion="8.4.4"
+}
+
+dependencies {
+    //
+    // compileOnly ("com.alibaba.dragonwell:java8-api:8.4.4")
+    // 本地依赖
+    implementation fileTree(dir: "$rootDir/dependencies/libs", include: ['*.jar'])
+}

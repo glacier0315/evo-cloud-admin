@@ -24,6 +24,7 @@ allprojects {
     }
 
     dependencies {
+        // compileOnly fileTree(dir: "$rootDir/dependencies/libs", include: ['*.jar'])
         // 引入 lombok 方式二
         compileOnly ("org.projectlombok:lombok:${lombokVersion}")
         annotationProcessor( "org.projectlombok:lombok:${lombokVersion}")

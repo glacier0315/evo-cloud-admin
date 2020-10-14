@@ -1,7 +1,8 @@
 // 配置所有项目
 allprojects {
     apply plugin: 'java'
-//    apply plugin: "io.freefair.lombok"
+    // apply plugin: "io.freefair.lombok"
+    // apply from: "$rootDir/dependencies/build.gradle"
 
     // 指定jdk版本
     sourceCompatibility = 1.8
@@ -34,10 +35,10 @@ allprojects {
         testImplementation ("org.junit.jupiter:junit-jupiter:${junitVersion}")
     }
 
-    configurations {
-        // 排除兼容junit4 相关依赖
-        compile.exclude(group: "org.junit.vintage", module: "junit-vintage-engine")
-    }
+//    configurations {
+//        // 排除兼容junit4 相关依赖
+//        compile.exclude(group: "org.junit.vintage", module: "junit-vintage-engine")
+//    }
 
 
 
@@ -73,6 +74,10 @@ allprojects {
     }
 
     test {
-        useJUnitPlatform()
+        useJUnitPlatform {
+            // includeEngines 'junit-vintage'
+            // excludeEngines 'junit-jupiter'
+            excludeEngines 'junit-vintage'
+        }
     }
 }

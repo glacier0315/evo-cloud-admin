@@ -9,8 +9,6 @@ pluginManagement {
 // 定义插件版本,不立即应用
 plugins {
     id "org.springframework.boot" version "$springBootVersion" apply(false)
-    // 引入 lombock 方式一
-    // id "io.freefair.lombok" version "$lombokPluginVersion" apply(false)
 }
 
 

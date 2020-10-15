@@ -10,7 +10,8 @@ import com.glacier.modules.sys.entity.dto.role.RoleVo;
 import com.glacier.modules.sys.service.RoleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,10 +27,14 @@ import java.util.List;
 @Api(tags = "角色管理")
 @RestController
 @RequestMapping(value = "/role")
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class RoleController {
-
+    private static final Logger log = LoggerFactory.getLogger(RoleController.class);
     private final RoleService roleService;
+
+    @Autowired
+    public RoleController(RoleService roleService) {
+        this.roleService = roleService;
+    }
 
     /**
      * 查找所有角色

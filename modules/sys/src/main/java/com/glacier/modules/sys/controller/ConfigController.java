@@ -7,8 +7,8 @@ import com.glacier.common.core.entity.page.PageResponse;
 import com.glacier.modules.sys.entity.Config;
 import com.glacier.modules.sys.service.ConfigService;
 import io.swagger.annotations.Api;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,13 +23,16 @@ import org.springframework.web.bind.annotation.RestController;
  * @date 2019-12-01 20:43
  */
 @Api(tags = "配置管理")
-@Slf4j
 @RestController
 @RequestMapping(value = "/config")
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class ConfigController {
-
+    private static final Logger log = LoggerFactory.getLogger(ConfigController.class);
     private final ConfigService configService;
+
+    @Autowired
+    public ConfigController(ConfigService configService) {
+        this.configService = configService;
+    }
 
     /**
      * 分页查询用户

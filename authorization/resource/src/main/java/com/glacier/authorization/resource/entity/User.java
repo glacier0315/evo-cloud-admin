@@ -1,7 +1,6 @@
 package com.glacier.authorization.resource.entity;
 
 import com.glacier.common.core.entity.AbstractDataEntity;
-import lombok.*;
 
 import java.time.LocalDate;
 
@@ -12,12 +11,6 @@ import java.time.LocalDate;
  * @version 1.0
  * @date 2019-08-04 13:45
  */
-@Data
-@ToString(callSuper = true)
-@NoArgsConstructor
-@AllArgsConstructor
-@EqualsAndHashCode(callSuper = false)
-@Builder
 public class User extends AbstractDataEntity {
     private static final long serialVersionUID = -2411301606042619439L;
     /**
@@ -68,4 +61,128 @@ public class User extends AbstractDataEntity {
      * 单位名称
      */
     private String deptName;
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public String getUsername() {
+        return this.username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return this.password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getNickname() {
+        return this.nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public String getIdCard() {
+        return this.idCard;
+    }
+
+    public void setIdCard(String idCard) {
+        this.idCard = idCard;
+    }
+
+    public LocalDate getBirthday() {
+        return this.birthday;
+    }
+
+    public void setBirthday(LocalDate birthday) {
+        this.birthday = birthday;
+    }
+
+    public Integer getSex() {
+        return this.sex;
+    }
+
+    public void setSex(Integer sex) {
+        this.sex = sex;
+    }
+
+    public String getStatus() {
+        return this.status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getEmail() {
+        return this.email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getMobile() {
+        return this.mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
+
+    public String getAvatar() {
+        return this.avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    public String getDeptId() {
+        return this.deptId;
+    }
+
+    public void setDeptId(String deptId) {
+        this.deptId = deptId;
+    }
+
+    public String getDeptName() {
+        return this.deptName;
+    }
+
+    public void setDeptName(String deptName) {
+        this.deptName = deptName;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "username='" + this.username + '\'' +
+                ", password='" + this.password + '\'' +
+                ", nickname='" + this.nickname + '\'' +
+                ", idCard='" + this.idCard + '\'' +
+                ", birthday=" + this.birthday +
+                ", sex=" + this.sex +
+                ", status='" + this.status + '\'' +
+                ", email='" + this.email + '\'' +
+                ", mobile='" + this.mobile + '\'' +
+                ", avatar='" + this.avatar + '\'' +
+                ", deptId='" + this.deptId + '\'' +
+                ", deptName='" + this.deptName + '\'' +
+                ", createBy='" + this.createBy + '\'' +
+                ", createDate=" + this.createDate +
+                ", updateBy='" + this.updateBy + '\'' +
+                ", updateDate=" + this.updateDate +
+                ", delFlag='" + this.delFlag + '\'' +
+                ", id='" + this.id + '\'' +
+                '}';
+    }
 }

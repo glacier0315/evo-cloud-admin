@@ -1,7 +1,5 @@
 package com.glacier.authorization.resource.config.settings;
 
-import lombok.Data;
-import lombok.ToString;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
@@ -13,14 +11,24 @@ import java.util.List;
  * @version 1.0
  * @date 2020-02-14 22:18
  */
-@Data
-@ToString
 @Configuration
 @ConfigurationProperties(prefix = "settings.security")
 public class SecuritySettings implements Serializable {
     private static final long serialVersionUID = -2994114879313546449L;
 
     private List<String> permitAll;
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public List<String> getPermitAll() {
+        return this.permitAll;
+    }
+
+    public void setPermitAll(List<String> permitAll) {
+        this.permitAll = permitAll;
+    }
 
     /**
      * 将permitAll 转换为数组
@@ -33,5 +41,12 @@ public class SecuritySettings implements Serializable {
             strings = this.permitAll.toArray(strings);
         }
         return strings;
+    }
+
+    @Override
+    public String toString() {
+        return "SecuritySettings{" +
+                "permitAll=" + this.permitAll +
+                '}';
     }
 }

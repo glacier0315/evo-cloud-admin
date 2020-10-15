@@ -2,8 +2,6 @@ package com.glacier.common.core.entity.page;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Data;
-import lombok.ToString;
 
 import java.io.Serializable;
 
@@ -15,8 +13,6 @@ import java.io.Serializable;
  * @date 2019-10-14 15:53
  */
 @ApiModel(description = "分页请求模型")
-@Data
-@ToString
 public class PageRequest<T> implements Serializable {
     private static final long serialVersionUID = 4076080201697869870L;
     /**
@@ -46,5 +42,42 @@ public class PageRequest<T> implements Serializable {
         this.pageNum = pageNum;
         this.pageSize = pageSize;
         this.params = params;
+    }
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public int getPageNum() {
+        return this.pageNum;
+    }
+
+    public void setPageNum(int pageNum) {
+        this.pageNum = pageNum;
+    }
+
+    public int getPageSize() {
+        return this.pageSize;
+    }
+
+    public void setPageSize(int pageSize) {
+        this.pageSize = pageSize;
+    }
+
+    public T getParams() {
+        return this.params;
+    }
+
+    public void setParams(T params) {
+        this.params = params;
+    }
+
+    @Override
+    public String toString() {
+        return "PageRequest{" +
+                "pageNum=" + this.pageNum +
+                ", pageSize=" + this.pageSize +
+                ", params=" + this.params +
+                '}';
     }
 }

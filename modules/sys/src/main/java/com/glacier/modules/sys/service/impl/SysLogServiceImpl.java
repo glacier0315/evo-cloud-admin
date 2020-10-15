@@ -7,10 +7,11 @@ import com.glacier.common.core.entity.page.PageResponse;
 import com.glacier.common.core.utils.IdGen;
 import com.glacier.common.core.utils.StringUtil;
 import com.glacier.modules.sys.entity.SysLog;
+import com.glacier.modules.sys.handler.GlobalExceptionHandler;
 import com.glacier.modules.sys.mapper.SysLogMapper;
 import com.glacier.modules.sys.service.SysLogService;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
@@ -24,12 +25,15 @@ import java.util.List;
  * @date 2019-12-18 15:29
  */
 @Transactional(readOnly = true)
-@Slf4j
 @Service("sysLogService")
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class SysLogServiceImpl implements SysLogService {
-
+    private static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
     private final SysLogMapper sysLogMapper;
+
+    @Autowired
+    public SysLogServiceImpl(SysLogMapper sysLogMapper) {
+        this.sysLogMapper = sysLogMapper;
+    }
 
     @Override
     public PageResponse<SysLog> findPage(PageRequest<SysLog> pageRequest) {

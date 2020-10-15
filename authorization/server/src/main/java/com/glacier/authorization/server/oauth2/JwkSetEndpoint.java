@@ -2,7 +2,8 @@ package com.glacier.authorization.server.oauth2;
 
 import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;
-import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.provider.endpoint.FrameworkEndpoint;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,9 +19,14 @@ import java.util.Map;
  * @date 2020-07-24 16:38
  */
 @FrameworkEndpoint
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class JwkSetEndpoint {
+    private static final Logger log = LoggerFactory.getLogger(JwkSetEndpoint.class);
     private final KeyPair keyPair;
+
+    @Autowired
+    public JwkSetEndpoint(KeyPair keyPair) {
+        this.keyPair = keyPair;
+    }
 
     @GetMapping("/well-known/jwks")
     @ResponseBody

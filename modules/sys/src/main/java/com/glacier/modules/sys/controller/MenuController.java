@@ -11,8 +11,8 @@ import com.glacier.modules.sys.service.MenuService;
 import com.glacier.modules.sys.utils.RouteBuildFactory;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,13 +27,16 @@ import java.util.Set;
  * @date 2019-10-09 15:59
  */
 @Api(tags = "菜单管理")
-@Slf4j
 @RestController
 @RequestMapping(value = "/menu")
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class MenuController {
-
+    private static final Logger log = LoggerFactory.getLogger(MenuController.class);
     private final MenuService menuService;
+
+    @Autowired
+    public MenuController(MenuService menuService) {
+        this.menuService = menuService;
+    }
 
     /**
      * 查询所有菜单

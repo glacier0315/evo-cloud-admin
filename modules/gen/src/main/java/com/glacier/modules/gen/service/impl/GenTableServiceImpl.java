@@ -12,10 +12,10 @@ import com.glacier.modules.gen.entity.dto.table.GenTableDto;
 import com.glacier.modules.gen.entity.dto.table.GenTableQuery;
 import com.glacier.modules.gen.mapper.GenTableMapper;
 import com.glacier.modules.gen.service.GenTableService;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,14 +30,20 @@ import java.util.Optional;
  * @version 1.0
  * @date 2020-08-26 16:35
  */
-@Slf4j
 @Transactional(readOnly = true)
 @DS(DataSourceConstant.DATASOURCE_MASTER)
 @Service("genTableService")
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class GenTableServiceImpl implements GenTableService {
+    private static final Logger log = LoggerFactory.getLogger(GenTableColumnServiceImpl.class);
     private final GenTableMapper genTableMapper;
     private final ModelMapper modelMapper;
+
+    @Autowired
+    public GenTableServiceImpl(GenTableMapper genTableMapper,
+                               ModelMapper modelMapper) {
+        this.genTableMapper = genTableMapper;
+        this.modelMapper = modelMapper;
+    }
 
     @Override
     public GenTableDto findById(String id) {

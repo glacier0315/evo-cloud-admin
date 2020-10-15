@@ -8,8 +8,8 @@ import com.glacier.modules.sys.entity.dto.dept.DeptVo;
 import com.glacier.modules.sys.service.DeptService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,13 +23,16 @@ import java.util.List;
  * @date 2019-10-24 17:15
  */
 @Api(tags = "组织机构管理")
-@Slf4j
 @RestController
 @RequestMapping(value = "/dept")
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class DeptController {
-
+    private static final Logger log = LoggerFactory.getLogger(DeptController.class);
     private final DeptService deptService;
+
+    @Autowired
+    public DeptController(DeptService deptService) {
+        this.deptService = deptService;
+    }
 
     /**
      * 查询所有组织机构

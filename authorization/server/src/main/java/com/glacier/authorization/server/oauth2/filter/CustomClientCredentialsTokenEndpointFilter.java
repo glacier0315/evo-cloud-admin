@@ -1,6 +1,7 @@
 package com.glacier.authorization.server.oauth2.filter;
 
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.client.ClientCredentialsTokenEndpointFilter;
@@ -11,9 +12,8 @@ import org.springframework.security.web.AuthenticationEntryPoint;
  * @version 1.0
  * @date 2020-07-25 12:19
  */
-@Slf4j
 public class CustomClientCredentialsTokenEndpointFilter extends ClientCredentialsTokenEndpointFilter {
-
+    private static final Logger log = LoggerFactory.getLogger(CustomClientCredentialsTokenEndpointFilter.class);
     private AuthorizationServerSecurityConfigurer configurer;
     private AuthenticationEntryPoint authenticationEntryPoint;
 

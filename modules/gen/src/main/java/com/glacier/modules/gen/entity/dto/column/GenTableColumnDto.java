@@ -3,9 +3,6 @@ package com.glacier.modules.gen.entity.dto.column;
 import com.glacier.common.core.entity.dto.IdDto;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
 
 /**
  * 表字段模型
@@ -15,9 +12,6 @@ import lombok.ToString;
  * @date 2020-08-26 16:51
  */
 @ApiModel(description = "表字段模型")
-@Data
-@EqualsAndHashCode(callSuper = true)
-@ToString
 public class GenTableColumnDto extends IdDto {
     private static final long serialVersionUID = -7669992486290023797L;
     /**
@@ -100,4 +94,159 @@ public class GenTableColumnDto extends IdDto {
      */
     @ApiModelProperty(value = "排序")
     private Integer sort;
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public String getTableId() {
+        return this.tableId;
+    }
+
+    public void setTableId(String tableId) {
+        this.tableId = tableId;
+    }
+
+    public String getColumnName() {
+        return this.columnName;
+    }
+
+    public void setColumnName(String columnName) {
+        this.columnName = columnName;
+    }
+
+    public String getColumnComment() {
+        return this.columnComment;
+    }
+
+    public void setColumnComment(String columnComment) {
+        this.columnComment = columnComment;
+    }
+
+    public String getColumnType() {
+        return this.columnType;
+    }
+
+    public void setColumnType(String columnType) {
+        this.columnType = columnType;
+    }
+
+    public String getJavaType() {
+        return this.javaType;
+    }
+
+    public void setJavaType(String javaType) {
+        this.javaType = javaType;
+    }
+
+    public String getJavaField() {
+        return this.javaField;
+    }
+
+    public void setJavaField(String javaField) {
+        this.javaField = javaField;
+    }
+
+    public String getIsPk() {
+        return this.isPk;
+    }
+
+    public void setIsPk(String isPk) {
+        this.isPk = isPk;
+    }
+
+    public String getIsRequired() {
+        return this.isRequired;
+    }
+
+    public void setIsRequired(String isRequired) {
+        this.isRequired = isRequired;
+    }
+
+    public String getIsInsert() {
+        return this.isInsert;
+    }
+
+    public void setIsInsert(String isInsert) {
+        this.isInsert = isInsert;
+    }
+
+    public String getIsEdit() {
+        return this.isEdit;
+    }
+
+    public void setIsEdit(String isEdit) {
+        this.isEdit = isEdit;
+    }
+
+    public String getIsList() {
+        return this.isList;
+    }
+
+    public void setIsList(String isList) {
+        this.isList = isList;
+    }
+
+    public String getIsQuery() {
+        return this.isQuery;
+    }
+
+    public void setIsQuery(String isQuery) {
+        this.isQuery = isQuery;
+    }
+
+    public String getQueryType() {
+        return this.queryType;
+    }
+
+    public void setQueryType(String queryType) {
+        this.queryType = queryType;
+    }
+
+    public String getHtmlType() {
+        return this.htmlType;
+    }
+
+    public void setHtmlType(String htmlType) {
+        this.htmlType = htmlType;
+    }
+
+    public String getDictType() {
+        return this.dictType;
+    }
+
+    public void setDictType(String dictType) {
+        this.dictType = dictType;
+    }
+
+    public Integer getSort() {
+        return this.sort;
+    }
+
+    public void setSort(Integer sort) {
+        this.sort = sort;
+    }
+
+    @Override
+    public String toString() {
+        return "GenTableColumnDto{" +
+                "tableId='" + this.tableId + '\'' +
+                ", columnName='" + this.columnName + '\'' +
+                ", columnComment='" + this.columnComment + '\'' +
+                ", columnType='" + this.columnType + '\'' +
+                ", javaType='" + this.javaType + '\'' +
+                ", javaField='" + this.javaField + '\'' +
+                ", isPk='" + this.isPk + '\'' +
+                ", isRequired='" + this.isRequired + '\'' +
+                ", isInsert='" + this.isInsert + '\'' +
+                ", isEdit='" + this.isEdit + '\'' +
+                ", isList='" + this.isList + '\'' +
+                ", isQuery='" + this.isQuery + '\'' +
+                ", queryType='" + this.queryType + '\'' +
+                ", htmlType='" + this.htmlType + '\'' +
+                ", dictType='" + this.dictType + '\'' +
+                ", sort=" + this.sort +
+                ", id='" + this.id + '\'' +
+                '}';
+    }
 }

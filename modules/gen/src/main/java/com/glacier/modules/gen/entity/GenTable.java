@@ -1,9 +1,6 @@
 package com.glacier.modules.gen.entity;
 
 import com.glacier.common.core.entity.AbstractDataEntity;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
 
 import javax.validation.constraints.NotBlank;
 
@@ -14,9 +11,6 @@ import javax.validation.constraints.NotBlank;
  * @version 1.0
  * @date 2019-08-04 21:53
  */
-@Data
-@ToString(callSuper = true)
-@EqualsAndHashCode(callSuper = false)
 public class GenTable extends AbstractDataEntity {
     private static final long serialVersionUID = -1221312518526422323L;
     /**
@@ -84,4 +78,146 @@ public class GenTable extends AbstractDataEntity {
      * 树名称字段
      */
     private String treeName;
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public String getDatasourceId() {
+        return this.datasourceId;
+    }
+
+    public void setDatasourceId(String datasourceId) {
+        this.datasourceId = datasourceId;
+    }
+
+    public String getTableName() {
+        return this.tableName;
+    }
+
+    public void setTableName(String tableName) {
+        this.tableName = tableName;
+    }
+
+    public String getTableComment() {
+        return this.tableComment;
+    }
+
+    public void setTableComment(String tableComment) {
+        this.tableComment = tableComment;
+    }
+
+    public String getClassName() {
+        return this.className;
+    }
+
+    public void setClassName(String className) {
+        this.className = className;
+    }
+
+    public String getTemplateCategory() {
+        return this.templateCategory;
+    }
+
+    public void setTemplateCategory(String templateCategory) {
+        this.templateCategory = templateCategory;
+    }
+
+    public String getPackageName() {
+        return this.packageName;
+    }
+
+    public void setPackageName(String packageName) {
+        this.packageName = packageName;
+    }
+
+    public String getModuleName() {
+        return this.moduleName;
+    }
+
+    public void setModuleName(String moduleName) {
+        this.moduleName = moduleName;
+    }
+
+    public String getBusinessName() {
+        return this.businessName;
+    }
+
+    public void setBusinessName(String businessName) {
+        this.businessName = businessName;
+    }
+
+    public String getFunctionName() {
+        return this.functionName;
+    }
+
+    public void setFunctionName(String functionName) {
+        this.functionName = functionName;
+    }
+
+    public String getFunctionAuthor() {
+        return this.functionAuthor;
+    }
+
+    public void setFunctionAuthor(String functionAuthor) {
+        this.functionAuthor = functionAuthor;
+    }
+
+    public String getOptions() {
+        return this.options;
+    }
+
+    public void setOptions(String options) {
+        this.options = options;
+    }
+
+    public String getTreeCode() {
+        return this.treeCode;
+    }
+
+    public void setTreeCode(String treeCode) {
+        this.treeCode = treeCode;
+    }
+
+    public String getTreeParentCode() {
+        return this.treeParentCode;
+    }
+
+    public void setTreeParentCode(String treeParentCode) {
+        this.treeParentCode = treeParentCode;
+    }
+
+    public String getTreeName() {
+        return this.treeName;
+    }
+
+    public void setTreeName(String treeName) {
+        this.treeName = treeName;
+    }
+
+    @Override
+    public String toString() {
+        return "GenTable{" +
+                "datasourceId='" + this.datasourceId + '\'' +
+                ", tableName='" + this.tableName + '\'' +
+                ", tableComment='" + this.tableComment + '\'' +
+                ", className='" + this.className + '\'' +
+                ", templateCategory='" + this.templateCategory + '\'' +
+                ", packageName='" + this.packageName + '\'' +
+                ", moduleName='" + this.moduleName + '\'' +
+                ", businessName='" + this.businessName + '\'' +
+                ", functionName='" + this.functionName + '\'' +
+                ", functionAuthor='" + this.functionAuthor + '\'' +
+                ", options='" + this.options + '\'' +
+                ", treeCode='" + this.treeCode + '\'' +
+                ", treeParentCode='" + this.treeParentCode + '\'' +
+                ", treeName='" + this.treeName + '\'' +
+                ", createBy='" + this.createBy + '\'' +
+                ", createDate=" + this.createDate +
+                ", updateBy='" + this.updateBy + '\'' +
+                ", updateDate=" + this.updateDate +
+                ", delFlag='" + this.delFlag + '\'' +
+                ", id='" + this.id + '\'' +
+                '}';
+    }
 }

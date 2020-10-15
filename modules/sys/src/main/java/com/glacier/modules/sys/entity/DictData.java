@@ -1,9 +1,6 @@
 package com.glacier.modules.sys.entity;
 
 import com.glacier.common.core.entity.AbstractDataEntity;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
 
 /**
  * 字典数据
@@ -12,9 +9,6 @@ import lombok.ToString;
  * @version 1.0
  * @date 2019-10-09 11:03
  */
-@Data
-@ToString(callSuper = true)
-@EqualsAndHashCode(callSuper = false)
 public class DictData extends AbstractDataEntity {
     private static final long serialVersionUID = 2538417218158807473L;
     /**
@@ -57,4 +51,91 @@ public class DictData extends AbstractDataEntity {
      */
     private String remarks;
 
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public String getLabel() {
+        return this.label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
+    }
+
+    public String getValue() {
+        return this.value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
+
+    public String getType() {
+        return this.type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getDefaultFlag() {
+        return this.defaultFlag;
+    }
+
+    public void setDefaultFlag(String defaultFlag) {
+        this.defaultFlag = defaultFlag;
+    }
+
+    public String getDictType() {
+        return this.dictType;
+    }
+
+    public void setDictType(String dictType) {
+        this.dictType = dictType;
+    }
+
+    public Integer getStatus() {
+        return this.status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    public Integer getOrderNum() {
+        return this.orderNum;
+    }
+
+    public void setOrderNum(Integer orderNum) {
+        this.orderNum = orderNum;
+    }
+
+    public String getRemarks() {
+        return this.remarks;
+    }
+
+    public void setRemarks(String remarks) {
+        this.remarks = remarks;
+    }
+
+    @Override
+    public String toString() {
+        return "DictData{" +
+                "label='" + this.label + '\'' +
+                ", value='" + this.value + '\'' +
+                ", type='" + this.type + '\'' +
+                ", defaultFlag='" + this.defaultFlag + '\'' +
+                ", dictType='" + this.dictType + '\'' +
+                ", status=" + this.status +
+                ", orderNum=" + this.orderNum +
+                ", remarks='" + this.remarks + '\'' +
+                ", createBy='" + this.createBy + '\'' +
+                ", createDate=" + this.createDate +
+                ", updateBy='" + this.updateBy + '\'' +
+                ", updateDate=" + this.updateDate +
+                ", delFlag='" + this.delFlag + '\'' +
+                ", id='" + this.id + '\'' +
+                '}';
+    }
 }

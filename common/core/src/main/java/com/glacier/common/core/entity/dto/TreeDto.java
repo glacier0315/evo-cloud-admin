@@ -2,8 +2,6 @@ package com.glacier.common.core.entity.dto;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Data;
-import lombok.ToString;
 
 import java.io.Serializable;
 
@@ -13,8 +11,6 @@ import java.io.Serializable;
  * @date 2020-08-11 21:25
  */
 @ApiModel(description = "树形模型")
-@Data
-@ToString
 public class TreeDto implements Serializable {
     private static final long serialVersionUID = -1422718419166727130L;
     /**
@@ -47,4 +43,68 @@ public class TreeDto implements Serializable {
      */
     @ApiModelProperty(value = "层级")
     protected Integer grade;
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public String getId() {
+        return this.id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getParentId() {
+        return this.parentId;
+    }
+
+    public void setParentId(String parentId) {
+        this.parentId = parentId;
+    }
+
+    public String getParentName() {
+        return this.parentName;
+    }
+
+    public void setParentName(String parentName) {
+        this.parentName = parentName;
+    }
+
+    public Integer getOrderNum() {
+        return this.orderNum;
+    }
+
+    public void setOrderNum(Integer orderNum) {
+        this.orderNum = orderNum;
+    }
+
+    public Integer getGrade() {
+        return this.grade;
+    }
+
+    public void setGrade(Integer grade) {
+        this.grade = grade;
+    }
+
+    @Override
+    public String toString() {
+        return "TreeDto{" +
+                "id='" + this.id + '\'' +
+                ", name='" + this.name + '\'' +
+                ", parentId='" + this.parentId + '\'' +
+                ", parentName='" + this.parentName + '\'' +
+                ", orderNum=" + this.orderNum +
+                ", grade=" + this.grade +
+                '}';
+    }
 }

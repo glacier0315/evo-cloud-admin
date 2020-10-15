@@ -5,8 +5,8 @@ import com.glacier.modules.sys.entity.dto.role.RoleUserDto;
 import com.glacier.modules.sys.entity.dto.user.UserRoleDto;
 import com.glacier.modules.sys.mapper.UserRoleMapper;
 import com.glacier.modules.sys.service.UserRoleService;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,12 +18,16 @@ import org.springframework.transaction.annotation.Transactional;
  * @version 1.0
  * @date 2020-08-30 12:47
  */
-@Slf4j
 @Transactional(rollbackFor = {})
 @Service(value = "userRoleService")
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class UserRoleServiceImpl implements UserRoleService {
+    private static final Logger log = LoggerFactory.getLogger(UserRoleServiceImpl.class);
     private final UserRoleMapper userRoleMapper;
+
+    @Autowired
+    public UserRoleServiceImpl(UserRoleMapper userRoleMapper) {
+        this.userRoleMapper = userRoleMapper;
+    }
 
     @Override
     public int addUser(RoleUserDto roleUserDto) {

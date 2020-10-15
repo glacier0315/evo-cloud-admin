@@ -5,7 +5,8 @@ import com.glacier.common.core.constant.CommonConstant;
 import com.glacier.common.core.constant.MediaConstants;
 import com.glacier.common.core.entity.Result;
 import com.glacier.common.core.exception.AuthErrorType;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.access.AccessDeniedHandler;
@@ -20,9 +21,8 @@ import java.io.IOException;
  * @version 1.0
  * @date 2020-07-24 16:38
  */
-@Slf4j
 public class CustomAccessDeniedHandler implements AccessDeniedHandler {
-
+    private static final Logger log = LoggerFactory.getLogger(CustomAccessDeniedHandler.class);
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException, ServletException {
         log.error("异常：", accessDeniedException);

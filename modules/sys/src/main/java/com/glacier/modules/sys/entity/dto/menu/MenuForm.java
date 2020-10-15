@@ -3,9 +3,6 @@ package com.glacier.modules.sys.entity.dto.menu;
 import com.glacier.common.core.entity.dto.TreeDto;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
 
 /**
  * @author glacier
@@ -13,9 +10,6 @@ import lombok.ToString;
  * @date 2020-07-03 17:21
  */
 @ApiModel(description = "菜单模型")
-@Data
-@EqualsAndHashCode(callSuper = true)
-@ToString
 public class MenuForm extends TreeDto {
     private static final long serialVersionUID = -5671623247967325528L;
 
@@ -59,4 +53,92 @@ public class MenuForm extends TreeDto {
      */
     @ApiModelProperty(value = "是否外链 1 是  2 否")
     private Integer isFrame;
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public String getPath() {
+        return this.path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
+
+    public String getComponent() {
+        return this.component;
+    }
+
+    public void setComponent(String component) {
+        this.component = component;
+    }
+
+    public String getIcon() {
+        return this.icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
+    }
+
+    public String getPermission() {
+        return this.permission;
+    }
+
+    public void setPermission(String permission) {
+        this.permission = permission;
+    }
+
+    public Integer getType() {
+        return this.type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
+    }
+
+    public Integer getStatus() {
+        return this.status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    public Integer getVisible() {
+        return this.visible;
+    }
+
+    public void setVisible(Integer visible) {
+        this.visible = visible;
+    }
+
+    public Integer getIsFrame() {
+        return this.isFrame;
+    }
+
+    public void setIsFrame(Integer isFrame) {
+        this.isFrame = isFrame;
+    }
+
+    @Override
+    public String toString() {
+        return "MenuForm{" +
+                "path='" + this.path + '\'' +
+                ", component='" + this.component + '\'' +
+                ", icon='" + this.icon + '\'' +
+                ", permission='" + this.permission + '\'' +
+                ", type=" + this.type +
+                ", status=" + this.status +
+                ", visible=" + this.visible +
+                ", isFrame=" + this.isFrame +
+                ", id='" + this.id + '\'' +
+                ", name='" + this.name + '\'' +
+                ", parentId='" + this.parentId + '\'' +
+                ", parentName='" + this.parentName + '\'' +
+                ", orderNum=" + this.orderNum +
+                ", grade=" + this.grade +
+                '}';
+    }
 }

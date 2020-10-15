@@ -17,10 +17,10 @@ import com.glacier.modules.sys.mapper.RoleMapper;
 import com.glacier.modules.sys.mapper.UserMapper;
 import com.glacier.modules.sys.mapper.UserRoleMapper;
 import com.glacier.modules.sys.service.UserService;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -38,16 +38,29 @@ import java.util.stream.Collectors;
  * @version 1.0
  * @date 2019-08-04 21:50
  */
-@Slf4j
 @Transactional(readOnly = true)
 @Service(value = "userService")
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class UserServiceImpl implements UserService {
+    private static final Logger log = LoggerFactory.getLogger(UserServiceImpl.class);
     private final ModelMapper modelMapper;
     private final UserMapper userMapper;
     private final RoleMapper roleMapper;
     private final UserRoleMapper userRoleMapper;
     private final PasswordEncoder passwordEncoder;
+
+    @Autowired
+    public UserServiceImpl(
+            ModelMapper modelMapper,
+            UserMapper userMapper,
+            RoleMapper roleMapper,
+            UserRoleMapper userRoleMapper,
+            PasswordEncoder passwordEncoder) {
+        this.modelMapper = modelMapper;
+        this.userMapper = userMapper;
+        this.roleMapper = roleMapper;
+        this.userRoleMapper = userRoleMapper;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     @Override
     public User findById(final String id) {
@@ -64,18 +77,16 @@ public class UserServiceImpl implements UserService {
         User user = this.findUserByUsername(username);
         // 查找角色
         List<Role> roles = this.roleMapper.findByUserId(user.getId());
-        return UserInfo.builder()
-                .id(user.getId())
-                .name(user.getUsername())
-                .avatar(user.getAvatar())
-                .roles(
-                        Optional.ofNullable(roles)
-                                .orElse(Collections.emptyList())
-                                .stream()
-                                .map(Role::getCode)
-                                .collect(Collectors.toList())
-                )
-                .build();
+        UserInfo userInfo = new UserInfo();
+        userInfo.setId(user.getId());
+        userInfo.setName(user.getUsername());
+        userInfo.setAvatar(user.getAvatar());
+        userInfo.setRoles(Optional.ofNullable(roles)
+                .orElse(Collections.emptyList())
+                .stream()
+                .map(Role::getCode)
+                .collect(Collectors.toList()));
+        return userInfo;
     }
 
     @Override

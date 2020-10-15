@@ -1,8 +1,5 @@
 package com.glacier.modules.sys.entity;
 
-import lombok.Data;
-import lombok.ToString;
-
 import java.io.Serializable;
 
 /**
@@ -12,8 +9,6 @@ import java.io.Serializable;
  * @version 1.0
  * @date 2019-08-11 21:18
  */
-@Data
-@ToString
 public class UserRole implements Serializable {
 
     private static final long serialVersionUID = -7193974752669679122L;
@@ -32,5 +27,33 @@ public class UserRole implements Serializable {
     public UserRole(String userId, String roleId) {
         this.userId = userId;
         this.roleId = roleId;
+    }
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public String getUserId() {
+        return this.userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public String getRoleId() {
+        return this.roleId;
+    }
+
+    public void setRoleId(String roleId) {
+        this.roleId = roleId;
+    }
+
+    @Override
+    public String toString() {
+        return "UserRole{" +
+                "userId='" + this.userId + '\'' +
+                ", roleId='" + this.roleId + '\'' +
+                '}';
     }
 }

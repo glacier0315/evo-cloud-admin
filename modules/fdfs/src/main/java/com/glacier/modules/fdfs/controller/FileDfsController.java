@@ -4,8 +4,8 @@ import com.glacier.common.core.entity.Result;
 import com.glacier.common.core.utils.StringUtil;
 import com.glacier.modules.fdfs.config.DfsResConfig;
 import com.glacier.modules.fdfs.util.FileDfsUtil;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,14 +20,19 @@ import org.springframework.web.multipart.MultipartFile;
  * @version 1.0
  * @date 2020-02-10 19:33
  */
-@Slf4j
 @RestController
 @RequestMapping("/dfs")
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class FileDfsController {
-
+    private static final Logger log = LoggerFactory.getLogger(FileDfsController.class);
     private final FileDfsUtil fastDfsClientUtil;
     private final DfsResConfig dfsResConfig;
+
+    @Autowired
+    public FileDfsController(FileDfsUtil fastDfsClientUtil,
+                             DfsResConfig dfsResConfig) {
+        this.fastDfsClientUtil = fastDfsClientUtil;
+        this.dfsResConfig = dfsResConfig;
+    }
 
     /**
      * 单文件上传

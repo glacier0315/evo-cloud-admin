@@ -2,8 +2,8 @@ package com.glacier.modules.dfs.config;
 
 import com.glacier.modules.dfs.config.properties.MinioProperties;
 import io.minio.MinioClient;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -14,13 +14,16 @@ import org.springframework.context.annotation.Configuration;
  * @version 1.0
  * @date 2020-09-08 19:55
  */
-@Slf4j
 @Configuration
 @EnableConfigurationProperties(MinioProperties.class)
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class MinioConfiguration {
-
+    private static final Logger log = LoggerFactory.getLogger(MinioConfiguration.class);
     private final MinioProperties minioProperties;
+
+    @Autowired
+    public MinioConfiguration(MinioProperties minioProperties) {
+        this.minioProperties = minioProperties;
+    }
 
     @Bean
     public MinioClient minioClient() {

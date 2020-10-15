@@ -2,8 +2,8 @@ package com.glacier.common.security.feign;
 
 import feign.RequestInterceptor;
 import feign.RequestTemplate;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
@@ -29,13 +29,19 @@ import java.util.Optional;
  * @version 1.0
  * @date 2020-07-28 21:40
  */
-@Slf4j
 @Component
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class TokenFeignClientInterceptor implements RequestInterceptor {
-
+    private static final Logger log = LoggerFactory.getLogger(TokenFeignClientInterceptor.class);
     private final OAuth2AuthorizedClientService authorizedClientService;
     private final OAuth2AuthorizedClientManager oAuth2AuthorizedClientManager;
+
+    @Autowired
+    public TokenFeignClientInterceptor(OAuth2AuthorizedClientService authorizedClientService,
+                                       OAuth2AuthorizedClientManager oAuth2AuthorizedClientManager) {
+        this.authorizedClientService = authorizedClientService;
+        this.oAuth2AuthorizedClientManager = oAuth2AuthorizedClientManager;
+    }
+
     /**
      * 认证服务器客户端reg id
      */
@@ -59,7 +65,7 @@ public class TokenFeignClientInterceptor implements RequestInterceptor {
                 .orElse("");
         // 请求中没有令牌，重新获取客户端令牌
         if (!token.contains(BEARER)) {
-            token = Optional.ofNullable(this.acquireAccessToken(feignClientId))
+            token = Optional.ofNullable(this.acquireAccessToken(this.feignClientId))
                     .map(accessToken ->
                             String.format("%s %s", BEARER,
                                     accessToken.getTokenValue()))

@@ -9,8 +9,8 @@ import com.glacier.modules.gen.entity.dto.datasource.GenDatasourceForm;
 import com.glacier.modules.gen.entity.dto.datasource.GenDatasourceQuery;
 import com.glacier.modules.gen.service.GenDatasourceService;
 import io.swagger.annotations.Api;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,12 +24,16 @@ import org.springframework.web.bind.annotation.RestController;
  * @date 2020-08-26 16:31
  */
 @Api(tags = "数据源管理")
-@Slf4j
 @RestController
 @RequestMapping(value = "/datasource")
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class GenDatasourceController {
+    private static final Logger log = LoggerFactory.getLogger(GenDatasourceController.class);
     private final GenDatasourceService genDatasourceService;
+
+    @Autowired
+    public GenDatasourceController(GenDatasourceService genDatasourceService) {
+        this.genDatasourceService = genDatasourceService;
+    }
 
     /**
      * 分页查询

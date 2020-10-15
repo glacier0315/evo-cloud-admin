@@ -3,7 +3,6 @@ package com.glacier.modules.sys.entity.dto.menu;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.*;
 
 import java.io.Serializable;
 import java.util.List;
@@ -15,11 +14,6 @@ import java.util.List;
  * @date 2020-06-06 10:10
  */
 @ApiModel(description = "路由模型")
-@Data
-@ToString
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class Router implements Serializable {
     private static final long serialVersionUID = -7180881732184069045L;
@@ -64,4 +58,88 @@ public class Router implements Serializable {
     @ApiModelProperty(value = "子路由")
     private List<Router> children;
 
+    public Router() {
+    }
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPath() {
+        return this.path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
+
+    public boolean isHidden() {
+        return this.hidden;
+    }
+
+    public void setHidden(boolean hidden) {
+        this.hidden = hidden;
+    }
+
+    public String getRedirect() {
+        return this.redirect;
+    }
+
+    public void setRedirect(String redirect) {
+        this.redirect = redirect;
+    }
+
+    public String getComponent() {
+        return this.component;
+    }
+
+    public void setComponent(String component) {
+        this.component = component;
+    }
+
+    public Boolean getAlwaysShow() {
+        return this.alwaysShow;
+    }
+
+    public void setAlwaysShow(Boolean alwaysShow) {
+        this.alwaysShow = alwaysShow;
+    }
+
+    public Meta getMeta() {
+        return this.meta;
+    }
+
+    public void setMeta(Meta meta) {
+        this.meta = meta;
+    }
+
+    public List<Router> getChildren() {
+        return this.children;
+    }
+
+    public void setChildren(List<Router> children) {
+        this.children = children;
+    }
+
+    @Override
+    public String toString() {
+        return "Router{" +
+                "name='" + this.name + '\'' +
+                ", path='" + this.path + '\'' +
+                ", hidden=" + this.hidden +
+                ", redirect='" + this.redirect + '\'' +
+                ", component='" + this.component + '\'' +
+                ", alwaysShow=" + this.alwaysShow +
+                ", meta=" + this.meta +
+                ", children=" + this.children +
+                '}';
+    }
 }

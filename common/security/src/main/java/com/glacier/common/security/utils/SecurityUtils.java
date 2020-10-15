@@ -1,7 +1,8 @@
 package com.glacier.common.security.utils;
 
 import com.glacier.common.core.constant.CommonConstant;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.jwt.Jwt;
@@ -17,9 +18,8 @@ import java.util.Optional;
  * @version 1.0
  * @date 2019-10-28 09:08
  */
-@Slf4j
 public class SecurityUtils {
-
+    private static final Logger log = LoggerFactory.getLogger(SecurityUtils.class);
     private SecurityUtils() {
     }
 

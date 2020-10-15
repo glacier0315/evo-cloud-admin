@@ -1,8 +1,5 @@
 package com.glacier.modules.sys.entity;
 
-import lombok.Data;
-import lombok.ToString;
-
 import java.io.Serializable;
 
 /**
@@ -12,8 +9,6 @@ import java.io.Serializable;
  * @version 1.0
  * @date 2019-10-09 14:49
  */
-@Data
-@ToString
 public class RoleMenu implements Serializable {
 
     private static final long serialVersionUID = -234428421997899712L;
@@ -32,5 +27,33 @@ public class RoleMenu implements Serializable {
     public RoleMenu(String roleId, String menuId) {
         this.roleId = roleId;
         this.menuId = menuId;
+    }
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public String getRoleId() {
+        return this.roleId;
+    }
+
+    public void setRoleId(String roleId) {
+        this.roleId = roleId;
+    }
+
+    public String getMenuId() {
+        return this.menuId;
+    }
+
+    public void setMenuId(String menuId) {
+        this.menuId = menuId;
+    }
+
+    @Override
+    public String toString() {
+        return "RoleMenu{" +
+                "roleId='" + this.roleId + '\'' +
+                ", menuId='" + this.menuId + '\'' +
+                '}';
     }
 }

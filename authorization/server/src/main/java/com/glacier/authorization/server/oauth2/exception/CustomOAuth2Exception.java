@@ -1,9 +1,6 @@
 package com.glacier.authorization.server.oauth2.exception;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
 import org.springframework.security.oauth2.common.exceptions.OAuth2Exception;
 
 /**
@@ -12,9 +9,6 @@ import org.springframework.security.oauth2.common.exceptions.OAuth2Exception;
  * @version 1.0
  * @date 2020-07-29 17:01
  */
-@Getter
-@Setter
-@ToString
 @JsonSerialize(using = CustomOAuth2ExceptionSerializer.class)
 public class CustomOAuth2Exception extends OAuth2Exception {
 
@@ -26,5 +20,9 @@ public class CustomOAuth2Exception extends OAuth2Exception {
 
     public CustomOAuth2Exception(String msg) {
         super(msg);
+    }
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
     }
 }

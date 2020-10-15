@@ -10,10 +10,10 @@ import com.glacier.modules.sys.entity.dto.post.PostDto;
 import com.glacier.modules.sys.entity.dto.post.PostQuery;
 import com.glacier.modules.sys.mapper.PostMapper;
 import com.glacier.modules.sys.service.PostService;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,13 +26,18 @@ import java.util.List;
  * @version 1.0
  * @date 2020-09-05 21:53
  */
-@Slf4j
 @Transactional(readOnly = true)
 @Service("postService")
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class PostServiceImpl implements PostService {
+    private static final Logger log = LoggerFactory.getLogger(PostServiceImpl.class);
     private final ModelMapper modelMapper;
     private final PostMapper postMapper;
+
+    @Autowired
+    public PostServiceImpl(ModelMapper modelMapper, PostMapper postMapper) {
+        this.modelMapper = modelMapper;
+        this.postMapper = postMapper;
+    }
 
     @Override
     public PageResponse<PostDto> findPage(PageRequest<PostQuery> pageRequest) {

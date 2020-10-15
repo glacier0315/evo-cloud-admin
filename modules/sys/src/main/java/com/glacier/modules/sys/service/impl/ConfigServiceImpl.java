@@ -8,8 +8,8 @@ import com.glacier.common.core.utils.StringUtil;
 import com.glacier.modules.sys.entity.Config;
 import com.glacier.modules.sys.mapper.ConfigMapper;
 import com.glacier.modules.sys.service.ConfigService;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,13 +21,16 @@ import java.util.List;
  * @version 1.0
  * @date 2019-11-21 17:37
  */
-@Slf4j
 @Transactional(readOnly = true)
 @Service("configService")
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class ConfigServiceImpl implements ConfigService {
-
+    private static final Logger log = LoggerFactory.getLogger(ConfigServiceImpl.class);
     private final ConfigMapper configMapper;
+
+    @Autowired
+    public ConfigServiceImpl(ConfigMapper configMapper) {
+        this.configMapper = configMapper;
+    }
 
     /**
      * 保存

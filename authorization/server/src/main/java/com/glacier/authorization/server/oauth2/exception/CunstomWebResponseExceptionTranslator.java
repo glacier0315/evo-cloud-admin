@@ -1,6 +1,7 @@
 package com.glacier.authorization.server.oauth2.exception;
 
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,10 +23,9 @@ import java.io.IOException;
  * @version 1.0
  * @date 2020-07-29 16:57
  */
-@Slf4j
 @Component
 public class CunstomWebResponseExceptionTranslator implements WebResponseExceptionTranslator<OAuth2Exception> {
-
+    private static final Logger log = LoggerFactory.getLogger(CunstomWebResponseExceptionTranslator.class);
     private final ThrowableAnalyzer throwableAnalyzer = new DefaultThrowableAnalyzer();
 
     @Override

@@ -2,6 +2,8 @@ package com.glacier.authorization.server.oauth2;
 
 import com.glacier.common.core.constant.CommonConstant;
 import com.glacier.common.security.entity.dto.UserDetailsVo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.oauth2.provider.token.DefaultUserAuthenticationConverter;
@@ -17,7 +19,7 @@ import java.util.Map;
  * @date 2020-08-20 09:47
  */
 public class SubjectAttributeUserTokenConverter extends DefaultUserAuthenticationConverter {
-
+    private static final Logger log = LoggerFactory.getLogger(SubjectAttributeUserTokenConverter.class);
     @Override
     public Map<String, ?> convertUserAuthentication(Authentication authentication) {
         Map<String, Object> response = new LinkedHashMap<>();

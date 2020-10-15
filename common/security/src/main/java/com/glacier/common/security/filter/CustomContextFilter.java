@@ -2,7 +2,8 @@ package com.glacier.common.security.filter;
 
 import com.glacier.common.core.utils.AppContextHolder;
 import com.glacier.common.security.utils.SecurityUtils;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.filter.GenericFilterBean;
 
 import javax.servlet.FilterChain;
@@ -16,8 +17,8 @@ import java.io.IOException;
  * @version 1.0
  * @date 2020-08-26 12:06
  */
-@Slf4j
 public class CustomContextFilter extends GenericFilterBean {
+    private static final Logger log = LoggerFactory.getLogger(CustomContextFilter.class);
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         // 添加上下文

@@ -2,10 +2,6 @@ package com.glacier.modules.sys.entity.dto.role;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 import java.io.Serializable;
 import java.util.List;
@@ -17,10 +13,6 @@ import java.util.List;
  * @date 2020-08-30 12:42
  */
 @ApiModel(description = "用户角色模型")
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-@ToString
 public class RoleUserDto implements Serializable {
     private static final long serialVersionUID = -8860417900882239422L;
     /**
@@ -33,4 +25,32 @@ public class RoleUserDto implements Serializable {
      */
     @ApiModelProperty(value = "用户id集合")
     private List<String> userIds;
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public String getRoleId() {
+        return this.roleId;
+    }
+
+    public void setRoleId(String roleId) {
+        this.roleId = roleId;
+    }
+
+    public List<String> getUserIds() {
+        return this.userIds;
+    }
+
+    public void setUserIds(List<String> userIds) {
+        this.userIds = userIds;
+    }
+
+    @Override
+    public String toString() {
+        return "RoleUserDto{" +
+                "roleId='" + this.roleId + '\'' +
+                ", userIds=" + this.userIds +
+                '}';
+    }
 }

@@ -16,9 +16,6 @@
 package com.glacier.modules.gen.entity;
 
 import com.glacier.common.core.entity.AbstractDataEntity;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
 
 /**
  * 数据源表  模型层
@@ -27,9 +24,6 @@ import lombok.ToString;
  * @version 1.0
  * @date 2019-08-04 21:53
  */
-@Data
-@ToString(callSuper = true)
-@EqualsAndHashCode(callSuper = false)
 public class GenDatasource extends AbstractDataEntity {
 	private static final long serialVersionUID = -3256542275939203325L;
 	/**
@@ -42,14 +36,65 @@ public class GenDatasource extends AbstractDataEntity {
 	 */
 	private String url;
 
-	/**
-	 * 用户名
-	 */
-	private String username;
+    /**
+     * 用户名
+     */
+    private String username;
 
-	/**
-	 * 密码
-	 */
-	private String password;
+    /**
+     * 密码
+     */
+    private String password;
 
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getUrl() {
+        return this.url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public String getUsername() {
+        return this.username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return this.password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    @Override
+    public String toString() {
+        return "GenDatasource{" +
+                "name='" + this.name + '\'' +
+                ", url='" + this.url + '\'' +
+                ", username='" + this.username + '\'' +
+                ", password='" + this.password + '\'' +
+                ", createBy='" + this.createBy + '\'' +
+                ", createDate=" + this.createDate +
+                ", updateBy='" + this.updateBy + '\'' +
+                ", updateDate=" + this.updateDate +
+                ", delFlag='" + this.delFlag + '\'' +
+                ", id='" + this.id + '\'' +
+                '}';
+    }
 }

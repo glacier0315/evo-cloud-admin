@@ -12,15 +12,16 @@ import com.glacier.modules.sys.entity.RoleMenu;
 import com.glacier.modules.sys.entity.dto.role.RoleForm;
 import com.glacier.modules.sys.entity.dto.role.RoleQuery;
 import com.glacier.modules.sys.entity.dto.role.RoleVo;
+import com.glacier.modules.sys.handler.GlobalExceptionHandler;
 import com.glacier.modules.sys.mapper.RoleDeptMapper;
 import com.glacier.modules.sys.mapper.RoleMapper;
 import com.glacier.modules.sys.mapper.RoleMenuMapper;
 import com.glacier.modules.sys.mapper.UserRoleMapper;
 import com.glacier.modules.sys.service.RoleService;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,16 +35,29 @@ import java.util.List;
  * @version 1.0
  * @date 2019-08-11 21:21
  */
-@Slf4j
 @Transactional(readOnly = true)
 @Service("roleService")
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class RoleServiceImpl implements RoleService {
+    private static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
     private final ModelMapper modelMapper;
     private final RoleMapper roleMapper;
     private final UserRoleMapper userRoleMapper;
     private final RoleMenuMapper roleMenuMapper;
     private final RoleDeptMapper roleDeptMapper;
+
+    @Autowired
+    public RoleServiceImpl(
+            ModelMapper modelMapper,
+            RoleMapper roleMapper,
+            UserRoleMapper userRoleMapper,
+            RoleMenuMapper roleMenuMapper,
+            RoleDeptMapper roleDeptMapper) {
+        this.modelMapper = modelMapper;
+        this.roleMapper = roleMapper;
+        this.userRoleMapper = userRoleMapper;
+        this.roleMenuMapper = roleMenuMapper;
+        this.roleDeptMapper = roleDeptMapper;
+    }
 
     @Override
     public RoleVo findById(String id) {

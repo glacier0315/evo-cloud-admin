@@ -9,7 +9,8 @@ import com.glacier.modules.sys.entity.dto.post.PostQuery;
 import com.glacier.modules.sys.service.PostService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,9 +25,14 @@ import java.util.List;
 @Api(tags = "岗位管理")
 @RestController
 @RequestMapping(value = "/post")
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class PostController {
+    private static final Logger log = LoggerFactory.getLogger(PostController.class);
     private final PostService postService;
+
+    @Autowired
+    public PostController(PostService postService) {
+        this.postService = postService;
+    }
 
     /**
      * 查找所有岗位

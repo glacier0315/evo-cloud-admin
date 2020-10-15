@@ -6,10 +6,10 @@ import com.glacier.modules.sys.entity.Dict;
 import com.glacier.modules.sys.entity.dto.dict.DictVo;
 import com.glacier.modules.sys.mapper.DictMapper;
 import com.glacier.modules.sys.service.DictService;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,13 +22,18 @@ import java.util.List;
  * @version 1.0
  * @date 2019-12-01 21:36
  */
-@Slf4j
 @Transactional(readOnly = true)
 @Service("dictService")
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class DictServiceImpl implements DictService {
+    private static final Logger log = LoggerFactory.getLogger(DictServiceImpl.class);
     private final ModelMapper modelMapper;
     private final DictMapper dictMapper;
+
+    @Autowired
+    public DictServiceImpl(ModelMapper modelMapper, DictMapper dictMapper) {
+        this.modelMapper = modelMapper;
+        this.dictMapper = dictMapper;
+    }
 
     @Transactional(rollbackFor = {})
     @Override

@@ -1,9 +1,6 @@
 package com.glacier.modules.sys.entity;
 
 import com.glacier.common.core.entity.AbstractDataEntity;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
 
 /**
  * 岗位
@@ -12,9 +9,6 @@ import lombok.ToString;
  * @version 1.0
  * @date 2019-10-09 11:03
  */
-@Data
-@ToString(callSuper = true)
-@EqualsAndHashCode(callSuper = false)
 public class Post extends AbstractDataEntity {
     private static final long serialVersionUID = -8716186319813001885L;
     /**
@@ -41,4 +35,74 @@ public class Post extends AbstractDataEntity {
      * 备注
      */
     private String remarks;
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getCode() {
+        return this.code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public Integer getStatus() {
+        return this.status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    public Integer getOrderNum() {
+        return this.orderNum;
+    }
+
+    public void setOrderNum(Integer orderNum) {
+        this.orderNum = orderNum;
+    }
+
+    public String getDescription() {
+        return this.description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getRemarks() {
+        return this.remarks;
+    }
+
+    public void setRemarks(String remarks) {
+        this.remarks = remarks;
+    }
+
+    @Override
+    public String toString() {
+        return "Post{" +
+                "name='" + this.name + '\'' +
+                ", code='" + this.code + '\'' +
+                ", status=" + this.status +
+                ", orderNum=" + this.orderNum +
+                ", description='" + this.description + '\'' +
+                ", remarks='" + this.remarks + '\'' +
+                ", createBy='" + this.createBy + '\'' +
+                ", createDate=" + this.createDate +
+                ", updateBy='" + this.updateBy + '\'' +
+                ", updateDate=" + this.updateDate +
+                ", delFlag='" + this.delFlag + '\'' +
+                ", id='" + this.id + '\'' +
+                '}';
+    }
 }

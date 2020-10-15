@@ -3,9 +3,6 @@ package com.glacier.modules.sys.entity.dto.dict;
 import com.glacier.common.core.entity.dto.TreeDto;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
 
 /**
  * 字典模型
@@ -15,9 +12,6 @@ import lombok.ToString;
  * @date 2020-08-11 21:17
  */
 @ApiModel(description = "字典模型")
-@Data
-@EqualsAndHashCode(callSuper = true)
-@ToString
 public class DictForm extends TreeDto {
     private static final long serialVersionUID = 4192376189821797520L;
     /**
@@ -40,4 +34,56 @@ public class DictForm extends TreeDto {
      */
     @ApiModelProperty(value = "备注")
     private String remarks;
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public String getCode() {
+        return this.code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getType() {
+        return this.type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getDescription() {
+        return this.description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getRemarks() {
+        return this.remarks;
+    }
+
+    public void setRemarks(String remarks) {
+        this.remarks = remarks;
+    }
+
+    @Override
+    public String toString() {
+        return "DictForm{" +
+                "code='" + this.code + '\'' +
+                ", type='" + this.type + '\'' +
+                ", description='" + this.description + '\'' +
+                ", remarks='" + this.remarks + '\'' +
+                ", id='" + this.id + '\'' +
+                ", name='" + this.name + '\'' +
+                ", parentId='" + this.parentId + '\'' +
+                ", parentName='" + this.parentName + '\'' +
+                ", orderNum=" + this.orderNum +
+                ", grade=" + this.grade +
+                '}';
+    }
 }

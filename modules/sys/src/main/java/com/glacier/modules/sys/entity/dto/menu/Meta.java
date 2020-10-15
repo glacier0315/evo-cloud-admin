@@ -2,7 +2,6 @@ package com.glacier.modules.sys.entity.dto.menu;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.annotations.ApiModel;
-import lombok.*;
 
 import java.io.Serializable;
 
@@ -13,11 +12,6 @@ import java.io.Serializable;
  * @date 2020-06-06 10:14
  */
 @ApiModel(description = "路由元数据模型")
-@Data
-@ToString
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class Meta implements Serializable {
     private static final long serialVersionUID = 8544347198911886718L;
@@ -29,4 +23,35 @@ public class Meta implements Serializable {
      * 设置该路由的图标，对应路径src/icons/svg
      */
     private String icon;
+
+    public Meta() {
+    }
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public String getTitle() {
+        return this.title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getIcon() {
+        return this.icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
+    }
+
+    @Override
+    public String toString() {
+        return "Meta{" +
+                "title='" + this.title + '\'' +
+                ", icon='" + this.icon + '\'' +
+                '}';
+    }
 }

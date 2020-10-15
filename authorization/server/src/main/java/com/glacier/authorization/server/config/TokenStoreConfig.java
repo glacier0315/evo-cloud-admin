@@ -2,7 +2,6 @@ package com.glacier.authorization.server.config;
 
 import com.glacier.authorization.server.oauth2.CustomTokenEnhancer;
 import com.glacier.authorization.server.oauth2.SubjectAttributeUserTokenConverter;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.oauth2.authserver.AuthorizationServerProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -31,9 +30,13 @@ import java.util.Optional;
  */
 @Configuration
 @EnableConfigurationProperties({AuthorizationServerProperties.class})
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class TokenStoreConfig {
     private final AuthorizationServerProperties authorizationServerProperties;
+
+    @Autowired
+    public TokenStoreConfig(AuthorizationServerProperties authorizationServerProperties) {
+        this.authorizationServerProperties = authorizationServerProperties;
+    }
 
     /**
      * 设置jwt 存储token

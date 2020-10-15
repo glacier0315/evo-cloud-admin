@@ -2,8 +2,6 @@ package com.glacier.common.core.entity.dto.vo;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Data;
-import lombok.ToString;
 
 import java.io.Serializable;
 import java.util.List;
@@ -14,8 +12,6 @@ import java.util.List;
  * @date 2020-08-08 11:07
  */
 @ApiModel(description = "角色详情模型")
-@Data
-@ToString
 public class RoleDetailsDto implements Serializable {
     private static final long serialVersionUID = 2730122991817147481L;
     /**
@@ -53,4 +49,77 @@ public class RoleDetailsDto implements Serializable {
      */
     @ApiModelProperty(value = "组织机构集合")
     private List<String> deptIds;
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public String getId() {
+        return this.id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getCode() {
+        return this.code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getStatus() {
+        return this.status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getDescription() {
+        return this.description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getDataScope() {
+        return this.dataScope;
+    }
+
+    public void setDataScope(String dataScope) {
+        this.dataScope = dataScope;
+    }
+
+    public List<String> getDeptIds() {
+        return this.deptIds;
+    }
+
+    public void setDeptIds(List<String> deptIds) {
+        this.deptIds = deptIds;
+    }
+
+    @Override
+    public String toString() {
+        return "RoleDetailsDto{" +
+                "id='" + this.id + '\'' +
+                ", name='" + this.name + '\'' +
+                ", code='" + this.code + '\'' +
+                ", status='" + this.status + '\'' +
+                ", description='" + this.description + '\'' +
+                ", dataScope='" + this.dataScope + '\'' +
+                ", deptIds=" + this.deptIds +
+                '}';
+    }
 }

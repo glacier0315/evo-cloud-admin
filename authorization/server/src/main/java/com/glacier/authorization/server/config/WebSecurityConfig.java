@@ -4,7 +4,6 @@ import com.glacier.common.security.config.settings.SecuritySettings;
 import com.glacier.common.security.handler.CustomAccessDeniedHandler;
 import com.glacier.common.security.handler.CustomAuthenticationEntryPoint;
 import com.glacier.common.security.handler.CustomLogoutSuccessHandler;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
@@ -49,11 +48,16 @@ import java.security.interfaces.RSAPublicKey;
 @EnableConfigurationProperties(SecuritySettings.class)
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final SecuritySettings securitySettings;
     private final KeyPair keyPair;
+
+    @Autowired
+    public WebSecurityConfig(SecuritySettings securitySettings, KeyPair keyPair) {
+        this.securitySettings = securitySettings;
+        this.keyPair = keyPair;
+    }
 
     /**
      * 授权中心管理器，解决依赖注入问题

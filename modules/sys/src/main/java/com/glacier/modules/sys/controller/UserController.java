@@ -12,8 +12,8 @@ import com.glacier.modules.sys.entity.dto.user.*;
 import com.glacier.modules.sys.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
@@ -30,12 +30,16 @@ import java.net.URLEncoder;
  * @date 2019-08-04 22:13
  */
 @Api(tags = "用户管理")
-@Slf4j
 @RestController
 @RequestMapping(value = "/user")
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class UserController {
+    private static final Logger log = LoggerFactory.getLogger(UserController.class);
     private final UserService userService;
+
+    @Autowired
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
 
     /**
      * 分页查询用户

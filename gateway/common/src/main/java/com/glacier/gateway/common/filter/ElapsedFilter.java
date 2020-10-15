@@ -1,6 +1,7 @@
 package com.glacier.gateway.common.filter;
 
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.Ordered;
@@ -16,10 +17,9 @@ import reactor.core.publisher.Mono;
  * @version 1.0
  * @date 2019-12-11 12:38
  */
-@Slf4j
 @Component
 public class ElapsedFilter implements GlobalFilter, Ordered {
-
+    private static final Logger log = LoggerFactory.getLogger(ElapsedFilter.class);
     private static final String ELAPSED_TIME_BEGIN = "elapsedTimeBegin";
 
     @Override

@@ -4,7 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.glacier.common.core.constant.CommonConstant;
 import com.glacier.common.core.constant.MediaConstants;
 import com.glacier.common.core.entity.Result;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
@@ -21,9 +22,8 @@ import java.io.IOException;
  * @version 1.0
  * @date 2020-05-22 21:20
  */
-@Slf4j
 public class CustomLogoutSuccessHandler implements LogoutSuccessHandler {
-
+    private static final Logger log = LoggerFactory.getLogger(CustomLogoutSuccessHandler.class);
     @Override
     public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         response.setStatus(HttpStatus.OK.value());

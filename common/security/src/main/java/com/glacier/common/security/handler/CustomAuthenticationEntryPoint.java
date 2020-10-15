@@ -5,7 +5,8 @@ import com.glacier.common.core.constant.CommonConstant;
 import com.glacier.common.core.constant.MediaConstants;
 import com.glacier.common.core.entity.Result;
 import com.glacier.common.core.exception.AuthErrorType;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.AuthenticationException;
@@ -23,9 +24,8 @@ import java.io.IOException;
  * @version 1.0
  * @date 2020-05-22 17:11
  */
-@Slf4j
 public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint {
-
+    private static final Logger log = LoggerFactory.getLogger(CustomAuthenticationEntryPoint.class);
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response,
                          AuthenticationException authException) throws IOException, ServletException {

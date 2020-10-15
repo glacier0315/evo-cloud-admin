@@ -3,9 +3,8 @@ package com.glacier.modules.dfs.controller;
 import com.glacier.common.core.entity.Result;
 import com.glacier.modules.dfs.service.FileService;
 import io.swagger.annotations.ApiOperation;
-import lombok.RequiredArgsConstructor;
-import lombok.SneakyThrows;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -18,22 +17,25 @@ import javax.servlet.http.HttpServletResponse;
  * @version 1.0
  * @date 2020-09-11 15:11
  */
-@Slf4j
 @RestController
 @RequestMapping("/dfs")
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class DfsController {
-
+    private static final Logger log = LoggerFactory.getLogger(DfsController.class);
     private final FileService fileService;
+
+    @Autowired
+    public DfsController(FileService fileService) {
+        this.fileService = fileService;
+    }
 
     /**
      * 下载文件
+     *
      * @param path
      * @param response
      */
     @ApiOperation(value = "下载文件")
     @GetMapping(value = "/download")
-    @SneakyThrows(Exception.class)
     public void download(@RequestParam("path") String path,
                          @ApiIgnore HttpServletResponse response) {
         this.fileService.download(path, response);

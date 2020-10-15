@@ -7,8 +7,8 @@ import com.glacier.modules.sys.entity.dto.user.UserInfo;
 import com.glacier.modules.sys.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,12 +21,16 @@ import org.springframework.web.bind.annotation.RestController;
  * @date 2020-05-24 18:27
  */
 @Api(tags = "用户信息管理")
-@Slf4j
 @RestController
 @RequestMapping(value = "/oauth")
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class OauthController {
+    private static final Logger log = LoggerFactory.getLogger(OauthController.class);
     private final UserService userService;
+
+    @Autowired
+    public OauthController(UserService userService) {
+        this.userService = userService;
+    }
 
     /**
      * 获取当前用户信息

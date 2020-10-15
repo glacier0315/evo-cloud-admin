@@ -1,9 +1,8 @@
 package com.glacier.modules.sys.controller;
 
 import io.swagger.annotations.Api;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -14,9 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
  * @date 2020-09-05 17:12
  */
 @Api(tags = "登录日志管理")
-@Slf4j
 @RestController
 @RequestMapping("/logs/login")
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class LoginLogController {
+    private static final Logger log = LoggerFactory.getLogger(LoginLogController.class);
 }

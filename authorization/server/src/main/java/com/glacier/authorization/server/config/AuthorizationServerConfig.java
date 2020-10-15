@@ -2,7 +2,6 @@ package com.glacier.authorization.server.config;
 
 import com.glacier.authorization.server.oauth2.exception.CunstomWebResponseExceptionTranslator;
 import com.glacier.authorization.server.oauth2.filter.CustomClientCredentialsTokenEndpointFilter;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -36,7 +35,6 @@ import java.util.concurrent.TimeUnit;
  */
 @Configuration
 @EnableAuthorizationServer
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
     private final AuthenticationManager authenticationManager;
     private final UserDetailsService userDetailsService;
@@ -47,6 +45,27 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     private final CunstomWebResponseExceptionTranslator webResponseExceptionTranslator;
     private final AuthenticationEntryPoint authenticationEntryPoint;
     private final AccessDeniedHandler accessDeniedHandler;
+
+    @Autowired
+    public AuthorizationServerConfig(AuthenticationManager authenticationManager,
+                                     UserDetailsService userDetailsService,
+                                     PasswordEncoder passwordEncoder,
+                                     DataSource dataSource,
+                                     TokenStore tokenStore,
+                                     TokenEnhancerChain tokenEnhancerChain,
+                                     CunstomWebResponseExceptionTranslator webResponseExceptionTranslator,
+                                     AuthenticationEntryPoint authenticationEntryPoint,
+                                     AccessDeniedHandler accessDeniedHandler) {
+        this.authenticationManager = authenticationManager;
+        this.userDetailsService = userDetailsService;
+        this.passwordEncoder = passwordEncoder;
+        this.dataSource = dataSource;
+        this.tokenStore = tokenStore;
+        this.tokenEnhancerChain = tokenEnhancerChain;
+        this.webResponseExceptionTranslator = webResponseExceptionTranslator;
+        this.authenticationEntryPoint = authenticationEntryPoint;
+        this.accessDeniedHandler = accessDeniedHandler;
+    }
 
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {

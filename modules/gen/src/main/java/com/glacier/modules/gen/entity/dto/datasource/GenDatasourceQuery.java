@@ -2,8 +2,6 @@ package com.glacier.modules.gen.entity.dto.datasource;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Data;
-import lombok.ToString;
 
 import java.io.Serializable;
 
@@ -14,8 +12,6 @@ import java.io.Serializable;
  * @date 2020-09-20 16:03
  */
 @ApiModel(description = "数据源查询模型")
-@Data
-@ToString
 public class GenDatasourceQuery implements Serializable {
     private static final long serialVersionUID = 691721743760935906L;
 
@@ -24,4 +20,23 @@ public class GenDatasourceQuery implements Serializable {
      */
     @ApiModelProperty(value = "名称")
     private String name;
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "GenDatasourceQuery{" +
+                "name='" + this.name + '\'' +
+                '}';
+    }
 }

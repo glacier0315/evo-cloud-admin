@@ -7,8 +7,8 @@ import com.glacier.authorization.resource.mapper.UserMapper;
 import com.glacier.authorization.resource.service.UserService;
 import com.glacier.common.core.entity.Result;
 import com.glacier.common.core.exception.AuthErrorType;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,14 +22,19 @@ import java.util.List;
  * @version 1.0
  * @date 2020-05-21 17:42
  */
-@Slf4j
 @Transactional(readOnly = true)
 @Service(value = "userService")
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class UserServiceImpl implements UserService {
-
+    private static final Logger log = LoggerFactory.getLogger(UserServiceImpl.class);
     private final UserMapper userMapper;
     private final RoleMapper roleMapper;
+
+    @Autowired
+    public UserServiceImpl(UserMapper userMapper,
+                           RoleMapper roleMapper) {
+        this.userMapper = userMapper;
+        this.roleMapper = roleMapper;
+    }
 
     /**
      * 根据用户名查用户
@@ -43,14 +48,12 @@ public class UserServiceImpl implements UserService {
         if (user != null) {
             // 查找角色
             List<String> roles = this.roleMapper.findCodeByUserId(user.getId());
-            UserInfo userInfo = UserInfo.builder()
-                    .id(user.getId())
-                    .name(user.getUsername())
-                    .roles(roles)
-                    .build();
+            UserInfo userInfo = new UserInfo();
+            userInfo.setId(user.getId());
+            userInfo.setName(user.getUsername());
+            userInfo.setRoles(roles);
             return Result.ok(userInfo);
-        } else {
-            return Result.error(AuthErrorType.INVALID_GRANT);
         }
+        return Result.error(AuthErrorType.INVALID_GRANT);
     }
 }

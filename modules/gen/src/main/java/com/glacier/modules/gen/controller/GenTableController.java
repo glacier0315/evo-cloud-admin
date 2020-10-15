@@ -7,8 +7,8 @@ import com.glacier.modules.gen.entity.dto.table.GenTableDto;
 import com.glacier.modules.gen.entity.dto.table.GenTableQuery;
 import com.glacier.modules.gen.service.GenTableService;
 import io.swagger.annotations.Api;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,12 +21,16 @@ import org.springframework.web.bind.annotation.RestController;
  * @date 2020-08-26 16:31
  */
 @Api(tags = "代码生成管理")
-@Slf4j
 @RestController
 @RequestMapping(value = "/table")
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class GenTableController {
+    private static final Logger log = LoggerFactory.getLogger(GenTableController.class);
     private final GenTableService genTableService;
+
+    @Autowired
+    public GenTableController(GenTableService genTableService) {
+        this.genTableService = genTableService;
+    }
 
     /**
      * 分页查询用户

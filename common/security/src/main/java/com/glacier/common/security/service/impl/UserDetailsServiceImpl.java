@@ -6,8 +6,8 @@ import com.glacier.common.core.entity.dto.vo.RoleDetailsDto;
 import com.glacier.common.core.entity.dto.vo.UserDetailsDto;
 import com.glacier.common.security.consumer.UserConsumerService;
 import com.glacier.common.security.entity.dto.UserDetailsVo;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -24,11 +24,15 @@ import java.util.stream.Collectors;
  * @version 1.0
  * @date 2019-09-30 10:15
  */
-@Slf4j
 @Service("userDetailsService")
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class UserDetailsServiceImpl implements UserDetailsService {
+    private static final Logger log = LoggerFactory.getLogger(UserDetailsServiceImpl.class);
     private final UserConsumerService userService;
+
+    @Autowired
+    public UserDetailsServiceImpl(UserConsumerService userService) {
+        this.userService = userService;
+    }
 
     /**
      * 根据用户名查用户

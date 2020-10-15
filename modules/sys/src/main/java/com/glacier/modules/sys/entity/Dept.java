@@ -1,9 +1,6 @@
 package com.glacier.modules.sys.entity;
 
 import com.glacier.common.core.entity.AbstractTreeEntity;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
 
 /**
  * 组织机构
@@ -12,9 +9,6 @@ import lombok.ToString;
  * @version 1.0
  * @date 2019-10-14 17:06
  */
-@Data
-@ToString(callSuper = true)
-@EqualsAndHashCode(callSuper = false)
 public class Dept extends AbstractTreeEntity<Dept> {
     private static final long serialVersionUID = 7605652474322748904L;
     /**
@@ -37,4 +31,70 @@ public class Dept extends AbstractTreeEntity<Dept> {
      * 父级Id,格式：,id1,id2,
      */
     private String parentIds;
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public String getCode() {
+        return this.code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public Integer getType() {
+        return this.type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
+    }
+
+    public Integer getStatus() {
+        return this.status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    public String getParentName() {
+        return this.parentName;
+    }
+
+    public void setParentName(String parentName) {
+        this.parentName = parentName;
+    }
+
+    public String getParentIds() {
+        return this.parentIds;
+    }
+
+    public void setParentIds(String parentIds) {
+        this.parentIds = parentIds;
+    }
+
+    @Override
+    public String toString() {
+        return "Dept{" +
+                "code='" + this.code + '\'' +
+                ", type=" + this.type +
+                ", status=" + this.status +
+                ", parentName='" + this.parentName + '\'' +
+                ", parentIds='" + this.parentIds + '\'' +
+                ", name='" + this.name + '\'' +
+                ", parentId='" + this.parentId + '\'' +
+                ", orderNum=" + this.orderNum +
+                ", grade=" + this.grade +
+                ", children=" + this.children +
+                ", createBy='" + this.createBy + '\'' +
+                ", createDate=" + this.createDate +
+                ", updateBy='" + this.updateBy + '\'' +
+                ", updateDate=" + this.updateDate +
+                ", delFlag='" + this.delFlag + '\'' +
+                ", id='" + this.id + '\'' +
+                '}';
+    }
 }

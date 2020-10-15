@@ -2,8 +2,6 @@ package com.glacier.modules.sys.entity.dto.role;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Data;
-import lombok.ToString;
 
 import java.io.Serializable;
 
@@ -14,8 +12,6 @@ import java.io.Serializable;
  * @date 2020-07-03 21:51
  */
 @ApiModel(description = "角色查询条件模型")
-@Data
-@ToString
 public class RoleQuery implements Serializable {
     private static final long serialVersionUID = 4596028730042166514L;
     /**
@@ -43,4 +39,59 @@ public class RoleQuery implements Serializable {
      */
     @ApiModelProperty(value = "用户id， 用于查询用户不具有角色")
     private String notEqUserId;
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getCode() {
+        return this.code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getStatus() {
+        return this.status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getUserId() {
+        return this.userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public String getNotEqUserId() {
+        return this.notEqUserId;
+    }
+
+    public void setNotEqUserId(String notEqUserId) {
+        this.notEqUserId = notEqUserId;
+    }
+
+    @Override
+    public String toString() {
+        return "RoleQuery{" +
+                "name='" + this.name + '\'' +
+                ", code='" + this.code + '\'' +
+                ", status='" + this.status + '\'' +
+                ", userId='" + this.userId + '\'' +
+                ", notEqUserId='" + this.notEqUserId + '\'' +
+                '}';
+    }
 }

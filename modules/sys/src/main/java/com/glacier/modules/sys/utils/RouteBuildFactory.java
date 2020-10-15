@@ -41,12 +41,11 @@ public class RouteBuildFactory {
                             router.setComponent(
                                     Optional.ofNullable(menu.getComponent())
                                             .orElseGet(() -> SysConstants.LAYOUT));
-                            router.setMeta(
-                                    Meta.builder()
-                                            .icon(menu.getIcon())
-                                            .title(menu.getName())
-                                            .build());
-                            router.setHidden(menu.getVisible() != null && menu.getVisible()== 2);
+                            Meta meta = new Meta();
+                            meta.setIcon(menu.getIcon());
+                            meta.setTitle(menu.getName());
+                            router.setMeta(meta);
+                            router.setHidden(menu.getVisible() != null && menu.getVisible() == 2);
                             // 处理子菜单
                             if (menu.getChildren() != null
                                     && !menu.getChildren().isEmpty()) {

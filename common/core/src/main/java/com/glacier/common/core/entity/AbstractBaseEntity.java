@@ -55,8 +55,9 @@ public abstract class AbstractBaseEntity implements Serializable {
      * @return 返回sqlMap
      */
     public Map<String, String> getSqlMap() {
-        return Optional.ofNullable(this.sqlMap)
+        this.sqlMap = Optional.ofNullable(this.sqlMap)
                 .orElseGet(ConcurrentHashMap::new);
+        return this.sqlMap;
     }
 
     /**
@@ -87,4 +88,5 @@ public abstract class AbstractBaseEntity implements Serializable {
      * 更新之前执行方法，子类实现
      */
     public abstract void preUpdate();
+
 }

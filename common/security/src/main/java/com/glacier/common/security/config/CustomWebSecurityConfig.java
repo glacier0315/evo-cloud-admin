@@ -5,7 +5,6 @@ import com.glacier.common.security.filter.CustomContextFilter;
 import com.glacier.common.security.handler.CustomAccessDeniedHandler;
 import com.glacier.common.security.handler.CustomAuthenticationEntryPoint;
 import com.glacier.common.security.handler.CustomLogoutSuccessHandler;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
@@ -47,10 +46,15 @@ import org.springframework.web.client.RestTemplate;
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class CustomWebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final JwtDecoder jwtDecoder;
+
+    @Autowired
+    public CustomWebSecurityConfig(JwtDecoder jwtDecoder) {
+        this.jwtDecoder = jwtDecoder;
+    }
+
 
     /**
      * 配置静态资源拦截问题

@@ -19,4 +19,8 @@ public interface ServiceNameConstants {
      * 文件服务模块的 serviceId
      */
     String FDFS_SERVICE = "fdfs";
+    /**
+     * 文件服务模块的 serviceId
+     */
+    String DFS_SERVICE = "dfs";
 }

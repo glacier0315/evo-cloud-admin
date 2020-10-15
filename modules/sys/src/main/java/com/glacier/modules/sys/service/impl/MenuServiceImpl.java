@@ -10,10 +10,10 @@ import com.glacier.modules.sys.entity.dto.menu.MenuVo;
 import com.glacier.modules.sys.mapper.MenuMapper;
 import com.glacier.modules.sys.service.MenuService;
 import com.google.common.collect.Lists;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,14 +28,18 @@ import java.util.stream.Collectors;
  * @version 1.0
  * @date 2019-10-09 15:45
  */
-@Slf4j
 @Transactional(readOnly = true)
 @Service("menuService")
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class MenuServiceImpl implements MenuService {
-
+    private static final Logger log = LoggerFactory.getLogger(MenuServiceImpl.class);
     private final MenuMapper menuMapper;
     private final ModelMapper modelMapper;
+
+    @Autowired
+    public MenuServiceImpl(MenuMapper menuMapper, ModelMapper modelMapper) {
+        this.menuMapper = menuMapper;
+        this.modelMapper = modelMapper;
+    }
 
     /**
      * 保存
@@ -99,20 +103,15 @@ public class MenuServiceImpl implements MenuService {
             return menuList;
         }
         List<Integer> typeList = Lists.newArrayList(SysConstants.TYPE_DIR, SysConstants.TYPE_MENU);
-        List<MenuVo> allMenuVolist = this.findList(
-                MenuQuery.builder()
-                        .status(SysConstants.STATUS_ENABLED)
-                        .typeList(typeList)
-                        .build());
+        MenuQuery menuQuery = new MenuQuery();
+        menuQuery.setStatus(SysConstants.STATUS_ENABLED);
+        menuQuery.setTypeList(typeList);
+        List<MenuVo> allMenuVolist = this.findList(menuQuery);
         if (SysConstants.SYS_USER_ID.equals(userId)) {
             menuList.addAll(allMenuVolist);
         } else {
-            List<MenuVo> menus = this.findList(
-                    MenuQuery.builder()
-                            .status(SysConstants.STATUS_ENABLED)
-                            .typeList(typeList)
-                            .userId(userId)
-                            .build());
+            menuQuery.setUserId(userId);
+            List<MenuVo> menus = this.findList(menuQuery);
             // 处理,得到需要的菜单集合
             menuList.addAll(
                     this.findAllMenus(menus, allMenuVolist));
@@ -132,18 +131,12 @@ public class MenuServiceImpl implements MenuService {
             return new HashSet<>(1);
         }
         List<MenuVo> menuList = null;
-        if (SysConstants.SYS_USER_ID.equals(userId)) {
-            menuList = this.findList(
-                    MenuQuery.builder()
-                            .status(SysConstants.STATUS_ENABLED)
-                            .build());
-        } else {
-            menuList = this.findList(
-                    MenuQuery.builder()
-                            .status(SysConstants.STATUS_ENABLED)
-                            .userId(userId)
-                            .build());
+        MenuQuery menuQuery = new MenuQuery();
+        menuQuery.setStatus(SysConstants.STATUS_ENABLED);
+        if (!SysConstants.SYS_USER_ID.equals(userId)) {
+            menuQuery.setUserId(userId);
         }
+        menuList = this.findList(menuQuery);
         return Optional.ofNullable(menuList)
                 .orElseGet(ArrayList::new)
                 .stream()

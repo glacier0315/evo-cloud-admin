@@ -3,7 +3,6 @@ package com.glacier.authorization.resource.config;
 import com.glacier.authorization.resource.config.settings.SecuritySettings;
 import com.glacier.authorization.resource.oauth2.CustomAccessDeniedHandler;
 import com.glacier.authorization.resource.oauth2.CustomAuthenticationEntryPoint;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -26,11 +25,16 @@ import org.springframework.security.web.access.AccessDeniedHandler;
 @Configuration
 @EnableResourceServer
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
     public static final String AUTHORIZATION_RESOURCE = "authorization-resource";
     private final SecuritySettings securitySettings;
     private final TokenStore tokenStore;
+
+    @Autowired
+    public ResourceServerConfig(SecuritySettings securitySettings, TokenStore tokenStore) {
+        this.securitySettings = securitySettings;
+        this.tokenStore = tokenStore;
+    }
 
     @Override
     public void configure(ResourceServerSecurityConfigurer resources) throws Exception {

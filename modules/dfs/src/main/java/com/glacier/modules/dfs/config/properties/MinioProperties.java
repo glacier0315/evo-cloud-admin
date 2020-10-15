@@ -1,7 +1,5 @@
 package com.glacier.modules.dfs.config.properties;
 
-import lombok.Data;
-import lombok.ToString;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
@@ -10,8 +8,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @date 2020-09-08 19:57
  */
 @ConfigurationProperties("minio")
-@Data
-@ToString
 public class MinioProperties {
     /**
      *
@@ -29,4 +25,46 @@ public class MinioProperties {
      * 默认BucketName
      */
     private String defaultBucketName;
+
+    public String getEndpoint() {
+        return this.endpoint;
+    }
+
+    public void setEndpoint(String endpoint) {
+        this.endpoint = endpoint;
+    }
+
+    public String getAccesskey() {
+        return this.accesskey;
+    }
+
+    public void setAccesskey(String accesskey) {
+        this.accesskey = accesskey;
+    }
+
+    public String getSecretKey() {
+        return this.secretKey;
+    }
+
+    public void setSecretKey(String secretKey) {
+        this.secretKey = secretKey;
+    }
+
+    public String getDefaultBucketName() {
+        return this.defaultBucketName;
+    }
+
+    public void setDefaultBucketName(String defaultBucketName) {
+        this.defaultBucketName = defaultBucketName;
+    }
+
+    @Override
+    public String toString() {
+        return "MinioProperties{" +
+                "endpoint='" + this.endpoint + '\'' +
+                ", accesskey='" + this.accesskey + '\'' +
+                ", secretKey='" + this.secretKey + '\'' +
+                ", defaultBucketName='" + this.defaultBucketName + '\'' +
+                '}';
+    }
 }

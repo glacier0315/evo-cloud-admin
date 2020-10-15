@@ -11,10 +11,10 @@ import com.glacier.modules.sys.mapper.DeptMapper;
 import com.glacier.modules.sys.mapper.RoleDeptMapper;
 import com.glacier.modules.sys.mapper.UserMapper;
 import com.glacier.modules.sys.service.DeptService;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,15 +29,26 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @version 1.0
  * @date 2019-10-24 17:12
  */
-@Slf4j
 @Transactional(readOnly = true)
 @Service("deptService")
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class DeptServiceImpl implements DeptService {
+    private static final Logger log = LoggerFactory.getLogger(DeptServiceImpl.class);
     private final ModelMapper modelMapper;
     private final DeptMapper deptMapper;
     private final UserMapper userMapper;
     private final RoleDeptMapper roleDeptMapper;
+
+    @Autowired
+    public DeptServiceImpl(
+            ModelMapper modelMapper,
+            DeptMapper deptMapper,
+            UserMapper userMapper,
+            RoleDeptMapper roleDeptMapper) {
+        this.modelMapper = modelMapper;
+        this.deptMapper = deptMapper;
+        this.userMapper = userMapper;
+        this.roleDeptMapper = roleDeptMapper;
+    }
 
     /**
      * 查找所有 组织机构

@@ -6,7 +6,8 @@ import com.glacier.modules.sys.entity.dto.user.UserRoleDto;
 import com.glacier.modules.sys.service.UserRoleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,9 +24,14 @@ import org.springframework.web.bind.annotation.RestController;
 @Api(tags = "用户角色关系管理")
 @RestController
 @RequestMapping("/userRole")
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class UserRoleController {
+    private static final Logger log = LoggerFactory.getLogger(UserRoleController.class);
     private final UserRoleService userRoleService;
+
+    @Autowired
+    public UserRoleController(UserRoleService userRoleService) {
+        this.userRoleService = userRoleService;
+    }
 
     /**
      * 移除角色用户关系

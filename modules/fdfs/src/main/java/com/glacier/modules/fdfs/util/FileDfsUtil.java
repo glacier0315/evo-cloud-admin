@@ -6,10 +6,10 @@ import com.github.tobato.fastdfs.exception.FdfsUnsupportStorePathException;
 import com.github.tobato.fastdfs.service.FastFileStorageClient;
 import com.glacier.common.core.entity.Result;
 import com.glacier.common.core.utils.StringUtil;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.MimeTypeUtils;
@@ -29,11 +29,15 @@ import java.util.Objects;
  * @version 1.0
  * @date 2020-02-10 19:33
  */
-@Slf4j
 @Component
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class FileDfsUtil {
+    private static final Logger log = LoggerFactory.getLogger(FileDfsUtil.class);
     private final FastFileStorageClient storageClient;
+
+    @Autowired
+    public FileDfsUtil(FastFileStorageClient storageClient) {
+        this.storageClient = storageClient;
+    }
 
     /**
      * MultipartFile类型的文件上传ַ

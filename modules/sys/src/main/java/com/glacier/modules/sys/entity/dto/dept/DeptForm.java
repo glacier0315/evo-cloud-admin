@@ -3,9 +3,6 @@ package com.glacier.modules.sys.entity.dto.dept;
 import com.glacier.common.core.entity.dto.TreeDto;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
 
 /**
  * 组织机构模型
@@ -15,9 +12,6 @@ import lombok.ToString;
  * @date 2020-08-11 21:18
  */
 @ApiModel(description = "组织机构模型")
-@Data
-@EqualsAndHashCode(callSuper = true)
-@ToString
 public class DeptForm extends TreeDto {
     private static final long serialVersionUID = 179906087824726888L;
     /**
@@ -35,4 +29,47 @@ public class DeptForm extends TreeDto {
      */
     @ApiModelProperty(value = "状态")
     private Integer status;
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public String getCode() {
+        return this.code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public Integer getType() {
+        return this.type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
+    }
+
+    public Integer getStatus() {
+        return this.status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        return "DeptForm{" +
+                "code='" + this.code + '\'' +
+                ", type=" + this.type +
+                ", status=" + this.status +
+                ", id='" + this.id + '\'' +
+                ", name='" + this.name + '\'' +
+                ", parentId='" + this.parentId + '\'' +
+                ", parentName='" + this.parentName + '\'' +
+                ", orderNum=" + this.orderNum +
+                ", grade=" + this.grade +
+                '}';
+    }
 }

@@ -2,7 +2,8 @@ package com.glacier.authorization.server.oauth2;
 
 import com.glacier.common.core.entity.Result;
 import com.google.common.collect.Maps;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
@@ -19,9 +20,8 @@ import java.util.Map;
  * @version 1.0
  * @date 2020-05-21 17:15
  */
-@Slf4j
 public class CustomTokenEnhancer implements TokenEnhancer {
-
+    private static final Logger log = LoggerFactory.getLogger(CustomTokenEnhancer.class);
     @Override
     public OAuth2AccessToken enhance(OAuth2AccessToken accessToken, OAuth2Authentication authentication) {
         Map<String, Object> additionalInfo = Maps.newHashMap();

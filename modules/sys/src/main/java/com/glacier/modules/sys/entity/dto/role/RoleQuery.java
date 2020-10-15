@@ -9,7 +9,7 @@ import java.io.Serializable;
  * 角色查询条件模型
  * @author glacier
  * @version 1.0
- * @date 2020-07-03 21:51
+ * date 2020-07-03 21:51
  */
 @ApiModel(description = "角色查询条件模型")
 public class RoleQuery implements Serializable {

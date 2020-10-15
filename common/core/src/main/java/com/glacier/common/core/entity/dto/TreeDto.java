@@ -8,7 +8,7 @@ import java.io.Serializable;
 /**
  * @author glacier
  * @version 1.0
- * @date 2020-08-11 21:25
+ * date 2020-08-11 21:25
  */
 @ApiModel(description = "树形模型")
 public class TreeDto implements Serializable {

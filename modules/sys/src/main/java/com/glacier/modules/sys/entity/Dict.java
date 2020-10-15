@@ -7,7 +7,7 @@ import com.glacier.common.core.entity.AbstractTreeEntity;
  *
  * @author glacier
  * @version 1.0
- * @date 2019-12-01 21:16
+ * date 2019-12-01 21:16
  */
 public class Dict extends AbstractTreeEntity<Dict> {
     private static final long serialVersionUID = -8004367732541881835L;

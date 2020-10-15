@@ -3,7 +3,7 @@ package com.glacier.modules.constant;
 /**
  * @author glacier
  * @version 1.0
- * @date 2020-09-20 14:49
+ * date 2020-09-20 14:49
  */
 public interface DataSourceConstant {
 

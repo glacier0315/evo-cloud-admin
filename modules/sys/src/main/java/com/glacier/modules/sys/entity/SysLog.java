@@ -6,7 +6,7 @@ import java.util.Date;
 /**
  * @author glacier
  * @version 1.0
- * @date 2019-12-18 15:29
+ * date 2019-12-18 15:29
  */
 public class SysLog implements Serializable {
     private static final long serialVersionUID = 2402303891367907111L;

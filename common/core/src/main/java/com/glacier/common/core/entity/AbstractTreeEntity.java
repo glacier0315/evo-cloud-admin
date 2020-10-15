@@ -7,7 +7,7 @@ import java.util.List;
  *
  * @author glacier
  * @version 1.0
- * @date 2020-08-10 17:40
+ * date 2020-08-10 17:40
  */
 public abstract class AbstractTreeEntity<T extends AbstractTreeEntity<T>> extends AbstractDataEntity {
     private static final long serialVersionUID = 5789176651104516887L;

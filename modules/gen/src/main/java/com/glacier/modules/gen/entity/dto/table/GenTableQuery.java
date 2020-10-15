@@ -9,7 +9,7 @@ import java.io.Serializable;
  * 表查询模型
  * @author glacier
  * @version 1.0
- * @date 2020-08-26 16:56
+ * date 2020-08-26 16:56
  */
 @ApiModel(description = "表查询模型")
 public class GenTableQuery implements Serializable {

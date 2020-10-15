@@ -9,7 +9,7 @@ import io.swagger.annotations.ApiModelProperty;
  *
  * @author glacier
  * @version 1.0
- * @date 2020-07-23 10:12
+ * date 2020-07-23 10:12
  */
 @ApiModel(description = "用户密码模型")
 public class UserPasswordForm extends IdDto {

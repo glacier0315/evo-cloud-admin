@@ -8,7 +8,7 @@ import java.io.Serializable;
 /**
  * @author glacier
  * @version 1.0
- * @date 2020-09-20 16:04
+ * date 2020-09-20 16:04
  */
 @ApiModel(description = "数据源模型")
 public class GenDatasourceDto implements Serializable {

@@ -16,7 +16,7 @@ import java.util.Optional;
  *
  * @author glacier
  * @version 1.0
- * @date 2019-10-28 09:08
+ * date 2019-10-28 09:08
  */
 public class SecurityUtils {
     private static final Logger log = LoggerFactory.getLogger(SecurityUtils.class);

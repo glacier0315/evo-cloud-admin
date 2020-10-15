@@ -9,7 +9,7 @@ import com.glacier.modules.sys.entity.dto.user.UserRoleDto;
  *
  * @author glacier
  * @version 1.0
- * @date 2019-12-18 15:29
+ * date 2019-12-18 15:29
  */
 public interface UserRoleMapper {
 
@@ -17,7 +17,7 @@ public interface UserRoleMapper {
      * 保存角色用户关系
      *
      * @param roleUserDto 角色用户关系
-     * @return
+     * @return 保存行数
      */
     int insertBatchUser(RoleUserDto roleUserDto);
 
@@ -25,16 +25,15 @@ public interface UserRoleMapper {
      * 移除角色用户关系
      *
      * @param roleUserDto 角色用户关系
-     * @return
+     * @return 保存行数
      */
     int deleteBatchUser(RoleUserDto roleUserDto);
-
 
     /**
      * 保存用户角色关系
      *
      * @param userRoleDto 用户角色关系
-     * @return
+     * @return 保存行数
      */
     int insertBatchRole(UserRoleDto userRoleDto);
 
@@ -42,7 +41,7 @@ public interface UserRoleMapper {
      * 移除用户角色关系
      *
      * @param userRoleDto 用户角色关系
-     * @return
+     * @return 删除记录数
      */
     int deleteBatchRole(UserRoleDto userRoleDto);
 
@@ -50,7 +49,7 @@ public interface UserRoleMapper {
      * 删除 用户角色关联关系
      *
      * @param userId 用户id
-     * @return
+     * @return 删除记录数
      */
     int deleteByUserId(String userId);
 
@@ -58,15 +57,15 @@ public interface UserRoleMapper {
      * 删除 用户角色关联关系
      *
      * @param roleId 角色id
-     * @return
+     * @return 删除记录数
      */
     int deleteByRoleId(String roleId);
 
     /**
      * 保存用户角色关系
      *
-     * @param record
-     * @return
+     * @param record 记录
+     * @return 保存记录数
      */
     int insert(UserRole record);
 

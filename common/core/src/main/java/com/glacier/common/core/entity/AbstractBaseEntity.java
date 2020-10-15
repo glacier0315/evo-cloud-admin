@@ -14,7 +14,7 @@ import java.util.concurrent.ConcurrentHashMap;
  *
  * @author glacier
  * @version 1.0
- * @date 2020-05-18 15:59
+ * date 2020-05-18 15:59
  */
 public abstract class AbstractBaseEntity implements Serializable {
     private static final long serialVersionUID = -3733490542838696950L;

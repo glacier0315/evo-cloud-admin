@@ -7,7 +7,7 @@ import java.util.UUID;
  *
  * @author glacier
  * @version 1.0
- * @date 2020-08-08 10:09
+ * date 2020-08-08 10:09
  */
 public class IdGen {
 

@@ -20,7 +20,7 @@ import java.io.IOException;
  *
  * @author glacier
  * @version 1.0
- * @date 2020-05-22 21:20
+ * date 2020-05-22 21:20
  */
 public class CustomLogoutSuccessHandler implements LogoutSuccessHandler {
     private static final Logger log = LoggerFactory.getLogger(CustomLogoutSuccessHandler.class);

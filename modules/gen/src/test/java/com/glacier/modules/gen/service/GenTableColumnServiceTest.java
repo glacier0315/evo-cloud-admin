@@ -1,11 +1,11 @@
 package com.glacier.modules.gen.service;
 
 import com.glacier.modules.gen.entity.dto.column.GenTableColumnDto;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -14,14 +14,13 @@ import java.util.List;
 /**
  * @author glacier
  * @version 1.0
- * @date 2020-09-20 15:01
+ * date 2020-09-20 15:01
  */
-@Slf4j
 @SpringBootTest
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class GenTableColumnServiceTest {
-
-    private final GenTableColumnService genTableColumnService;
+    private static final Logger log = LoggerFactory.getLogger(GenTableColumnServiceTest.class);
+    @Autowired
+    private GenTableColumnService genTableColumnService;
 
 
     @BeforeEach

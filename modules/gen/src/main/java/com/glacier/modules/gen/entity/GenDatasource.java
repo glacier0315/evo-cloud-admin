@@ -22,7 +22,7 @@ import com.glacier.common.core.entity.AbstractDataEntity;
  *
  * @author glacier
  * @version 1.0
- * @date 2019-08-04 21:53
+ * date 2019-08-04 21:53
  */
 public class GenDatasource extends AbstractDataEntity {
 	private static final long serialVersionUID = -3256542275939203325L;

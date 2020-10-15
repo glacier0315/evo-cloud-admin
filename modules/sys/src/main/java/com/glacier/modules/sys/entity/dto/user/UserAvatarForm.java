@@ -9,7 +9,7 @@ import io.swagger.annotations.ApiModelProperty;
  *
  * @author glacier
  * @version 1.0
- * @date 2020-07-23 10:31
+ * date 2020-07-23 10:31
  */
 @ApiModel(description = "用户头像模型")
 public class UserAvatarForm extends IdDto {

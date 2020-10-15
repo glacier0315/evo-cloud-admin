@@ -11,7 +11,7 @@ import java.util.List;
  *
  * @author glacier
  * @version 1.0
- * @date 2020-05-22 16:56
+ * date 2020-05-22 16:56
  */
 @ApiModel(description = "用户信息模型")
 public class UserInfo implements Serializable {

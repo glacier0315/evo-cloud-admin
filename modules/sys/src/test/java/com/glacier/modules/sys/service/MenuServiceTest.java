@@ -13,7 +13,7 @@ import java.util.Optional;
 /**
  * @author glacier
  * @version 1.0
- * @date 2020-08-10 20:37
+ * date 2020-08-10 20:37
  */
 @SpringBootTest
 public class MenuServiceTest {
@@ -22,12 +22,11 @@ public class MenuServiceTest {
 
     @Test
     public void findList() {
-        MenuQuery menuQuery = MenuQuery.builder()
-                .status(1)
-                .typeList(Lists.newArrayList(1, 2))
-                .roleId("1")
-                .userId("1")
-                .build();
+        MenuQuery menuQuery = new MenuQuery();
+        menuQuery.setStatus(1);
+        menuQuery.setUserId("1");
+        menuQuery.setRoleId("1");
+        menuQuery.setTypeList(Lists.newArrayList(1, 2));
         List<MenuVo> menuVos = this.menuService.findList(menuQuery);
         Optional.ofNullable(menuVos)
                 .ifPresent(System.out::println);

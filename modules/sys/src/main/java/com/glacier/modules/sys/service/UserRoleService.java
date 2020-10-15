@@ -6,14 +6,14 @@ import com.glacier.modules.sys.entity.dto.user.UserRoleDto;
 /**
  * @author glacier
  * @version 1.0
- * @date 2020-08-30 12:46
+ * date 2020-08-30 12:46
  */
 public interface UserRoleService {
     /**
      * 保存角色用户关系
      *
      * @param roleUserDto 角色用户关系
-     * @return
+     * @return 保存记录数
      */
     int addUser(RoleUserDto roleUserDto);
 
@@ -21,7 +21,7 @@ public interface UserRoleService {
      * 移除角色用户关系
      *
      * @param roleUserDto 角色用户关系
-     * @return
+     * @return 删除记录数
      */
     int deleteUser(RoleUserDto roleUserDto);
 
@@ -30,7 +30,7 @@ public interface UserRoleService {
      * 保存用户角色关系
      *
      * @param userRoleDto 用户角色关系
-     * @return
+     * @return 保存记录数
      */
     int addRole(UserRoleDto userRoleDto);
 
@@ -38,7 +38,7 @@ public interface UserRoleService {
      * 移除用户角色关系
      *
      * @param userRoleDto 用户角色关系
-     * @return
+     * @return 删除记录数
      */
     int deleteRole(UserRoleDto userRoleDto);
 }

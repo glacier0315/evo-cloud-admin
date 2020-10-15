@@ -9,7 +9,7 @@ import java.time.LocalDate;
  *
  * @author glacier
  * @version 1.0
- * @date 2019-08-04 13:45
+ * date 2019-08-04 13:45
  */
 public class User extends AbstractDataEntity {
     private static final long serialVersionUID = -3083387263445135811L;

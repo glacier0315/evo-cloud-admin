@@ -7,7 +7,7 @@ import com.glacier.common.core.entity.AbstractDataEntity;
  *
  * @author glacier
  * @version 1.0
- * @date 2019-10-09 11:03
+ * date 2019-10-09 11:03
  */
 public class DictData extends AbstractDataEntity {
     private static final long serialVersionUID = 2538417218158807473L;

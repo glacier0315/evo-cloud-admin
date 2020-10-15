@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Configuration;
  *
  * @author glacier
  * @version 1.0
- * @date 2020-05-24 08:22
+ * date 2020-05-24 08:22
  */
 @Configuration
 public class ModelmapperConfig {
@@ -20,7 +20,7 @@ public class ModelmapperConfig {
     /**
      * 将modelmapper加入容器
      *
-     * @return
+     * @return 类型映射器
      */
     @Bean
     public ModelMapper modelMapper() {

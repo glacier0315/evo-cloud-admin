@@ -27,7 +27,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 /**
  * @author hebin
  * @version 1.0
- * @date 2019-10-24 17:12
+ * date 2019-10-24 17:12
  */
 @Transactional(readOnly = true)
 @Service("deptService")
@@ -53,7 +53,7 @@ public class DeptServiceImpl implements DeptService {
     /**
      * 查找所有 组织机构
      *
-     * @return
+     * @return 组织机构
      */
     @Override
     public List<DeptVo> findAllList() {
@@ -66,8 +66,8 @@ public class DeptServiceImpl implements DeptService {
     /**
      * 根据用户ID查找所有 组织机构
      *
-     * @param userId
-     * @return
+     * @param userId 用户ID
+     * @return 组织机构
      */
     @Override
     public List<DeptVo> findListByUserId(String userId) {
@@ -86,8 +86,8 @@ public class DeptServiceImpl implements DeptService {
     /**
      * 保存
      *
-     * @param deptForm
-     * @return
+     * @param deptForm 记录
+     * @return 保存记录数
      */
     @Transactional(rollbackFor = {})
     @Override
@@ -114,8 +114,8 @@ public class DeptServiceImpl implements DeptService {
     /**
      * 根据id删除
      *
-     * @param id
-     * @return
+     * @param id 主键
+     * @return 删除记录数
      */
     @Transactional(rollbackFor = {})
     @Override
@@ -139,8 +139,8 @@ public class DeptServiceImpl implements DeptService {
     /**
      * 根据用户ID 查找组织机构树
      *
-     * @param userId
-     * @return
+     * @param userId 用户id
+     * @return 组织机构树
      */
     @Override
     public List<DeptVo> findTree(String userId) {

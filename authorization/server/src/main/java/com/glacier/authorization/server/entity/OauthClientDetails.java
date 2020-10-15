@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * @author glacier
  * @version 1.0
- * @date 2020-07-26 16:15
+ * date 2020-07-26 16:15
  */
 public class OauthClientDetails implements Serializable {
     private static final long serialVersionUID = 3719213115388663432L;

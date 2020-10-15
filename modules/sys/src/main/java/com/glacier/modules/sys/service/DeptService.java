@@ -8,22 +8,22 @@ import java.util.List;
 /**
  * @author glacier
  * @version 1.0
- * @date 2019-10-24 17:07
+ * date 2019-10-24 17:07
  */
 public interface DeptService {
 
     /**
      * 查找所有 组织机构
      *
-     * @return
+     * @return 组织机构
      */
     List<DeptVo> findAllList();
 
     /**
      * 根据用户ID查找所有 组织机构
      *
-     * @param userId
-     * @return
+     * @param userId 用户ID
+     * @return 组织机构
      */
     List<DeptVo> findListByUserId(String userId);
 

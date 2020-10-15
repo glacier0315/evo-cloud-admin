@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * @author glacier
  * @version 1.0
- * @date 2020-07-26 16:21
+ * date 2020-07-26 16:21
  */
 public interface OauthClientDetailsService {
 

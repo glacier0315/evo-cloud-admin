@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * @author glacier
  * @version 1.0
- * @date 2020-08-08 11:07
+ * date 2020-08-08 11:07
  */
 @ApiModel(description = "角色详情模型")
 public class RoleDetailsDto implements Serializable {

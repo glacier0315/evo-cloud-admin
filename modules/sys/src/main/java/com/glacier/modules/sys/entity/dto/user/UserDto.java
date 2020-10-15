@@ -8,7 +8,7 @@ import io.swagger.annotations.ApiModelProperty;
 /**
  * @author glacier
  * @version 1.0
- * @date 2020-05-24 09:32
+ * date 2020-05-24 09:32
  */
 @ApiModel(description = "用户显示和更新模型")
 @ExcelIgnoreUnannotated

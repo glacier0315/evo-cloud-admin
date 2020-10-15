@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 /**
  * @author glacier
  * @version 1.0
- * @date 2020-08-10 17:26
+ * date 2020-08-10 17:26
  */
 public abstract class AbstractDataEntity extends AbstractBaseEntity {
     private static final long serialVersionUID = -6067130213584450184L;

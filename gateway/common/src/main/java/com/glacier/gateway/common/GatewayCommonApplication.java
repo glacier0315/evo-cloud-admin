@@ -7,7 +7,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 /**
  * @author glacier
  * @version 1.0
- * @date 2019-12-08 09:30
+ * date 2019-12-08 09:30
  */
 @EnableDiscoveryClient
 @SpringBootApplication

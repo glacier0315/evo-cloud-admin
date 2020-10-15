@@ -16,7 +16,7 @@ import java.util.Map;
  *
  * @author glacier
  * @version 1.0
- * @date 2020-08-20 09:47
+ * date 2020-08-20 09:47
  */
 public class SubjectAttributeUserTokenConverter extends DefaultUserAuthenticationConverter {
     private static final Logger log = LoggerFactory.getLogger(SubjectAttributeUserTokenConverter.class);

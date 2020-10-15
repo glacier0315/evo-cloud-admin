@@ -19,7 +19,7 @@ import java.util.List;
 /**
  * @author glacier
  * @version 1.0
- * @date 2019-11-21 17:37
+ * date 2019-11-21 17:37
  */
 @Transactional(readOnly = true)
 @Service("configService")
@@ -35,8 +35,8 @@ public class ConfigServiceImpl implements ConfigService {
     /**
      * 保存
      *
-     * @param record
-     * @return
+     * @param record 记录
+     * @return 保存记录数
      */
     @Transactional(rollbackFor = {})
     @Override
@@ -52,8 +52,8 @@ public class ConfigServiceImpl implements ConfigService {
     /**
      * 根据id删除
      *
-     * @param id
-     * @return
+     * @param id 主键
+     * @return 删除记录数
      */
     @Transactional(rollbackFor = {})
     @Override
@@ -67,8 +67,8 @@ public class ConfigServiceImpl implements ConfigService {
     /**
      * 分页查找
      *
-     * @param pageRequest
-     * @return
+     * @param pageRequest 分页请求
+     * @return 分页响应
      */
     @Override
     public PageResponse<Config> findPage(PageRequest<Config> pageRequest) {

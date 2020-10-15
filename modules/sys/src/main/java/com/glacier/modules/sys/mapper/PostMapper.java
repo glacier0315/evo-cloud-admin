@@ -12,14 +12,15 @@ import java.util.List;
  *
  * @author glacier
  * @version 1.0
- * @date 2019-10-09 11:03
+ * date 2019-10-09 11:03
  */
 public interface PostMapper extends BaseMapper<Post, String> {
 
     /**
      * 根据条件查询
-     * @param params
-     * @return
+     *
+     * @param params 查询参数
+     * @return 岗位集合
      */
     List<Post> selectList(PostQuery params);
 

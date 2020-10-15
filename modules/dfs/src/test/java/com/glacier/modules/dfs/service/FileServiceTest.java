@@ -1,7 +1,6 @@
 package com.glacier.modules.dfs.service;
 
 import io.minio.*;
-import lombok.SneakyThrows;
 import org.apache.commons.io.IOUtils;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -15,7 +14,7 @@ import java.io.FileInputStream;
 /**
  * @author glacier
  * @version 1.0
- * @date 2020-09-08 21:52
+ * date 2020-09-08 21:52
  */
 @SpringBootTest
 public class FileServiceTest {
@@ -31,9 +30,8 @@ public class FileServiceTest {
     void tearDown() {
     }
 
-    @SneakyThrows(Exception.class)
     @Test
-    void testUpload() {
+    void testUpload() throws Exception {
         File file = new File("D:\\12.jpg");
         String bucket = "files";
         FileInputStream fileInputStream = null;
@@ -58,9 +56,8 @@ public class FileServiceTest {
         });
     }
 
-    @SneakyThrows(Exception.class)
     @Test
-    void testRemove() {
+    void testRemove() throws Exception {
         String bucket = "files";
         this.minioClient.removeObject(RemoveObjectArgs.builder()
                 .bucket(bucket)

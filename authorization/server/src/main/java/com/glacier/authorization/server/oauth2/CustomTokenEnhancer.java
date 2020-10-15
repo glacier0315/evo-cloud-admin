@@ -18,7 +18,7 @@ import java.util.Map;
  *
  * @author glacier
  * @version 1.0
- * @date 2020-05-21 17:15
+ * date 2020-05-21 17:15
  */
 public class CustomTokenEnhancer implements TokenEnhancer {
     private static final Logger log = LoggerFactory.getLogger(CustomTokenEnhancer.class);

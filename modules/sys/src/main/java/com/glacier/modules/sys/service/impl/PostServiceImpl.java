@@ -24,7 +24,7 @@ import java.util.List;
  * 岗位业务层
  * @author glacier
  * @version 1.0
- * @date 2020-09-05 21:53
+ * date 2020-09-05 21:53
  */
 @Transactional(readOnly = true)
 @Service("postService")

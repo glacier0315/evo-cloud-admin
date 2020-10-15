@@ -5,7 +5,7 @@ package com.glacier.common.core.constant;
  *
  * @author glacier
  * @version 1.0
- * @date 2020-08-14 10:37
+ * date 2020-08-14 10:37
  */
 public interface SysConstants {
 

@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * @author glacier
  * @version 1.0
- * @date 2020-02-14 22:18
+ * date 2020-02-14 22:18
  */
 @Configuration
 @ConfigurationProperties(prefix = "settings.security")

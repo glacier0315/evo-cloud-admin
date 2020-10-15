@@ -10,7 +10,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
  *
  * @author glacier
  * @version 1.0
- * @date 2020-05-24 11:43
+ * date 2020-05-24 11:43
  */
 @EnableDiscoveryClient
 @EnableAdminServer

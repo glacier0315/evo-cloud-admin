@@ -22,7 +22,7 @@ import java.util.List;
 /**
  * @author glacier
  * @version 1.0
- * @date 2019-12-18 15:29
+ * date 2019-12-18 15:29
  */
 @Transactional(readOnly = true)
 @Service("sysLogService")
@@ -50,8 +50,8 @@ public class SysLogServiceImpl implements SysLogService {
     /**
      * 保存
      *
-     * @param record
-     * @return
+     * @param record 记录
+     * @return 保存记录数
      */
     @Transactional(rollbackFor = {})
     @Override
@@ -66,7 +66,7 @@ public class SysLogServiceImpl implements SysLogService {
     /**
      * 异步调用保存
      *
-     * @param record
+     * @param record 记录
      */
     @Transactional(rollbackFor = {})
     @Async

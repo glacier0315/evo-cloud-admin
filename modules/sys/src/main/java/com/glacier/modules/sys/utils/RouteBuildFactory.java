@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
  *
  * @author glacier
  * @version 1.0
- * @date 2020-06-16 21:08
+ * date 2020-06-16 21:08
  */
 public class RouteBuildFactory {
 
@@ -25,8 +25,8 @@ public class RouteBuildFactory {
     /**
      * 组装路由
      *
-     * @param menus
-     * @return
+     * @param menus 菜单树
+     * @return 路由树
      */
     public static List<Router> buildRouters(final List<MenuVo> menus) {
         return Optional.ofNullable(menus)

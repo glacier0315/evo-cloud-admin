@@ -8,7 +8,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 /**
  * @author glacier
  * @version 1.0
- * @date 2019-12-23 10:31
+ * date 2019-12-23 10:31
  */
 @EnableFeignClients
 @EnableDiscoveryClient

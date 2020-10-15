@@ -27,7 +27,7 @@ import java.util.Optional;
  *
  * @author glacier
  * @version 1.0
- * @date 2020-07-28 21:40
+ * date 2020-07-28 21:40
  */
 @Component
 public class TokenFeignClientInterceptor implements RequestInterceptor {
@@ -55,7 +55,7 @@ public class TokenFeignClientInterceptor implements RequestInterceptor {
     /**
      * 将token传递下去
      *
-     * @param template
+     * @param template 请求模板
      */
     @Override
     public void apply(RequestTemplate template) {
@@ -79,8 +79,8 @@ public class TokenFeignClientInterceptor implements RequestInterceptor {
     /**
      * 获取token
      *
-     * @param clientId
-     * @return
+     * @param clientId 客户端id
+     * @return 令牌
      */
     public OAuth2AccessToken acquireAccessToken(final String clientId) {
         OAuth2AccessToken oAuth2AccessToken = null;

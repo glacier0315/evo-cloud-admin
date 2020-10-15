@@ -8,7 +8,7 @@ import io.swagger.annotations.ApiModelProperty;
  *
  * @author glacier
  * @version 1.0
- * @date 2020-05-24 08:56
+ * date 2020-05-24 08:56
  */
 @ApiModel(description = "用户新增模型")
 public class UserAddForm extends AbstractUserDto {

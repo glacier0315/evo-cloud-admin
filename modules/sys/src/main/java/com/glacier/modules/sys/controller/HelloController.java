@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
  *
  * @author glacier
  * @version 1.0
- * @date 2020-02-11 13:50
+ * date 2020-02-11 13:50
  */
 @RestController
 public class HelloController {

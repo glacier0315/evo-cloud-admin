@@ -31,7 +31,7 @@ import java.util.concurrent.TimeUnit;
  *
  * @author glacier
  * @version 1.0
- * @date 2020-05-18 11:05
+ * date 2020-05-18 11:05
  */
 @Configuration
 @EnableAuthorizationServer

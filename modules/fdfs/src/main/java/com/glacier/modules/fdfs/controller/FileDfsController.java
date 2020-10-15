@@ -18,7 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
  *
  * @author glacier
  * @version 1.0
- * @date 2020-02-10 19:33
+ * date 2020-02-10 19:33
  */
 @RestController
 @RequestMapping("/dfs")
@@ -37,8 +37,8 @@ public class FileDfsController {
     /**
      * 单文件上传
      *
-     * @param file
-     * @return
+     * @param file 文件
+     * @return 上传响应
      */
     @PostMapping("/upload")
     public Result<String> upload(@RequestParam("file") MultipartFile file) {
@@ -56,8 +56,8 @@ public class FileDfsController {
     /**
      * 单文件删除
      *
-     * @param url
-     * @return
+     * @param url 文件url
+     * @return 删除文件响应
      */
     @PostMapping("/delete")
     public Result<String> deleteFile(String url) {

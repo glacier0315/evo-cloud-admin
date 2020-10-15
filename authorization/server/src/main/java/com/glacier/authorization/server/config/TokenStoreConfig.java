@@ -26,7 +26,7 @@ import java.util.Optional;
  *
  * @author glacier
  * @version 1.0
- * @date 2020-02-09 08:28
+ * date 2020-02-09 08:28
  */
 @Configuration
 @EnableConfigurationProperties({AuthorizationServerProperties.class})

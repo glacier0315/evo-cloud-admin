@@ -20,7 +20,7 @@ import org.springframework.security.web.access.AccessDeniedHandler;
  *
  * @author glacier
  * @version 1.0
- * @date 2020-05-22 17:08
+ * date 2020-05-22 17:08
  */
 @Configuration
 @EnableResourceServer

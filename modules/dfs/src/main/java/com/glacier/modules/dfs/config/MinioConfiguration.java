@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Configuration;
 /**
  * @author glacier
  * @version 1.0
- * @date 2020-09-08 19:55
+ * date 2020-09-08 19:55
  */
 @Configuration
 @EnableConfigurationProperties(MinioProperties.class)

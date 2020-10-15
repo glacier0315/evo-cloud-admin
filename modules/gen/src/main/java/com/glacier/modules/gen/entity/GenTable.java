@@ -9,7 +9,7 @@ import javax.validation.constraints.NotBlank;
  *
  * @author glacier
  * @version 1.0
- * @date 2019-08-04 21:53
+ * date 2019-08-04 21:53
  */
 public class GenTable extends AbstractDataEntity {
     private static final long serialVersionUID = -1221312518526422323L;

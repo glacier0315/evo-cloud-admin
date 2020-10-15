@@ -8,7 +8,7 @@ import java.io.Serializable;
 /**
  * @author glacier
  * @version 1.0
- * @date 2020-05-23 21:53
+ * date 2020-05-23 21:53
  */
 @ApiModel(description = "ID请求模型")
 public class IdDto implements Serializable {

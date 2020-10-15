@@ -36,7 +36,7 @@ import java.util.stream.Collectors;
  *
  * @author glacier
  * @version 1.0
- * @date 2019-08-04 21:50
+ * date 2019-08-04 21:50
  */
 @Transactional(readOnly = true)
 @Service(value = "userService")
@@ -116,8 +116,8 @@ public class UserServiceImpl implements UserService {
     /**
      * 分页查找
      *
-     * @param pageRequest
-     * @return
+     * @param pageRequest 分页请求
+     * @return 分页响应
      */
     @Override
     public PageResponse<UserDto> findPage(PageRequest<UserQuery> pageRequest) {
@@ -166,8 +166,8 @@ public class UserServiceImpl implements UserService {
     /**
      * 修改密码
      *
-     * @param userPasswordForm
-     * @return
+     * @param userPasswordForm 记录
+     * @return 响应
      */
     @Transactional(rollbackFor = {})
     @Override
@@ -242,8 +242,8 @@ public class UserServiceImpl implements UserService {
      * 保存用户
      *
      * @param form 用户封装实体
-     * @param <T>
-     * @return
+     * @param <T>  类型
+     * @return 响应
      */
     @Transactional(rollbackFor = {})
     @Override
@@ -271,8 +271,8 @@ public class UserServiceImpl implements UserService {
     /**
      * 根据id删除
      *
-     * @param id
-     * @return
+     * @param id 主键
+     * @return 删除记录数
      */
     @Transactional(rollbackFor = {})
     @Override
@@ -288,9 +288,9 @@ public class UserServiceImpl implements UserService {
     /**
      * 保存用户角色关系
      *
-     * @param userId
-     * @param roleIds
-     * @return
+     * @param userId 用户id
+     * @param roleIds 角色ids
+     * @return 保存记录数
      */
     @Transactional(rollbackFor = {})
     public int saveUserRole(final String userId, List<String> roleIds) {

@@ -9,7 +9,7 @@ import com.glacier.modules.gen.entity.dto.datasource.GenDatasourceQuery;
 /**
  * @author glacier
  * @version 1.0
- * @date 2020-09-20 16:13
+ * date 2020-09-20 16:13
  */
 public interface GenDatasourceService {
 

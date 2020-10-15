@@ -9,7 +9,7 @@ import javax.annotation.Resource;
 /**
  * @author glacier
  * @version 1.0
- * @date 2020-07-23 19:30
+ * date 2020-07-23 19:30
  */
 @SpringBootTest
 public class PasswordUtilTest {

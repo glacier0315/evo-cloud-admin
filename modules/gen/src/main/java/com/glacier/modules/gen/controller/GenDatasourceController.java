@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
  * 数据源管理
  * @author glacier
  * @version 1.0
- * @date 2020-08-26 16:31
+ * date 2020-08-26 16:31
  */
 @Api(tags = "数据源管理")
 @RestController

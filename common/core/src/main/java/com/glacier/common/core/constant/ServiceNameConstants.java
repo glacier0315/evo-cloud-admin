@@ -4,7 +4,7 @@ package com.glacier.common.core.constant;
  * 系统服务名称 常量
  * @author glacier
  * @version 1.0
- * @date 2020-08-14 10:33
+ * date 2020-08-14 10:33
  */
 public interface ServiceNameConstants {
     /**

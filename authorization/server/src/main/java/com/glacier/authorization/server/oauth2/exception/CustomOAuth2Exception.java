@@ -7,7 +7,7 @@ import org.springframework.security.oauth2.common.exceptions.OAuth2Exception;
  * 认证异常
  * @author glacier
  * @version 1.0
- * @date 2020-07-29 17:01
+ * date 2020-07-29 17:01
  */
 @JsonSerialize(using = CustomOAuth2ExceptionSerializer.class)
 public class CustomOAuth2Exception extends OAuth2Exception {

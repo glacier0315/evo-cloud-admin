@@ -9,7 +9,7 @@ import java.io.Serializable;
  * 元数据显示
  * @author glacier
  * @version 1.0
- * @date 2020-06-06 10:14
+ * date 2020-06-06 10:14
  */
 @ApiModel(description = "路由元数据模型")
 @JsonInclude(JsonInclude.Include.NON_EMPTY)

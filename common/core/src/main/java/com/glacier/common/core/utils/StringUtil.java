@@ -5,7 +5,7 @@ import org.apache.commons.lang3.StringUtils;
 /**
  * @author glacier
  * @version 1.0
- * @date 2020-02-13 11:00
+ * date 2020-02-13 11:00
  */
 public class StringUtil extends StringUtils {
 

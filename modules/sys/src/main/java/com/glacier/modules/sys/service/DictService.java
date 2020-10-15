@@ -8,22 +8,22 @@ import java.util.List;
 /**
  * @author glacier
  * @version 1.0
- * @date 2019-12-01 21:36
+ * date 2019-12-01 21:36
  */
 public interface DictService {
 
     /**
      * 查找字典
      *
-     * @return
+     * @return 字典
      */
     List<DictVo> findDictTree();
 
     /**
      * 保存操作
      *
-     * @param record
-     * @return
+     * @param record 记录实体
+     * @return 影响记录数
      */
     int save(Dict record);
 

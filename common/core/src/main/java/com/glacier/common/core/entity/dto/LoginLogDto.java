@@ -10,7 +10,7 @@ import java.time.LocalDate;
  * 登录日志模型
  * @author glacier
  * @version 1.0
- * @date 2020-09-03 21:59
+ * date 2020-09-03 21:59
  */
 @ApiModel(description = "登录日志模型")
 public class LoginLogDto implements Serializable {

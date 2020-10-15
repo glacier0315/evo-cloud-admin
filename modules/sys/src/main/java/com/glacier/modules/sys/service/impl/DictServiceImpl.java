@@ -20,7 +20,7 @@ import java.util.List;
  * 字典业务类
  * @author glacier
  * @version 1.0
- * @date 2019-12-01 21:36
+ * date 2019-12-01 21:36
  */
 @Transactional(readOnly = true)
 @Service("dictService")
@@ -49,8 +49,8 @@ public class DictServiceImpl implements DictService {
     /**
      * 根据id删除
      *
-     * @param id
-     * @return
+     * @param id 主键
+     * @return 删除记录数
      */
     @Transactional(rollbackFor = {})
     @Override

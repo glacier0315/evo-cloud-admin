@@ -22,7 +22,7 @@ import java.io.IOException;
  *
  * @author glacier
  * @version 1.0
- * @date 2020-05-22 17:11
+ * date 2020-05-22 17:11
  */
 public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint {
     private static final Logger log = LoggerFactory.getLogger(CustomAuthenticationEntryPoint.class);

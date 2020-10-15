@@ -7,7 +7,7 @@ import com.glacier.common.core.entity.AbstractTreeEntity;
  *
  * @author glacier
  * @version 1.0
- * @date 2019-10-09 11:03
+ * date 2019-10-09 11:03
  */
 public class Menu extends AbstractTreeEntity<Menu> {
 

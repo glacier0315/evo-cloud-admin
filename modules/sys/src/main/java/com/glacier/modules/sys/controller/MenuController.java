@@ -24,7 +24,7 @@ import java.util.Set;
  *
  * @author glacier
  * @version 1.0
- * @date 2019-10-09 15:59
+ * date 2019-10-09 15:59
  */
 @Api(tags = "菜单管理")
 @RestController
@@ -41,7 +41,7 @@ public class MenuController {
     /**
      * 查询所有菜单
      *
-     * @return
+     * @return 菜单
      */
     @ApiOperation("查询所有菜单")
     @GetMapping("/list")
@@ -53,8 +53,8 @@ public class MenuController {
     /**
      * 保存菜单
      *
-     * @param menuForm
-     * @return
+     * @param menuForm 菜单
+     * @return 保存响应
      */
     @ApiOperation("保存菜单")
     @PostMapping("/save")
@@ -67,8 +67,8 @@ public class MenuController {
     /**
      * 删除指定菜单
      *
-     * @param idDto
-     * @return
+     * @param idDto 主键
+     * @return 删除响应
      */
     @ApiOperation("删除指定菜单")
     @PostMapping("/delete")
@@ -80,7 +80,8 @@ public class MenuController {
     /**
      * 查询角色具有的菜单
      *
-     * @return
+     * @param roleId 角色id
+     * @return 菜单
      */
     @ApiOperation("查询角色具有的菜单")
     @GetMapping("/findByRole")
@@ -92,7 +93,7 @@ public class MenuController {
     /**
      * 查询用户所有路由
      *
-     * @return
+     * @return 路由
      */
     @ApiOperation("查询用户所有路由")
     @GetMapping(value = "/getRouters")
@@ -107,7 +108,7 @@ public class MenuController {
     /**
      * 查询所有权限标识
      *
-     * @return
+     * @return 权限标识
      */
     @ApiOperation("查询所有权限标识")
     @GetMapping(value = "/getPermissions")

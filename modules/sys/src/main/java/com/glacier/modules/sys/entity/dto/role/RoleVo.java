@@ -7,7 +7,7 @@ import io.swagger.annotations.ApiModelProperty;
 /**
  * @author glacier
  * @version 1.0
- * @date 2020-08-12 11:22
+ * date 2020-08-12 11:22
  */
 @ApiModel(description = "角色显示模型")
 public class RoleVo extends IdDto {

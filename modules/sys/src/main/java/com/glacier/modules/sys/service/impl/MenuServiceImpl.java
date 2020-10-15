@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
  *
  * @author glacier
  * @version 1.0
- * @date 2019-10-09 15:45
+ * date 2019-10-09 15:45
  */
 @Transactional(readOnly = true)
 @Service("menuService")
@@ -44,8 +44,8 @@ public class MenuServiceImpl implements MenuService {
     /**
      * 保存
      *
-     * @param menuForm
-     * @return
+     * @param menuForm 记录
+     * @return 保存记录数
      */
     @Transactional(rollbackFor = {})
     @Override
@@ -62,8 +62,8 @@ public class MenuServiceImpl implements MenuService {
     /**
      * 根据id删除
      *
-     * @param id
-     * @return
+     * @param id 主键
+     * @return 删除记录数
      */
     @Transactional(rollbackFor = {})
     @Override
@@ -93,8 +93,8 @@ public class MenuServiceImpl implements MenuService {
     /**
      * 根据用户id 查询菜单树
      *
-     * @param userId
-     * @return
+     * @param userId 用户id
+     * @return 菜单树
      */
     @Override
     public List<MenuVo> findMenuTreeByUserId(String userId) {
@@ -122,8 +122,8 @@ public class MenuServiceImpl implements MenuService {
     /**
      * 根据用户ID 查询权限标识
      *
-     * @param userId
-     * @return
+     * @param userId 用户id
+     * @return 权限标识
      */
     @Override
     public Set<String> findPermissionsByUserId(String userId) {

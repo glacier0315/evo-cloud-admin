@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * @author glacier
  * @version 1.0
- * @date 2020-08-08 10:21
+ * date 2020-08-08 10:21
  */
 @SpringBootTest
 public class UserServiceTest {

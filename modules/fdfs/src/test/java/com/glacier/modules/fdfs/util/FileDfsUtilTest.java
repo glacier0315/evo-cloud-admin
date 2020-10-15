@@ -11,7 +11,7 @@ import java.io.File;
 /**
  * @author glacier
  * @version 1.0
- * @date 2020-07-22 15:18
+ * date 2020-07-22 15:18
  */
 @SpringBootTest(classes = {FdfsApplication.class})
 public class FileDfsUtilTest {

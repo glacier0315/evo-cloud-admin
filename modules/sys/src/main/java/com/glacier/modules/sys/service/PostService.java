@@ -11,21 +11,21 @@ import java.util.List;
  * 岗位业务层
  * @author glacier
  * @version 1.0
- * @date 2020-09-05 21:46
+ * date 2020-09-05 21:46
  */
 public interface PostService {
     /**
      * 分页查询
      *
      * @param pageRequest 请求封装实体类
-     * @return
+     * @return 分页响应
      */
     PageResponse<PostDto> findPage(PageRequest<PostQuery> pageRequest);
 
     /**
      * 查询所有
      *
-     * @return
+     * @return 所有岗位
      */
     List<PostDto> findAllList();
 
@@ -33,7 +33,7 @@ public interface PostService {
      * 校验
      *
      * @param postDto 岗位封装实体类
-     * @return
+     * @return 校验结果
      */
     boolean checkCode(PostDto postDto);
 
@@ -41,15 +41,15 @@ public interface PostService {
      * 保存操作
      *
      * @param postDto 岗位封装实体类
-     * @return
+     * @return 保存记录数
      */
     int save(PostDto postDto);
 
     /**
      * 根据Id删除
      *
-     * @param id
-     * @return
+     * @param id 主键
+     * @return 删除记录数
      */
     int delete(String id);
 }

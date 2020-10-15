@@ -12,7 +12,7 @@ import java.util.List;
  *
  * @author glacier
  * @version 1.0
- * @date 2019-12-18 15:29
+ * date 2019-12-18 15:29
  */
 public interface MenuMapper extends BaseMapper<Menu, String> {
 
@@ -26,8 +26,9 @@ public interface MenuMapper extends BaseMapper<Menu, String> {
 
     /**
      * 根据条件查询
-     * @param params
-     * @return
+     *
+     * @param params 查询参数
+     * @return 菜单集合
      */
     List<Menu> selectList(MenuQuery params);
 }

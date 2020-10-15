@@ -12,7 +12,7 @@ import java.time.LocalDate;
  *
  * @author glacier
  * @version 1.0
- * @date 2020-05-24 09:37
+ * date 2020-05-24 09:37
  */
 @ApiModel(description = "用户查询条件模型")
 public class UserQuery implements Serializable {

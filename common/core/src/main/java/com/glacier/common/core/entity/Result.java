@@ -11,7 +11,7 @@ import java.io.Serializable;
  * HTTP结果封装
  *
  * @author glacier
- * @date 2019-10-14 15:53
+ * date 2019-10-14 15:53
  */
 @ApiModel(description = "rest请求的响应模型")
 public class Result<T> implements Serializable {
@@ -92,8 +92,8 @@ public class Result<T> implements Serializable {
     /**
      * 返回默认 "500" 错误
      *
-     * @param <T>
-     * @return
+     * @param <T> 类型
+     * @return 响应
      */
     public static <T> Result<T> error() {
         return error(SystemErrorType.BUSINESS_ERROR);
@@ -102,8 +102,9 @@ public class Result<T> implements Serializable {
     /**
      * 返回默认 "-1" 错误
      *
-     * @param <T>
-     * @return
+     * @param msg 错误信息
+     * @param <T> 用户id
+     * @return 响应
      */
     public static <T> Result<T> error(String msg) {
         return error(SystemErrorType.BUSINESS_ERROR.getCode(), msg);
@@ -112,9 +113,9 @@ public class Result<T> implements Serializable {
     /**
      * 返回指定编码错误
      *
-     * @param errorType
-     * @param <T>
-     * @return
+     * @param errorType 错误编码
+     * @param <T> 类型
+     * @return 响应
      */
     public static <T> Result<T> error(ErrorType errorType) {
         return error(errorType.getCode(), errorType.getMsg());
@@ -123,10 +124,10 @@ public class Result<T> implements Serializable {
     /**
      * 返回指定编码错误
      *
-     * @param code
-     * @param msg
-     * @param <T>
-     * @return
+     * @param code 编码
+     * @param msg 错误信息
+     * @param <T> 类型
+     * @return 响应
      */
     public static <T> Result<T> error(String code, String msg) {
         return new Result<>(code, msg, System.currentTimeMillis(), null);
@@ -135,8 +136,8 @@ public class Result<T> implements Serializable {
     /**
      * 返回默认成功状态
      *
-     * @param <T>
-     * @return
+     * @param <T> 类型
+     * @return 响应
      */
     public static <T> Result<T> ok() {
         return ok("成功！" , null);
@@ -145,9 +146,9 @@ public class Result<T> implements Serializable {
     /**
      * 返回成功状态 携带指定数据
      *
-     * @param data
-     * @param <T>
-     * @return
+     * @param data 数据
+     * @param <T> 类型
+     * @return 响应
      */
     public static <T> Result<T> ok(T data) {
         return ok("成功！" , data);
@@ -156,10 +157,10 @@ public class Result<T> implements Serializable {
     /**
      * 返回成功状态 携带指定数据和消息
      *
-     * @param msg
-     * @param data
-     * @param <T>
-     * @return
+     * @param msg 成功信息
+     * @param data 数据
+     * @param <T> 类型
+     * @return 响应
      */
     public static <T> Result<T> ok(String msg, T data) {
         return new Result<>(SUCCUSS, msg, System.currentTimeMillis(), data);

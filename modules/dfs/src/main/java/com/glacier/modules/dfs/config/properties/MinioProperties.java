@@ -5,7 +5,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 /**
  * @author glacier
  * @version 1.0
- * @date 2020-09-08 19:57
+ * date 2020-09-08 19:57
  */
 @ConfigurationProperties("minio")
 public class MinioProperties {

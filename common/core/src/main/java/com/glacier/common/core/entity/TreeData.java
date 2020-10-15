@@ -8,7 +8,7 @@ import java.util.List;
  *
  * @author glacier
  * @version 1.0
- * @date 2020-08-15 08:50
+ * date 2020-08-15 08:50
  */
 public interface TreeData<T extends TreeData<T>> extends Serializable {
 

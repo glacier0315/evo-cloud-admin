@@ -10,7 +10,7 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 /**
  * @author glacier
  * @version 1.0
- * @date 2020-07-25 12:19
+ * date 2020-07-25 12:19
  */
 public class CustomClientCredentialsTokenEndpointFilter extends ClientCredentialsTokenEndpointFilter {
     private static final Logger log = LoggerFactory.getLogger(CustomClientCredentialsTokenEndpointFilter.class);

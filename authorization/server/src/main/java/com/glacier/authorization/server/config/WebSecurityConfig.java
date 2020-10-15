@@ -42,7 +42,7 @@ import java.security.interfaces.RSAPublicKey;
  *
  * @author glacier
  * @version 1.0
- * @date 2019-08-04 10:03
+ * date 2019-08-04 10:03
  */
 @Configuration
 @EnableConfigurationProperties(SecuritySettings.class)

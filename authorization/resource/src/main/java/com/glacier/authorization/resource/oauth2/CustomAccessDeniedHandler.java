@@ -19,7 +19,7 @@ import java.io.IOException;
 /**
  * @author glacier
  * @version 1.0
- * @date 2020-07-24 16:38
+ * date 2020-07-24 16:38
  */
 public class CustomAccessDeniedHandler implements AccessDeniedHandler {
     private static final Logger log = LoggerFactory.getLogger(CustomAccessDeniedHandler.class);

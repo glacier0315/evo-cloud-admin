@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
  * 登录日志管理
  * @author glacier
  * @version 1.0
- * @date 2020-09-05 17:12
+ * date 2020-09-05 17:12
  */
 @Api(tags = "登录日志管理")
 @RestController

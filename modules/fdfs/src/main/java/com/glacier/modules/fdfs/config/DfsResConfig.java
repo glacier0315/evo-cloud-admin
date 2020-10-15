@@ -10,7 +10,7 @@ import java.io.Serializable;
  *
  * @author glacier
  * @version 1.0
- * @date 2020-02-10 19:33
+ * date 2020-02-10 19:33
  */
 @Component
 @ConfigurationProperties(prefix = "fdfs")

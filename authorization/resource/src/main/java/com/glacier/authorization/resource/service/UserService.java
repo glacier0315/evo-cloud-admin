@@ -8,7 +8,7 @@ import com.glacier.common.core.entity.Result;
  *
  * @author glacier
  * @version 1.0
- * @date 2020-05-21 17:41
+ * date 2020-05-21 17:41
  */
 public interface UserService {
 

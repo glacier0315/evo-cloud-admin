@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
  *
  * @author glacier
  * @version 1.0
- * @date 2020-05-03 09:54
+ * date 2020-05-03 09:54
  */
 @RestControllerAdvice
 public class GlobalExceptionHandler {

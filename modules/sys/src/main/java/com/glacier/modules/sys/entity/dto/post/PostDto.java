@@ -8,7 +8,7 @@ import io.swagger.annotations.ApiModelProperty;
  * 岗位查询条件
  * @author glacier
  * @version 1.0
- * @date 2020-09-05 21:26
+ * date 2020-09-05 21:26
  */
 @ApiModel(description = "岗位查询条件模型")
 public class PostDto extends IdDto {

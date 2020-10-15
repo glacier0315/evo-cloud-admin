@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * @author glacier
  * @version 1.0
- * @date 2020-09-08 21:51
+ * date 2020-09-08 21:51
  */
 public interface FileService {
 
@@ -21,15 +21,16 @@ public interface FileService {
 
     /**
      * 单文件上传
-     * @param file
-     * @return
+     *
+     * @param file 文件
+     * @return 文件上传响应
      */
     Result<String> upload(MultipartFile file);
 
     /**
      * 文件删除
-     * @param url
-     * @return
+     * @param url 文件url
+     * @return 文件删除响应
      */
     Result<String> deleteFile(String url);
 }

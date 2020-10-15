@@ -5,7 +5,7 @@ package com.glacier.common.core.constant;
  *
  * @author glacier
  * @version 1.0
- * @date 2020-07-23 17:08
+ * date 2020-07-23 17:08
  */
 public interface CommonConstant {
     /**

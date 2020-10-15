@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
  *
  * @author glacier
  * @version 1.0
- * @date 2020-05-02 14:25
+ * date 2020-05-02 14:25
  */
 @Configuration
 // @EnableRedisHttpSession

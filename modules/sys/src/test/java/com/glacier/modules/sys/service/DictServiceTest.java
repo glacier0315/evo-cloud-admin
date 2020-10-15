@@ -10,7 +10,7 @@ import javax.annotation.Resource;
 /**
  * @author glacier
  * @version 1.0
- * @date 2020-08-15 12:03
+ * date 2020-08-15 12:03
  */
 @SpringBootTest
 class DictServiceTest {

@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * @author glacier
  * @version 1.0
- * @date 2020-08-26 16:31
+ * date 2020-08-26 16:31
  */
 @Api(tags = "代码生成管理")
 @RestController

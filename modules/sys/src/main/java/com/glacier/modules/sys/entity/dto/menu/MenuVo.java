@@ -11,7 +11,7 @@ import java.util.List;
  *
  * @author glacier
  * @version 1.0
- * @date 2020-08-11 21:06
+ * date 2020-08-11 21:06
  */
 @ApiModel(description = "菜单显示模型")
 public class MenuVo extends MenuForm implements TreeData<MenuVo> {

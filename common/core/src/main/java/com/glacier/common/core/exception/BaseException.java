@@ -7,7 +7,7 @@ import java.util.Arrays;
  *
  * @author glacier
  * @version 1.0
- * @date 2020-05-18 11:19
+ * date 2020-05-18 11:19
  */
 public class BaseException extends RuntimeException {
     private static final long serialVersionUID = -720171527461795332L;

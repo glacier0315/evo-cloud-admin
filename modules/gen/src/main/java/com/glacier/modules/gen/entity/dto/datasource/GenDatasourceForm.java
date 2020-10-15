@@ -8,7 +8,7 @@ import io.swagger.annotations.ApiModelProperty;
  * 数据源表单模型
  * @author glacier
  * @version 1.0
- * @date 2020-09-20 16:15
+ * date 2020-09-20 16:15
  */
 @ApiModel(description = "数据源表单模型")
 public class GenDatasourceForm extends IdDto {

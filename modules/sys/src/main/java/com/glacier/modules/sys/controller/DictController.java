@@ -19,7 +19,7 @@ import java.util.List;
  *
  * @author glacier
  * @version 1.0
- * @date 2019-12-01 21:13
+ * date 2019-12-01 21:13
  */
 @Api(tags = "字典管理")
 @RestController
@@ -36,7 +36,7 @@ public class DictController {
     /**
      * 查询字典
      *
-     * @return
+     * @return 字典
      */
     @ApiOperation("查询字典")
     @GetMapping("/findDictTree")
@@ -48,8 +48,8 @@ public class DictController {
     /**
      * 保存字典
      *
-     * @param dict
-     * @return
+     * @param dict 字典
+     * @return 保存响应
      */
     @ApiOperation("保存字典")
     @PostMapping("/save")
@@ -61,8 +61,8 @@ public class DictController {
     /**
      * 删除指定字典
      *
-     * @param idDto
-     * @return
+     * @param idDto 主键
+     * @return 删除响应
      */
     @ApiOperation("删除指定字典")
     @PostMapping("/delete")

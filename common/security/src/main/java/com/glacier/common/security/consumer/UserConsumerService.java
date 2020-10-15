@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  *
  * @author glacier
  * @version 1.0
- * @date 2019-08-04 21:50
+ * date 2019-08-04 21:50
  */
 @FeignClient(value = ServiceNameConstants.SYS_SERVICE, path = "/oauth", fallback = UserConsumerServiceFallbackImpl.class)
 public interface UserConsumerService {
@@ -21,8 +21,8 @@ public interface UserConsumerService {
     /**
      * 根据用户唯一标识获取用户信息
      *
-     * @param username
-     * @return
+     * @param username 用户名
+     * @return 用户信息
      */
     @GetMapping(value = "/user")
     Result<UserDetailsDto> findByUsername(@RequestParam("username") String username);

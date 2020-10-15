@@ -5,7 +5,7 @@ package com.glacier.common.core.utils;
  *
  * @author glacier
  * @version 1.0
- * @date 2020-05-18 12:37
+ * date 2020-05-18 12:37
  */
 public class MimeTypeUtils {
     public static final String IMAGE_PNG = "image/png";

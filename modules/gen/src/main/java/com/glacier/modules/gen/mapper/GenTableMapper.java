@@ -12,7 +12,7 @@ import java.util.List;
  *
  * @author glacier
  * @version 1.0
- * @date 2019-08-04 21:53
+ * date 2019-08-04 21:53
  */
 public interface GenTableMapper extends BaseMapper<GenTable, String> {
 

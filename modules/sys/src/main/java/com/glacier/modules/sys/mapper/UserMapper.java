@@ -12,22 +12,23 @@ import java.util.List;
  *
  * @author glacier
  * @version 1.0
- * @date 2019-08-04 21:53
+ * date 2019-08-04 21:53
  */
 public interface UserMapper extends BaseMapper<User, String> {
 
     /**
      * 根据条件查询
-     * @param params
-     * @return
+     *
+     * @param params 查询参数
+     * @return 用户集合
      */
     List<User> selectList(UserQuery params);
 
     /**
      * 根据组织机构id 更新组织机构名称
      *
-     * @param record
-     * @return
+     * @param record 记录
+     * @return 更新行数
      */
     int updateDeptByDeptId(User record);
 
@@ -35,31 +36,31 @@ public interface UserMapper extends BaseMapper<User, String> {
      * 根据用户名查询用户
      *
      * @param username 用户名
-     * @return
+     * @return 用户
      */
     User selectOneByUsername(String username);
 
     /**
      * 更新个人信息
      *
-     * @param record
-     * @return
+     * @param record  记录
+     * @return 更新行数
      */
     int updateProfileByPrimaryKey(User record);
 
     /**
      * 更新头像
      *
-     * @param record
-     * @return
+     * @param record 记录
+     * @return 更新行数
      */
     int updateAvatarByPrimaryKey(User record);
 
     /**
      * 更新密码
      *
-     * @param record
-     * @return
+     * @param record 记录
+     * @return 更新行数
      */
     int updatePasswordByPrimaryKey(User record);
 

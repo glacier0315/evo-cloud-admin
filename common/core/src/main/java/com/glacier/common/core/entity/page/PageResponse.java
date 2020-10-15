@@ -11,7 +11,7 @@ import java.util.List;
  *
  * @author glacier
  * @version 1.0
- * @date 2020-02-14 18:10
+ * date 2020-02-14 18:10
  */
 @ApiModel(description = "分页响应模型")
 public class PageResponse<T> implements Serializable {

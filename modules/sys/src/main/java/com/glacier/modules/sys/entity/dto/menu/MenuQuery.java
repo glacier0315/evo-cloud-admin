@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * @author glacier
  * @version 1.0
- * @date 2020-09-01 22:18
+ * date 2020-09-01 22:18
  */
 @ApiModel(description = "菜单查询条件模型")
 public class MenuQuery implements Serializable {

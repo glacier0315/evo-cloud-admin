@@ -5,7 +5,7 @@ package com.glacier.common.core.exception;
  *
  * @author glacier
  * @version 1.0
- * @date 2020-05-18 11:20
+ * date 2020-05-18 11:20
  */
 public enum SystemErrorType implements ErrorType {
     /**

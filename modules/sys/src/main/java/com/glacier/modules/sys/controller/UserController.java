@@ -27,7 +27,7 @@ import java.net.URLEncoder;
  *
  * @author glacier
  * @version 1.0
- * @date 2019-08-04 22:13
+ * date 2019-08-04 22:13
  */
 @Api(tags = "用户管理")
 @RestController
@@ -44,8 +44,8 @@ public class UserController {
     /**
      * 分页查询用户
      *
-     * @param pageRequest
-     * @return
+     * @param pageRequest 分页请求
+     * @return 分页响应
      */
     @ApiOperation("分页查询用户")
     @PostMapping("/findPage")
@@ -58,8 +58,8 @@ public class UserController {
     /**
      * 保存用户
      *
-     * @param userAddForm
-     * @return
+     * @param userAddForm 用户
+     * @return 保存响应
      */
     @ApiOperation("添加用户")
     @PostMapping("/add")
@@ -86,8 +86,8 @@ public class UserController {
     /**
      * 删除指定用户
      *
-     * @param idDto
-     * @return
+     * @param idDto 主键
+     * @return 删除响应
      */
     @ApiOperation("删除指定用户")
     @PostMapping("/delete")
@@ -99,7 +99,7 @@ public class UserController {
     /**
      * 获取当前用户信息
      *
-     * @return
+     * @return 当前用户信息
      */
     @ApiOperation("获取当前用户信息")
     @GetMapping(value = "/profile")
@@ -111,8 +111,8 @@ public class UserController {
     /**
      * 更新当前用户信息
      *
-     * @param userProfileForm
-     * @return
+     * @param userProfileForm 当前用户信息
+     * @return 更新响应
      */
     @ApiOperation("更新当前用户信息")
     @PostMapping(value = "/profile")
@@ -124,8 +124,8 @@ public class UserController {
     /**
      * 更新当前用户头像信息
      *
-     * @param userAvatarForm
-     * @return
+     * @param userAvatarForm 当前用户头像信息
+     * @return 更新响应
      */
     @ApiOperation("更新当前用户头像信息")
     @PostMapping(value = "/avatar")
@@ -137,8 +137,8 @@ public class UserController {
     /**
      * 重置用户密码
      *
-     * @param passwordResetForm
-     * @return
+     * @param passwordResetForm 用户密码
+     * @return 重置响应
      */
     @ApiOperation("重置用户密码")
     @PostMapping("/resetPwd")
@@ -151,8 +151,8 @@ public class UserController {
     /**
      * 修改用户密码
      *
-     * @param userPasswordForm
-     * @return
+     * @param userPasswordForm 用户密码
+     * @return 修改用户密码响应
      */
     @ApiOperation("修改用户密码")
     @PostMapping("/updatePwd")
@@ -165,7 +165,7 @@ public class UserController {
      * 检验用户名
      *
      * @param userDto 用户封装实体类
-     * @return
+     * @return 校验响应
      */
     @ApiOperation("检验用户名")
     @PostMapping("/checkUsername")
@@ -178,7 +178,7 @@ public class UserController {
      * 检验用户身份证号
      *
      * @param userDto 用户封装实体类
-     * @return
+     * @return 校验响应
      */
     @ApiOperation("检验用户身份证号")
     @PostMapping("/checkIdCard")
@@ -190,9 +190,9 @@ public class UserController {
     /**
      * 导出用户
      *
-     * @param userQuery
-     * @param response
-     * @return
+     * @param userQuery 用户参数
+     * @param response 请求响应
+     * @throws IOException IO异常
      */
     @ApiOperation("导出用户")
     @PostMapping("/export")

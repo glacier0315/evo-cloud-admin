@@ -7,7 +7,7 @@ import com.glacier.common.security.consumer.UserConsumerService;
 /**
  * @author glacier
  * @version 1.0
- * @date 2020-07-29 20:46
+ * date 2020-07-29 20:46
  */
 public class UserConsumerServiceFallbackImpl implements UserConsumerService {
 

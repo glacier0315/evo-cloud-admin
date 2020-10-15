@@ -11,7 +11,7 @@ import java.util.Optional;
  *
  * @author glacier
  * @version 1.0
- * @date 2020-05-18 12:37
+ * date 2020-05-18 12:37
  */
 public class AppContextHolder {
     /**
@@ -26,7 +26,7 @@ public class AppContextHolder {
     /**
      * 创建实例
      *
-     * @return
+     * @return 实例
      */
     public static AppContextHolder getInstance() {
         return SingletonHolder.SINGLETON_INSTANCE;
@@ -43,7 +43,7 @@ public class AppContextHolder {
     /**
      * 用户上下文中放入信息
      *
-     * @param map
+     * @param map 放入上下文的map
      */
     public void setContext(final Map<String, Object> map) {
         Optional.ofNullable(map)
@@ -53,7 +53,7 @@ public class AppContextHolder {
     /**
      * 获取上下文中的信息
      *
-     * @return
+     * @return 取出上下文的map
      */
     public Map<String, Object> getContext() {
         return Optional.ofNullable(this.threadLocal.get())
@@ -63,7 +63,7 @@ public class AppContextHolder {
     /**
      * 获取上下文中的用户名
      *
-     * @return
+     * @return 用户名
      */
     public String getUsername() {
         return String.valueOf(this.getContext().get(CommonConstant.OAUTH_USERNAME));
@@ -72,7 +72,7 @@ public class AppContextHolder {
     /**
      * 获取上下文中的用户id
      *
-     * @return
+     * @return 用户id
      */
     public String getUserId() {
         return String.valueOf(this.getContext().get(CommonConstant.OAUTH_USER_ID));

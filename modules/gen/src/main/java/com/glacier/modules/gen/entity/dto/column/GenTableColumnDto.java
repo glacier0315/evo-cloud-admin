@@ -9,7 +9,7 @@ import io.swagger.annotations.ApiModelProperty;
  *
  * @author glacier
  * @version 1.0
- * @date 2020-08-26 16:51
+ * date 2020-08-26 16:51
  */
 @ApiModel(description = "表字段模型")
 public class GenTableColumnDto extends IdDto {

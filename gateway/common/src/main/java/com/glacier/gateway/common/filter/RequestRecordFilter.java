@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
  *
  * @author glacier
  * @version 1.0
- * @date 2019-12-11 12:38
+ * date 2019-12-11 12:38
  */
 @Component
 public class RequestRecordFilter implements GlobalFilter, Ordered {

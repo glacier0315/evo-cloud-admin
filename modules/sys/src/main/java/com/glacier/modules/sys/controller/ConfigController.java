@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
  *
  * @author glacier
  * @version 1.0
- * @date 2019-12-01 20:43
+ * date 2019-12-01 20:43
  */
 @Api(tags = "配置管理")
 @RestController
@@ -37,8 +37,8 @@ public class ConfigController {
     /**
      * 分页查询用户
      *
-     * @param pageRequest
-     * @return
+     * @param pageRequest 分页请求
+     * @return 分页响应
      */
     @PostMapping("/findPage")
     public Result<PageResponse<Config>> findPage(@RequestBody PageRequest<Config> pageRequest) {
@@ -49,8 +49,8 @@ public class ConfigController {
     /**
      * 保存配置
      *
-     * @param config
-     * @return
+     * @param config 记录
+     * @return 保存记录数
      */
     @PostMapping("/save")
     public Result<Integer> save(@RequestBody Config config) {
@@ -61,8 +61,8 @@ public class ConfigController {
     /**
      * 删除指定用户
      *
-     * @param idDto
-     * @return
+     * @param idDto id封装
+     * @return 删除记录数
      */
     @PostMapping("/delete")
     public Result<Integer> delete(@RequestBody IdDto idDto) {

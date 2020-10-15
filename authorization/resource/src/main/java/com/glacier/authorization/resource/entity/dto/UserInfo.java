@@ -8,7 +8,7 @@ import java.util.List;
  *
  * @author glacier
  * @version 1.0
- * @date 2020-05-22 16:56
+ * date 2020-05-22 16:56
  */
 public class UserInfo implements Serializable {
     private static final long serialVersionUID = 2496540352121367958L;

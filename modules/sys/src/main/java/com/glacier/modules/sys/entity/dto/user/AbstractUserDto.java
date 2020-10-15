@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * @author glacier
  * @version 1.0
- * @date 2020-08-15 10:02
+ * date 2020-08-15 10:02
  */
 public abstract class AbstractUserDto implements Serializable {
     private static final long serialVersionUID = -8546936668021702992L;

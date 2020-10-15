@@ -12,7 +12,7 @@ import java.util.Base64;
  *
  * @author glacier
  * @version 1.0
- * @date 2020-02-14 16:33
+ * date 2020-02-14 16:33
  */
 @SpringBootTest
 public class PasswordEncoderTest {

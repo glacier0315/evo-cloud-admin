@@ -17,7 +17,7 @@ import springfox.documentation.spring.web.plugins.Docket;
  *
  * @author glacier
  * @version 1.0
- * @date 2019-08-04 09:26
+ * date 2019-08-04 09:26
  */
 @Configuration
 @EnableOpenApi

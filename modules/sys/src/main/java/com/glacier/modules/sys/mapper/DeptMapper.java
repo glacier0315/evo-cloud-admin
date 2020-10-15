@@ -11,7 +11,7 @@ import java.util.List;
  *
  * @author glacier
  * @version 1.0
- * @date 2019-08-04 21:53
+ * date 2019-08-04 21:53
  */
 public interface DeptMapper extends BaseMapper<Dept, String> {
     /**
@@ -32,8 +32,9 @@ public interface DeptMapper extends BaseMapper<Dept, String> {
 
     /**
      * 根据条件查询
-     * @param params
-     * @return
+     *
+     * @param params 查询条件
+     * @return 单位集合
      */
     List<Dept> selectList(Dept params);
 }

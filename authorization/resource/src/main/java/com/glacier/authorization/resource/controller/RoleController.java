@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
  *
  * @author glacier
  * @version 1.0
- * @date 2020-05-21 17:45
+ * date 2020-05-21 17:45
  */
 @RestController
 @RequestMapping("role")

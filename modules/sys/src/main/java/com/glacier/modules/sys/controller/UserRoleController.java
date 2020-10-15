@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
  *
  * @author glacier
  * @version 1.0
- * @date 2020-09-01 11:55
+ * date 2020-09-01 11:55
  */
 @Api(tags = "用户角色关系管理")
 @RestController
@@ -37,7 +37,7 @@ public class UserRoleController {
      * 移除角色用户关系
      *
      * @param roleUserDto 角色用户关系
-     * @return
+     * @return 移除角色用户关系响应
      */
     @ApiOperation("移除角色用户关系")
     @PostMapping("/deleteUser")
@@ -51,7 +51,7 @@ public class UserRoleController {
      * 保存角色用户关系
      *
      * @param roleUserDto 角色用户关系
-     * @return
+     * @return 保存角色用户关系响应
      */
     @ApiOperation("保存角色用户关系")
     @PostMapping("/addUser")
@@ -66,7 +66,7 @@ public class UserRoleController {
      * 移除用户角色关系
      *
      * @param userRoleDto 用户角色关系
-     * @return
+     * @return 移除用户角色关系响应
      */
     @ApiOperation("移除用户角色关系")
     @PostMapping("/deleteRole")
@@ -80,7 +80,7 @@ public class UserRoleController {
      * 保存用户角色关系
      *
      * @param userRoleDto 用户角色关系
-     * @return
+     * @return 保存用户角色关系响应
      */
     @ApiOperation("保存用户角色关系")
     @PostMapping("/addRole")

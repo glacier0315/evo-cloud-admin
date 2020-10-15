@@ -5,7 +5,7 @@ package com.glacier.authorization.resource.service;
  *
  * @author glacier
  * @version 1.0
- * @date 2020-05-21 17:44
+ * date 2020-05-21 17:44
  */
 public interface RoleService {
 }

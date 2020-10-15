@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
  *
  * @author glacier
  * @version 1.0
- * @date 2019-09-30 10:15
+ * date 2019-09-30 10:15
  */
 @Service("userDetailsService")
 public class UserDetailsServiceImpl implements UserDetailsService {
@@ -37,9 +37,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     /**
      * 根据用户名查用户
      *
-     * @param username
-     * @return
-     * @throws UsernameNotFoundException
+     * @param username 用户名
+     * @return 用户信息
+     * @throws UsernameNotFoundException 用户不存在异常
      */
     @Override
     public UserDetailsVo loadUserByUsername(String username) throws UsernameNotFoundException {

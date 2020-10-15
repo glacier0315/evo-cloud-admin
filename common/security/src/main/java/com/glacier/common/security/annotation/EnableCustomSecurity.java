@@ -11,7 +11,7 @@ import java.lang.annotation.*;
 /**
  * @author glacier
  * @version 1.0
- * @date 2020-08-17 12:50
+ * date 2020-08-17 12:50
  */
 
 @Retention(value = RetentionPolicy.RUNTIME)

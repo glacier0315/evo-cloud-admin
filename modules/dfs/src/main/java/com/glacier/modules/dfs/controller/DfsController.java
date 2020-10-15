@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * @author glacier
  * @version 1.0
- * @date 2020-09-11 15:11
+ * date 2020-09-11 15:11
  */
 @RestController
 @RequestMapping("/dfs")
@@ -31,8 +31,8 @@ public class DfsController {
     /**
      * 下载文件
      *
-     * @param path
-     * @param response
+     * @param path     文件路径
+     * @param response 响应
      */
     @ApiOperation(value = "下载文件")
     @GetMapping(value = "/download")
@@ -44,8 +44,8 @@ public class DfsController {
     /**
      * 单文件上传
      *
-     * @param file
-     * @return
+     * @param file 文件
+     * @return 响应结果
      */
     @PostMapping("/upload")
     public Result<String> upload(@RequestParam("file") MultipartFile file) {
@@ -55,8 +55,8 @@ public class DfsController {
     /**
      * 单文件删除
      *
-     * @param url
-     * @return
+     * @param url 文件url
+     * @return 响应
      */
     @PostMapping("/delete")
     public Result<String> deleteFile(String url) {

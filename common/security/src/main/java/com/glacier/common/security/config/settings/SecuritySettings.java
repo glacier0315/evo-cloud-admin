@@ -9,7 +9,7 @@ import java.util.Optional;
 /**
  * @author glacier
  * @version 1.0
- * @date 2020-02-14 22:18
+ * date 2020-02-14 22:18
  */
 @ConfigurationProperties(prefix = "settings.security")
 public class SecuritySettings implements Serializable {
@@ -22,7 +22,7 @@ public class SecuritySettings implements Serializable {
     }
 
     public List<String> getPermitAll() {
-        return permitAll;
+        return this.permitAll;
     }
 
     public void setPermitAll(List<String> permitAll) {
@@ -32,7 +32,7 @@ public class SecuritySettings implements Serializable {
     /**
      * 将permitAll 转换为数组
      *
-     * @return
+     * @return 数组
      */
     public String[] permitAll2Array() {
         return Optional.ofNullable(this.permitAll)
@@ -43,7 +43,7 @@ public class SecuritySettings implements Serializable {
     @Override
     public String toString() {
         return "SecuritySettings{" +
-                "permitAll=" + permitAll +
+                "permitAll=" + this.permitAll +
                 '}';
     }
 }

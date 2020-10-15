@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Configuration;
  *
  * @author glacier
  * @version 1.0
- * @date 2020-05-24 08:22
+ * date 2020-05-24 08:22
  */
 @Configuration
 public class ModelmapperConfig {

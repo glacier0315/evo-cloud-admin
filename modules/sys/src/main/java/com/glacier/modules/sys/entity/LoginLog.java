@@ -8,7 +8,7 @@ import java.time.LocalDate;
  *
  * @author glacier
  * @version 1.0
- * @date 2019-10-09 11:03
+ * date 2019-10-09 11:03
  */
 public class LoginLog implements Serializable {
     private static final long serialVersionUID = -6057481206987109088L;

@@ -7,7 +7,7 @@ import com.glacier.common.core.entity.AbstractDataEntity;
  *
  * @author glacier
  * @version 1.0
- * @date 2019-08-04 13:45
+ * date 2019-08-04 13:45
  */
 public class Role extends AbstractDataEntity {
     private static final long serialVersionUID = 7739076146000563144L;

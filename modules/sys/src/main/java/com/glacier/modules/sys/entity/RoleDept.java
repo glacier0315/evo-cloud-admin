@@ -7,7 +7,7 @@ import java.io.Serializable;
  *
  * @author glacier
  * @version 1.0
- * @date 2019-10-09 14:49
+ * date 2019-10-09 14:49
  */
 public class RoleDept implements Serializable {
     private static final long serialVersionUID = 6012509805874207086L;

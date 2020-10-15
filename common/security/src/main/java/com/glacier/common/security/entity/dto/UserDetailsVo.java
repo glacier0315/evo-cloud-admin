@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
  *
  * @author glacier
  * @version 1.0
- * @date 2020-05-24 10:22
+ * date 2020-05-24 10:22
  */
 public class UserDetailsVo implements UserDetails, CredentialsContainer {
 

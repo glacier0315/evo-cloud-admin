@@ -9,7 +9,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 /**
  * @author glacier
  * @version 1.0
- * @date 2019-12-23 10:31
+ * date 2019-12-23 10:31
  */
 @EnableConfigurationProperties(SecuritySettings.class)
 @EnableDiscoveryClient

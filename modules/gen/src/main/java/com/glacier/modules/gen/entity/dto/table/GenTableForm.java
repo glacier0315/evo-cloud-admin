@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * @author glacier
  * @version 1.0
- * @date 2020-09-20 18:45
+ * date 2020-09-20 18:45
  */
 @ApiModel(description = "表模型")
 public class GenTableForm extends IdDto {

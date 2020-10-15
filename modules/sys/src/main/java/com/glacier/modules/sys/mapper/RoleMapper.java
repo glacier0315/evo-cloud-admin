@@ -12,7 +12,7 @@ import java.util.List;
  *
  * @author glacier
  * @version 1.0
- * @date 2019-12-18 15:29
+ * date 2019-12-18 15:29
  */
 public interface RoleMapper extends BaseMapper<Role, String> {
 
@@ -35,8 +35,9 @@ public interface RoleMapper extends BaseMapper<Role, String> {
 
     /**
      * 根据条件查询
-     * @param params
-     * @return
+     *
+     * @param params 查询参数
+     * @return 角色集合
      */
     List<Role> selectList(RoleQuery params);
 }

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
  *
  * @author glacier
  * @version 1.0
- * @date 2020-07-27 09:50
+ * date 2020-07-27 09:50
  */
 @Controller
 public class LoginController {

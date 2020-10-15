@@ -9,7 +9,7 @@ import java.util.List;
  *
  * @author glacier
  * @version 1.0
- * @date 2020-08-26 16:32
+ * date 2020-08-26 16:32
  */
 public interface GenTableColumnService {
     /**

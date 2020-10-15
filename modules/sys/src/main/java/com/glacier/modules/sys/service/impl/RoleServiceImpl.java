@@ -33,7 +33,7 @@ import java.util.List;
  *
  * @author glacier
  * @version 1.0
- * @date 2019-08-11 21:21
+ * date 2019-08-11 21:21
  */
 @Transactional(readOnly = true)
 @Service("roleService")
@@ -68,7 +68,7 @@ public class RoleServiceImpl implements RoleService {
     /**
      * 查询所有
      *
-     * @return
+     * @return 角色
      */
     @Override
     public List<RoleVo> findAllList() {
@@ -81,8 +81,8 @@ public class RoleServiceImpl implements RoleService {
     /**
      * 根据用户id 查询角色
      *
-     * @param userId
-     * @return
+     * @param userId 用户id
+     * @return 角色
      */
     @Override
     public List<RoleVo> findByUserId(String userId) {
@@ -104,10 +104,6 @@ public class RoleServiceImpl implements RoleService {
         return false;
     }
 
-    /**
-     * @param pageRequest
-     * @return
-     */
     @Override
     public PageResponse<RoleVo> findPage(PageRequest<RoleQuery> pageRequest) {
         PageHelper.startPage(pageRequest.getPageNum(), pageRequest.getPageSize());
@@ -126,8 +122,8 @@ public class RoleServiceImpl implements RoleService {
     /**
      * 保存
      *
-     * @param roleForm
-     * @return
+     * @param roleForm 记录
+     * @return 保存记录数
      */
     @Transactional(rollbackFor = {})
     @Override
@@ -151,8 +147,8 @@ public class RoleServiceImpl implements RoleService {
     /**
      * 根据id批量删除
      *
-     * @param id
-     * @return
+     * @param id 主键
+     * @return 删除记录数
      */
     @Transactional(rollbackFor = {})
     @Override
@@ -175,9 +171,9 @@ public class RoleServiceImpl implements RoleService {
      * 1 先清空
      * 2 保存
      *
-     * @param roleId
-     * @param menuIds
-     * @return
+     * @param roleId  角色id
+     * @param menuIds 菜单id
+     * @return 保存记录数
      */
     private int saveRoleMenu(String roleId, List<String> menuIds) {
         int update = 0;
@@ -200,10 +196,10 @@ public class RoleServiceImpl implements RoleService {
      * 1 先清空
      * 2 保存 仅自定义时保存
      *
-     * @param roleId
-     * @param dataScope
-     * @param deptIds
-     * @return
+     * @param roleId 角色id
+     * @param dataScope 数据权限
+     * @param deptIds 单位id
+     * @return 保存记录数
      */
     private int saveRoleDept(String roleId, String dataScope, List<String> deptIds) {
         int update = 0;

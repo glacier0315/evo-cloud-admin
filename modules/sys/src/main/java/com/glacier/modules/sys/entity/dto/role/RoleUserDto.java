@@ -10,7 +10,7 @@ import java.util.List;
  * 用户角色模型
  * @author glacier
  * @version 1.0
- * @date 2020-08-30 12:42
+ * date 2020-08-30 12:42
  */
 @ApiModel(description = "用户角色模型")
 public class RoleUserDto implements Serializable {

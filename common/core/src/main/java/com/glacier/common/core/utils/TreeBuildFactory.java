@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
  *
  * @author glacier
  * @version 1.0
- * @date 2020-06-16 21:08
+ * date 2020-06-16 21:08
  */
 public class TreeBuildFactory {
 
@@ -23,8 +23,9 @@ public class TreeBuildFactory {
     /**
      * 组装菜单树
      *
-     * @param list
-     * @return
+     * @param list 菜单集合
+     * @param <T>  菜单类型
+     * @return 菜单树
      */
     public static <T extends TreeData<T>> List<T> buildMenuTree(final List<T> list) {
         // 分离出所有一级

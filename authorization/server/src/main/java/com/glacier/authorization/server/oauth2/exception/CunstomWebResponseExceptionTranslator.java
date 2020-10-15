@@ -21,7 +21,7 @@ import java.io.IOException;
  * 处理认证异常
  * @author glacier
  * @version 1.0
- * @date 2020-07-29 16:57
+ * date 2020-07-29 16:57
  */
 @Component
 public class CunstomWebResponseExceptionTranslator implements WebResponseExceptionTranslator<OAuth2Exception> {

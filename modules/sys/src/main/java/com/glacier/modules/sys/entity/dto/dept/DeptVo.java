@@ -11,7 +11,7 @@ import java.util.List;
  *
  * @author glacier
  * @version 1.0
- * @date 2020-08-11 21:19
+ * date 2020-08-11 21:19
  */
 @ApiModel(description = "组织机构显示模型")
 public class DeptVo extends DeptForm implements TreeData<DeptVo> {

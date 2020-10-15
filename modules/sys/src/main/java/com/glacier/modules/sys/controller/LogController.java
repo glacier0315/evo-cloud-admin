@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
  *
  * @author glacier
  * @version 1.0
- * @date 2019-12-18 16:12
+ * date 2019-12-18 16:12
  */
 @Api(tags = "登录日志管理")
 @RestController
@@ -36,8 +36,8 @@ public class LogController {
     /**
      * 分页查询
      *
-     * @param pageRequest
-     * @return
+     * @param pageRequest 分页请求
+     * @return 分页响应
      */
     @PostMapping("/findPage")
     public Result<PageResponse<SysLog>> findPage(@RequestBody PageRequest<SysLog> pageRequest) {

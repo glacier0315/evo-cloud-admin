@@ -7,7 +7,7 @@ import com.glacier.modules.sys.entity.Config;
 /**
  * @author glacier
  * @version 1.0
- * @date 2019-11-21 17:37
+ * date 2019-11-21 17:37
  */
 public interface ConfigService {
 
@@ -15,16 +15,16 @@ public interface ConfigService {
     /**
      * 分页查找配置
      *
-     * @param pageRequest
-     * @return
+     * @param pageRequest 分页请求
+     * @return 分页响应
      */
     PageResponse<Config> findPage(PageRequest<Config> pageRequest);
 
     /**
      * 保存操作
      *
-     * @param record
-     * @return
+     * @param record 实体
+     * @return 影响行数
      */
     int save(Config record);
 

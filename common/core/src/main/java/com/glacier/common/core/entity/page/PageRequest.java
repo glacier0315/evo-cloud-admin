@@ -10,7 +10,7 @@ import java.io.Serializable;
  *
  * @author glacier
  * @version 1.0
- * @date 2019-10-14 15:53
+ * date 2019-10-14 15:53
  */
 @ApiModel(description = "分页请求模型")
 public class PageRequest<T> implements Serializable {

@@ -30,7 +30,7 @@ import java.util.Objects;
 /**
  * @author glacier
  * @version 1.0
- * @date 2020-09-11 15:30
+ * date 2020-09-11 15:30
  */
 @Service("fileService")
 public class FileServiceImpl implements FileService {
@@ -49,7 +49,9 @@ public class FileServiceImpl implements FileService {
     }
 
     /**
-     * @param filePath
+     * 文件下载
+     *
+     * @param filePath 文件路径
      * @param response 响应
      */
     @Override

@@ -13,7 +13,7 @@ import java.util.Map;
  *
  * @author glacier
  * @version 1.0
- * @date 2020-07-29 17:05
+ * date 2020-07-29 17:05
  */
 public class CustomOAuth2ExceptionSerializer extends StdSerializer<CustomOAuth2Exception> {
     private static final long serialVersionUID = -4546804004244728921L;

@@ -16,7 +16,7 @@ import java.io.IOException;
  *
  * @author glacier
  * @version 1.0
- * @date 2020-02-09 08:28
+ * date 2020-02-09 08:28
  */
 @Configuration
 public class JwtTokenStoreConfig {

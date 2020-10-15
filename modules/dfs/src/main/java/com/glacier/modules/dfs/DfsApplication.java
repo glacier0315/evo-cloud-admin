@@ -8,7 +8,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 /**
  * @author glacier
  * @version 1.0
- * @date 2020-07-22 15:19
+ * date 2020-07-22 15:19
  */
 @EnableDiscoveryClient
 @SpringBootApplication(exclude = {DruidDataSourceAutoConfigure.class})

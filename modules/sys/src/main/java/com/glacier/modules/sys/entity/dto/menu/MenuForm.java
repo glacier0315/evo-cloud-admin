@@ -7,7 +7,7 @@ import io.swagger.annotations.ApiModelProperty;
 /**
  * @author glacier
  * @version 1.0
- * @date 2020-07-03 17:21
+ * date 2020-07-03 17:21
  */
 @ApiModel(description = "菜单模型")
 public class MenuForm extends TreeDto {

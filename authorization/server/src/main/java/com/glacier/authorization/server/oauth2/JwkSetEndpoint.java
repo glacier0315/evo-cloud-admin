@@ -16,7 +16,7 @@ import java.util.Map;
 /**
  * @author glacier
  * @version 1.0
- * @date 2020-07-24 16:38
+ * date 2020-07-24 16:38
  */
 @FrameworkEndpoint
 public class JwkSetEndpoint {

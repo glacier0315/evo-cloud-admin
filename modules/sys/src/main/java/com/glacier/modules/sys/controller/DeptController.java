@@ -20,7 +20,7 @@ import java.util.List;
  *
  * @author glacier
  * @version 1.0
- * @date 2019-10-24 17:15
+ * date 2019-10-24 17:15
  */
 @Api(tags = "组织机构管理")
 @RestController
@@ -37,7 +37,7 @@ public class DeptController {
     /**
      * 查询所有组织机构
      *
-     * @return
+     * @return 组织机构
      */
     @ApiOperation("查询所有组织机构")
     @GetMapping("/list")
@@ -49,8 +49,8 @@ public class DeptController {
     /**
      * 保存组织机构
      *
-     * @param deptForm
-     * @return
+     * @param deptForm 组织机构表单
+     * @return 响应
      */
     @ApiOperation("保存组织机构")
     @PostMapping("/save")
@@ -62,8 +62,8 @@ public class DeptController {
     /**
      * 删除指定组织机构
      *
-     * @param idDto
-     * @return
+     * @param idDto 主键封装
+     * @return 响应
      */
     @ApiOperation("删除指定组织机构")
     @PostMapping("/delete")
@@ -75,7 +75,7 @@ public class DeptController {
     /**
      * 查询所有组织机构树
      *
-     * @return
+     * @return 组织机构树响应
      */
     @ApiOperation("查询所有组织机构树")
     @GetMapping("/findTree")
@@ -89,7 +89,8 @@ public class DeptController {
     /**
      * 查询角色具有的单位
      *
-     * @return
+     * @param roleId 角色id
+     * @return 单位集合
      */
     @ApiOperation("查询角色具有的单位")
     @GetMapping("/findByRole")

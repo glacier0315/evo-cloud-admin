@@ -8,7 +8,7 @@ import com.glacier.common.core.entity.AbstractDataEntity;
  *
  * @author glacier
  * @version 1.0
- * @date 2019-11-06 11:11
+ * date 2019-11-06 11:11
  */
 public class Config extends AbstractDataEntity {
 

@@ -41,7 +41,7 @@ import org.springframework.web.client.RestTemplate;
  *
  * @author glacier
  * @version 1.0
- * @date 2019-08-04 10:03
+ * date 2019-08-04 10:03
  */
 @Configuration
 @EnableWebSecurity
@@ -59,8 +59,8 @@ public class CustomWebSecurityConfig extends WebSecurityConfigurerAdapter {
     /**
      * 配置静态资源拦截问题
      *
-     * @param web
-     * @throws Exception
+     * @param web web层安全
+     * @throws Exception 异常
      */
     @Override
     public void configure(WebSecurity web) throws Exception {
@@ -100,8 +100,8 @@ public class CustomWebSecurityConfig extends WebSecurityConfigurerAdapter {
     /**
      * 授权中心管理器，解决依赖注入问题
      *
-     * @return
-     * @throws Exception
+     * @return 认证管理器
+     * @throws Exception 异常
      */
     @Bean(BeanIds.AUTHENTICATION_MANAGER)
     @ConditionalOnMissingBean
@@ -112,7 +112,7 @@ public class CustomWebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
     /**
-     * @return
+     * @return 安全配置实例
      */
     @Bean
     @ConditionalOnMissingBean
@@ -123,8 +123,8 @@ public class CustomWebSecurityConfig extends WebSecurityConfigurerAdapter {
     /**
      * 配置客户端管理
      *
-     * @param clientRegistrationRepository
-     * @param authorizedClientRepository
+     * @param clientRegistrationRepository 客户端注册工厂
+     * @param authorizedClientRepository   认证客户端工厂
      * @return
      */
     @Bean
@@ -152,7 +152,7 @@ public class CustomWebSecurityConfig extends WebSecurityConfigurerAdapter {
     /**
      * 密码工具类
      *
-     * @return
+     * @return 密码工具类
      */
     @Bean
     @ConditionalOnMissingBean
@@ -163,7 +163,7 @@ public class CustomWebSecurityConfig extends WebSecurityConfigurerAdapter {
     /**
      * 自定义权限不足异常
      *
-     * @return
+     * @return 自定义权限不足异常处理类
      */
     @Bean
     @ConditionalOnMissingBean
@@ -174,7 +174,7 @@ public class CustomWebSecurityConfig extends WebSecurityConfigurerAdapter {
     /**
      * 自定义需要授权异常
      *
-     * @return
+     * @return 自定义需要授权异常处理类
      */
     @Bean
     @ConditionalOnMissingBean
@@ -185,7 +185,7 @@ public class CustomWebSecurityConfig extends WebSecurityConfigurerAdapter {
     /**
      * 自定义退出处理类
      *
-     * @return
+     * @return 自定义退出处理类
      */
     @Bean
     @ConditionalOnMissingBean
@@ -196,7 +196,7 @@ public class CustomWebSecurityConfig extends WebSecurityConfigurerAdapter {
     /**
      * 实例化 RestTemplate
      *
-     * @return
+     * @return RestTemplate实例
      */
     @Bean
     @LoadBalanced

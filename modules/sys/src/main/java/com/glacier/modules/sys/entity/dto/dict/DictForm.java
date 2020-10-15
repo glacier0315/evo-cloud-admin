@@ -9,7 +9,7 @@ import io.swagger.annotations.ApiModelProperty;
  *
  * @author glacier
  * @version 1.0
- * @date 2020-08-11 21:17
+ * date 2020-08-11 21:17
  */
 @ApiModel(description = "字典模型")
 public class DictForm extends TreeDto {

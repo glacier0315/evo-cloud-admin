@@ -22,7 +22,7 @@ import java.util.List;
  *
  * @author glacier
  * @version 1.0
- * @date 2019-08-11 21:24
+ * date 2019-08-11 21:24
  */
 @Api(tags = "角色管理")
 @RestController
@@ -39,7 +39,7 @@ public class RoleController {
     /**
      * 查找所有角色
      *
-     * @return
+     * @return 角色
      */
     @ApiOperation("查找所有角色")
     @GetMapping("/findAll")
@@ -51,8 +51,8 @@ public class RoleController {
     /**
      * 分页查询角色
      *
-     * @param pageRequest
-     * @return
+     * @param pageRequest 分页请求
+     * @return 分页响应
      */
     @ApiOperation("分页查询角色")
     @PostMapping("/findPage")
@@ -65,8 +65,8 @@ public class RoleController {
     /**
      * 保存角色 （新增或者更新）
      *
-     * @param roleForm
-     * @return
+     * @param roleForm 角色
+     * @return 保存响应
      */
     @ApiOperation("保存角色 （新增或者更新）")
     @PostMapping("/save")
@@ -79,8 +79,8 @@ public class RoleController {
     /**
      * 删除指定角色
      *
-     * @param idDto
-     * @return
+     * @param idDto 主键
+     * @return 删除响应
      */
     @ApiOperation("删除指定角色")
     @PostMapping("/delete")
@@ -92,8 +92,8 @@ public class RoleController {
     /**
      * 检验角色编码
      *
-     * @param roleForm
-     * @return
+     * @param roleForm  角色
+     * @return 校验响应
      */
     @ApiOperation("检验角色编码")
     @PostMapping("/checkCode")
@@ -105,8 +105,8 @@ public class RoleController {
     /**
      * 根据用户id查询角色
      *
-     * @param userId
-     * @return
+     * @param userId 用户id
+     * @return 角色
      */
     @ApiOperation("根据用户id查询角色")
     @GetMapping("/findByUserId")

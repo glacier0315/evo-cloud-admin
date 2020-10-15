@@ -9,7 +9,7 @@ import io.swagger.annotations.ApiModelProperty;
  *
  * @author glacier
  * @version 1.0
- * @date 2020-08-11 21:18
+ * date 2020-08-11 21:18
  */
 @ApiModel(description = "组织机构模型")
 public class DeptForm extends TreeDto {

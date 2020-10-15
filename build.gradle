@@ -35,12 +35,6 @@ allprojects {
         testImplementation ("org.junit.jupiter:junit-jupiter:${junitVersion}")
     }
 
-//    configurations {
-//        // 排除兼容junit4 相关依赖
-//        compile.exclude(group: "org.junit.vintage", module: "junit-vintage-engine")
-//    }
-
-
 
     // 设置编码为UTF-8
     tasks.withType(JavaCompile) {
@@ -75,8 +69,7 @@ allprojects {
 
     test {
         useJUnitPlatform {
-            // includeEngines 'junit-vintage'
-            // excludeEngines 'junit-jupiter'
+            // includeEngines 'junit-jupiter'
             excludeEngines 'junit-vintage'
         }
     }

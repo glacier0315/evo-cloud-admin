@@ -33,14 +33,11 @@ public class LocalDateConverter implements Converter<LocalDate> {
             CellData cellData,
             ExcelContentProperty contentProperty,
             GlobalConfiguration globalConfiguration) throws Exception {
-        if (contentProperty == null || contentProperty.getDateTimeFormatProperty() == null) {
-            return LocalDate.parse(cellData.getStringValue(),
-                    DateTimeFormatter.ofPattern(YYYY_MM_DD));
-        }
-        return LocalDate.parse(cellData.getStringValue(),
+
+        return LocalDate.parse(
+                cellData.getStringValue(),
                 DateTimeFormatter.ofPattern(
-                        contentProperty.getDateTimeFormatProperty()
-                                .getFormat()));
+                        this.getFormat(contentProperty)));
     }
 
     @Override
@@ -48,16 +45,19 @@ public class LocalDateConverter implements Converter<LocalDate> {
             LocalDate value,
             ExcelContentProperty contentProperty,
             GlobalConfiguration globalConfiguration) throws Exception {
-        if (contentProperty == null || contentProperty.getDateTimeFormatProperty() == null) {
-            return new CellData<>(
-                    DateTimeFormatter.ofPattern(YYYY_MM_DD)
-                            .format(value));
-        }
         return new CellData<>(
                 DateTimeFormatter.ofPattern(
-                        contentProperty.getDateTimeFormatProperty()
-                                .getFormat())
-                        .format(value));
+                        this.getFormat(contentProperty)
+                ).format(value));
 
+    }
+
+    private String getFormat(ExcelContentProperty contentProperty) {
+        if (contentProperty == null
+                || contentProperty.getDateTimeFormatProperty() == null) {
+            return YYYY_MM_DD;
+        }
+        return contentProperty.getDateTimeFormatProperty()
+                .getFormat();
     }
 }

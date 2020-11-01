@@ -67,6 +67,9 @@ public class RequestRecordFilter implements GlobalFilter, Ordered {
     }
 
     private String encodeBody(Map<String, Object> map) {
-        return map.entrySet().stream().map(e -> e.getKey() + "=" + e.getValue()).collect(Collectors.joining("&"));
+        return map.entrySet()
+                .stream()
+                .map(e -> e.getKey() + "=" + e.getValue())
+                .collect(Collectors.joining("&"));
     }
 }

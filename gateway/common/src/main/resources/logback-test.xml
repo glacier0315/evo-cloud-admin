@@ -32,7 +32,7 @@
         <appender-ref ref="logFile"/>
     </appender>
 
-    <root level="WARN">
+    <root level="INFO">
         <appender-ref ref="async"/>
         <appender-ref ref="STDOUT"/>
     </root>

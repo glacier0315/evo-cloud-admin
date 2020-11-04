@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration scan="true" scanPeriod="30 seconds">
     <property name="LOG_PATH" value="./logs"/>
-    <property name="LOG_FILE" value="gateway/common"/>
+    <property name="LOG_FILE" value="monitor/admin-server"/>
 
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
@@ -28,12 +28,9 @@
         </triggeringPolicy>
     </appender>
 
-    <appender name="async" class="ch.qos.logback.classic.AsyncAppender">
-        <appender-ref ref="logFile"/>
-    </appender>
 
-    <root level="WARN">
-        <appender-ref ref="async"/>
+    <root level="INFO">
+        <appender-ref ref="logFile"/>
         <appender-ref ref="STDOUT"/>
     </root>
 </configuration>

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import springfox.documentation.annotations.ApiIgnore;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
@@ -37,8 +38,9 @@ public class DfsController {
     @ApiOperation(value = "下载文件")
     @GetMapping(value = "/download")
     public void download(@RequestParam("path") String path,
+                         @ApiIgnore HttpServletRequest request,
                          @ApiIgnore HttpServletResponse response) {
-        this.fileService.download(path, response);
+        this.fileService.download(path, request, response);
     }
 
     /**

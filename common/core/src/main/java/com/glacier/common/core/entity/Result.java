@@ -130,7 +130,19 @@ public class Result<T> implements Serializable {
      * @return 响应
      */
     public static <T> Result<T> error(String code, String msg) {
-        return new Result<>(code, msg, System.currentTimeMillis(), null);
+        return error(code, msg, null);
+    }
+
+    /**
+     * 返回指定编码错误
+     *
+     * @param code 编码
+     * @param msg 错误信息
+     * @param <T> 类型
+     * @return 响应
+     */
+    public static <T> Result<T> error(String code, String msg, T data) {
+        return new Result<>(code, msg, System.currentTimeMillis(), data);
     }
 
     /**

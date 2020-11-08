@@ -3,6 +3,7 @@ package com.glacier.modules.dfs.service;
 import com.glacier.common.core.entity.Result;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
@@ -16,8 +17,9 @@ public interface FileService {
      * 文件下载
      * @param fileName 文件路径
      * @param response 响应
+     * @param request 请求
      */
-    void download(String fileName, HttpServletResponse response);
+    void download(String fileName, HttpServletRequest request, HttpServletResponse response);
 
     /**
      * 单文件上传

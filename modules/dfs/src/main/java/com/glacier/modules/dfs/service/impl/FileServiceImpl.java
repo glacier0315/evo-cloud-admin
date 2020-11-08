@@ -1,15 +1,15 @@
 package com.glacier.modules.dfs.service.impl;
 
 import com.glacier.common.core.constant.CommonConstant;
-import com.glacier.common.core.constant.ServiceNameConstants;
+import com.glacier.common.core.entity.RangeMeta;
 import com.glacier.common.core.entity.Result;
-import com.glacier.common.core.exception.BaseException;
 import com.glacier.common.core.exception.SystemErrorType;
 import com.glacier.common.core.utils.AppContextHolder;
 import com.glacier.common.core.utils.IdGen;
 import com.glacier.common.core.utils.StringUtil;
 import com.glacier.modules.dfs.config.properties.MinioProperties;
 import com.glacier.modules.dfs.controller.DfsController;
+import com.glacier.modules.dfs.exception.DfsExcetion;
 import com.glacier.modules.dfs.service.FileService;
 import io.minio.*;
 import org.apache.commons.io.FilenameUtils;
@@ -21,8 +21,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.MimeTypeUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.URLEncoder;
 import java.time.LocalDate;
 import java.util.Objects;
@@ -53,9 +55,10 @@ public class FileServiceImpl implements FileService {
      *
      * @param filePath 文件路径
      * @param response 响应
+     * @param request  请求
      */
     @Override
-    public void download(String filePath, HttpServletResponse response) {
+    public void download(String filePath, HttpServletRequest request, HttpServletResponse response) {
         this.checkFilePath(filePath);
         int index = filePath.indexOf(FILE_SEQ);
         String bucketName = filePath.substring(0, index);
@@ -64,12 +67,15 @@ public class FileServiceImpl implements FileService {
         // 文件名称
         String fileName = filePath.substring(filePath.lastIndexOf(FILE_SEQ));
         InputStream in = null;
-        final ObjectStat stat;
+        OutputStream out = null;
+        RangeMeta rangeMeta = null;
+        StatObjectResponse stat = null;
         try {
             stat = this.minioClient.statObject(StatObjectArgs.builder()
                     .bucket(bucketName)
                     .object(path)
                     .build());
+            rangeMeta = RangeMeta.parse(request.getHeader("Range"), stat.size());
             response.setContentType(stat.contentType());
             response.setHeader("Content-Disposition",
                     StringUtil.join("attachment;filename=",
@@ -77,12 +83,15 @@ public class FileServiceImpl implements FileService {
             in = this.minioClient.getObject(GetObjectArgs.builder()
                     .bucket(bucketName)
                     .object(path)
+                    .offset(rangeMeta.getPastLength())
+                    .length(rangeMeta.getContentLength())
                     .build());
-            IOUtils.copy(in, response.getOutputStream());
+            out = response.getOutputStream();
+            IOUtils.copy(in, out);
+            out.flush();
         } catch (Exception e) {
             log.error("出现异常", e);
-            throw new BaseException(ServiceNameConstants.DFS_SERVICE,
-                    SystemErrorType.BUSINESS_ERROR.getCode(),
+            throw new DfsExcetion(SystemErrorType.BUSINESS_ERROR.getCode(),
                     "文件下载出现异常！",
                     new Object[]{filePath});
         } finally {
@@ -98,7 +107,7 @@ public class FileServiceImpl implements FileService {
         String contentType = file.getContentType();
         String extension = FilenameUtils.getExtension(file.getOriginalFilename());
         if (extension == null || extension.isEmpty()) {
-            extension = MimeTypeUtils.parseMimeType(Objects.requireNonNull(file.getContentType())).getSubtype();
+            extension = MimeTypeUtils.parseMimeType(Objects.requireNonNull(contentType)).getSubtype();
         }
         // 根据contentType 转换为 对应的bucketName
         String bucketName = this.minioProperties.getDefaultBucketName();
@@ -127,8 +136,7 @@ public class FileServiceImpl implements FileService {
                     .build());
         } catch (Exception e) {
             log.error("出现异常", e);
-            throw new BaseException(ServiceNameConstants.DFS_SERVICE,
-                    SystemErrorType.BUSINESS_ERROR.getCode(),
+            throw new DfsExcetion(SystemErrorType.BUSINESS_ERROR.getCode(),
                     "文件上传出现异常！",
                     new Object[]{file});
         } finally {
@@ -153,8 +161,7 @@ public class FileServiceImpl implements FileService {
                     .build());
         } catch (Exception e) {
             log.error("出现异常", e);
-            throw new BaseException(ServiceNameConstants.DFS_SERVICE,
-                    SystemErrorType.BUSINESS_ERROR.getCode(),
+            throw new DfsExcetion(SystemErrorType.BUSINESS_ERROR.getCode(),
                     "文件删除出现异常！",
                     new Object[]{filePath});
         } finally {
@@ -171,8 +178,7 @@ public class FileServiceImpl implements FileService {
         if (StringUtil.isBlank(filePath)
                 || !StringUtil.contains(filePath, FILE_SEQ)) {
             log.error("文件路径 {} 不正确！", filePath);
-            throw new BaseException(ServiceNameConstants.DFS_SERVICE,
-                    SystemErrorType.BUSINESS_ERROR.getCode(),
+            throw new DfsExcetion(SystemErrorType.BUSINESS_ERROR.getCode(),
                     "文件路径不正确！",
                     new Object[]{filePath});
         }

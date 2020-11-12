@@ -6,7 +6,7 @@ import com.github.pagehelper.PageInfo;
 import com.glacier.common.core.entity.page.PageRequest;
 import com.glacier.common.core.entity.page.PageResponse;
 import com.glacier.common.core.utils.StringUtil;
-import com.glacier.modules.constant.DataSourceConstant;
+import com.glacier.modules.gen.constant.DataSourceConstant;
 import com.glacier.modules.gen.entity.GenTable;
 import com.glacier.modules.gen.entity.dto.table.GenTableDto;
 import com.glacier.modules.gen.entity.dto.table.GenTableQuery;

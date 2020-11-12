@@ -1,4 +1,4 @@
-package com.glacier.modules.constant;
+package com.glacier.modules.gen.constant;
 
 /**
  * @author glacier

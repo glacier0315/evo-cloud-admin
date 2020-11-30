@@ -15,7 +15,7 @@ import org.springframework.context.annotation.Configuration;
  * date 2020-05-24 08:22
  */
 @Configuration
-public class ModelmapperConfig {
+public class ModelMapperConfig {
 
     /**
      * 将modelmapper加入容器

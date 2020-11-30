@@ -4,14 +4,16 @@ import com.glacier.common.core.constant.CommonConstant;
 import com.glacier.common.core.constant.MediaConstants;
 import com.glacier.common.core.entity.RangeMeta;
 import com.glacier.common.core.utils.ContentTypeUtils;
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.RandomAccessFile;
 import java.net.URLEncoder;
 import java.nio.channels.Channels;
 import java.nio.channels.FileChannel;
@@ -56,18 +58,18 @@ public class FileUtils extends org.apache.commons.io.FileUtils {
         if (!checkFile(file, response)) {
             return;
         }
-        // 负责读取数据
-        RandomAccessFile raf = null;
-        // 缓冲
-        OutputStream out = null;
-        WritableByteChannel outChannel = null;
-        FileChannel inChannel = null;
-
         // 通知客户端允许断点续传，响应格式为：Accept-Ranges: bytes
         response.setHeader("Accept-Ranges", "bytes");
         RangeMeta rangeMeta = RangeMeta.parse(request.getHeader("Range"), file.length());
         long startTime = System.currentTimeMillis();
-        try {
+        try (
+                // 负责读取数据
+                RandomAccessFile raf = new RandomAccessFile(file, "r");
+                // 读取文件通道
+                FileChannel inChannel = raf.getChannel();
+                // 写入通道
+                WritableByteChannel outChannel = Channels.newChannel(response.getOutputStream());
+        ) {
             response.addHeader("Content-Disposition",
                     "attachment; filename="
                             + URLEncoder.encode(
@@ -77,12 +79,7 @@ public class FileUtils extends org.apache.commons.io.FileUtils {
             // set the MIME type.
             response.setContentType(ContentTypeUtils.getContentType(file.getName()));
             response.addHeader("Content-Length", String.valueOf(rangeMeta.getContentLength()));
-            out = response.getOutputStream();
-            raf = new RandomAccessFile(file, "r");
-            outChannel = Channels.newChannel(out);
-            inChannel = raf.getChannel();
             inChannel.transferTo(rangeMeta.getPastLength(), rangeMeta.getContentLength(), outChannel);
-            out.flush();
         } catch (IOException e) {
             /**
              * 在写数据的时候， 对于 ClientAbortException 之类的异常，
@@ -93,16 +90,6 @@ public class FileUtils extends org.apache.commons.io.FileUtils {
              * 所以，我们忽略这种异常
              */
             logger.warn("提醒：向客户端传输时出现IO异常，但此异常是允许的，有可能客户端取消了下载，导致此异常，不用关心!", e);
-        } finally {
-            IOUtils.closeQuietly(outChannel, e -> {
-                logger.error("关闭流异常 ", e);
-            });
-            IOUtils.closeQuietly(inChannel, e -> {
-                logger.error("关闭流异常 ", e);
-            });
-            IOUtils.closeQuietly(raf, e -> {
-                logger.error("关闭流异常 ", e);
-            });
         }
         logger.info("下载耗时： {} ms, 响应状态: {}",
                 (System.currentTimeMillis() - startTime), response.getStatus());
@@ -141,16 +128,10 @@ public class FileUtils extends org.apache.commons.io.FileUtils {
      */
     private static void printError(HttpServletResponse response, String error) {
         response.setContentType(MediaConstants.APPLICATION_JSON_CHARSET_UTF_8);
-        PrintWriter writer = null;
-        try {
-            writer = response.getWriter();
+        try (PrintWriter writer = response.getWriter()) {
             writer.write("{error: " + error + "}");
         } catch (IOException e) {
             logger.error("写入响应失败！", e);
-        } finally {
-            IOUtils.closeQuietly(writer, e -> {
-                logger.error("关闭流异常 ", e);
-            });
         }
     }
 

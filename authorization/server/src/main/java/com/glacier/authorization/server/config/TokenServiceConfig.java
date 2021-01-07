@@ -10,9 +10,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
-import org.springframework.security.oauth2.provider.token.DefaultAccessTokenConverter;
-import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
-import org.springframework.security.oauth2.provider.token.TokenStore;
+import org.springframework.security.oauth2.provider.token.*;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFactory;
@@ -20,6 +18,7 @@ import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFacto
 import java.security.KeyPair;
 import java.util.Arrays;
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 
 /**
  * tokenStore 配置
@@ -30,11 +29,11 @@ import java.util.Optional;
  */
 @Configuration
 @EnableConfigurationProperties({AuthorizationServerProperties.class})
-public class TokenStoreConfig {
+public class TokenServiceConfig {
     private final AuthorizationServerProperties authorizationServerProperties;
 
     @Autowired
-    public TokenStoreConfig(AuthorizationServerProperties authorizationServerProperties) {
+    public TokenServiceConfig(AuthorizationServerProperties authorizationServerProperties) {
         this.authorizationServerProperties = authorizationServerProperties;
     }
 
@@ -49,6 +48,10 @@ public class TokenStoreConfig {
         return new JwtTokenStore(this.jwtAccessTokenConverter());
     }
 
+    /**
+     * 配置令牌加密
+     * @return
+     */
     @Bean
     public KeyPair keyPair() {
         Resource keyStore = new ClassPathResource(this.authorizationServerProperties.getJwt().getKeyStore());
@@ -88,5 +91,26 @@ public class TokenStoreConfig {
         TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
         tokenEnhancerChain.setTokenEnhancers(Arrays.asList(this.jwtAccessTokenConverter(), new CustomTokenEnhancer()));
         return tokenEnhancerChain;
+    }
+
+    /**
+     * 配置令牌服务
+     *
+     * @return
+     */
+    @Bean
+    public AuthorizationServerTokenServices tokenService() {
+        DefaultTokenServices defaultTokenServices = new DefaultTokenServices();
+        // 设置令牌存储策略
+        defaultTokenServices.setTokenStore(this.tokenStore());
+        // 配置jwt 转换
+        defaultTokenServices.setTokenEnhancer(this.tokenEnhancerChain());
+        // 是否产生刷新令牌
+        defaultTokenServices.setSupportRefreshToken(true);
+        // 设置令牌有效期2分钟
+        defaultTokenServices.setAccessTokenValiditySeconds((int) TimeUnit.DAYS.toSeconds(5));
+        // 设置刷新令牌有效期3天  默认3天
+        defaultTokenServices.setRefreshTokenValiditySeconds((int) TimeUnit.DAYS.toSeconds(3));
+        return defaultTokenServices;
     }
 }

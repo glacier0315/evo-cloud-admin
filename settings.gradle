@@ -8,7 +8,7 @@ pluginManagement {
 
 // 定义插件版本,不立即应用
 plugins {
-    id "org.springframework.boot" version "$springBootVersion" apply(false)
+    id "org.springframework.boot" version "$springBootVersion" apply false
 }
 
 

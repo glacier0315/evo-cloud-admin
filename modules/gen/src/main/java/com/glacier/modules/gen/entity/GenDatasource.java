@@ -25,16 +25,21 @@ import com.glacier.common.core.entity.AbstractDataEntity;
  * date 2019-08-04 21:53
  */
 public class GenDatasource extends AbstractDataEntity {
-	private static final long serialVersionUID = -3256542275939203325L;
-	/**
-	 * 名称
-	 */
-	private String name;
+    private static final long serialVersionUID = -3256542275939203325L;
+    /**
+     * 名称 唯一
+     */
+    private String name;
 
-	/**
-	 * jdbc url
-	 */
-	private String url;
+    /**
+     * 驱动
+     */
+    private String driverClassName;
+
+    /**
+     * jdbc url
+     */
+    private String url;
 
     /**
      * 用户名
@@ -46,6 +51,11 @@ public class GenDatasource extends AbstractDataEntity {
      */
     private String password;
 
+    /**
+     * 连接测试
+     */
+    private String validationQuery;
+
     public static long getSerialVersionUID() {
         return serialVersionUID;
     }
@@ -56,6 +66,14 @@ public class GenDatasource extends AbstractDataEntity {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getDriverClassName() {
+        return driverClassName;
+    }
+
+    public void setDriverClassName(String driverClassName) {
+        this.driverClassName = driverClassName;
     }
 
     public String getUrl() {
@@ -82,19 +100,29 @@ public class GenDatasource extends AbstractDataEntity {
         this.password = password;
     }
 
+    public String getValidationQuery() {
+        return validationQuery;
+    }
+
+    public void setValidationQuery(String validationQuery) {
+        this.validationQuery = validationQuery;
+    }
+
     @Override
     public String toString() {
         return "GenDatasource{" +
-                "name='" + this.name + '\'' +
-                ", url='" + this.url + '\'' +
-                ", username='" + this.username + '\'' +
-                ", password='" + this.password + '\'' +
-                ", createBy='" + this.createBy + '\'' +
-                ", createDate=" + this.createDate +
-                ", updateBy='" + this.updateBy + '\'' +
-                ", updateDate=" + this.updateDate +
-                ", delFlag='" + this.delFlag + '\'' +
-                ", id='" + this.id + '\'' +
+                "id='" + id + '\'' +
+                ", createBy='" + createBy + '\'' +
+                ", createDate=" + createDate +
+                ", updateBy='" + updateBy + '\'' +
+                ", updateDate=" + updateDate +
+                ", delFlag='" + delFlag + '\'' +
+                ", name='" + name + '\'' +
+                ", driverClassName='" + driverClassName + '\'' +
+                ", url='" + url + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", validationQuery='" + validationQuery + '\'' +
                 '}';
     }
 }

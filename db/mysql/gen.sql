@@ -14,16 +14,18 @@ use eboot_gen;
 -- ----------------------------
 DROP TABLE IF EXISTS gen_datasource;
 CREATE TABLE gen_datasource (
-    id          varchar(64) NOT NULL COMMENT '主键',
-    name        varchar(64) DEFAULT '' comment '数据源名称',
-    url         varchar(255) DEFAULT '' comment 'jdbc url',
-    username    varchar(64) DEFAULT '' comment '数据源用户名',
-    password    varchar(64) DEFAULT '' comment '数据源密码',
-    create_by   varchar(64)  default '' COMMENT '创建人',
-    create_date timestamp DEFAULT current_timestamp COMMENT '创建时间',
-    update_by   varchar(64)  default '' COMMENT '更新人',
-    update_date timestamp DEFAULT current_timestamp COMMENT '更新时间',
-    del_flag    varchar(4) default '0'  COMMENT '删除标记',
+    id                      varchar(64) NOT NULL COMMENT '主键',
+    name                    varchar(64) DEFAULT '' comment '数据源名称',
+    driver_class_name       varchar(200) DEFAULT '' comment '数据源驱动',
+    url                     varchar(255) DEFAULT '' comment 'jdbc url',
+    username                varchar(64) DEFAULT '' comment '数据源用户名',
+    password                varchar(64) DEFAULT '' comment '数据源密码',
+    validation_query        varchar(64) DEFAULT '' comment '数据源连接检测',
+    create_by               varchar(64)  default '' COMMENT '创建人',
+    create_date             timestamp DEFAULT current_timestamp COMMENT '创建时间',
+    update_by               varchar(64)  default '' COMMENT '更新人',
+    update_date             timestamp DEFAULT current_timestamp COMMENT '更新时间',
+    del_flag                varchar(4) default '0'  COMMENT '删除标记',
     primary key (id)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COMMENT='数据源表';
 

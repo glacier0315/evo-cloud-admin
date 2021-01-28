@@ -47,6 +47,11 @@ public class GenDatasourceServiceImpl implements GenDatasourceService {
     }
 
     @Override
+    public GenDatasource findDatasourceById(String id) {
+        return this.genDatasourceMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
     public GenDatasourceDto findById(String id) {
         return Optional.ofNullable(this.genDatasourceMapper.selectByPrimaryKey(id))
                 .map(genDatasource ->

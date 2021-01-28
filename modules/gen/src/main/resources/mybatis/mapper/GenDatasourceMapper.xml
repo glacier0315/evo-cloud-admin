@@ -4,9 +4,11 @@
     <resultMap id="BaseResultMap" type="com.glacier.modules.gen.entity.GenDatasource">
         <id column="id" jdbcType="VARCHAR" property="id"/>
         <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="driver_class_name" jdbcType="VARCHAR" property="driverClassName"/>
         <result column="url" jdbcType="VARCHAR" property="url"/>
         <result column="username" jdbcType="VARCHAR" property="username"/>
         <result column="password" jdbcType="VARCHAR" property="password"/>
+        <result column="validation_query" jdbcType="VARCHAR" property="validationQuery"/>
         <result column="create_by" jdbcType="VARCHAR" property="createBy"/>
         <result column="create_date" jdbcType="TIMESTAMP" property="createDate"/>
         <result column="update_by" jdbcType="VARCHAR" property="updateBy"/>
@@ -15,7 +17,7 @@
     </resultMap>
 
     <sql id="base_columns">
-        a.id, a.name, a.url, a.username, a.password,
+        a.id, a.name, a.driver_class_name, a.url, a.username, a.password, a.validation_query,
         a.create_by, a.create_date, a.update_by, a.update_date, a.del_flag
     </sql>
 
@@ -32,18 +34,20 @@
     </delete>
 
     <insert id="insert" parameterType="com.glacier.modules.gen.entity.GenDatasource">
-        insert into gen_datasource (id, name, url, username, password,
+        insert into gen_datasource (id, name, url, driver_class_name, username, password, validation_query,
                 create_by, create_date, update_by, update_date, del_flag)
-        values (#{id}, #{name}, #{url}, #{username}, #{password},
+        values (#{id}, #{name}, #{driverClassName}, #{url}, #{username}, #{password}, #{validationQuery},
                 #{createDate}, #{updateBy}, #{updateDate}, #{delFlag})
     </insert>
 
     <update id="updateByPrimaryKey" parameterType="com.glacier.modules.gen.entity.GenDatasource">
         update gen_datasource
         set name                = #{name},
+            driver_class_name   = #{driverClassName},
             url                 = #{url},
             username            = #{username},
-            username            = #{username},
+            password            = #{password},
+            validation_query    = #{validationQuery},
             update_by           = #{updateBy},
             update_date         = #{updateDate}
         where id = #{id}

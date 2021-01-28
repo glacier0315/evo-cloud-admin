@@ -18,6 +18,11 @@ public class GenDatasourceForm extends IdDto {
      */
     @ApiModelProperty(value = "名称")
     private String name;
+    /**
+     * 名称
+     */
+    @ApiModelProperty(value = "驱动")
+    private String driverClassName;
 
     /**
      * jdbc url
@@ -37,6 +42,12 @@ public class GenDatasourceForm extends IdDto {
     @ApiModelProperty(value = "密码")
     private String password;
 
+    /**
+     * 连接测试
+     */
+    @ApiModelProperty(value = "连接测试")
+    private String validationQuery;
+
     public static long getSerialVersionUID() {
         return serialVersionUID;
     }
@@ -47,6 +58,14 @@ public class GenDatasourceForm extends IdDto {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getDriverClassName() {
+        return driverClassName;
+    }
+
+    public void setDriverClassName(String driverClassName) {
+        this.driverClassName = driverClassName;
     }
 
     public String getUrl() {
@@ -73,14 +92,24 @@ public class GenDatasourceForm extends IdDto {
         this.password = password;
     }
 
+    public String getValidationQuery() {
+        return validationQuery;
+    }
+
+    public void setValidationQuery(String validationQuery) {
+        this.validationQuery = validationQuery;
+    }
+
     @Override
     public String toString() {
         return "GenDatasourceForm{" +
-                "name='" + this.name + '\'' +
-                ", url='" + this.url + '\'' +
-                ", username='" + this.username + '\'' +
-                ", password='" + this.password + '\'' +
-                ", id='" + this.id + '\'' +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", driverClassName='" + driverClassName + '\'' +
+                ", url='" + url + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", validationQuery='" + validationQuery + '\'' +
                 '}';
     }
 }

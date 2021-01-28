@@ -2,6 +2,7 @@ package com.glacier.modules.gen.service;
 
 import com.glacier.common.core.entity.page.PageRequest;
 import com.glacier.common.core.entity.page.PageResponse;
+import com.glacier.modules.gen.entity.GenDatasource;
 import com.glacier.modules.gen.entity.dto.datasource.GenDatasourceDto;
 import com.glacier.modules.gen.entity.dto.datasource.GenDatasourceForm;
 import com.glacier.modules.gen.entity.dto.datasource.GenDatasourceQuery;
@@ -12,6 +13,14 @@ import com.glacier.modules.gen.entity.dto.datasource.GenDatasourceQuery;
  * date 2020-09-20 16:13
  */
 public interface GenDatasourceService {
+
+    /**
+     * 根据id 查询
+     *
+     * @param id
+     * @return
+     */
+    GenDatasource findDatasourceById(String id);
 
     /**
      * 根据id 查询

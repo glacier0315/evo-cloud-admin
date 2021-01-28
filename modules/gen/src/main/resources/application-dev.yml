@@ -7,10 +7,10 @@ server:
 spring:
   datasource:
     dynamic:
-      #设置默认的数据源或者数据源组,默认值即为master
-      primary: master
+      #设置默认的数据源或者数据源组,默认值即为gen
+      primary: gen
       datasource:
-        master:
+        gen:
           driver-class-name: com.mysql.cj.jdbc.Driver
           url: jdbc:mysql://192.168.10.130:3306/eboot_gen?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=UTF-8&useSSL=false&autoReconnect=true&failOverReadOnly=false
           username: eboot_gen

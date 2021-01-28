@@ -2,8 +2,6 @@ spring:
   profiles:
     active: dev
   datasource:
-    name: mysql1
-    type: com.alibaba.druid.pool.DruidDataSource
     #druid相关配置
     druid:
       stat-view-servlet:
@@ -12,7 +10,7 @@ spring:
         login-password: 123456
     dynamic:
       #设置默认的数据源,默认值为master
-      primary: auth
+      primary: gen
       strict: false #设置严格模式,默认false不启动. 启动后在未匹配到指定数据源时候回抛出异常,不启动会使用默认数据源.
       #druid相关配置
       druid:

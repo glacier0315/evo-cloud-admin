@@ -32,7 +32,7 @@ import java.util.Optional;
  * date 2020-09-20 16:13
  */
 @Transactional(readOnly = true)
-@DS(DataSourceConstant.DATASOURCE_MASTER)
+@DS(DataSourceConstant.DATASOURCE_GEN)
 @Service("genDatasourceService")
 public class GenDatasourceServiceImpl implements GenDatasourceService {
     private static final Logger log = LoggerFactory.getLogger(GenDatasourceServiceImpl.class);

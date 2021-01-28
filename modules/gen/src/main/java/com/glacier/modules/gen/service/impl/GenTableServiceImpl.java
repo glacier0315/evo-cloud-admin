@@ -31,7 +31,7 @@ import java.util.Optional;
  * date 2020-08-26 16:35
  */
 @Transactional(readOnly = true)
-@DS(DataSourceConstant.DATASOURCE_MASTER)
+@DS(DataSourceConstant.DATASOURCE_GEN)
 @Service("genTableService")
 public class GenTableServiceImpl implements GenTableService {
     private static final Logger log = LoggerFactory.getLogger(GenTableColumnServiceImpl.class);

@@ -24,7 +24,7 @@ import java.util.List;
  * date 2020-08-26 17:27
  */
 @Transactional(readOnly = true)
-@DS(DataSourceConstant.DATASOURCE_MASTER)
+@DS(DataSourceConstant.DATASOURCE_GEN)
 @Service("genTableColumnService")
 public class GenTableColumnServiceImpl implements GenTableColumnService {
     private static final Logger log = LoggerFactory.getLogger(GenTableColumnServiceImpl.class);

@@ -10,5 +10,5 @@ public interface DataSourceConstant {
     /**
      * 主数据源
      */
-    String DATASOURCE_MASTER = "master";
+    String DATASOURCE_GEN = "gen";
 }

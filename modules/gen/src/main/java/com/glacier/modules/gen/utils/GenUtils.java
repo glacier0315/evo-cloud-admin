@@ -36,7 +36,6 @@ public class GenUtils {
         this.dynamicDataSourceManager = dynamicDataSourceManager;
     }
 
-
     /**
      * 获取所有表名
      *
@@ -61,12 +60,29 @@ public class GenUtils {
                                 new String[]{TABLE});
         ) {
             tableNames = new ArrayList<>(resultSet.getRow());
-            if (resultSet.next()) {
+            while (resultSet.next()) {
                 tableNames.add(resultSet.getString(TABLE_NAME));
             }
         } catch (Exception e) {
             LOGGER.error("连接出现异常!", e);
         }
+        return tableNames;
+    }
+
+    /**
+     * 获取所有表名
+     *
+     * @param dataSourceId
+     * @return
+     */
+    public List<String> queryTableColumns(String dataSourceId, String tableName) {
+        List<String> tableNames = null;
+        GenDatasource genDatasource = genDatasourceService.findDatasourceById(dataSourceId);
+        if (genDatasource == null) {
+            return Collections.emptyList();
+        }
+        // 添加数据源
+        DynamicRoutingDataSource dynamicRoutingDataSource = dynamicDataSourceManager.addDataSource(genDatasource);
         return tableNames;
     }
 }

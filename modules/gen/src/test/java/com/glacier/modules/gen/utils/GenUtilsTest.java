@@ -30,7 +30,7 @@ class GenUtilsTest {
 
     @Test
     void queryTables() {
-        String dataSourceId = "123";
+        String dataSourceId = "adddc27076c840e688118369c97d5f5a";
         List<String> tables = genUtils.queryTables(dataSourceId);
         System.out.println(tables);
     }

@@ -34,10 +34,10 @@
     </delete>
 
     <insert id="insert" parameterType="com.glacier.modules.gen.entity.GenDatasource">
-        insert into gen_datasource (id, name, url, driver_class_name, username, password, validation_query,
+        insert into gen_datasource (id, name, driver_class_name, url, username, password, validation_query,
                 create_by, create_date, update_by, update_date, del_flag)
         values (#{id}, #{name}, #{driverClassName}, #{url}, #{username}, #{password}, #{validationQuery},
-                #{createDate}, #{updateBy}, #{updateDate}, #{delFlag})
+                #{createBy}, #{createDate}, #{updateBy}, #{updateDate}, #{delFlag})
     </insert>
 
     <update id="updateByPrimaryKey" parameterType="com.glacier.modules.gen.entity.GenDatasource">

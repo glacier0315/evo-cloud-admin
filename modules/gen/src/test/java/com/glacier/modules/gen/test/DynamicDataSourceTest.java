@@ -80,7 +80,7 @@ public class DynamicDataSourceTest {
         String url = "jdbc:oracle:thin:@192.168.10.128:1521:XE?characterEncoding=utf8&useSSL=false";
         String username = "gaedu";
         String password = "gaedu";
-
+        String validationQuery = "select 1 from dual";
 
         DataSourceProperty dataSourceProperty = new DataSourceProperty();
         dataSourceProperty.setPoolName(poolName);
@@ -90,7 +90,7 @@ public class DynamicDataSourceTest {
         dataSourceProperty.setDriverClassName(driver);
         // oracle 需要重写 连接测试
         DruidConfig druidConfig = new DruidConfig();
-        druidConfig.setValidationQuery("select 1 from dual");
+        druidConfig.setValidationQuery(validationQuery);
         dataSourceProperty.setDruid(druidConfig);
         DataSource dataSource = druidDataSourceCreator.createDataSource(dataSourceProperty);
         ds.addDataSource(dataSourceProperty.getPoolName(), dataSource);

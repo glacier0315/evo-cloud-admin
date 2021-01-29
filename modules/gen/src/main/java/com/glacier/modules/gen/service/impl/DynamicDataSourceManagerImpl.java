@@ -51,19 +51,21 @@ public class DynamicDataSourceManagerImpl implements DynamicDataSourceManager {
             throw new IllegalArgumentException("数据源参数不合法！");
         }
         // 数据源不存在时
-        if (ds.getDataSource(genDatasource.getId()) == null) {
-            DataSourceProperty dataSourceProperty = new DataSourceProperty();
-            dataSourceProperty.setPoolName(genDatasource.getId());
-            dataSourceProperty.setUrl(genDatasource.getUrl());
-            dataSourceProperty.setUsername(genDatasource.getUsername());
-            dataSourceProperty.setPassword(genDatasource.getPassword());
-            dataSourceProperty.setDriverClassName(genDatasource.getDriverClassName());
-            DruidConfig druidConfig = new DruidConfig();
-            druidConfig.setValidationQuery(genDatasource.getValidationQuery());
-            dataSourceProperty.setDruid(druidConfig);
-            DataSource dataSource = druidDataSourceCreator.createDataSource(dataSourceProperty);
-            ds.addDataSource(dataSourceProperty.getPoolName(), dataSource);
+        DataSource dataSource = ds.getDataSource(genDatasource.getId());
+        if (dataSource != null) {
+            log.warn("{} 数据源已存在！", dataSource);
         }
+        DataSourceProperty dataSourceProperty = new DataSourceProperty();
+        dataSourceProperty.setPoolName(genDatasource.getId());
+        dataSourceProperty.setUrl(genDatasource.getUrl());
+        dataSourceProperty.setUsername(genDatasource.getUsername());
+        dataSourceProperty.setPassword(genDatasource.getPassword());
+        dataSourceProperty.setDriverClassName(genDatasource.getDriverClassName());
+        DruidConfig druidConfig = new DruidConfig();
+        druidConfig.setValidationQuery(genDatasource.getValidationQuery());
+        dataSourceProperty.setDruid(druidConfig);
+        dataSource = druidDataSourceCreator.createDataSource(dataSourceProperty);
+        ds.addDataSource(dataSourceProperty.getPoolName(), dataSource);
         return ds;
     }
 

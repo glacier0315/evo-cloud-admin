@@ -1,5 +1,6 @@
 package com.glacier.modules.gen.utils;
 
+import com.glacier.modules.gen.entity.dto.column.GenTableColumnDto;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -32,6 +33,14 @@ class GenUtilsTest {
     void queryTables() {
         String dataSourceId = "adddc27076c840e688118369c97d5f5a";
         List<String> tables = genUtils.queryTables(dataSourceId);
-        System.out.println(tables);
+        tables.forEach(System.out::println);
+    }
+
+    @Test
+    void queryTableColumns() {
+        String dataSourceId = "adddc27076c840e688118369c97d5f5a";
+        String tableName = "sys_user";
+        List<GenTableColumnDto> tableColumns = genUtils.queryTableColumns(dataSourceId, tableName);
+        tableColumns.forEach(System.out::println);
     }
 }

@@ -2,6 +2,7 @@ package com.glacier.modules.gen.utils;
 
 import com.baomidou.dynamic.datasource.DynamicRoutingDataSource;
 import com.glacier.modules.gen.entity.GenDatasource;
+import com.glacier.modules.gen.entity.dto.column.GenTableColumnDto;
 import com.glacier.modules.gen.service.DynamicDataSourceManager;
 import com.glacier.modules.gen.service.GenDatasourceService;
 import org.slf4j.Logger;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -75,14 +77,39 @@ public class GenUtils {
      * @param dataSourceId
      * @return
      */
-    public List<String> queryTableColumns(String dataSourceId, String tableName) {
-        List<String> tableNames = null;
+    public List<GenTableColumnDto> queryTableColumns(String dataSourceId, String tableName) {
+        List<GenTableColumnDto> tableColumnDtos = null;
         GenDatasource genDatasource = genDatasourceService.findDatasourceById(dataSourceId);
         if (genDatasource == null) {
             return Collections.emptyList();
         }
         // 添加数据源
         DynamicRoutingDataSource dynamicRoutingDataSource = dynamicDataSourceManager.addDataSource(genDatasource);
-        return tableNames;
+        try (
+                Connection connection = dynamicRoutingDataSource.getDataSource(genDatasource.getId())
+                        .getConnection();
+                //获取元数据
+                ResultSet resultSet = connection.getMetaData()
+                        .getColumns(genDatasource.getUsername(),
+                                null,
+                                tableName,
+                                null);
+        ) {
+            tableColumnDtos = new ArrayList<>(resultSet.getRow());
+            GenTableColumnDto tableColumnDto = null;
+            while (resultSet.next()) {
+                //会打印出指定表的所有字段名
+                String columnName = resultSet.getString("COLUMN_NAME");
+                String typeName = resultSet.getString("TYPE_NAME");
+                LOGGER.info("字段名： {} , 字段类型: {} " ,columnName, typeName);
+                tableColumnDto = new GenTableColumnDto();
+                tableColumnDto.setColumnName(columnName);
+                tableColumnDto.setColumnType(typeName);
+                tableColumnDtos.add(tableColumnDto);
+            }
+        } catch (Exception e) {
+
+        }
+        return tableColumnDtos;
     }
 }

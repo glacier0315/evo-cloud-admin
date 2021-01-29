@@ -80,7 +80,6 @@ public class DataSourceTest {
          */
     }
 
-
     @Test
     public void test3() throws Exception {
         String driver = "com.mysql.cj.jdbc.Driver";
@@ -104,7 +103,6 @@ public class DataSourceTest {
         resultSet.close();
         connection.close();
     }
-
 
     /**
      * 测试参数元数据
@@ -168,5 +166,40 @@ public class DataSourceTest {
 
         preparedStatement.close();
         connection.close();
+    }
+
+    /**
+     * 测试参数元数据
+     * 通过preparedStatement获取
+     * 目的：获取sql参数中的属性信息
+     */
+    @Test
+    public void test6() throws Exception {
+        String driver = "com.mysql.cj.jdbc.Driver";
+        String url = "jdbc:mysql://192.168.10.130:3306/eboot_sys?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC";//没有指定具体哪个数据库，现在获取的是整个连接
+        String username = "eboot_sys";
+        String password = "eboot_sys";
+
+        //获取连接
+        Class.forName(driver);//注册驱动
+
+        try (
+                Connection connection = DriverManager.getConnection(url, username, password);
+                //获取元数据
+                ResultSet resultSet = connection.getMetaData()
+                        .getColumns("eboot_sys",
+                                null,
+                                "sys_user",
+                                null);
+        ) {
+            while (resultSet.next()) {
+                //会打印出指定表的所有字段名
+                System.out.println(resultSet);
+                System.out.println(resultSet.getString("COLUMN_NAME"));
+                System.out.println(resultSet.getString("TYPE_NAME"));
+            }
+        } catch (Exception e) {
+
+        }
     }
 }

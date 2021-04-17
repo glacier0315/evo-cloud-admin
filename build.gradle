@@ -1,7 +1,7 @@
 // 配置所有项目
 allprojects {
     apply plugin: 'java'
-    apply from: "$rootDir/dependencies/build.gradle"
+    apply from: "$rootDir/version.gradle"
 
     // 指定jdk版本
     sourceCompatibility = 1.8

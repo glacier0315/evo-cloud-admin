@@ -1,5 +1,5 @@
 subprojects {
-    apply from: "$rootDir/gradle/springboot.gradle"
+    apply from: "$rootDir/springboot.gradle"
 
     dependencies {
         implementation project(':common:core')

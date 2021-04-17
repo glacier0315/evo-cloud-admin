@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(value = "/datasource")
 public class GenDatasourceController {
-    private static final Logger log = LoggerFactory.getLogger(GenDatasourceController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(GenDatasourceController.class);
     private final GenDatasourceService genDatasourceService;
 
     @Autowired

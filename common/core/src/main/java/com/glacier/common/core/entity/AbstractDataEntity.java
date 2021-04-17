@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.glacier.common.core.utils.AppContextHolder;
 import com.glacier.common.core.utils.IdGen;
 
-import javax.xml.bind.annotation.XmlTransient;
 import java.time.LocalDateTime;
 
 /**
@@ -34,7 +33,6 @@ public abstract class AbstractDataEntity extends AbstractBaseEntity {
      * 删除标记 0 正常 （默认） 1 删除
      */
     @JsonIgnore
-    @XmlTransient
     protected String delFlag = "0";
 
     @Override

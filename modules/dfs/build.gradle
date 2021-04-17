@@ -11,5 +11,5 @@ dependencies {
 
     implementation('io.minio:minio:8.0.0')
     implementation("commons-io:commons-io:2.7")
-    implementation("org.apache.commons:commons-lang3:3.11")
+    implementation("org.apache.commons:commons-lang3:${commonsLang3Version}")
 }

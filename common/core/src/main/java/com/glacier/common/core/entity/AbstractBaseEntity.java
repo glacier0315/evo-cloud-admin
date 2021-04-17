@@ -3,7 +3,6 @@ package com.glacier.common.core.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.glacier.common.core.utils.StringUtil;
 
-import javax.xml.bind.annotation.XmlTransient;
 import java.io.Serializable;
 import java.util.Map;
 import java.util.Optional;
@@ -26,7 +25,6 @@ public abstract class AbstractBaseEntity implements Serializable {
      * 自定义SQL（SQL标识，SQL内容）
      */
     @JsonIgnore
-    @XmlTransient
     private Map<String, String> sqlMap;
 
     /**
@@ -34,7 +32,6 @@ public abstract class AbstractBaseEntity implements Serializable {
      * 设置为true后强制执行插入语句，ID不会自动生成，需从手动传入。
      */
     @JsonIgnore
-    @XmlTransient
     private boolean isNewRecord = false;
 
     public static long getSerialVersionUID() {

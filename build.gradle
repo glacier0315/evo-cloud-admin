@@ -1,11 +1,14 @@
 // 配置所有项目
 allprojects {
-    apply plugin: 'java'
+    apply plugin: 'java-library'
     apply from: "$rootDir/version.gradle"
 
     // 指定jdk版本
-    sourceCompatibility = 1.8
-    targetCompatibility = 1.8
+    java {
+        toolchain {
+            languageVersion = JavaLanguageVersion.of(8)
+        }
+    }
 
     group = 'com.glacier'
     description = 'eboot-platform'
@@ -22,9 +25,13 @@ allprojects {
         mavenCentral()
     }
 
-    dependencies {
-        // compileOnly fileTree(dir: "$rootDir/dependencies/libs", include: ['*.jar'])
+    configurations.all {
+        exclude group:'org.springframework.boot', module: 'spring-boot-starter-logging'
+        exclude module: 'logback-classic'
+        exclude module: 'logback-core'
+    }
 
+    dependencies {
         // 配置junit 5 单元测试
         testImplementation ("org.junit.jupiter:junit-jupiter:${junitVersion}")
     }
@@ -41,7 +48,6 @@ allprojects {
             charSet 'UTF-8'
             author true
             version true
-            // links "<a href='http://docs.oracle.com/javase/8/docs/api'>http://docs.oracle.com/javase/8/docs/api</a>"
         }
     }
 

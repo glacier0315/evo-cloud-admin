@@ -6,7 +6,7 @@ import com.glacier.modules.gen.entity.GenDatasource;
 /**
  * @author glacier
  * @version 1.0
- * @date 2021-01-28 16:23
+ * date 2021-01-28 16:23
  */
 public interface DynamicDataSourceManager {
 

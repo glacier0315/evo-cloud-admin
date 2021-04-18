@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * @author glacier
  * @version 1.0
- * @date 2021-01-28 17:29
+ * date 2021-01-28 17:29
  */
 @SpringBootTest
 class GenUtilsTest {

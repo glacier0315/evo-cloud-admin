@@ -24,7 +24,7 @@ import java.nio.channels.WritableByteChannel;
  *
  * @author glacier
  * @version 1.0
- * @date 2020-11-01 22:41
+ * date 2020-11-01 22:41
  */
 public class FileUtils extends org.apache.commons.io.FileUtils {
     public static final Logger logger = LoggerFactory.getLogger(FileUtils.class);
@@ -52,7 +52,6 @@ public class FileUtils extends org.apache.commons.io.FileUtils {
      * @param request  请求对象
      * @param response 响应对象
      * @param fileName 指定下载的文件名
-     * @return 返回错误信息，无错误信息返回null
      */
     public static void downFile(File file, HttpServletRequest request, HttpServletResponse response, String fileName) {
         if (!checkFile(file, response)) {

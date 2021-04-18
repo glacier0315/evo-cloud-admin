@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
 /**
  * @author glacier
  * @version 1.0
- * @date 2020-11-08 20:00
+ * date 2020-11-08 20:00
  */
 public class RangeMeta implements Serializable {
     private static final Pattern PATTERN = Pattern.compile("^bytes=([0-9]+)-([0-9]+)?$");
@@ -69,9 +69,9 @@ public class RangeMeta implements Serializable {
 
     /**
      * 解析range
-     * @param range
-     * @param fileLength
-     * @return
+     * @param range 范围
+     * @param fileLength 文件长度
+     * @return 范围元数据
      */
     public static RangeMeta parse(final String range, final long fileLength) {
         // 记录下载类型  1 断点续传 2 普通下载 默认

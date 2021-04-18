@@ -3,7 +3,7 @@ package com.glacier.common.core.utils;
 /**
  * @author glacier
  * @version 1.0
- * @date 2020-11-08 20:05
+ * date 2020-11-08 20:05
  */
 public class ContentTypeUtils {
     public static final String DOT = ".";

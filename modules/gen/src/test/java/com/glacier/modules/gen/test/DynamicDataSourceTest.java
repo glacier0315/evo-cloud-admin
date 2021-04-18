@@ -19,7 +19,7 @@ import java.sql.SQLException;
 /**
  * @author glacier
  * @version 1.0
- * @date 2021-01-28 14:47
+ * date 2021-01-28 14:47
  */
 @SpringBootTest
 public class DynamicDataSourceTest {

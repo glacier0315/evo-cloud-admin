@@ -17,7 +17,7 @@ import javax.sql.DataSource;
 /**
  * @author glacier
  * @version 1.0
- * @date 2021-01-28 16:24
+ * date 2021-01-28 16:24
  */
 @Service
 public class DynamicDataSourceManagerImpl implements DynamicDataSourceManager {

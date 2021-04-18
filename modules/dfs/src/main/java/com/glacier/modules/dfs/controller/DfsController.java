@@ -33,6 +33,7 @@ public class DfsController {
      * 下载文件
      *
      * @param path     文件路径
+     * @param request  请求
      * @param response 响应
      */
     @ApiOperation(value = "下载文件")

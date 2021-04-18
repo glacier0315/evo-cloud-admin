@@ -1,7 +1,6 @@
 package com.glacier.modules.sys.service.impl;
 
 import com.glacier.common.core.constant.SysConstants;
-import com.glacier.common.core.utils.StringUtil;
 import com.glacier.common.core.utils.TreeBuildFactory;
 import com.glacier.modules.sys.entity.Dept;
 import com.glacier.modules.sys.entity.User;
@@ -11,6 +10,7 @@ import com.glacier.modules.sys.mapper.DeptMapper;
 import com.glacier.modules.sys.mapper.RoleDeptMapper;
 import com.glacier.modules.sys.mapper.UserMapper;
 import com.glacier.modules.sys.service.DeptService;
+import org.apache.commons.lang3.StringUtils;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.slf4j.Logger;
@@ -120,7 +120,7 @@ public class DeptServiceImpl implements DeptService {
     @Transactional(rollbackFor = {})
     @Override
     public int delete(String id) {
-        if (StringUtil.isBlank(id)) {
+        if (StringUtils.isBlank(id)) {
             return 0;
         }
         this.roleDeptMapper.deleteByDeptId(id);
@@ -129,7 +129,7 @@ public class DeptServiceImpl implements DeptService {
 
     @Override
     public List<String> findByRole(String roleId) {
-        if (StringUtil.isNotEmpty(roleId)) {
+        if (StringUtils.isNotEmpty(roleId)) {
             // TODO: 2020/8/12 根据角色id 查询角色所具有的单位
         }
         return new ArrayList<>(1);

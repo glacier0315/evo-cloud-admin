@@ -1,6 +1,7 @@
 package com.glacier.common.core.utils;
 
 import com.glacier.common.core.entity.TreeData;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -32,7 +33,7 @@ public class TreeBuildFactory {
         List<T> topList = Optional.ofNullable(list)
                 .orElseGet(ArrayList::new)
                 .stream()
-                .filter(t -> StringUtil.isEmpty(t.getParentId()))
+                .filter(t -> StringUtils.isBlank(t.getParentId()))
                 .peek(t -> t.setGrade(1))
                 .sorted(Comparator.comparingInt(T::getOrderNum))
                 .collect(Collectors.toList());

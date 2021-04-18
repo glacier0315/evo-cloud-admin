@@ -6,7 +6,6 @@ import com.glacier.common.core.entity.Result;
 import com.glacier.common.core.exception.SystemErrorType;
 import com.glacier.common.core.utils.AppContextHolder;
 import com.glacier.common.core.utils.IdGen;
-import com.glacier.common.core.utils.StringUtil;
 import com.glacier.modules.dfs.config.properties.MinioProperties;
 import com.glacier.modules.dfs.controller.DfsController;
 import com.glacier.modules.dfs.exception.DfsExcetion;
@@ -14,6 +13,7 @@ import com.glacier.modules.dfs.service.FileService;
 import io.minio.*;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,7 +78,7 @@ public class FileServiceImpl implements FileService {
             rangeMeta = RangeMeta.parse(request.getHeader("Range"), stat.size());
             response.setContentType(stat.contentType());
             response.setHeader("Content-Disposition",
-                    StringUtil.join("attachment;filename=",
+                    StringUtils.join("attachment;filename=",
                             URLEncoder.encode(fileName, CommonConstant.CHARSET_UTF_8)));
             in = this.minioClient.getObject(GetObjectArgs.builder()
                     .bucket(bucketName)
@@ -111,7 +111,7 @@ public class FileServiceImpl implements FileService {
         }
         // 根据contentType 转换为 对应的bucketName
         String bucketName = this.minioProperties.getDefaultBucketName();
-        String path = StringUtil.join(now.getYear(), FILE_SEQ,
+        String path = StringUtils.join(now.getYear(), FILE_SEQ,
                 now.getMonthValue(), FILE_SEQ,
                 AppContextHolder.getInstance().getUserId(), FILE_SEQ,
                 IdGen.uuid(), ".", extension);
@@ -144,7 +144,7 @@ public class FileServiceImpl implements FileService {
                 log.error("关闭流异常 ", e);
             });
         }
-        return Result.ok(StringUtil.join(bucketName, FILE_SEQ, path));
+        return Result.ok(StringUtils.join(bucketName, FILE_SEQ, path));
     }
 
     @Override
@@ -175,8 +175,8 @@ public class FileServiceImpl implements FileService {
      * @param filePath
      */
     private void checkFilePath(String filePath) {
-        if (StringUtil.isBlank(filePath)
-                || !StringUtil.contains(filePath, FILE_SEQ)) {
+        if (StringUtils.isBlank(filePath)
+                || !StringUtils.contains(filePath, FILE_SEQ)) {
             log.error("文件路径 {} 不正确！", filePath);
             throw new DfsExcetion(SystemErrorType.BUSINESS_ERROR.getCode(),
                     "文件路径不正确！",

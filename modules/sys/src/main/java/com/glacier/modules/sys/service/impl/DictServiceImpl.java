@@ -1,11 +1,11 @@
 package com.glacier.modules.sys.service.impl;
 
-import com.glacier.common.core.utils.StringUtil;
 import com.glacier.common.core.utils.TreeBuildFactory;
 import com.glacier.modules.sys.entity.Dict;
 import com.glacier.modules.sys.entity.dto.dict.DictVo;
 import com.glacier.modules.sys.mapper.DictMapper;
 import com.glacier.modules.sys.service.DictService;
+import org.apache.commons.lang3.StringUtils;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.slf4j.Logger;
@@ -55,7 +55,7 @@ public class DictServiceImpl implements DictService {
     @Transactional(rollbackFor = {})
     @Override
     public int delete(String id) {
-        if (StringUtil.isBlank(id)) {
+        if (StringUtils.isBlank(id)) {
             return 0;
         }
         return this.dictMapper.deleteByPrimaryKey(id);

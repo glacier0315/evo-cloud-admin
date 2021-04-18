@@ -1,6 +1,6 @@
 package com.glacier.modules.sys.config;
 
-import com.glacier.common.core.utils.StringUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.modelmapper.convention.NameTokenizers;
@@ -31,7 +31,7 @@ public class ModelmapperConfig {
                 .setMatchingStrategy(MatchingStrategies.STRICT)
                 .setPropertyCondition(context ->
                         context.getSource() != null
-                                && StringUtil.isNotBlank(context.getSource().toString()));
+                                && StringUtils.isNotBlank(context.getSource().toString()));
         return modelMapper;
     }
 }

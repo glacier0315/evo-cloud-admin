@@ -4,11 +4,8 @@ allprojects {
     apply from: "$rootDir/version.gradle"
 
     // 指定jdk版本
-    java {
-        toolchain {
-            languageVersion = JavaLanguageVersion.of(8)
-        }
-    }
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
 
     group = 'com.glacier'
     description = 'eboot-platform'
@@ -26,14 +23,14 @@ allprojects {
     }
 
     configurations.all {
-        exclude group:'org.springframework.boot', module: 'spring-boot-starter-logging'
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
         exclude module: 'logback-classic'
         exclude module: 'logback-core'
     }
 
     dependencies {
         // 配置junit 5 单元测试
-        testImplementation ("org.junit.jupiter:junit-jupiter:${junitVersion}")
+        testImplementation("org.junit.jupiter:junit-jupiter:${junitVersion}")
     }
 
 
@@ -43,7 +40,7 @@ allprojects {
     }
 
     javadoc {
-        options{
+        options {
             encoding "UTF-8"
             charSet 'UTF-8'
             author true

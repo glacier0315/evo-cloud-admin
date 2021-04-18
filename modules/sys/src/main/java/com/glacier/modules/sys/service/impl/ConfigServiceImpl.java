@@ -4,10 +4,10 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.glacier.common.core.entity.page.PageRequest;
 import com.glacier.common.core.entity.page.PageResponse;
-import com.glacier.common.core.utils.StringUtil;
 import com.glacier.modules.sys.entity.Config;
 import com.glacier.modules.sys.mapper.ConfigMapper;
 import com.glacier.modules.sys.service.ConfigService;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,7 +58,7 @@ public class ConfigServiceImpl implements ConfigService {
     @Transactional(rollbackFor = {})
     @Override
     public int delete(String id) {
-        if (StringUtil.isBlank(id)) {
+        if (StringUtils.isBlank(id)) {
             return 0;
         }
         return this.configMapper.deleteByPrimaryKey(id);

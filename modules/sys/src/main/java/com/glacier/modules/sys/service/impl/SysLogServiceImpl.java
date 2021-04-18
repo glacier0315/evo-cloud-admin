@@ -5,11 +5,11 @@ import com.github.pagehelper.PageInfo;
 import com.glacier.common.core.entity.page.PageRequest;
 import com.glacier.common.core.entity.page.PageResponse;
 import com.glacier.common.core.utils.IdGen;
-import com.glacier.common.core.utils.StringUtil;
 import com.glacier.modules.sys.entity.SysLog;
 import com.glacier.modules.sys.handler.GlobalExceptionHandler;
 import com.glacier.modules.sys.mapper.SysLogMapper;
 import com.glacier.modules.sys.service.SysLogService;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,7 +56,7 @@ public class SysLogServiceImpl implements SysLogService {
     @Transactional(rollbackFor = {})
     @Override
     public int insert(SysLog record) {
-        if (StringUtil.isNotEmpty(record.getId())) {
+        if (StringUtils.isNotEmpty(record.getId())) {
             return this.sysLogMapper.updateByPrimaryKey(record);
         }
         record.setId(IdGen.uuid());

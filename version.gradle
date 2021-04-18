@@ -3,7 +3,7 @@ ext {
     springBootAdminVersion = "2.3.1"
     // 其他
     swaggerVersion = "3.0.0"
-    swaggerAnnotationsVersion = "1.5.20"
+    swaggerAnnotationsVersion = "1.6.2"
     jacksonVersion = "2.10.5"
     easyExcelVerision = "2.2.8"
     commonsLang3Version = "3.11"

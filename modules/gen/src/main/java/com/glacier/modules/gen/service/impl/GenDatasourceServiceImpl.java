@@ -5,7 +5,6 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.glacier.common.core.entity.page.PageRequest;
 import com.glacier.common.core.entity.page.PageResponse;
-import com.glacier.common.core.utils.StringUtil;
 import com.glacier.modules.gen.constant.DataSourceConstant;
 import com.glacier.modules.gen.entity.GenDatasource;
 import com.glacier.modules.gen.entity.dto.datasource.GenDatasourceDto;
@@ -13,6 +12,7 @@ import com.glacier.modules.gen.entity.dto.datasource.GenDatasourceForm;
 import com.glacier.modules.gen.entity.dto.datasource.GenDatasourceQuery;
 import com.glacier.modules.gen.mapper.GenDatasourceMapper;
 import com.glacier.modules.gen.service.GenDatasourceService;
+import org.apache.commons.lang3.StringUtils;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.slf4j.Logger;
@@ -92,7 +92,7 @@ public class GenDatasourceServiceImpl implements GenDatasourceService {
     @Transactional(rollbackFor = {})
     @Override
     public int delete(String id) {
-        if (StringUtil.isBlank(id)) {
+        if (StringUtils.isBlank(id)) {
             return 0;
         }
         return this.genDatasourceMapper.deleteByPrimaryKey(id);

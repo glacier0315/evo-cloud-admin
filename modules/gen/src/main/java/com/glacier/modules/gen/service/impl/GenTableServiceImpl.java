@@ -5,13 +5,13 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.glacier.common.core.entity.page.PageRequest;
 import com.glacier.common.core.entity.page.PageResponse;
-import com.glacier.common.core.utils.StringUtil;
 import com.glacier.modules.gen.constant.DataSourceConstant;
 import com.glacier.modules.gen.entity.GenTable;
 import com.glacier.modules.gen.entity.dto.table.GenTableDto;
 import com.glacier.modules.gen.entity.dto.table.GenTableQuery;
 import com.glacier.modules.gen.mapper.GenTableMapper;
 import com.glacier.modules.gen.service.GenTableService;
+import org.apache.commons.lang3.StringUtils;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.slf4j.Logger;
@@ -86,7 +86,7 @@ public class GenTableServiceImpl implements GenTableService {
     @Transactional(rollbackFor = {})
     @Override
     public int delete(String id) {
-        if (StringUtil.isBlank(id)) {
+        if (StringUtils.isBlank(id)) {
             return 0;
         }
         return this.genTableMapper.deleteByPrimaryKey(id);

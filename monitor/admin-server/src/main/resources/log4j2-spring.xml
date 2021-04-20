@@ -4,46 +4,24 @@
 -->
 <Configuration status="WARN" monitorInterval="30">
     <Properties>
-        <Property name="LOG_PATTERN">%d{yyyy-MM-dd 'at' HH:mm:ss z} [%t] %-5level %logger{36} %L %M - %msg%xEx%n</Property>
         <Property name="LOG_PATH">./logs/monitor/admin-server</Property>
-        <Property name="SPLIT_SIZE">30 MB</Property>
     </Properties>
 
     <Appenders>
         <!-- 输出控制台日志的配置 -->
         <Console name="console" target="SYSTEM_OUT">
-            <!--控制台只输出level及以上级别的信息（onMatch），其他的直接拒绝（onMismatch）-->
-            <ThresholdFilter level="info" onMatch="ACCEPT" onMismatch="DENY"/>
             <!-- 输出日志的格式 -->
-            <PatternLayout pattern="${LOG_PATTERN}"/>
+            <PatternLayout pattern="%style{%d{yyyy-MM-dd HH:mm:ss z}}{black} %highlight{%-5level }[%style{%t}{bright,blue}] %style{%C{1.}}{bright,yellow}: %msg%n%throwable"/>
         </Console>
-
-        <!-- 打印出所有的信息，每次大小超过size，则这size大小的日志会自动存入按年份-月份建立的文件夹下面并进行压缩，作为存档 -->
-        <RollingRandomAccessFile name="infoLog" fileName="${LOG_PATH}/info.log" immediateFlush="false"
-                                 filePattern="${LOG_PATH}/$${date:yyyy-MM}/info-%d{MM-dd-yyyy}-%i.log.gz"
-                                 append="true">
-            <PatternLayout pattern="${LOG_PATTERN}"/>
-            <Policies>
-                <TimeBasedTriggeringPolicy interval="6" modulate="true"/>
-                <SizeBasedTriggeringPolicy size="${SPLIT_SIZE}"/>
-            </Policies>
-            <Filters>
-                <!-- 只记录info和warn级别信息 -->
-                <ThresholdFilter level="error" onMatch="DENY" onMismatch="NEUTRAL"/>
-                <ThresholdFilter level="info" onMatch="ACCEPT" onMismatch="DENY"/>
-            </Filters>
-            <!-- 指定每天的最大压缩包个数，默认7个，超过了会覆盖之前的 -->
-            <DefaultRolloverStrategy max="50"/>
-        </RollingRandomAccessFile>
 
         <!-- 存储所有error信息 -->
         <RollingRandomAccessFile name="errorLog" fileName="${LOG_PATH}/error.log" immediateFlush="false"
                                  filePattern="${LOG_PATH}/$${date:yyyy-MM}/error-%d{MM-dd-yyyy}-%i.log.gz"
                                  append="false">
-            <PatternLayout pattern="${LOG_PATTERN}"/>
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss z} [%t] %-5level %logger{36} %L %M - %msg%xEx%n"/>
             <Policies>
                 <TimeBasedTriggeringPolicy interval="6" modulate="true"/>
-                <SizeBasedTriggeringPolicy size="${SPLIT_SIZE}"/>
+                <SizeBasedTriggeringPolicy size="10 MB"/>
             </Policies>
             <Filters>
                 <!-- 只记录error级别信息 -->
@@ -57,22 +35,19 @@
     <Loggers>
         <!-- root logger 配置,全局配置，默认所有的Logger都继承此配置 -->
         <!-- AsyncRoot - 异步记录日志 - 需要LMAX Disruptor的支持 -->
-        <root  level="info">
-            <AppenderRef ref="infoLog"/>
+        <Root level="info">
+            <!--
             <AppenderRef ref="errorLog"/>
+            -->
             <AppenderRef ref="console"/>
-        </root>
+        </Root>
 
         <!--第三方的软件日志级别 -->
-        <!--过滤掉spring和mybatis的一些无用的DEBUG信息-->
-        <logger name="org.mybatis" level="info" additivity="false">
-            <AppenderRef ref="console"/>
-        </logger>
-        <!--监控系统信息-->
+        <Logger name="org.mybatis" level="info">
+        </Logger>
         <!--若是additivity设为false，则 子Logger 只会在自己的appender里输出，而不会在 父Logger 的appender里输出。-->
-        <logger name="org.springframework" level="info" additivity="false">
-            <AppenderRef ref="console"/>
-        </logger>
+        <Logger name="org.springframework" level="info">
+        </Logger>
 
     </Loggers>
 </Configuration>

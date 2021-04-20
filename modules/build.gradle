@@ -17,7 +17,6 @@ subprojects {
         implementation("org.modelmapper:modelmapper:${modelmapperVersion}")
 
         implementation('org.springframework.boot:spring-boot-starter-log4j2')
-        implementation('org.springframework.boot:spring-boot-starter-logging')
         implementation('org.springframework.boot:spring-boot-starter-actuator')
         developmentOnly("org.springframework.boot:spring-boot-devtools")
         testImplementation("org.springframework.boot:spring-boot-starter-test")

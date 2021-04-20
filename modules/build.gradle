@@ -16,6 +16,9 @@ subprojects {
 
         implementation("org.modelmapper:modelmapper:${modelmapperVersion}")
 
+        // openapi
+        implementation("org.springdoc:springdoc-openapi-ui:${openapiVersion}")
+
         implementation('org.springframework.boot:spring-boot-starter-log4j2')
         implementation('org.springframework.boot:spring-boot-starter-actuator')
         developmentOnly("org.springframework.boot:spring-boot-devtools")

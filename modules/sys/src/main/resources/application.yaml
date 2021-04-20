@@ -70,4 +70,7 @@ settings:
       - /static/**
       - /webjars/**
       - /actuator/**
+      - /v3/api-docs/**
+      - /swagger-ui/**
+      - /swagger-ui.html
       - /oauth/**

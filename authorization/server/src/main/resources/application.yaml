@@ -34,7 +34,7 @@ spring:
             token-uri: ${AUTHORIZATION-SERVER:http://localhost:8001}/oauth/token
             user-info-uri: ${USER-INFO-SERVER:http://localhost:8000/sys}/oauth/userInfo
             user-name-attribute: username
-  http:
+  mvc:
     log-request-details: true
 
 mybatis:
@@ -88,5 +88,8 @@ settings:
       - /static/**
       - /webjars/**
       - /actuator/**
+      - /v3/api-docs/**
+      - /swagger-ui/**
+      - /swagger-ui.html
       - /oauth/**
       - /well-known/jwks

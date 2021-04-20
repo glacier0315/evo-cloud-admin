@@ -1,28 +1,15 @@
-plugins {
-    id 'java-library'
-}
-
-java {
-    withJavadocJar()
-}
-
-ext {
-    securityOautn2Version = '5.2.5.RELEASE'
-    springCloudFeignVersion = '2.2.4.RELEASE'
-}
-
 dependencies {
     implementation project(':common:core')
     // spring boot
-    implementation("org.springframework.boot:spring-boot-starter-tomcat:${springBootVersion}")
-    implementation("org.springframework.security:spring-security-config:${securityOautn2Version}")
-    implementation("org.springframework.security:spring-security-oauth2-resource-server:${securityOautn2Version}")
-    implementation("org.springframework.security:spring-security-oauth2-client:${securityOautn2Version}")
-    implementation("org.springframework.security:spring-security-oauth2-jose:${securityOautn2Version}")
+    implementation("org.springframework.boot:spring-boot-starter-tomcat")
+    implementation("org.springframework.security:spring-security-config")
+    implementation("org.springframework.security:spring-security-oauth2-resource-server")
+    implementation("org.springframework.security:spring-security-oauth2-client")
+    implementation("org.springframework.security:spring-security-oauth2-jose")
 
-    implementation("org.springframework.cloud:spring-cloud-starter-openfeign:${springCloudFeignVersion}")
+    implementation("org.springframework.cloud:spring-cloud-starter-openfeign")
 
-    implementation("com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}")
+    implementation("com.fasterxml.jackson.core:jackson-databind")
 
-    testImplementation("org.springframework.boot:spring-boot-starter-test:${springBootVersion}")
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
 }

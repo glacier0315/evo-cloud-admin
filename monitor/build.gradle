@@ -1,5 +1,5 @@
 subprojects {
-    apply from: "$rootDir/springboot.gradle"
+    apply plugin: 'org.springframework.boot'
 
     dependencies {
         implementation project(':common:core')

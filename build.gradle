@@ -29,10 +29,10 @@ allprojects {
     }
 
     dependencies {
-        // 配置junit 5 单元测试
-        testImplementation("org.junit.jupiter:junit-jupiter:${junitVersion}")
+        testImplementation('org.springframework.boot:spring-boot-starter-test') {
+            exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+        }
     }
-
 
     // 设置编码为UTF-8
     tasks.withType(JavaCompile) {
@@ -75,9 +75,6 @@ allprojects {
     }
 
     test {
-        useJUnitPlatform {
-            // includeEngines 'junit-jupiter'
-            excludeEngines 'junit-vintage'
-        }
+        useJUnitPlatform()
     }
 }

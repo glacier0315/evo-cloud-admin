@@ -6,7 +6,6 @@ import com.glacier.common.core.entity.page.PageResponse;
 import com.glacier.modules.gen.entity.dto.table.GenTableDto;
 import com.glacier.modules.gen.entity.dto.table.GenTableQuery;
 import com.glacier.modules.gen.service.GenTableService;
-import io.swagger.annotations.Api;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,11 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
+ * 代码生成管理
  * @author glacier
  * @version 1.0
  * date 2020-08-26 16:31
  */
-@Api(tags = "代码生成管理")
 @RestController
 @RequestMapping(value = "/table")
 public class GenTableController {

@@ -1,7 +1,6 @@
 package com.glacier.modules.sys.entity.dto.menu;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import io.swagger.annotations.ApiModel;
 
 import java.io.Serializable;
 
@@ -11,7 +10,6 @@ import java.io.Serializable;
  * @version 1.0
  * date 2020-06-06 10:14
  */
-@ApiModel(description = "路由元数据模型")
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class Meta implements Serializable {
     private static final long serialVersionUID = 8544347198911886718L;

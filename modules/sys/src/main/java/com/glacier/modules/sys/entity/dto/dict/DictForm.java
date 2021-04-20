@@ -1,8 +1,6 @@
 package com.glacier.modules.sys.entity.dto.dict;
 
 import com.glacier.common.core.entity.dto.TreeDto;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 
 /**
  * 字典模型
@@ -11,28 +9,23 @@ import io.swagger.annotations.ApiModelProperty;
  * @version 1.0
  * date 2020-08-11 21:17
  */
-@ApiModel(description = "字典模型")
 public class DictForm extends TreeDto {
     private static final long serialVersionUID = 4192376189821797520L;
     /**
      * 字典编码
      */
-    @ApiModelProperty(value = "字典编码")
     private String code;
     /**
      * 字典类型
      */
-    @ApiModelProperty(value = "字典类型")
     private String type;
     /**
      * 描述
      */
-    @ApiModelProperty(value = "描述")
     private String description;
     /**
      * 备注
      */
-    @ApiModelProperty(value = "备注")
     private String remarks;
 
     public static long getSerialVersionUID() {

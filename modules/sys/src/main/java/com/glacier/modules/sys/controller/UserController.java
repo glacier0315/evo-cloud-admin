@@ -9,13 +9,10 @@ import com.glacier.common.core.entity.page.PageResponse;
 import com.glacier.common.security.utils.SecurityUtils;
 import com.glacier.modules.sys.entity.dto.user.*;
 import com.glacier.modules.sys.service.UserService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -28,7 +25,6 @@ import java.net.URLEncoder;
  * @version 1.0
  * date 2019-08-04 22:13
  */
-@Api(tags = "用户管理")
 @RestController
 @RequestMapping(value = "/user")
 public class UserController {
@@ -46,7 +42,6 @@ public class UserController {
      * @param pageRequest 分页请求
      * @return 分页响应
      */
-    @ApiOperation("分页查询用户")
     @PostMapping("/findPage")
     public Result<PageResponse<UserDto>> findPage(
             @RequestBody PageRequest<UserQuery> pageRequest) {
@@ -60,7 +55,6 @@ public class UserController {
      * @param userAddForm 用户
      * @return 保存响应
      */
-    @ApiOperation("添加用户")
     @PostMapping("/add")
     public Result<Integer> add(
             @RequestBody UserAddForm userAddForm) {
@@ -74,7 +68,6 @@ public class UserController {
      * @param userDto 用户更新实体
      * @return 更新结果
      */
-    @ApiOperation("更新用户")
     @PostMapping("/update")
     public Result<Integer> update(
             @RequestBody UserDto userDto) {
@@ -88,7 +81,6 @@ public class UserController {
      * @param idDto 主键
      * @return 删除响应
      */
-    @ApiOperation("删除指定用户")
     @PostMapping("/delete")
     public Result<Integer> delete(@RequestBody IdDto idDto) {
         return Result.ok(
@@ -100,7 +92,6 @@ public class UserController {
      *
      * @return 当前用户信息
      */
-    @ApiOperation("获取当前用户信息")
     @GetMapping(value = "/profile")
     public Result<UserProfile> getProfile() {
         return Result.ok(
@@ -113,7 +104,6 @@ public class UserController {
      * @param userProfileForm 当前用户信息
      * @return 更新响应
      */
-    @ApiOperation("更新当前用户信息")
     @PostMapping(value = "/profile")
     public Result<Integer> updateProfile(
             @RequestBody UserProfileForm userProfileForm) {
@@ -126,7 +116,6 @@ public class UserController {
      * @param userAvatarForm 当前用户头像信息
      * @return 更新响应
      */
-    @ApiOperation("更新当前用户头像信息")
     @PostMapping(value = "/avatar")
     public Result<Integer> avatar(
             @RequestBody UserAvatarForm userAvatarForm) {
@@ -139,7 +128,6 @@ public class UserController {
      * @param passwordResetForm 用户密码
      * @return 重置响应
      */
-    @ApiOperation("重置用户密码")
     @PostMapping("/resetPwd")
     public Result<Integer> resetPwd(
             @RequestBody UserPasswordResetForm passwordResetForm) {
@@ -153,7 +141,6 @@ public class UserController {
      * @param userPasswordForm 用户密码
      * @return 修改用户密码响应
      */
-    @ApiOperation("修改用户密码")
     @PostMapping("/updatePwd")
     public Result<Integer> updatePwd(
             @RequestBody UserPasswordForm userPasswordForm) {
@@ -166,7 +153,6 @@ public class UserController {
      * @param userDto 用户封装实体类
      * @return 校验响应
      */
-    @ApiOperation("检验用户名")
     @PostMapping("/checkUsername")
     public Result<Boolean> checkUsername(
             @RequestBody UserDto userDto) {
@@ -179,7 +165,6 @@ public class UserController {
      * @param userDto 用户封装实体类
      * @return 校验响应
      */
-    @ApiOperation("检验用户身份证号")
     @PostMapping("/checkIdCard")
     public Result<Boolean> checkIdCard(
             @RequestBody UserDto userDto) {
@@ -190,15 +175,13 @@ public class UserController {
      * 导出用户
      *
      * @param userQuery 用户参数
-     * @param response 请求响应
+     * @param response  请求响应
      * @throws IOException IO异常
      */
-    @ApiOperation("导出用户")
     @PostMapping("/export")
     public void export(
             @RequestBody UserQuery userQuery,
-            @ApiIgnore HttpServletResponse response) throws IOException {
-        // 这里注意 有同学反应使用swagger 会导致各种问题，请直接用浏览器或者用postman
+            HttpServletResponse response) throws IOException {
         response.setContentType(MediaConstants.APPLICATION_VND_MS_EXCEL);
         response.setCharacterEncoding(CommonConstant.CHARSET_UTF_8);
         // 这里URLEncoder.encode可以防止中文乱码

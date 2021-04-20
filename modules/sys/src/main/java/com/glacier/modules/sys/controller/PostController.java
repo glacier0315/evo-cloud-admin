@@ -7,8 +7,6 @@ import com.glacier.common.core.entity.page.PageResponse;
 import com.glacier.modules.sys.entity.dto.post.PostDto;
 import com.glacier.modules.sys.entity.dto.post.PostQuery;
 import com.glacier.modules.sys.service.PostService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +20,6 @@ import java.util.List;
  * @version 1.0
  * date 2020-09-06 08:01
  */
-@Api(tags = "岗位管理")
 @RestController
 @RequestMapping(value = "/post")
 public class PostController {
@@ -39,7 +36,6 @@ public class PostController {
      *
      * @return 岗位
      */
-    @ApiOperation("查找所有岗位")
     @GetMapping("/findAll")
     public Result<List<PostDto>> findAll() {
         return Result.ok(
@@ -52,7 +48,6 @@ public class PostController {
      * @param pageRequest 分页请求实体类
      * @return 分页响应
      */
-    @ApiOperation("分页查询岗位")
     @PostMapping("/findPage")
     public Result<PageResponse<PostDto>> findPage(
             @RequestBody PageRequest<PostQuery> pageRequest) {
@@ -66,7 +61,6 @@ public class PostController {
      * @param postDto 岗位封装实体类
      * @return 保存响应
      */
-    @ApiOperation("保存岗位 （新增或者更新）")
     @PostMapping("/save")
     public Result<Integer> save(
             @RequestBody PostDto postDto) {
@@ -80,7 +74,6 @@ public class PostController {
      * @param idDto id封装实体类
      * @return 删除响应
      */
-    @ApiOperation("删除指定岗位")
     @PostMapping("/delete")
     public Result<Integer> delete(@RequestBody IdDto idDto) {
         return Result.ok(
@@ -93,7 +86,6 @@ public class PostController {
      * @param postDto 岗位封装实体类
      * @return 校验响应
      */
-    @ApiOperation("检验岗位编码")
     @PostMapping("/checkCode")
     public Result<Boolean> checkCode(
             @RequestBody PostDto postDto) {

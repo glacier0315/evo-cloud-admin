@@ -1,8 +1,6 @@
 package com.glacier.modules.sys.entity.dto.dept;
 
 import com.glacier.common.core.entity.dto.TreeDto;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 
 /**
  * 组织机构模型
@@ -11,23 +9,19 @@ import io.swagger.annotations.ApiModelProperty;
  * @version 1.0
  * date 2020-08-11 21:18
  */
-@ApiModel(description = "组织机构模型")
 public class DeptForm extends TreeDto {
     private static final long serialVersionUID = 179906087824726888L;
     /**
      * 单位编码
      */
-    @ApiModelProperty(value = "单位编码")
     private String code;
     /**
      * 类型
      */
-    @ApiModelProperty(value = "类型")
     private Integer type;
     /**
      * 状态
      */
-    @ApiModelProperty(value = "状态")
     private Integer status;
 
     public static long getSerialVersionUID() {

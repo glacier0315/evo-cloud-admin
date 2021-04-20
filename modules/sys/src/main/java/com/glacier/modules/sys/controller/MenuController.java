@@ -9,8 +9,6 @@ import com.glacier.modules.sys.entity.dto.menu.MenuVo;
 import com.glacier.modules.sys.entity.dto.menu.Router;
 import com.glacier.modules.sys.service.MenuService;
 import com.glacier.modules.sys.utils.RouteBuildFactory;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +24,6 @@ import java.util.Set;
  * @version 1.0
  * date 2019-10-09 15:59
  */
-@Api(tags = "菜单管理")
 @RestController
 @RequestMapping(value = "/menu")
 public class MenuController {
@@ -43,7 +40,6 @@ public class MenuController {
      *
      * @return 菜单
      */
-    @ApiOperation("查询所有菜单")
     @GetMapping("/list")
     public Result<List<MenuVo>> list() {
         return Result.ok(
@@ -56,7 +52,6 @@ public class MenuController {
      * @param menuForm 菜单
      * @return 保存响应
      */
-    @ApiOperation("保存菜单")
     @PostMapping("/save")
     public Result<Integer> save(
             @RequestBody MenuForm menuForm) {
@@ -70,7 +65,6 @@ public class MenuController {
      * @param idDto 主键
      * @return 删除响应
      */
-    @ApiOperation("删除指定菜单")
     @PostMapping("/delete")
     public Result<Integer> delete(@RequestBody IdDto idDto) {
         return Result.ok(
@@ -83,7 +77,6 @@ public class MenuController {
      * @param roleId 角色id
      * @return 菜单
      */
-    @ApiOperation("查询角色具有的菜单")
     @GetMapping("/findByRole")
     public Result<List<String>> findByRole(String roleId) {
         return Result.ok(
@@ -95,7 +88,6 @@ public class MenuController {
      *
      * @return 路由
      */
-    @ApiOperation("查询用户所有路由")
     @GetMapping(value = "/getRouters")
     public Result<List<Router>> getRouters() {
         String userId = SecurityUtils.geUserId();
@@ -110,7 +102,6 @@ public class MenuController {
      *
      * @return 权限标识
      */
-    @ApiOperation("查询所有权限标识")
     @GetMapping(value = "/getPermissions")
     public Result<Set<String>> getPermissions() {
         String userId = SecurityUtils.geUserId();

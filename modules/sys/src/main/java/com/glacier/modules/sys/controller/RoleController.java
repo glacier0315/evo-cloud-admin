@@ -8,8 +8,6 @@ import com.glacier.modules.sys.entity.dto.role.RoleForm;
 import com.glacier.modules.sys.entity.dto.role.RoleQuery;
 import com.glacier.modules.sys.entity.dto.role.RoleVo;
 import com.glacier.modules.sys.service.RoleService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +22,6 @@ import java.util.List;
  * @version 1.0
  * date 2019-08-11 21:24
  */
-@Api(tags = "角色管理")
 @RestController
 @RequestMapping(value = "/role")
 public class RoleController {
@@ -41,7 +38,6 @@ public class RoleController {
      *
      * @return 角色
      */
-    @ApiOperation("查找所有角色")
     @GetMapping("/findAll")
     public Result<List<RoleVo>> findAll() {
         return Result.ok(
@@ -54,7 +50,6 @@ public class RoleController {
      * @param pageRequest 分页请求
      * @return 分页响应
      */
-    @ApiOperation("分页查询角色")
     @PostMapping("/findPage")
     public Result<PageResponse<RoleVo>> findPage(
             @RequestBody PageRequest<RoleQuery> pageRequest) {
@@ -68,7 +63,6 @@ public class RoleController {
      * @param roleForm 角色
      * @return 保存响应
      */
-    @ApiOperation("保存角色 （新增或者更新）")
     @PostMapping("/save")
     public Result<Integer> save(
             @RequestBody RoleForm roleForm) {
@@ -82,7 +76,6 @@ public class RoleController {
      * @param idDto 主键
      * @return 删除响应
      */
-    @ApiOperation("删除指定角色")
     @PostMapping("/delete")
     public Result<Integer> delete(@RequestBody IdDto idDto) {
         return Result.ok(
@@ -95,7 +88,6 @@ public class RoleController {
      * @param roleForm  角色
      * @return 校验响应
      */
-    @ApiOperation("检验角色编码")
     @PostMapping("/checkCode")
     public Result<Boolean> checkCode(
             @RequestBody RoleForm roleForm) {
@@ -108,7 +100,6 @@ public class RoleController {
      * @param userId 用户id
      * @return 角色
      */
-    @ApiOperation("根据用户id查询角色")
     @GetMapping("/findByUserId")
     public Result<List<RoleVo>> findByUserId(String userId) {
         return Result.ok(

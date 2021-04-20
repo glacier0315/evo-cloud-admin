@@ -5,8 +5,6 @@ import com.glacier.common.core.entity.dto.vo.UserDetailsDto;
 import com.glacier.common.security.utils.SecurityUtils;
 import com.glacier.modules.sys.entity.dto.user.UserInfo;
 import com.glacier.modules.sys.service.UserService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
  * @version 1.0
  * date 2020-05-24 18:27
  */
-@Api(tags = "用户信息管理")
 @RestController
 @RequestMapping(value = "/oauth")
 public class OauthController {
@@ -37,7 +34,6 @@ public class OauthController {
      *
      * @return 当前用户信息
      */
-    @ApiOperation("获取当前用户信息")
     @GetMapping(value = "/userInfo")
     public Result<UserInfo> userInfo() {
         return Result.ok(
@@ -51,7 +47,6 @@ public class OauthController {
      * @param username 用户名
      * @return 用户详情响应
      */
-    @ApiOperation("根据用户名查询用户")
     @GetMapping(value = "/user")
     public Result<UserDetailsDto> findByUsername(
             String username) {

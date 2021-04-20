@@ -1,5 +1,4 @@
 subprojects {
     dependencies {
-        implementation("io.swagger:swagger-annotations:${swaggerAnnotationsVersion}")
     }
 }

@@ -6,7 +6,6 @@ import com.glacier.common.core.entity.page.PageRequest;
 import com.glacier.common.core.entity.page.PageResponse;
 import com.glacier.modules.sys.entity.Config;
 import com.glacier.modules.sys.service.ConfigService;
-import io.swagger.annotations.Api;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +21,6 @@ import org.springframework.web.bind.annotation.RestController;
  * @version 1.0
  * date 2019-12-01 20:43
  */
-@Api(tags = "配置管理")
 @RestController
 @RequestMapping(value = "/config")
 public class ConfigController {

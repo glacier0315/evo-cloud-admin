@@ -1,8 +1,6 @@
 package com.glacier.modules.sys.entity.dto.dept;
 
 import com.glacier.common.core.entity.TreeData;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 
 import java.util.List;
 
@@ -13,13 +11,11 @@ import java.util.List;
  * @version 1.0
  * date 2020-08-11 21:19
  */
-@ApiModel(description = "组织机构显示模型")
 public class DeptVo extends DeptForm implements TreeData<DeptVo> {
     private static final long serialVersionUID = 1327312988782909939L;
     /**
      * 子类
      */
-    @ApiModelProperty(value = "子类")
     protected List<DeptVo> children;
 
     public static long getSerialVersionUID() {

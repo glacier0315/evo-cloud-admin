@@ -6,8 +6,6 @@ import com.glacier.common.security.utils.SecurityUtils;
 import com.glacier.modules.sys.entity.dto.dept.DeptForm;
 import com.glacier.modules.sys.entity.dto.dept.DeptVo;
 import com.glacier.modules.sys.service.DeptService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +20,6 @@ import java.util.List;
  * @version 1.0
  * date 2019-10-24 17:15
  */
-@Api(tags = "组织机构管理")
 @RestController
 @RequestMapping(value = "/dept")
 public class DeptController {
@@ -39,7 +36,6 @@ public class DeptController {
      *
      * @return 组织机构
      */
-    @ApiOperation("查询所有组织机构")
     @GetMapping("/list")
     public Result<List<DeptVo>> list() {
         return Result.ok(
@@ -52,7 +48,6 @@ public class DeptController {
      * @param deptForm 组织机构表单
      * @return 响应
      */
-    @ApiOperation("保存组织机构")
     @PostMapping("/save")
     public Result<Integer> save(@RequestBody DeptForm deptForm) {
         return Result.ok(
@@ -65,7 +60,6 @@ public class DeptController {
      * @param idDto 主键封装
      * @return 响应
      */
-    @ApiOperation("删除指定组织机构")
     @PostMapping("/delete")
     public Result<Integer> delete(@RequestBody IdDto idDto) {
         return Result.ok(
@@ -77,7 +71,6 @@ public class DeptController {
      *
      * @return 组织机构树响应
      */
-    @ApiOperation("查询所有组织机构树")
     @GetMapping("/findTree")
     public Result<List<DeptVo>> findTree() {
         String userId = SecurityUtils.geUserId();
@@ -92,7 +85,6 @@ public class DeptController {
      * @param roleId 角色id
      * @return 单位集合
      */
-    @ApiOperation("查询角色具有的单位")
     @GetMapping("/findByRole")
     public Result<List<String>> findByRole(String roleId) {
         return Result.ok(

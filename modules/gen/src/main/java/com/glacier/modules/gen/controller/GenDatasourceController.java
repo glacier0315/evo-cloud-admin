@@ -8,7 +8,6 @@ import com.glacier.modules.gen.entity.dto.datasource.GenDatasourceDto;
 import com.glacier.modules.gen.entity.dto.datasource.GenDatasourceForm;
 import com.glacier.modules.gen.entity.dto.datasource.GenDatasourceQuery;
 import com.glacier.modules.gen.service.GenDatasourceService;
-import io.swagger.annotations.Api;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +22,6 @@ import org.springframework.web.bind.annotation.RestController;
  * @version 1.0
  * date 2020-08-26 16:31
  */
-@Api(tags = "数据源管理")
 @RestController
 @RequestMapping(value = "/datasource")
 public class GenDatasourceController {

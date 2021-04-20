@@ -1,7 +1,5 @@
 package com.glacier.modules.sys.entity.dto.user;
 
-import io.swagger.annotations.ApiModelProperty;
-
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
@@ -16,62 +14,50 @@ public abstract class AbstractUserDto implements Serializable {
     /**
      * 用户名
      */
-    @ApiModelProperty(value = "用户名")
     protected String username;
     /**
      * 昵称
      */
-    @ApiModelProperty(value = "昵称")
     protected String nickname;
     /**
      * 身份证号
      */
-    @ApiModelProperty(value = "身份证号")
     protected String idCard;
     /**
      * 出生日期
      */
-    @ApiModelProperty(value = "出生日期，格式yyyy-MM-dd")
     protected LocalDate birthday;
     /**
      * 性别 1=男 2=女 3 其他=保密
      */
-    @ApiModelProperty(value = "性别 1=男 2=女 3 其他=保密")
     protected Integer sex;
     /**
      * 邮箱
      */
-    @ApiModelProperty(value = "邮箱")
     protected String email;
     /**
      * 手机号
      */
-    @ApiModelProperty(value = "手机号")
     protected String mobile;
     /**
      * 岗位id
      */
-    @ApiModelProperty(value = "岗位id")
     protected String postId;
     /**
      * 单位id
      */
-    @ApiModelProperty(value = "单位id")
     protected String deptId;
     /**
      * 单位名称
      */
-    @ApiModelProperty(value = "单位名称")
     protected String deptName;
     /**
      * 简介
      */
-    @ApiModelProperty(value = "简介")
     protected String introduction;
     /**
      * 角色
      */
-    @ApiModelProperty(value = "角色")
     protected List<String> roleIds;
 
     public static long getSerialVersionUID() {

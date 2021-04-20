@@ -68,9 +68,5 @@ settings:
       - /static/**
       - /webjars/**
       - /actuator/**
-      - /druid/**
-      - /swagger-ui/**
-      - /swagger-resources/**
-      - /v3/api-docs
       - /oauth/**
 

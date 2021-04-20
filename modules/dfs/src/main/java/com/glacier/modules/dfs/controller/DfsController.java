@@ -2,13 +2,11 @@ package com.glacier.modules.dfs.controller;
 
 import com.glacier.common.core.entity.Result;
 import com.glacier.modules.dfs.service.FileService;
-import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -36,11 +34,10 @@ public class DfsController {
      * @param request  请求
      * @param response 响应
      */
-    @ApiOperation(value = "下载文件")
     @GetMapping(value = "/download")
     public void download(@RequestParam("path") String path,
-                         @ApiIgnore HttpServletRequest request,
-                         @ApiIgnore HttpServletResponse response) {
+                         HttpServletRequest request,
+                         HttpServletResponse response) {
         this.fileService.download(path, request, response);
     }
 

@@ -10,14 +10,11 @@ dependencies {
     // 本地依赖
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation project(':common:core-support')
-
     implementation("org.springframework.boot:spring-boot-starter-jdbc")
     // mybatis
     implementation("org.mybatis.spring.boot:mybatis-spring-boot-starter:${mybatisVersion}")
     implementation("com.github.pagehelper:pagehelper-spring-boot-starter:${pagehelperVersion}")
 
-    implementation("com.alibaba:easyexcel:${easyExcelVerision}")
     implementation("org.apache.commons:commons-lang3:${commonsLang3Version}")
 
     runtimeOnly("mysql:mysql-connector-java")

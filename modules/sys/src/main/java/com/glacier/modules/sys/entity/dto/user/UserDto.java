@@ -1,7 +1,5 @@
 package com.glacier.modules.sys.entity.dto.user;
 
-import com.alibaba.excel.annotation.ExcelIgnoreUnannotated;
-import com.alibaba.excel.annotation.ExcelProperty;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -11,7 +9,6 @@ import io.swagger.annotations.ApiModelProperty;
  * date 2020-05-24 09:32
  */
 @ApiModel(description = "用户显示和更新模型")
-@ExcelIgnoreUnannotated
 public class UserDto extends AbstractUserDto {
     private static final long serialVersionUID = 3725415789818769982L;
     /**
@@ -22,7 +19,6 @@ public class UserDto extends AbstractUserDto {
     /**
      * 状态  1 正常  0 锁定
      */
-    @ExcelProperty(value = "状态", index = 8, order = 8)
     @ApiModelProperty(value = "状态  1 正常  0 锁定")
     private String status;
 

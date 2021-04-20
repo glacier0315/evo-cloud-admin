@@ -1,6 +1,5 @@
 package com.glacier.modules.sys.controller;
 
-import com.alibaba.excel.EasyExcel;
 import com.glacier.common.core.constant.CommonConstant;
 import com.glacier.common.core.constant.MediaConstants;
 import com.glacier.common.core.entity.Result;
@@ -205,8 +204,7 @@ public class UserController {
         // 这里URLEncoder.encode可以防止中文乱码
         String fileName = URLEncoder.encode("用户", CommonConstant.CHARSET_UTF_8);
         response.setHeader("Content-disposition", "attachment;filename=" + fileName + ".xlsx");
-        EasyExcel.write(response.getOutputStream(), UserDto.class)
-                .sheet("用户")
-                .doWrite(this.userService.findList(userQuery));
+        // TODO: 2021/4/20 导出用户
+        // this.userService.findList(userQuery)
     }
 }

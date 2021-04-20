@@ -5,7 +5,6 @@ ext {
     swaggerVersion = "3.0.0"
     swaggerAnnotationsVersion = "1.6.2"
     jacksonVersion = "2.10.5"
-    easyExcelVerision = "2.2.8"
     commonsLang3Version = "3.11"
     // 数据库相关
     mybatisVersion = "2.1.4"

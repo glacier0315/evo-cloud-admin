@@ -77,11 +77,18 @@ public interface UserService {
     /**
      * 保存用户，同时处理用户角色关系
      *
-     * @param form 用户封装实体
-     * @param <T>  用户封装类型
+     * @param userAddForm 用户封装实体
      * @return 保存记录数
      */
-    <T extends AbstractUserDto> int save(T form);
+    int save(UserAddForm userAddForm);
+    
+    /**
+     * 保存用户，同时处理用户角色关系
+     *
+     * @param userDto 用户封装实体
+     * @return 保存记录数
+     */
+    int save(UserDto userDto);
 
     /**
      * 根据Id删除

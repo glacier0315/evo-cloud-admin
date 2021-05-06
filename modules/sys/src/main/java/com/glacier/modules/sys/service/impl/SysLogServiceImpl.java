@@ -28,12 +28,8 @@ import java.util.List;
 @Service("sysLogService")
 public class SysLogServiceImpl implements SysLogService {
     private static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
-    private final SysLogMapper sysLogMapper;
-
     @Autowired
-    public SysLogServiceImpl(SysLogMapper sysLogMapper) {
-        this.sysLogMapper = sysLogMapper;
-    }
+    private SysLogMapper sysLogMapper;
 
     @Override
     public PageResponse<SysLog> findPage(PageRequest<SysLog> pageRequest) {

@@ -1,5 +1,6 @@
 plugins {
     id "org.springframework.boot" version "2.3.10.RELEASE" apply false
+    id "com.diffplug.eclipse.apt" version "3.26.0"
 }
 
 // 配置所有项目
@@ -34,11 +35,6 @@ allprojects {
     }
 
     dependencies {
-        implementation("${dependency.mapstruct}")
-        annotationProcessor("${dependency.mapstructProcessor}")
-        // If you are using mapstruct in test code
-        testAnnotationProcessor("${dependency.mapstructProcessor}")
-
         testImplementation('org.springframework.boot:spring-boot-starter-test') {
             exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
         }

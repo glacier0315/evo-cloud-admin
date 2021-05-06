@@ -25,13 +25,9 @@ import java.util.List;
 @Service("configService")
 public class ConfigServiceImpl implements ConfigService {
     private static final Logger log = LoggerFactory.getLogger(ConfigServiceImpl.class);
-    private final ConfigMapper configMapper;
-
     @Autowired
-    public ConfigServiceImpl(ConfigMapper configMapper) {
-        this.configMapper = configMapper;
-    }
-
+    private ConfigMapper configMapper;
+    
     /**
      * 保存
      *
@@ -73,8 +69,7 @@ public class ConfigServiceImpl implements ConfigService {
     @Override
     public PageResponse<Config> findPage(PageRequest<Config> pageRequest) {
         PageHelper.startPage(pageRequest.getPageNum(), pageRequest.getPageSize());
-        List<Config> userList = this.configMapper.selectList(pageRequest.getParams());
-        PageInfo<Config> pageInfo = PageInfo.of(userList);
+        PageInfo<Config> pageInfo = PageInfo.of(this.configMapper.selectList(pageRequest.getParams()));
         return new PageResponse<>(
                 pageInfo.getPageNum(),
                 pageInfo.getPages(),

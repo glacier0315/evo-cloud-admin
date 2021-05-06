@@ -4,11 +4,12 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.glacier.common.core.constant.SysConstants;
 import com.glacier.common.core.entity.Result;
-import com.glacier.common.core.entity.dto.vo.RoleDetailsDto;
 import com.glacier.common.core.entity.dto.vo.UserDetailsDto;
 import com.glacier.common.core.entity.page.PageRequest;
 import com.glacier.common.core.entity.page.PageResponse;
 import com.glacier.common.core.exception.SystemErrorType;
+import com.glacier.modules.sys.convert.RoleConvert;
+import com.glacier.modules.sys.convert.UserConvert;
 import com.glacier.modules.sys.entity.Role;
 import com.glacier.modules.sys.entity.User;
 import com.glacier.modules.sys.entity.dto.user.*;
@@ -17,8 +18,6 @@ import com.glacier.modules.sys.mapper.UserMapper;
 import com.glacier.modules.sys.mapper.UserRoleMapper;
 import com.glacier.modules.sys.service.UserService;
 import org.apache.commons.lang3.StringUtils;
-import org.modelmapper.ModelMapper;
-import org.modelmapper.TypeToken;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,25 +41,18 @@ import java.util.stream.Collectors;
 @Service(value = "userService")
 public class UserServiceImpl implements UserService {
     private static final Logger log = LoggerFactory.getLogger(UserServiceImpl.class);
-    private final ModelMapper modelMapper;
-    private final UserMapper userMapper;
-    private final RoleMapper roleMapper;
-    private final UserRoleMapper userRoleMapper;
-    private final PasswordEncoder passwordEncoder;
-
     @Autowired
-    public UserServiceImpl(
-            ModelMapper modelMapper,
-            UserMapper userMapper,
-            RoleMapper roleMapper,
-            UserRoleMapper userRoleMapper,
-            PasswordEncoder passwordEncoder) {
-        this.modelMapper = modelMapper;
-        this.userMapper = userMapper;
-        this.roleMapper = roleMapper;
-        this.userRoleMapper = userRoleMapper;
-        this.passwordEncoder = passwordEncoder;
-    }
+    private UserConvert userConvert;
+    @Autowired
+    private RoleConvert roleConvert;
+    @Autowired
+    private UserMapper userMapper;
+    @Autowired
+    private RoleMapper roleMapper;
+    @Autowired
+    private UserRoleMapper userRoleMapper;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public User findById(final String id) {
@@ -91,8 +83,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserProfile findUserProfileByUsername(String username) {
-        User user = this.findUserByUsername(username);
-        return this.modelMapper.map(user, UserProfile.class);
+        return this.userConvert.toUserProfile(
+                this.findUserByUsername(username));
     }
 
     @Override
@@ -104,12 +96,10 @@ public class UserServiceImpl implements UserService {
         if (user == null || StringUtils.isEmpty(user.getId())) {
             return Result.error("用户不存在！");
         }
-        UserDetailsDto userDetailsDto = this.modelMapper.map(user, UserDetailsDto.class);
+        UserDetailsDto userDetailsDto = this.userConvert.toUserDetailsDto(user);
         userDetailsDto.setRoleDetailDtos(
-                this.modelMapper.map(
-                        this.roleMapper.findByUserId(user.getId()),
-                        new TypeToken<List<RoleDetailsDto>>() {
-                        }.getType()));
+                this.roleConvert.toRoleDetailsDtos(
+                        this.roleMapper.findByUserId(user.getId())));
         return Result.ok(userDetailsDto);
     }
 
@@ -122,27 +112,21 @@ public class UserServiceImpl implements UserService {
     @Override
     public PageResponse<UserDto> findPage(PageRequest<UserQuery> pageRequest) {
         PageHelper.startPage(pageRequest.getPageNum(), pageRequest.getPageSize());
-        List<User> userList = this.userMapper.selectList(pageRequest.getParams());
-        PageInfo<User> pageInfo = PageInfo.of(userList);
+        PageInfo<User> pageInfo = PageInfo.of(
+                this.userMapper.selectList(pageRequest.getParams()));
         return new PageResponse<>(
                 pageInfo.getPageNum(),
                 pageInfo.getPages(),
                 pageInfo.getTotal(),
-                this.modelMapper.map(
-                        pageInfo.getList(),
-                        new TypeToken<List<UserDto>>() {
-                        }.getType()));
+                this.userConvert.toUserDto(pageInfo.getList()));
     }
 
     @Override
     public List<UserDto> findList(UserQuery userQuery) {
-        List<User> userList = this.userMapper.selectList(userQuery);
-        return this.modelMapper.map(
-                userList,
-                new TypeToken<List<UserDto>>() {
-                }.getType());
+        return this.userConvert.toUserDto(
+                this.userMapper.selectList(userQuery));
     }
-
+    
     @Transactional(rollbackFor = {})
     @Override
     public Result<Integer> resetPassword(UserPasswordResetForm passwordResetForm) {
@@ -197,11 +181,11 @@ public class UserServiceImpl implements UserService {
     @Transactional(rollbackFor = {})
     @Override
     public Result<Integer> updateProfile(UserProfileForm userProfileForm) {
-        if (userProfileForm == null
-                || StringUtils.isEmpty(userProfileForm.getId())) {
+        User user = this.userConvert.map(userProfileForm);
+        if (user == null
+                || StringUtils.isEmpty(user.getId())) {
             return Result.error(SystemErrorType.ARGUMENT_NOT_VALID);
         }
-        User user = this.modelMapper.map(userProfileForm, User.class);
         user.preUpdate();
         return Result.ok("修改成功！",
                 this.userMapper.updateProfileByPrimaryKey(user));
@@ -210,11 +194,11 @@ public class UserServiceImpl implements UserService {
     @Transactional(rollbackFor = {})
     @Override
     public Result<Integer> updateAvatar(UserAvatarForm userAvatarForm) {
-        if (userAvatarForm == null
-                || StringUtils.isEmpty(userAvatarForm.getId())) {
+        User user = this.userConvert.map(userAvatarForm);
+        if (user == null
+                || StringUtils.isEmpty(user.getId())) {
             return Result.error(SystemErrorType.ARGUMENT_NOT_VALID);
         }
-        User user = this.modelMapper.map(userAvatarForm, User.class);
         user.preUpdate();
         return Result.ok("修改成功！",
                 this.userMapper.updateAvatarByPrimaryKey(user));
@@ -237,21 +221,49 @@ public class UserServiceImpl implements UserService {
         }
         return false;
     }
+    
+    /**
+     * 保存用户，同时处理用户角色关系
+     *
+     * @param userAddForm 用户封装实体
+     * @return 保存记录数
+     */
+    @Transactional(rollbackFor = {})
+    @Override
+    public int save(UserAddForm userAddForm) {
+        if (userAddForm == null) {
+            return 0;
+        }
+        return this.save(
+                this.userConvert.map(userAddForm),
+                userAddForm.getRoleIds());
+    }
+    
+    /**
+     * 保存用户，同时处理用户角色关系
+     *
+     * @param userDto 用户封装实体
+     * @return 保存记录数
+     */
+    @Transactional(rollbackFor = {})
+    @Override
+    public int save(UserDto userDto) {
+        if (userDto == null) {
+            return 0;
+        }
+        return this.save(
+                this.userConvert.map(userDto),
+                userDto.getRoleIds());
+    }
 
     /**
      * 保存用户
      *
-     * @param form 用户封装实体
-     * @param <T>  类型
+     * @param user 用户
+     * @param roleIds 角色ids
      * @return 响应
      */
-    @Transactional(rollbackFor = {})
-    @Override
-    public <T extends AbstractUserDto> int save(T form) {
-        if (form == null) {
-            return 0;
-        }
-        User user = this.modelMapper.map(form, User.class);
+    protected int save(User user, List<String> roleIds) {
         if (!user.isNewRecord()) {
             user.preUpdate();
             return this.userMapper.updateByPrimaryKey(user);
@@ -264,7 +276,7 @@ public class UserServiceImpl implements UserService {
                                 .orElse(SysConstants.DEFAULT_PASSWD)));
         user.preInsert();
         // 处理用户角色
-        this.saveUserRole(user.getId(), form.getRoleIds());
+        this.saveUserRole(user.getId(), roleIds);
         return this.userMapper.insert(user);
     }
 

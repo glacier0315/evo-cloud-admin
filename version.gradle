@@ -21,9 +21,7 @@ ext {
             commonsIo                         : "commons-io:commons-io:2.7",
             commonsLang3                      : "org.apache.commons:commons-lang3:3.11",
             minio                             : "io.minio:minio:8.0.0",
-            modelmapper                       : "org.modelmapper:modelmapper:2.4.0",
             mapstruct                         : "org.mapstruct:mapstruct:1.4.2.Final",
-            mapstructJdk8                     : "org.mapstruct:mapstruct-jdk8:1.4.2.Final",
             mapstructProcessor                : "org.mapstruct:mapstruct-processor:1.4.2.Final",
     ]
 

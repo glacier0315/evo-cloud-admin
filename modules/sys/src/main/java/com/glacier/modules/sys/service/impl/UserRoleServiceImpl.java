@@ -22,12 +22,8 @@ import org.springframework.transaction.annotation.Transactional;
 @Service(value = "userRoleService")
 public class UserRoleServiceImpl implements UserRoleService {
     private static final Logger log = LoggerFactory.getLogger(UserRoleServiceImpl.class);
-    private final UserRoleMapper userRoleMapper;
-
     @Autowired
-    public UserRoleServiceImpl(UserRoleMapper userRoleMapper) {
-        this.userRoleMapper = userRoleMapper;
-    }
+    private UserRoleMapper userRoleMapper;
 
     @Override
     public int addUser(RoleUserDto roleUserDto) {

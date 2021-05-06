@@ -2,6 +2,7 @@ package com.glacier.modules.sys.service.impl;
 
 import com.glacier.common.core.constant.SysConstants;
 import com.glacier.common.core.utils.TreeBuildFactory;
+import com.glacier.modules.sys.convert.DeptConvert;
 import com.glacier.modules.sys.entity.Dept;
 import com.glacier.modules.sys.entity.User;
 import com.glacier.modules.sys.entity.dto.dept.DeptForm;
@@ -11,8 +12,6 @@ import com.glacier.modules.sys.mapper.RoleDeptMapper;
 import com.glacier.modules.sys.mapper.UserMapper;
 import com.glacier.modules.sys.service.DeptService;
 import org.apache.commons.lang3.StringUtils;
-import org.modelmapper.ModelMapper;
-import org.modelmapper.TypeToken;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,23 +32,15 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Service("deptService")
 public class DeptServiceImpl implements DeptService {
     private static final Logger log = LoggerFactory.getLogger(DeptServiceImpl.class);
-    private final ModelMapper modelMapper;
-    private final DeptMapper deptMapper;
-    private final UserMapper userMapper;
-    private final RoleDeptMapper roleDeptMapper;
-
     @Autowired
-    public DeptServiceImpl(
-            ModelMapper modelMapper,
-            DeptMapper deptMapper,
-            UserMapper userMapper,
-            RoleDeptMapper roleDeptMapper) {
-        this.modelMapper = modelMapper;
-        this.deptMapper = deptMapper;
-        this.userMapper = userMapper;
-        this.roleDeptMapper = roleDeptMapper;
-    }
-
+    private DeptConvert deptConvert;
+    @Autowired
+    private DeptMapper deptMapper;
+    @Autowired
+    private UserMapper userMapper;
+    @Autowired
+    private RoleDeptMapper roleDeptMapper;
+    
     /**
      * 查找所有 组织机构
      *
@@ -57,12 +48,10 @@ public class DeptServiceImpl implements DeptService {
      */
     @Override
     public List<DeptVo> findAllList() {
-        return this.modelMapper.map(
-                this.deptMapper.selectAll(),
-                new TypeToken<List<DeptVo>>() {
-                }.getType());
+        return this.deptConvert.toDeptVo(
+                this.deptMapper.selectAll());
     }
-
+    
     /**
      * 根据用户ID查找所有 组织机构
      *
@@ -77,12 +66,10 @@ public class DeptServiceImpl implements DeptService {
         if (SysConstants.SYS_USER_ID.equals(userId)) {
             return this.findAllList();
         }
-        return this.modelMapper.map(
-                this.deptMapper.findByUserId(userId),
-                new TypeToken<List<DeptVo>>() {
-                }.getType());
+        return this.deptConvert.toDeptVo(
+                this.deptMapper.findByUserId(userId));
     }
-
+    
     /**
      * 保存
      *
@@ -94,7 +81,7 @@ public class DeptServiceImpl implements DeptService {
     public int save(DeptForm deptForm) {
         AtomicInteger update = new AtomicInteger(0);
         Optional.ofNullable(deptForm).ifPresent(form -> {
-            Dept dept = this.modelMapper.map(form, Dept.class);
+            Dept dept = this.deptConvert.map(form);
             if (!dept.isNewRecord()) {
                 dept.preUpdate();
                 update.set(this.deptMapper.updateByPrimaryKey(dept));
@@ -110,7 +97,7 @@ public class DeptServiceImpl implements DeptService {
         });
         return update.get();
     }
-
+    
     /**
      * 根据id删除
      *
@@ -126,7 +113,7 @@ public class DeptServiceImpl implements DeptService {
         this.roleDeptMapper.deleteByDeptId(id);
         return this.deptMapper.deleteByPrimaryKey(id);
     }
-
+    
     @Override
     public List<String> findByRole(String roleId) {
         if (StringUtils.isNotEmpty(roleId)) {
@@ -134,8 +121,8 @@ public class DeptServiceImpl implements DeptService {
         }
         return new ArrayList<>(1);
     }
-
-
+    
+    
     /**
      * 根据用户ID 查找组织机构树
      *

@@ -22,22 +22,16 @@ import javax.sql.DataSource;
 @Service
 public class DynamicDataSourceManagerImpl implements DynamicDataSourceManager {
     private static final Logger log = LoggerFactory.getLogger(DynamicDataSourceManagerImpl.class);
-    private final DynamicRoutingDataSource ds;
-    private final DruidDataSourceCreator druidDataSourceCreator;
-
     @Autowired
-    public DynamicDataSourceManagerImpl(
-            DynamicRoutingDataSource ds,
-            DruidDataSourceCreator druidDataSourceCreator) {
-        this.ds = ds;
-        this.druidDataSourceCreator = druidDataSourceCreator;
-    }
-
+    private DynamicRoutingDataSource ds;
+    @Autowired
+    private DruidDataSourceCreator druidDataSourceCreator;
+    
     @Override
     public boolean checkDataSourceExists(String poolname) {
         return ds.getDataSource(poolname) != null;
     }
-
+    
     @Override
     public DynamicRoutingDataSource addDataSource(GenDatasource genDatasource) {
         if (genDatasource == null
@@ -68,8 +62,8 @@ public class DynamicDataSourceManagerImpl implements DynamicDataSourceManager {
         ds.addDataSource(dataSourceProperty.getPoolName(), dataSource);
         return ds;
     }
-
-
+    
+    
     @Override
     public void removeDataSource(String poolname) {
         ds.removeDataSource(poolname);

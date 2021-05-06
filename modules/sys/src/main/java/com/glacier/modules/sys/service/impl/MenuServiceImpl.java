@@ -2,6 +2,7 @@ package com.glacier.modules.sys.service.impl;
 
 import com.glacier.common.core.constant.SysConstants;
 import com.glacier.common.core.utils.TreeBuildFactory;
+import com.glacier.modules.sys.convert.MenuConvert;
 import com.glacier.modules.sys.entity.Menu;
 import com.glacier.modules.sys.entity.dto.menu.MenuForm;
 import com.glacier.modules.sys.entity.dto.menu.MenuQuery;
@@ -10,8 +11,6 @@ import com.glacier.modules.sys.mapper.MenuMapper;
 import com.glacier.modules.sys.service.MenuService;
 import com.google.common.collect.Lists;
 import org.apache.commons.lang3.StringUtils;
-import org.modelmapper.ModelMapper;
-import org.modelmapper.TypeToken;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,15 +31,11 @@ import java.util.stream.Collectors;
 @Service("menuService")
 public class MenuServiceImpl implements MenuService {
     private static final Logger log = LoggerFactory.getLogger(MenuServiceImpl.class);
-    private final MenuMapper menuMapper;
-    private final ModelMapper modelMapper;
-
     @Autowired
-    public MenuServiceImpl(MenuMapper menuMapper, ModelMapper modelMapper) {
-        this.menuMapper = menuMapper;
-        this.modelMapper = modelMapper;
-    }
-
+    private MenuMapper menuMapper;
+    @Autowired
+    private MenuConvert menuConvert;
+    
     /**
      * 保存
      *
@@ -50,7 +45,7 @@ public class MenuServiceImpl implements MenuService {
     @Transactional(rollbackFor = {})
     @Override
     public int save(MenuForm menuForm) {
-        Menu menu = this.modelMapper.map(menuForm, Menu.class);
+        Menu menu = this.menuConvert.map(menuForm);
         if (menu.isNewRecord()) {
             menu.preInsert();
             return this.menuMapper.insert(menu);
@@ -58,7 +53,7 @@ public class MenuServiceImpl implements MenuService {
         menu.preUpdate();
         return this.menuMapper.updateByPrimaryKey(menu);
     }
-
+    
     /**
      * 根据id删除
      *
@@ -73,23 +68,21 @@ public class MenuServiceImpl implements MenuService {
         }
         return this.menuMapper.deleteByPrimaryKey(id);
     }
-
+    
     @Override
     public List<String> findByRole(String roleId) {
         return this.menuMapper.findMenuIdsByRoleId(roleId);
     }
-
+    
     @Override
     public List<MenuVo> findList(MenuQuery menuQuery) {
         if (menuQuery == null) {
             return new ArrayList<>(1);
         }
-        return this.modelMapper.map(
-                this.menuMapper.selectList(menuQuery),
-                new TypeToken<List<MenuVo>>() {
-                }.getType());
+        return this.menuConvert.toMenuVo(
+                this.menuMapper.selectList(menuQuery));
     }
-
+    
     /**
      * 根据用户id 查询菜单树
      *
@@ -118,7 +111,7 @@ public class MenuServiceImpl implements MenuService {
         }
         return TreeBuildFactory.buildMenuTree(menuList);
     }
-
+    
     /**
      * 根据用户ID 查询权限标识
      *
@@ -143,7 +136,7 @@ public class MenuServiceImpl implements MenuService {
                 .map(MenuVo::getPermission)
                 .collect(Collectors.toSet());
     }
-
+    
     /**
      * 查询所有菜单的父节点
      *
@@ -178,8 +171,8 @@ public class MenuServiceImpl implements MenuService {
                         )
                 );
     }
-
-
+    
+    
     /**
      * 查询所有菜单的父节点
      *

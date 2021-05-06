@@ -5,6 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.glacier.common.core.constant.SysConstants;
 import com.glacier.common.core.entity.page.PageRequest;
 import com.glacier.common.core.entity.page.PageResponse;
+import com.glacier.modules.sys.convert.RoleConvert;
 import com.glacier.modules.sys.entity.Role;
 import com.glacier.modules.sys.entity.RoleDept;
 import com.glacier.modules.sys.entity.RoleMenu;
@@ -18,8 +19,6 @@ import com.glacier.modules.sys.mapper.RoleMenuMapper;
 import com.glacier.modules.sys.mapper.UserRoleMapper;
 import com.glacier.modules.sys.service.RoleService;
 import org.apache.commons.lang3.StringUtils;
-import org.modelmapper.ModelMapper;
-import org.modelmapper.TypeToken;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,32 +38,23 @@ import java.util.List;
 @Service("roleService")
 public class RoleServiceImpl implements RoleService {
     private static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
-    private final ModelMapper modelMapper;
-    private final RoleMapper roleMapper;
-    private final UserRoleMapper userRoleMapper;
-    private final RoleMenuMapper roleMenuMapper;
-    private final RoleDeptMapper roleDeptMapper;
-
     @Autowired
-    public RoleServiceImpl(
-            ModelMapper modelMapper,
-            RoleMapper roleMapper,
-            UserRoleMapper userRoleMapper,
-            RoleMenuMapper roleMenuMapper,
-            RoleDeptMapper roleDeptMapper) {
-        this.modelMapper = modelMapper;
-        this.roleMapper = roleMapper;
-        this.userRoleMapper = userRoleMapper;
-        this.roleMenuMapper = roleMenuMapper;
-        this.roleDeptMapper = roleDeptMapper;
-    }
-
+    private RoleConvert roleConvert;
+    @Autowired
+    private RoleMapper roleMapper;
+    @Autowired
+    private UserRoleMapper userRoleMapper;
+    @Autowired
+    private RoleMenuMapper roleMenuMapper;
+    @Autowired
+    private RoleDeptMapper roleDeptMapper;
+    
     @Override
     public RoleVo findById(String id) {
-        return this.modelMapper.map(
-                this.roleMapper.selectByPrimaryKey(id), RoleVo.class);
+        return this.roleConvert.toRoleVo(
+                this.roleMapper.selectByPrimaryKey(id));
     }
-
+    
     /**
      * 查询所有
      *
@@ -72,12 +62,10 @@ public class RoleServiceImpl implements RoleService {
      */
     @Override
     public List<RoleVo> findAllList() {
-        return this.modelMapper.map(
-                this.roleMapper.selectAll(),
-                new TypeToken<List<RoleVo>>() {
-                }.getType());
+        return this.roleConvert.toRoleVo(
+                this.roleMapper.selectAll());
     }
-
+    
     /**
      * 根据用户id 查询角色
      *
@@ -86,12 +74,10 @@ public class RoleServiceImpl implements RoleService {
      */
     @Override
     public List<RoleVo> findByUserId(String userId) {
-        return this.modelMapper.map(
-                this.roleMapper.findByUserId(userId),
-                new TypeToken<List<RoleVo>>() {
-                }.getType());
+        return this.roleConvert.toRoleVo(
+                this.roleMapper.findByUserId(userId));
     }
-
+    
     @Override
     public boolean checkCode(final RoleForm roleForm) {
         if (roleForm != null
@@ -103,22 +89,18 @@ public class RoleServiceImpl implements RoleService {
         }
         return false;
     }
-
+    
     @Override
     public PageResponse<RoleVo> findPage(PageRequest<RoleQuery> pageRequest) {
         PageHelper.startPage(pageRequest.getPageNum(), pageRequest.getPageSize());
-        List<Role> roleList = this.roleMapper.selectList(pageRequest.getParams());
-        PageInfo<Role> pageInfo = PageInfo.of(roleList);
+        PageInfo<Role> pageInfo = PageInfo.of(this.roleMapper.selectList(pageRequest.getParams()));
         return new PageResponse<>(
                 pageInfo.getPageNum(),
                 pageInfo.getPages(),
                 pageInfo.getTotal(),
-                this.modelMapper.map(
-                        pageInfo.getList(),
-                        new TypeToken<List<RoleVo>>() {
-                        }.getType()));
+                this.roleConvert.toRoleVo(pageInfo.getList()));
     }
-
+    
     /**
      * 保存
      *
@@ -128,7 +110,7 @@ public class RoleServiceImpl implements RoleService {
     @Transactional(rollbackFor = {})
     @Override
     public int save(RoleForm roleForm) {
-        Role role = this.modelMapper.map(roleForm, Role.class);
+        Role role = this.roleConvert.map(roleForm);
         int update = 0;
         if (!role.isNewRecord()) {
             role.preUpdate();
@@ -143,7 +125,7 @@ public class RoleServiceImpl implements RoleService {
         this.saveRoleDept(role.getId(), role.getDataScope(), roleForm.getDepts());
         return update;
     }
-
+    
     /**
      * 根据id批量删除
      *
@@ -165,7 +147,7 @@ public class RoleServiceImpl implements RoleService {
         this.roleDeptMapper.deleteByRoleId(id);
         return unpdate;
     }
-
+    
     /**
      * 保存角色菜单关系
      * 1 先清空
@@ -190,15 +172,15 @@ public class RoleServiceImpl implements RoleService {
         }
         return update;
     }
-
+    
     /**
      * 保存角色单位关系
      * 1 先清空
      * 2 保存 仅自定义时保存
      *
-     * @param roleId 角色id
+     * @param roleId    角色id
      * @param dataScope 数据权限
-     * @param deptIds 单位id
+     * @param deptIds   单位id
      * @return 保存记录数
      */
     private int saveRoleDept(String roleId, String dataScope, List<String> deptIds) {

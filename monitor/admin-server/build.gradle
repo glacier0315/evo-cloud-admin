@@ -7,5 +7,5 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
 
-    implementation "org.jolokia:jolokia-core:1.6.2"
+    implementation("${dependency.jolokiaCore}")
 }

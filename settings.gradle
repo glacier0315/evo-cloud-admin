@@ -1,17 +1,3 @@
-pluginManagement {
-    repositories {
-        mavenCentral()
-        gradlePluginPortal()
-        maven { url 'https://repo.spring.io/plugins-release' }
-    }
-}
-
-// 定义插件版本,不立即应用
-plugins {
-    id "org.springframework.boot" version "$springBootVersion" apply false
-}
-
-
 rootProject.name = 'eboot-platform'
 
 // 引入 common

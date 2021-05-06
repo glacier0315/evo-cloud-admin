@@ -14,10 +14,10 @@ subprojects {
         implementation("org.springframework.cloud:spring-cloud-starter-openfeign")
         implementation("org.springframework.boot:spring-boot-starter-validation")
 
-        implementation("org.modelmapper:modelmapper:${modelmapperVersion}")
+        implementation("${dependency.modelmapper}")
 
         // openapi
-        implementation("org.springdoc:springdoc-openapi-ui:${openapiVersion}")
+        implementation("${dependency.springdocOpenapiUi}")
 
         implementation('org.springframework.boot:spring-boot-starter-log4j2')
         implementation('org.springframework.boot:spring-boot-starter-actuator')

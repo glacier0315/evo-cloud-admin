@@ -1,4 +1,4 @@
-rootProject.name = 'eboot-platform'
+rootProject.name = 'evo-cloud-admin'
 
 // 引入 common
 include 'common:core'

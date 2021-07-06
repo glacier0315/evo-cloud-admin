@@ -1,7 +1,7 @@
 package com.glacier.modules.sys.service;
 
 import com.glacier.common.core.entity.Result;
-import com.glacier.common.core.entity.dto.vo.UserDetailsDto;
+import com.glacier.common.core.entity.dto.UserDetailsDto;
 import com.glacier.common.core.entity.page.PageRequest;
 import com.glacier.common.core.entity.page.PageResponse;
 import com.glacier.modules.sys.entity.User;

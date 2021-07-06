@@ -4,7 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.glacier.common.core.constant.SysConstants;
 import com.glacier.common.core.entity.Result;
-import com.glacier.common.core.entity.dto.vo.UserDetailsDto;
+import com.glacier.common.core.entity.dto.UserDetailsDto;
 import com.glacier.common.core.entity.page.PageRequest;
 import com.glacier.common.core.entity.page.PageResponse;
 import com.glacier.common.core.exception.SystemErrorType;

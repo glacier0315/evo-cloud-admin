@@ -1,6 +1,6 @@
 package com.glacier.modules.sys.convert;
 
-import com.glacier.common.core.entity.dto.vo.RoleDetailsDto;
+import com.glacier.common.core.entity.dto.RoleDetailsDto;
 import com.glacier.modules.sys.entity.Role;
 import com.glacier.modules.sys.entity.dto.role.RoleForm;
 import com.glacier.modules.sys.entity.dto.role.RoleVo;

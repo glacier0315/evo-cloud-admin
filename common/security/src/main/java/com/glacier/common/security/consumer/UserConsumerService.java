@@ -2,7 +2,7 @@ package com.glacier.common.security.consumer;
 
 import com.glacier.common.core.constant.ServiceNameConstants;
 import com.glacier.common.core.entity.Result;
-import com.glacier.common.core.entity.dto.vo.UserDetailsDto;
+import com.glacier.common.core.entity.dto.UserDetailsDto;
 import com.glacier.common.security.consumer.fallback.UserConsumerServiceFallbackImpl;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;

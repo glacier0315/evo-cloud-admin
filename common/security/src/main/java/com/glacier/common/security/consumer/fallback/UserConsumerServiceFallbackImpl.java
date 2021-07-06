@@ -1,7 +1,7 @@
 package com.glacier.common.security.consumer.fallback;
 
 import com.glacier.common.core.entity.Result;
-import com.glacier.common.core.entity.dto.vo.UserDetailsDto;
+import com.glacier.common.core.entity.dto.UserDetailsDto;
 import com.glacier.common.security.consumer.UserConsumerService;
 
 /**

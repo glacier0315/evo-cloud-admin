@@ -1,4 +1,4 @@
-package com.glacier.common.core.entity.dto.vo;
+package com.glacier.common.core.entity.dto;
 
 
 import java.io.Serializable;

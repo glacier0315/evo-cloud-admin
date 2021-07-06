@@ -1,6 +1,6 @@
 package com.glacier.modules.sys.convert;
 
-import com.glacier.common.core.entity.dto.vo.UserDetailsDto;
+import com.glacier.common.core.entity.dto.UserDetailsDto;
 import com.glacier.modules.sys.entity.User;
 import com.glacier.modules.sys.entity.dto.user.*;
 import org.mapstruct.Mapper;

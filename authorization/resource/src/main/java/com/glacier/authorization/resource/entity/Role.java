@@ -84,11 +84,6 @@ public class Role extends AbstractDataEntity {
                 ", status='" + this.status + '\'' +
                 ", description='" + this.description + '\'' +
                 ", dataScope='" + this.dataScope + '\'' +
-                ", createBy='" + this.createBy + '\'' +
-                ", createDate=" + this.createDate +
-                ", updateBy='" + this.updateBy + '\'' +
-                ", updateDate=" + this.updateDate +
-                ", delFlag='" + this.delFlag + '\'' +
                 ", id='" + this.id + '\'' +
                 '}';
     }

@@ -190,11 +190,6 @@ public class User extends AbstractDataEntity {
                 ", postId='" + this.postId + '\'' +
                 ", deptId='" + this.deptId + '\'' +
                 ", deptName='" + this.deptName + '\'' +
-                ", createBy='" + this.createBy + '\'' +
-                ", createDate=" + this.createDate +
-                ", updateBy='" + this.updateBy + '\'' +
-                ", updateDate=" + this.updateDate +
-                ", delFlag='" + this.delFlag + '\'' +
                 ", id='" + this.id + '\'' +
                 '}';
     }

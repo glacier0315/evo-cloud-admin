@@ -89,11 +89,6 @@ public class Dept extends AbstractTreeEntity<Dept> {
                 ", orderNum=" + this.orderNum +
                 ", grade=" + this.grade +
                 ", children=" + this.children +
-                ", createBy='" + this.createBy + '\'' +
-                ", createDate=" + this.createDate +
-                ", updateBy='" + this.updateBy + '\'' +
-                ", updateDate=" + this.updateDate +
-                ", delFlag='" + this.delFlag + '\'' +
                 ", id='" + this.id + '\'' +
                 '}';
     }

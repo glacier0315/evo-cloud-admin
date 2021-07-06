@@ -75,11 +75,6 @@ public class DictType extends AbstractDataEntity {
                 ", dictType='" + this.dictType + '\'' +
                 ", status=" + this.status +
                 ", remarks='" + this.remarks + '\'' +
-                ", createBy='" + this.createBy + '\'' +
-                ", createDate=" + this.createDate +
-                ", updateBy='" + this.updateBy + '\'' +
-                ", updateDate=" + this.updateDate +
-                ", delFlag='" + this.delFlag + '\'' +
                 ", id='" + this.id + '\'' +
                 '}';
     }

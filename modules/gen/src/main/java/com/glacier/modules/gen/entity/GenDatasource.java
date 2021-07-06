@@ -112,11 +112,6 @@ public class GenDatasource extends AbstractDataEntity {
     public String toString() {
         return "GenDatasource{" +
                 "id='" + id + '\'' +
-                ", createBy='" + createBy + '\'' +
-                ", createDate=" + createDate +
-                ", updateBy='" + updateBy + '\'' +
-                ", updateDate=" + updateDate +
-                ", delFlag='" + delFlag + '\'' +
                 ", name='" + name + '\'' +
                 ", driverClassName='" + driverClassName + '\'' +
                 ", url='" + url + '\'' +

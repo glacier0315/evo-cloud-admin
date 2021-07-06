@@ -16,24 +16,24 @@ public abstract class AbstractDataEntity extends AbstractBaseEntity {
     /**
      * 创建人
      */
-    protected String createBy;
+    private String createBy;
     /**
      * 创建时间
      */
-    protected LocalDateTime createDate;
+    private LocalDateTime createDate;
     /**
      * 更新人
      */
-    protected String updateBy;
+    private String updateBy;
     /**
      * 更新时间
      */
-    protected LocalDateTime updateDate;
+    private LocalDateTime updateDate;
     /**
      * 删除标记 0 正常 （默认） 1 删除
      */
     @JsonIgnore
-    protected String delFlag = "0";
+    private String delFlag = "0";
 
     @Override
     public void preInsert() {

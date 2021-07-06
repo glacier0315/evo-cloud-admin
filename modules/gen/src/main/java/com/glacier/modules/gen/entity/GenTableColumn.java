@@ -230,11 +230,6 @@ public class GenTableColumn extends AbstractDataEntity {
                 ", htmlType='" + this.htmlType + '\'' +
                 ", dictType='" + this.dictType + '\'' +
                 ", sort=" + this.sort +
-                ", createBy='" + this.createBy + '\'' +
-                ", createDate=" + this.createDate +
-                ", updateBy='" + this.updateBy + '\'' +
-                ", updateDate=" + this.updateDate +
-                ", delFlag='" + this.delFlag + '\'' +
                 ", id='" + this.id + '\'' +
                 '}';
     }

@@ -99,11 +99,6 @@ public class Config extends AbstractDataEntity {
                 ", description='" + this.description + '\'' +
                 ", orderNum=" + this.orderNum +
                 ", remarks='" + this.remarks + '\'' +
-                ", createBy='" + this.createBy + '\'' +
-                ", createDate=" + this.createDate +
-                ", updateBy='" + this.updateBy + '\'' +
-                ", updateDate=" + this.updateDate +
-                ", delFlag='" + this.delFlag + '\'' +
                 ", id='" + this.id + '\'' +
                 '}';
     }

@@ -15,7 +15,7 @@
  */
 package com.glacier.modules.gen.entity;
 
-import com.glacier.common.core.entity.AbstractDataEntity;
+import com.glacier.common.core.entity.DataEntity;
 
 /**
  * 数据源表  模型层
@@ -24,7 +24,7 @@ import com.glacier.common.core.entity.AbstractDataEntity;
  * @version 1.0
  * date 2019-08-04 21:53
  */
-public class GenDatasource extends AbstractDataEntity {
+public class GenDatasource extends DataEntity {
     private static final long serialVersionUID = -3256542275939203325L;
     /**
      * 名称 唯一

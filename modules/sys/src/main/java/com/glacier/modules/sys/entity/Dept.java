@@ -1,6 +1,6 @@
 package com.glacier.modules.sys.entity;
 
-import com.glacier.common.core.entity.AbstractTreeEntity;
+import com.glacier.common.core.entity.TreeEntity;
 
 /**
  * 组织机构
@@ -9,7 +9,7 @@ import com.glacier.common.core.entity.AbstractTreeEntity;
  * @version 1.0
  * date 2019-10-14 17:06
  */
-public class Dept extends AbstractTreeEntity<Dept> {
+public class Dept extends TreeEntity<Dept> {
     private static final long serialVersionUID = 7605652474322748904L;
     /**
      * 单位编码

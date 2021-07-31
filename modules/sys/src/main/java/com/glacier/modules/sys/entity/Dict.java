@@ -1,6 +1,6 @@
 package com.glacier.modules.sys.entity;
 
-import com.glacier.common.core.entity.AbstractTreeEntity;
+import com.glacier.common.core.entity.TreeEntity;
 
 /**
  * 字典
@@ -9,7 +9,7 @@ import com.glacier.common.core.entity.AbstractTreeEntity;
  * @version 1.0
  * date 2019-12-01 21:16
  */
-public class Dict extends AbstractTreeEntity<Dict> {
+public class Dict extends TreeEntity<Dict> {
     private static final long serialVersionUID = -8004367732541881835L;
     /**
      * 字典编码

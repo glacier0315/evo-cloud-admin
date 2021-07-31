@@ -1,6 +1,6 @@
 package com.glacier.modules.sys.entity;
 
-import com.glacier.common.core.entity.AbstractDataEntity;
+import com.glacier.common.core.entity.DataEntity;
 
 /**
  * 角色
@@ -9,7 +9,7 @@ import com.glacier.common.core.entity.AbstractDataEntity;
  * @version 1.0
  * date 2019-08-04 13:45
  */
-public class Role extends AbstractDataEntity {
+public class Role extends DataEntity {
     private static final long serialVersionUID = -3318599726827564559L;
     /**
      * 角色名称

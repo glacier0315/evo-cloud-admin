@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
  * @version 1.0
  * date 2020-08-10 17:26
  */
-public abstract class AbstractDataEntity extends AbstractBaseEntity {
+public abstract class DataEntity extends BaseEntity {
     private static final long serialVersionUID = -6067130213584450184L;
     /**
      * 创建人

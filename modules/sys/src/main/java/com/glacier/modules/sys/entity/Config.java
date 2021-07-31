@@ -1,7 +1,7 @@
 package com.glacier.modules.sys.entity;
 
 
-import com.glacier.common.core.entity.AbstractDataEntity;
+import com.glacier.common.core.entity.DataEntity;
 
 /**
  * 配置
@@ -10,7 +10,7 @@ import com.glacier.common.core.entity.AbstractDataEntity;
  * @version 1.0
  * date 2019-11-06 11:11
  */
-public class Config extends AbstractDataEntity {
+public class Config extends DataEntity {
 
     private static final long serialVersionUID = 3535850238275216235L;
     /**

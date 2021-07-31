@@ -15,7 +15,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * @version 1.0
  * date 2020-05-18 15:59
  */
-public abstract class AbstractBaseEntity implements Serializable {
+public abstract class BaseEntity implements Serializable {
     private static final long serialVersionUID = -3733490542838696950L;
     /**
      * 主键

@@ -1,6 +1,6 @@
 package com.glacier.modules.sys.entity;
 
-import com.glacier.common.core.entity.AbstractDataEntity;
+import com.glacier.common.core.entity.DataEntity;
 
 import java.time.LocalDate;
 
@@ -11,7 +11,7 @@ import java.time.LocalDate;
  * @version 1.0
  * date 2019-08-04 13:45
  */
-public class User extends AbstractDataEntity {
+public class User extends DataEntity {
     private static final long serialVersionUID = -3083387263445135811L;
     /**
      * 用户名

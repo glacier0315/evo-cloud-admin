@@ -1,6 +1,6 @@
 package com.glacier.modules.sys.entity;
 
-import com.glacier.common.core.entity.AbstractTreeEntity;
+import com.glacier.common.core.entity.TreeEntity;
 
 /**
  * 菜单
@@ -9,7 +9,7 @@ import com.glacier.common.core.entity.AbstractTreeEntity;
  * @version 1.0
  * date 2019-10-09 11:03
  */
-public class Menu extends AbstractTreeEntity<Menu> {
+public class Menu extends TreeEntity<Menu> {
 
     private static final long serialVersionUID = 1207728347319595982L;
     /**

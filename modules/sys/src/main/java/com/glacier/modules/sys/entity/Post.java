@@ -1,6 +1,6 @@
 package com.glacier.modules.sys.entity;
 
-import com.glacier.common.core.entity.AbstractDataEntity;
+import com.glacier.common.core.entity.DataEntity;
 
 /**
  * 岗位
@@ -9,7 +9,7 @@ import com.glacier.common.core.entity.AbstractDataEntity;
  * @version 1.0
  * date 2019-10-09 11:03
  */
-public class Post extends AbstractDataEntity {
+public class Post extends DataEntity {
     private static final long serialVersionUID = -8716186319813001885L;
     /**
      * 名称

@@ -1,6 +1,6 @@
 package com.glacier.modules.sys.entity;
 
-import com.glacier.common.core.entity.AbstractDataEntity;
+import com.glacier.common.core.entity.DataEntity;
 
 /**
  * 字典类别
@@ -9,7 +9,7 @@ import com.glacier.common.core.entity.AbstractDataEntity;
  * @version 1.0
  * date 2019-10-09 11:03
  */
-public class DictType extends AbstractDataEntity {
+public class DictType extends DataEntity {
 
     private static final long serialVersionUID = 2884044409649620265L;
     /**

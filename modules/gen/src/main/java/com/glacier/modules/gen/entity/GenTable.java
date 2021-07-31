@@ -1,6 +1,6 @@
 package com.glacier.modules.gen.entity;
 
-import com.glacier.common.core.entity.AbstractDataEntity;
+import com.glacier.common.core.entity.DataEntity;
 
 import javax.validation.constraints.NotBlank;
 
@@ -11,7 +11,7 @@ import javax.validation.constraints.NotBlank;
  * @version 1.0
  * date 2019-08-04 21:53
  */
-public class GenTable extends AbstractDataEntity {
+public class GenTable extends DataEntity {
     private static final long serialVersionUID = -1221312518526422323L;
     /**
      * 数据源id
